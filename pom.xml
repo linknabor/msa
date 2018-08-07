@@ -35,5 +35,6 @@
 
   <modules>
     <module>msa-common</module>
+    <module>msa-crm</module>
   </modules>
 </project>
