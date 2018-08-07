@@ -14,3 +14,6 @@
 执行其中main函数进行反向生成。Eclipse有插件也可自动生成，这里方便使用Idea开发的同学。
 6.单元测试请在src/test/java目录下写测试用例。
 7.Util包暂时放在msa-crm下，公用函数完善后，会放到msa-common组建下。请尽量不要四处编写公用工具函数。
+8.单机开发时，如果没有consul，请关闭consul发现服务。在属性文件中修改以下属性为false
+spring.cloud.consul.enabled=true
+spring.cloud.consul.discovery.enabled=true
