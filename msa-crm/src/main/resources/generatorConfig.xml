@@ -35,7 +35,7 @@
  77         targetProject：目标项目，指定一个存在的目录下，生成的内容会放到指定目录中，如果目录不存在，MBG不会自动建目录
  78      -->
 		<!-- model -->
-		<javaModelGenerator targetPackage="com.eshequ.onlinepay.entity" 
+		<javaModelGenerator targetPackage="com.eshequ.msa.crm.entity" 
 			targetProject=".\src\main\java\" />
 		
 		
@@ -50,7 +50,7 @@
 	         <property name="enableSubPackages" value="false"/>
      	</sqlMapGenerator>
      	
-     	<javaClientGenerator targetPackage="com.eshequ.onlinepay.mapper"
+     	<javaClientGenerator targetPackage="com.eshequ.msa.crm.mapper"
 			targetProject=".\src\main\java\" type="XMLMAPPER" />
      	
 		<!-- <table schema="servplat" tableName="sp_serve_bill_pay_trade" enableCountByExample="false"
