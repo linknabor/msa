@@ -191,9 +191,8 @@
 		<dependency>
 			<groupId>com.eshequ</groupId>
 			<artifactId>msa-common</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
+			<version>${msa.common.version}</version>
 		</dependency>
-		
 	</dependencies>
 
 	 <build>
