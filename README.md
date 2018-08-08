@@ -14,3 +14,6 @@
 执行其中main函数进行反向生成。Eclipse有插件也可自动生成，这里方便使用Idea开发的同学。
 6.单元测试请在src/test/java目录下写测试用例。
 7.Util包暂时放在msa-crm下，公用函数完善后，会放到msa-common组建下。请尽量不要四处编写公用工具函数。
+8.单机开发时，如果没有consul，请关闭consul发现服务。在启动类中注释以下行：@EnableDiscoveryClient
+9.获取唯一主键的函数的用法：先注入SnowFlake, 然后调用snowFlake.nextId()。在生产环境请在配置文件请配置machine.id和datacenter.id,值设为正整数即可。
+10.使用http请求的方法：先注入HttpClientProxy,然后调用doPost等方法。 

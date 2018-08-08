@@ -7,5 +7,8 @@ public interface TestService {
 	
 	String testQuery(String num);
 	
+	long testKeyGen();
+	
+	String testHttp();
 	
 }

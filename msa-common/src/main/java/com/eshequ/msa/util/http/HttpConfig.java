@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.eshequ.msa.http;
+package com.eshequ.msa.util.http;
 
 /**
  * @author davidhardson
