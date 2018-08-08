@@ -161,25 +161,6 @@
             </exclusions>
         </dependency>
         
-        <!-- https://mvnrepository.com/artifact/commons-net/commons-net -->
-		<dependency>
-		    <groupId>commons-net</groupId>
-		    <artifactId>commons-net</artifactId>
-		    <version>${commons.net.version}</version>
-		</dependency>
-
-		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpclient -->
-		<dependency>
-		    <groupId>org.apache.httpcomponents</groupId>
-		    <artifactId>httpclient</artifactId>
-		</dependency>
-		
-		<!-- https://mvnrepository.com/artifact/org.apache.httpcomponents/httpmime -->
-		<dependency>
-		    <groupId>org.apache.httpcomponents</groupId>
-		    <artifactId>httpmime</artifactId>
-		</dependency>
-		
 		<!-- https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-data-redis -->
 		<dependency>
 		    <groupId>org.springframework.boot</groupId>

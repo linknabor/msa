@@ -11,7 +11,7 @@ import org.springframework.context.annotation.ComponentScan;
 @EnableDiscoveryClient
 @EnableFeignClients(basePackages={"com.eshequ.msa.crm"})
 @MapperScan(basePackages="com.eshequ.msa.crm.mapper")
-@ComponentScan("com.eshequ.msa.crm")
+@ComponentScan("com.eshequ.msa")
 public class AppConfig {
 
 

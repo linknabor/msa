@@ -25,4 +25,16 @@ public class TestController extends BaseController{
 		return testService.testQuery(num);
 	}
 	
+	@RequestMapping(value = "/testKeyGen", method = RequestMethod.GET)
+	public long testQuery() {
+		
+		return testService.testKeyGen();
+	}
+	
+	@RequestMapping(value = "/testHttp", method = RequestMethod.GET)
+	public String testHttp() {
+		
+		return testService.testHttp();
+	}
+	
 }
