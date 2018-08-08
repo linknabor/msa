@@ -30,6 +30,8 @@ public class MybatisGeneratorUtil {
 		myBatisGenerator.generate(null);
 
 		System.out.println("代码生成完毕>>>>>>>>>>>>");
+		
+		
 	}
 
 }
