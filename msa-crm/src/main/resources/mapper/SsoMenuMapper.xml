@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.crm.mapper.SsoMenuMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.crm.entity.SsoMenu">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="MENU_NAME" jdbcType="VARCHAR" property="menuName" />
+    <result column="FORWARD_URL" jdbcType="VARCHAR" property="forwardUrl" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    ID, MENU_NAME, FORWARD_URL
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sso_menu
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sso_menu
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.eshequ.msa.crm.entity.SsoMenu">
+    insert into sso_menu (ID, MENU_NAME, FORWARD_URL
+      )
+    values (#{id,jdbcType=BIGINT}, #{menuName,jdbcType=VARCHAR}, #{forwardUrl,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.eshequ.msa.crm.entity.SsoMenu">
+    insert into sso_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        ID,
+      </if>
+      <if test="menuName != null">
+        MENU_NAME,
+      </if>
+      <if test="forwardUrl != null">
+        FORWARD_URL,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="menuName != null">
+        #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="forwardUrl != null">
+        #{forwardUrl,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.eshequ.msa.crm.entity.SsoMenu">
+    update sso_menu
+    <set>
+      <if test="menuName != null">
+        MENU_NAME = #{menuName,jdbcType=VARCHAR},
+      </if>
+      <if test="forwardUrl != null">
+        FORWARD_URL = #{forwardUrl,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.eshequ.msa.crm.entity.SsoMenu">
+    update sso_menu
+    set MENU_NAME = #{menuName,jdbcType=VARCHAR},
+      FORWARD_URL = #{forwardUrl,jdbcType=VARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
