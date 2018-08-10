@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.eshequ.msa.crm.entity.SsoRole;
 import com.eshequ.msa.crm.service.TestService;
+import com.google.gson.Gson;
 
 @RestController
 public class TestController extends BaseController{
@@ -36,5 +38,6 @@ public class TestController extends BaseController{
 		
 		return testService.testHttp();
 	}
+	
 	
 }

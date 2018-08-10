@@ -25,15 +25,15 @@
 <!--   验证登录信息是否有效 -->
   <select id="validateLoginUser" parameterType="String" resultType="int">
     select count(1) from sso_user
-    where user_name = #{arg0}
-    and password = #{arg1}
+    where user_name = #{userName}
+    and password = #{password}
     and status = 1
   </select>
   
   <!-- 根据用户名查询用户 -->
   <select id="selectUserByUserName" parameterType="String" resultMap="BaseResultMap">
     select * from sso_user
-    where user_name = #{arg0}
+    where user_name = #{userName}
   </select>
   
 <!--   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

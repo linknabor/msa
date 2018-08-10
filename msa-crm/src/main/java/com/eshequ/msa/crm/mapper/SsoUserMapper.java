@@ -1,5 +1,7 @@
 package com.eshequ.msa.crm.mapper;
 
+import org.apache.ibatis.annotations.Param;
+
 import com.eshequ.msa.crm.common.CommonMapper;
 import com.eshequ.msa.crm.entity.SsoUser;
 
@@ -10,14 +12,14 @@ public interface SsoUserMapper  extends CommonMapper<SsoUser>{
 	 * @param password 密码
 	 * @return
 	 */
-	int validateLoginUser(String userName, String password);
+	int validateLoginUser(@Param("userName")String userName, @Param("password")String password);
 	
 	/**
 	 * 根据用户名查询用户
 	 * @param userName 用户名
 	 * @return
 	 */
-	SsoUser selectUserByUserName(String userName);
+	SsoUser selectUserByUserName(@Param("userName")String userName);
 	
 	
 }
