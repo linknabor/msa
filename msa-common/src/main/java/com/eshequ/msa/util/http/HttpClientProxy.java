@@ -69,8 +69,8 @@ public class HttpClientProxy {
 	/**
 	 * POST with json	目前只支持json，用map的自行转换一下
 	 * @param requestUrl
-	 * @param json
-	 * @param charset
+	 * @param obj
+	 * @param httpConfig
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
@@ -120,9 +120,7 @@ public class HttpClientProxy {
 		
 	/**
 	 * 组装http请求参数
-	 * 
 	 * @param params
-	 * @param menthod
 	 * @return
 	 */
 	private List<NameValuePair> assembleRequestParams(Map<String, String> params) {

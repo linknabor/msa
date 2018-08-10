@@ -1,4 +1,5 @@
 # 开发之前请看说明!!!
+
 1.msa-common作为平台所有项目的子模块Modules,每个子项目请在pom文件中自行引入如下依赖Dependency:
 <dependency>
 	<groupId>com.eshequ</groupId>
@@ -17,3 +18,4 @@
 8.单机开发时，如果没有consul，请关闭consul发现服务。在启动类中注释以下行：@EnableDiscoveryClient
 9.获取唯一主键的函数的用法：先注入SnowFlake, 然后调用snowFlake.nextId()。在生产环境请在配置文件请配置machine.id和datacenter.id,值设为正整数即可。
 10.使用http请求的方法：先注入HttpClientProxy,然后调用doPost等方法。 
+11.使用maven编译时可以用公司的maven仓库，速度会比较快。仓库地址:http://svn-service.chinacloudapp.cn:8081/nexus/content/groups/public/
