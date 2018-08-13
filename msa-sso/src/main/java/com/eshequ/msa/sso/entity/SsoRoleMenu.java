@@ -1,23 +1,23 @@
 package com.eshequ.msa.sso.entity;
 
 public class SsoRoleMenu {
-    private Long ssoMenuId;
+    private Long menuId;
 
-    private Long id;
+    private Long roleId;
 
-    public Long getSsoMenuId() {
-        return ssoMenuId;
+    public Long getMenuId() {
+        return menuId;
     }
 
-    public void setSsoMenuId(Long ssoMenuId) {
-        this.ssoMenuId = ssoMenuId;
+    public void setMenuId(Long menuId) {
+        this.menuId = menuId;
     }
 
-    public Long getId() {
-        return id;
+    public Long getRoleId() {
+        return roleId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
     }
 }

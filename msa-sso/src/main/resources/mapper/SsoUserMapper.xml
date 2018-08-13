@@ -1,17 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eshequ.msa.crm.mapper.SsoUserMapper">
-  <resultMap id="BaseResultMap" type="com.eshequ.msa.crm.entity.SsoUser">
-    <id column="ID" jdbcType="BIGINT" property="id" />
+<mapper namespace="com.eshequ.msa.sso.mapper.SsoUserMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.sso.entity.SsoUser">
+    <id column="USER_ID" jdbcType="BIGINT" property="userId" />
     <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
     <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
     <result column="STATUS" jdbcType="CHAR" property="status" />
-    <result column="ORG_ID" jdbcType="BIGINT" property="orgId" />
     <result column="ORG_NAME" jdbcType="VARCHAR" property="orgName" />
     <result column="ROLE_ID" jdbcType="BIGINT" property="roleId" />
+    <result column="ENTERPRISE_ID" jdbcType="VARCHAR" property="enterpriseId" />
+    <result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+    <result column="LOGIN_CERT" jdbcType="VARCHAR" property="loginCert" />
+    <result column="TP_SYS_NAME" jdbcType="VARCHAR" property="tpSysName" />
   </resultMap>
   <sql id="Base_Column_List">
-    ID, USER_NAME, PASSWORD, STATUS, ORG_ID, ORG_NAME, ROLE_ID
+   USER_ID, USER_NAME, PASSWORD, STATUS, ORG_NAME, ROLE_ID, ENTERPRISE_ID, MOBILE, LOGIN_CERT, 
+    TP_SYS_NAME
   </sql>
 
 
@@ -27,6 +31,7 @@
     select count(1) from sso_user
     where user_name = #{userName}
     and password = #{password}
+    and TP_SYS_NAME = #{tpSysName}
     and status = 1
   </select>
   
@@ -34,6 +39,7 @@
   <select id="selectUserByUserName" parameterType="String" resultMap="BaseResultMap">
     select * from sso_user
     where user_name = #{userName}
+    and TP_SYS_NAME = #{tpSysName}
   </select>
   
 <!--   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">

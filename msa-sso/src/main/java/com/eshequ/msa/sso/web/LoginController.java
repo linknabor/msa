@@ -37,12 +37,12 @@ public class LoginController {
 	 * @throws UnsupportedEncodingException 
 	 */
 	@RequestMapping(value = "/login",method = RequestMethod.GET)
-	public Map<String,String> login(HttpServletRequest request,HttpServletResponse response,String userName,String password) throws UnsupportedEncodingException {
+	public Map<String,String> login(HttpServletRequest request,HttpServletResponse response,String userName,String password,String tpSysName) throws UnsupportedEncodingException {
 		request.setCharacterEncoding("utf-8");
 		Map<String,String> result  = new HashMap<String,String>();
-		result = loginService.login(userName, password);
+		result = loginService.login(userName, password,tpSysName);
 		if(result.get("result")=="00") {
-			SsoUser user = loginService.selectUserByUserName(userName);//查询当前登录用户信息
+			SsoUser user = loginService.selectUserByUserName(userName,tpSysName);//查询当前登录用户信息
 			//用户信息 存储session
 			HttpSession session = request.getSession();
 			session.setMaxInactiveInterval(60*60*2);//单位是秒
@@ -138,10 +138,8 @@ public class LoginController {
 		try {
 			v.service(req, res);
 		} catch (ServletException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
