@@ -1,4 +1,4 @@
-package com.eshequ.msa.crm.common;
+package com.eshequ.msa.common;
 
 import tk.mybatis.mapper.common.Mapper;
 import tk.mybatis.mapper.common.MySqlMapper;

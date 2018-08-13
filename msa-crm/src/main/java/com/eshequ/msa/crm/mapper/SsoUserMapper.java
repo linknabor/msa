@@ -2,7 +2,7 @@ package com.eshequ.msa.crm.mapper;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.eshequ.msa.crm.common.CommonMapper;
+import com.eshequ.msa.common.CommonMapper;
 import com.eshequ.msa.crm.entity.SsoUser;
 
 public interface SsoUserMapper  extends CommonMapper<SsoUser>{
