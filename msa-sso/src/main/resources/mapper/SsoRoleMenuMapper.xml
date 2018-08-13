@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.crm.mapper.SsoRoleMenuMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.crm.entity.SsoRoleMenu">
+    <id column="SSO_MENU_ID" jdbcType="BIGINT" property="ssoMenuId" />
+    <id column="ID" jdbcType="BIGINT" property="id" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="com.eshequ.msa.crm.entity.SsoRoleMenu">
+    delete from sso_role_menu
+    where SSO_MENU_ID = #{ssoMenuId,jdbcType=BIGINT}
+      and ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.eshequ.msa.crm.entity.SsoRoleMenu">
+    insert into sso_role_menu (SSO_MENU_ID, ID)
+    values (#{ssoMenuId,jdbcType=BIGINT}, #{id,jdbcType=BIGINT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.eshequ.msa.crm.entity.SsoRoleMenu">
+    insert into sso_role_menu
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="ssoMenuId != null">
+        SSO_MENU_ID,
+      </if>
+      <if test="id != null">
+        ID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="ssoMenuId != null">
+        #{ssoMenuId,jdbcType=BIGINT},
+      </if>
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+</mapper>
