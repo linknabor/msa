@@ -1,18 +1,18 @@
 package com.eshequ.msa.sso.entity;
 
 public class SsoMenu {
-    private Long id;
+    private Long menuId;
 
     private String menuName;
 
     private String forwardUrl;
 
-    public Long getId() {
-        return id;
+    public Long getMenuId() {
+        return menuId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setMenuId(Long menuId) {
+        this.menuId = menuId;
     }
 
     public String getMenuName() {

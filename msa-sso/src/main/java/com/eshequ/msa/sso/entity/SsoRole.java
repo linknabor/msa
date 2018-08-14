@@ -1,16 +1,16 @@
 package com.eshequ.msa.sso.entity;
 
 public class SsoRole {
-    private Long id;
+    private Long roleId;
 
     private String roleName;
 
-    public Long getId() {
-        return id;
+    public Long getRoleId() {
+        return roleId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setRoleId(Long roleId) {
+        this.roleId = roleId;
     }
 
     public String getRoleName() {

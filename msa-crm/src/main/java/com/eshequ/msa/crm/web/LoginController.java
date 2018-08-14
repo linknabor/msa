@@ -149,5 +149,10 @@ public class LoginController {
 		}
 	}
 	
+	@RequestMapping(value = "/testconnect",method = RequestMethod.POST)
+	public String testconnect(String a) {
+		return a;
+	} 
+	
 	
 }

@@ -1,7 +1,7 @@
 package com.eshequ.msa.sso.entity;
 
 public class SsoUser {
-    private Long id;
+    private Long userId;
 
     private String userName;
 
@@ -9,18 +9,24 @@ public class SsoUser {
 
     private String status;
 
-    private Long orgId;
-
     private String orgName;
 
     private Long roleId;
 
-    public Long getId() {
-        return id;
+    private String enterpriseId;
+
+    private String mobile;
+
+    private String loginCert;
+
+    private String tpSysName;
+
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
@@ -47,14 +53,6 @@ public class SsoUser {
         this.status = status;
     }
 
-    public Long getOrgId() {
-        return orgId;
-    }
-
-    public void setOrgId(Long orgId) {
-        this.orgId = orgId;
-    }
-
     public String getOrgName() {
         return orgName;
     }
@@ -69,5 +67,37 @@ public class SsoUser {
 
     public void setRoleId(Long roleId) {
         this.roleId = roleId;
+    }
+
+    public String getEnterpriseId() {
+        return enterpriseId;
+    }
+
+    public void setEnterpriseId(String enterpriseId) {
+        this.enterpriseId = enterpriseId;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
+    }
+
+    public String getLoginCert() {
+        return loginCert;
+    }
+
+    public void setLoginCert(String loginCert) {
+        this.loginCert = loginCert;
+    }
+
+    public String getTpSysName() {
+        return tpSysName;
+    }
+
+    public void setTpSysName(String tpSysName) {
+        this.tpSysName = tpSysName;
     }
 }
