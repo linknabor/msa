@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Component;
@@ -27,6 +28,7 @@ public class LoginFilter implements Filter {
 			throws IOException, ServletException {
 
 		HttpServletRequest request = (HttpServletRequest)req;
+		HttpServletResponse response = (HttpServletResponse)resp;
 		HttpSession httpSession = request.getSession();
 		String requestUri = request.getRequestURI();
 		if (requestUri.contains("/actuator/health")) {
@@ -34,6 +36,10 @@ public class LoginFilter implements Filter {
 		}else {
 			System.out.println(requestUri);
 			System.out.println(httpSession.getId());
+			
+			response.sendRedirect("https://www.baidu.com?service=serviceA");
+			return;
+			
 		}
 		
 	}
