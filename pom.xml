@@ -31,7 +31,7 @@
 		<commons.net.version>3.6</commons.net.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<spring.cloud.version>Finchley.M7</spring.cloud.version>
-		<spring.session.version>1.3.1.RELEASE</spring.session.version>
+		<spring.session.version>2.0.0.M2</spring.session.version>
 		<spring.redis.boot.version>2.0.0.RELEASE</spring.redis.boot.version>
 		<redis.clients.version>2.8.2</redis.clients.version>
 		<msa.common.version>0.0.1-SNAPSHOT</msa.common.version>
