@@ -1,5 +1,10 @@
 package com.eshequ.msa.crm.web;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,9 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eshequ.msa.crm.entity.SsoRole;
 import com.eshequ.msa.crm.service.TestService;
-import com.google.gson.Gson;
 
 @RestController
 public class TestController extends BaseController{
@@ -37,6 +40,16 @@ public class TestController extends BaseController{
 	public String testHttp() {
 		
 		return testService.testHttp();
+	}
+	
+	@RequestMapping(value = "/testSession", method = RequestMethod.GET)
+	public String testSession(HttpSession httpSession) {
+		
+		Map<String, String> map = new HashMap<String, String>();
+		map.put("sessionId", httpSession.getId());
+		map.put("context", httpSession.getServletContext().getContextPath());
+		httpSession.setAttribute("userInfo", map.toString());
+		return map.toString();
 	}
 	
 	
