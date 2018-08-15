@@ -31,16 +31,15 @@ public class LoginFilter implements Filter {
 		HttpServletResponse response = (HttpServletResponse)resp;
 		HttpSession httpSession = request.getSession();
 		String requestUri = request.getRequestURI();
+		System.out.println(requestUri);
+		System.out.println(httpSession.getId());
+		
 		if (requestUri.contains("/actuator/health")) {
-			//health check, do nothing
-		}else {
-			System.out.println(requestUri);
-			System.out.println(httpSession.getId());
-			
-			response.sendRedirect("https://www.baidu.com?service=serviceA");
-			return;
-			
+			//do nothing
+//			return;
 		}
+		
+		chain.doFilter(req, resp);
 		
 	}
 

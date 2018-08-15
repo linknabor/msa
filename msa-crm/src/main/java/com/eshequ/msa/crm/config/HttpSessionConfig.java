@@ -52,6 +52,8 @@ public class HttpSessionConfig extends AbstractHttpSessionApplicationInitializer
     	return ConfigureRedisAction.NO_OP;
     }
     
+    
+    
     @Override
 	protected void beforeSessionRepositoryFilter(ServletContext servletContext) {
 
