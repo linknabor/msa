@@ -1,5 +1,7 @@
 package com.eshequ.msa.crm.config;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,10 +9,13 @@ import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.session.data.redis.config.ConfigureRedisAction;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
+import org.springframework.session.web.context.AbstractHttpSessionApplicationInitializer;
+
+import com.eshequ.msa.crm.filter.SsoSessionFilter;
 
 @Configuration
 @EnableRedisHttpSession(maxInactiveIntervalInSeconds = 360000)
-public class HttpSessionConfig {
+public class HttpSessionConfig extends AbstractHttpSessionApplicationInitializer {
 
     @Value(value = "${spring.redis.host}")
     private String host;
@@ -47,10 +52,11 @@ public class HttpSessionConfig {
     	return ConfigureRedisAction.NO_OP;
     }
     
-    public static void main(String[] args) {
-		
-    	System.out.println(0x80000000);
-    	
+    @Override
+	protected void beforeSessionRepositoryFilter(ServletContext servletContext) {
+
+		servletContext.addFilter("ssoSessionFilter", SsoSessionFilter.class);
+		super.beforeSessionRepositoryFilter(servletContext);
 	}
     
     
