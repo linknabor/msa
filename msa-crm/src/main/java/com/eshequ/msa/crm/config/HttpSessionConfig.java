@@ -7,8 +7,6 @@ import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.session.data.redis.config.ConfigureRedisAction;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
-import org.springframework.session.web.http.CookieHttpSessionStrategy;
-import org.springframework.session.web.http.HttpSessionStrategy;
 
 @Configuration
 @EnableRedisHttpSession(maxInactiveIntervalInSeconds = 360000)
@@ -37,12 +35,6 @@ public class HttpSessionConfig {
         return redisStandaloneConfiguration;
     }
     
-    @Bean
-    public HttpSessionStrategy httpSessionStrategy() {
-    	CookieHttpSessionStrategy c =  new CookieHttpSessionStrategy();
-    	return c;
-    }
-    
     /**
      * If you are using @EnableRedisHttpSession the SessionMessageListener and enabling the necessary Redis Keyspace events is done automatically. 
      * However, in a secured Redis enviornment the config command is disabled. 
@@ -54,5 +46,12 @@ public class HttpSessionConfig {
     public static ConfigureRedisAction configureRedisAction() {
     	return ConfigureRedisAction.NO_OP;
     }
+    
+    public static void main(String[] args) {
+		
+    	System.out.println(0x80000000);
+    	
+	}
+    
     
 }
