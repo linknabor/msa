@@ -5,32 +5,4 @@
     <id column="MENU_ID" jdbcType="BIGINT" property="menuId" />
     <id column="ROLE_ID" jdbcType="BIGINT" property="roleId" />
   </resultMap>
-  <delete id="deleteByPrimaryKey" parameterType="com.eshequ.msa.sso.entity.SsoRoleMenu">
-    delete from sso_role_menu
-    where MENU_ID = #{menuId,jdbcType=BIGINT}
-      and ROLE_ID = #{roleId,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.eshequ.msa.sso.entity.SsoRoleMenu">
-    insert into sso_role_menu (MENU_ID, ROLE_ID)
-    values (#{menuId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT})
-  </insert>
-  <insert id="insertSelective" parameterType="com.eshequ.msa.sso.entity.SsoRoleMenu">
-    insert into sso_role_menu
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="menuId != null">
-        MENU_ID,
-      </if>
-      <if test="roleId != null">
-        ROLE_ID,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="menuId != null">
-        #{menuId,jdbcType=BIGINT},
-      </if>
-      <if test="roleId != null">
-        #{roleId,jdbcType=BIGINT},
-      </if>
-    </trim>
-  </insert>
 </mapper>
