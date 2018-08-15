@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.eshequ.msa.sso.model;
+package com.eshequ.msa.common;
 
 import javax.persistence.Transient;
 
