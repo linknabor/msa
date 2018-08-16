@@ -10,6 +10,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Component;
 
 /**
@@ -18,6 +19,7 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component("ssoSessionFilter")
+@Order(Integer.MIN_VALUE + 49)	//这个在sessionRepositoryFilter之前执行，不要改变这个顺序
 public class SsoSessionFilter implements Filter {
 
 	@Override
@@ -33,8 +35,12 @@ public class SsoSessionFilter implements Filter {
 		HttpServletRequest request = (HttpServletRequest)req;
 		String requestUri = request.getRequestURI();
 		if (requestUri.contains("/actuator/health")) {
+			//do nothing
 			return;
+		}else {
+			chain.doFilter(req, resp);
 		}
+		
 		
 	}
 

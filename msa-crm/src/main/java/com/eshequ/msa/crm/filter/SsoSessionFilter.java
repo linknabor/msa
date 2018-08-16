@@ -19,7 +19,7 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component("ssoSessionFilter")
-@Order(Integer.MIN_VALUE + 49)
+@Order(Integer.MIN_VALUE + 49)	//这个在sessionRepositoryFilter之前执行，不要改变这个顺序
 public class SsoSessionFilter implements Filter {
 
 	@Override

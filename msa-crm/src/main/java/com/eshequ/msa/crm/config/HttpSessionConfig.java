@@ -14,7 +14,7 @@ import org.springframework.session.web.context.AbstractHttpSessionApplicationIni
 import com.eshequ.msa.crm.filter.SsoSessionFilter;
 
 @Configuration
-@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 360000)
+@EnableRedisHttpSession
 public class HttpSessionConfig extends AbstractHttpSessionApplicationInitializer {
 
     @Value(value = "${spring.redis.host}")
@@ -53,7 +53,10 @@ public class HttpSessionConfig extends AbstractHttpSessionApplicationInitializer
     }
     
     
-    
+    /**
+     * 这个类在sessionRepositoryFilter之前装载，里面加载的filter优先级顺序如果比sessionRepositoryFilter高，会先加载这个类
+     * 如果filter不在这里装载，优先级顺序即便比sessionRepositoryFilter高，也会比其后加载
+     */
     @Override
 	protected void beforeSessionRepositoryFilter(ServletContext servletContext) {
 
