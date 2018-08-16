@@ -1,11 +1,8 @@
 package com.eshequ.msa.sso.mapper;
 
+import com.eshequ.msa.common.CommonMapper;
 import com.eshequ.msa.sso.entity.SsoRoleMenu;
 
-public interface SsoRoleMenuMapper {
-    int deleteByPrimaryKey(SsoRoleMenu key);
+public interface SsoRoleMenuMapper extends CommonMapper<SsoRoleMenu>{
 
-    int insert(SsoRoleMenu record);
-
-    int insertSelective(SsoRoleMenu record);
 }

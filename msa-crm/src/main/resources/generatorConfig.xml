@@ -3,15 +3,15 @@
 <generatorConfiguration>
 
 	<classPathEntry
-		location="D:\mysql-connector-java-5.1.46.jar" />
+		location="D:\j2ee\apache-maven-3.3.3\thirdpartylib\mysql\mysql-connector-java\5.1.46\mysql-connector-java-5.1.46.jar" />
 
 	<context id="MysqlTables" targetRuntime="MyBatis3">
 		<commentGenerator>
 			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
-		<jdbcConnection connectionURL="jdbc:mysql://localhost:3306/testdb"
-			driverClass="com.mysql.jdbc.Driver" password="root" userId="root" />
+		<jdbcConnection connectionURL="jdbc:mysql://localhost:3306/servplat"
+			driverClass="com.mysql.jdbc.Driver" password="servplat" userId="servplat" />
 			
 		<!-- java类型处理器 
 	         用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl；
@@ -35,9 +35,10 @@
  77         targetProject：目标项目，指定一个存在的目录下，生成的内容会放到指定目录中，如果目录不存在，MBG不会自动建目录
  78      -->
 		<!-- model -->
-		<!--生成Model类存放位置-->
-		<javaModelGenerator targetPackage="entity" 
-			targetProject="D:\mybatisMapper" />
+		<javaModelGenerator targetPackage="com.eshequ.msa.sso.entity" 
+			targetProject=".\src\main\java\">
+			<property name="rootClass" value="com.eshequ.msa.common.BaseModel"/>
+		</javaModelGenerator>
 		
 		
 		<!-- 生成SQL map的XML文件生成器，
@@ -46,15 +47,15 @@
 	      	这个元素就必须配置
 			targetPackage/targetProject:同javaModelGenerator
 	      -->
-	      <!--生成映射文件存放位置-->
-	     <sqlMapGenerator targetPackage="mapper" targetProject="D:\mybatisMapper">
+	     <sqlMapGenerator targetPackage="resources.mapper" targetProject=".\src\main\">
 	         <!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
 	         <property name="enableSubPackages" value="false"/>
      	</sqlMapGenerator>
      	
-     	<!--生成Dao类存放位置-->
-     	<javaClientGenerator targetPackage="dao"
-			targetProject="D:\mybatisMapper" type="XMLMAPPER" />
+     	<javaClientGenerator targetPackage="com.eshequ.msa.sso.mapper"
+			targetProject=".\src\main\java\" type="XMLMAPPER" >
+			<property name="rootInterface" value="com.eshequ.msa.common.CommonMapper"/>
+		</javaClientGenerator>
      	
 		<!-- <table schema="servplat" tableName="sp_serve_bill_pay_trade" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
@@ -62,26 +63,13 @@
 			<property name="useActualColumnNames" value="false"/>	
 		</table> -->
 		
-		<!--生成对应表及类名-->
-		<table schema="testdb" tableName="sso_menu" enableCountByExample="false"
+		<table schema="servplat" tableName="sp_base_csp" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
-			<property name="useActualColumnNames" value="false"/>	
-		</table>
-		<table schema="testdb" tableName="sso_role" enableCountByExample="false"
-			enableUpdateByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" selectByExampleQueryId="false">
-			<property name="useActualColumnNames" value="false"/>	
-		</table>
-		<table schema="testdb" tableName="sso_role_menu" enableCountByExample="false"
-			enableUpdateByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" selectByExampleQueryId="false">
-			<property name="useActualColumnNames" value="false"/>	
-		</table>
-		<table schema="testdb" tableName="sso_user" enableCountByExample="false"
-			enableUpdateByExample="false" enableDeleteByExample="false"
-			enableSelectByExample="false" selectByExampleQueryId="false">
-			<property name="useActualColumnNames" value="false"/>	
+			
+			<property name="useActualColumnNames" value="false"/>
+			<!-- 只生成resultMap-->
+			<property name="modelOnly" value="true"/>
 		</table>
 
 	</context>

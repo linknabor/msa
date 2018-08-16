@@ -1,5 +1,7 @@
 package com.eshequ.msa.crm.config;
 
+import javax.servlet.ServletContext;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -7,12 +9,13 @@ import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.session.data.redis.config.ConfigureRedisAction;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
-import org.springframework.session.web.http.CookieHttpSessionStrategy;
-import org.springframework.session.web.http.HttpSessionStrategy;
+import org.springframework.session.web.context.AbstractHttpSessionApplicationInitializer;
+
+import com.eshequ.msa.crm.filter.SsoSessionFilter;
 
 @Configuration
-@EnableRedisHttpSession(maxInactiveIntervalInSeconds = 360000)
-public class HttpSessionConfig {
+@EnableRedisHttpSession
+public class HttpSessionConfig extends AbstractHttpSessionApplicationInitializer {
 
     @Value(value = "${spring.redis.host}")
     private String host;
@@ -37,12 +40,6 @@ public class HttpSessionConfig {
         return redisStandaloneConfiguration;
     }
     
-    @Bean
-    public HttpSessionStrategy httpSessionStrategy() {
-    	CookieHttpSessionStrategy c =  new CookieHttpSessionStrategy();
-    	return c;
-    }
-    
     /**
      * If you are using @EnableRedisHttpSession the SessionMessageListener and enabling the necessary Redis Keyspace events is done automatically. 
      * However, in a secured Redis enviornment the config command is disabled. 
@@ -54,5 +51,18 @@ public class HttpSessionConfig {
     public static ConfigureRedisAction configureRedisAction() {
     	return ConfigureRedisAction.NO_OP;
     }
+    
+    
+    /**
+     * 这个类在sessionRepositoryFilter之前装载，里面加载的filter优先级顺序如果比sessionRepositoryFilter高，会先加载这个类
+     * 如果filter不在这里装载，优先级顺序即便比sessionRepositoryFilter高，也会比其后加载
+     */
+    @Override
+	protected void beforeSessionRepositoryFilter(ServletContext servletContext) {
+
+		servletContext.addFilter("ssoSessionFilter", SsoSessionFilter.class);
+		super.beforeSessionRepositoryFilter(servletContext);
+	}
+    
     
 }
