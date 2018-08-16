@@ -3,15 +3,15 @@
 <generatorConfiguration>
 
 	<classPathEntry
-		location="D:\j2ee\apache-maven-3.3.3\thirdpartylib\mysql\mysql-connector-java\5.1.46\mysql-connector-java-5.1.46.jar" />
+		location="D:\mysql-connector-java-5.1.46.jar" />
 
 	<context id="MysqlTables" targetRuntime="MyBatis3">
 		<commentGenerator>
 			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
-		<jdbcConnection connectionURL="jdbc:mysql://localhost:3306/servplat"
-			driverClass="com.mysql.jdbc.Driver" password="servplat" userId="servplat" />
+		<jdbcConnection connectionURL="jdbc:mysql://localhost:3306/testdb"
+			driverClass="com.mysql.jdbc.Driver" password="root" userId="root" />
 			
 		<!-- java类型处理器 
 	         用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl；
@@ -35,8 +35,9 @@
  77         targetProject：目标项目，指定一个存在的目录下，生成的内容会放到指定目录中，如果目录不存在，MBG不会自动建目录
  78      -->
 		<!-- model -->
-		<javaModelGenerator targetPackage="com.eshequ.msa.crm.entity" 
-			targetProject=".\src\main\java\" />
+		<!--生成Model类存放位置-->
+		<javaModelGenerator targetPackage="entity" 
+			targetProject="D:\mybatisMapper" />
 		
 		
 		<!-- 生成SQL map的XML文件生成器，
@@ -45,13 +46,15 @@
 	      	这个元素就必须配置
 			targetPackage/targetProject:同javaModelGenerator
 	      -->
-	     <sqlMapGenerator targetPackage="resources.mapper" targetProject=".\src\main\">
+	      <!--生成映射文件存放位置-->
+	     <sqlMapGenerator targetPackage="mapper" targetProject="D:\mybatisMapper">
 	         <!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
 	         <property name="enableSubPackages" value="false"/>
      	</sqlMapGenerator>
      	
-     	<javaClientGenerator targetPackage="com.eshequ.msa.crm.mapper"
-			targetProject=".\src\main\java\" type="XMLMAPPER" />
+     	<!--生成Dao类存放位置-->
+     	<javaClientGenerator targetPackage="dao"
+			targetProject="D:\mybatisMapper" type="XMLMAPPER" />
      	
 		<!-- <table schema="servplat" tableName="sp_serve_bill_pay_trade" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
@@ -59,10 +62,25 @@
 			<property name="useActualColumnNames" value="false"/>	
 		</table> -->
 		
-		<table schema="servplat" tableName="sp_base_csp" enableCountByExample="false"
+		<!--生成对应表及类名-->
+		<table schema="testdb" tableName="sso_menu" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
-			
+			<property name="useActualColumnNames" value="false"/>	
+		</table>
+		<table schema="testdb" tableName="sso_role" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="false"/>	
+		</table>
+		<table schema="testdb" tableName="sso_role_menu" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			<property name="useActualColumnNames" value="false"/>	
+		</table>
+		<table schema="testdb" tableName="sso_user" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
 			<property name="useActualColumnNames" value="false"/>	
 		</table>
 

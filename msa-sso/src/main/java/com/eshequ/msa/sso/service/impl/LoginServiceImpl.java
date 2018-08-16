@@ -36,8 +36,8 @@ public class LoginServiceImpl implements LoginService{
 			if(count > 0) {
 				//存在用户
 				result.put("result", "00");
-				Map<String,String> map = new HashMap<String,String>();
-				map.put("a", "a");
+//				Map<String,String> map = new HashMap<String,String>();
+//				map.put("a", "a");
 //				String a =  httpClientProxy.doPost("http://localhost:9090/crm/testconnect", map, "utf-8");
 //				System.out.println(a);
 			}else {

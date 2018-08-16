@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.eshequ.msa.crm.config.RedisConfig;
 import com.eshequ.msa.crm.entity.SsoRole;
 import com.eshequ.msa.crm.entity.SsoUser;
+import com.eshequ.msa.crm.service.LoginRemote;
 import com.eshequ.msa.crm.service.LoginService;
 import com.eshequ.msa.util.BeanUtil;
 import com.eshequ.msa.util.VerifyCodeServlet;
@@ -30,6 +32,9 @@ import com.google.gson.JsonArray;
 public class LoginController {
 	@Autowired 
 	private LoginService loginService;
+	@Autowired
+	private BeanUtil beanUtil;
+	
 
 	
 	/**
@@ -48,22 +53,15 @@ public class LoginController {
 			SsoUser user = loginService.selectUserByUserName(userName);//查询当前登录用户信息
 			//用户信息 存储session
 			HttpSession session = request.getSession();
-			session.setMaxInactiveInterval(60*60*2);//单位是秒
 			session.setAttribute("loginUser", user);
-			
-			//用户信息 存储cookie
-			cook(request,response);
-			
-			//用户信息 存储redis
-			RedisTemplate<String, String> redisTemplate =  (RedisTemplate<String, String>)BeanUtil.getBean("redisTemplate");
-			Gson gson = new Gson();
-			String loginUserJson = gson.toJson(user);
-			redisTemplate.opsForValue().set("loginUserRedis", loginUserJson);
-			
-			//获取新的验证码
-			getCode(request, response);
 		}
 		return result;
+	}
+	
+	public void aa() {
+		
+		
+		
 	}
 	
 	/**
@@ -152,6 +150,32 @@ public class LoginController {
 	@RequestMapping(value = "/testconnect",method = RequestMethod.POST)
 	public String testconnect(String a) {
 		return a;
+	} 
+	
+	//crm 验证是否登录
+	@RequestMapping(value = "/index",method = RequestMethod.GET)
+	public void index(HttpSession session, String token,String sessionId) {
+		RedisTemplate<String, String> redisTemplate =  (RedisTemplate<String, String>)beanUtil.getBean("redisTemplate");
+		String redisToken = redisTemplate.opsForValue().get(sessionId);
+		//reids中的token和传回来的token作对比
+		if(token.equals(redisToken)) {
+			session.setAttribute("token", token);//crm 保存token
+			session.setAttribute("isLogin", "true");
+			System.out.println("登录成功");
+			return;
+		}else {
+			System.out.println("登录失败,返回登录页面");
+			return;
+		}
+	}
+	
+	//crm 验证token和sso的token是否一致
+	@RequestMapping(value = "/saveCrmToken",method = RequestMethod.GET)
+	public void saveCrmToken(HttpSession session, String token) {
+		RedisTemplate<String, String> redisTemplate =  (RedisTemplate<String, String>)beanUtil.getBean("redisTemplate");
+		redisTemplate.opsForValue().set("token", token);
+
+	
 	} 
 	
 	

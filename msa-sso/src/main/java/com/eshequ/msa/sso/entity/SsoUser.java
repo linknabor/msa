@@ -1,5 +1,7 @@
 package com.eshequ.msa.sso.entity;
 
+import javax.persistence.Transient;
+
 public class SsoUser {
     private Long userId;
 
@@ -20,8 +22,22 @@ public class SsoUser {
     private String loginCert;
 
     private String tpSysName;
+    
+    @Transient  
+    private String sessionId;
+    
+    @Transient  
+    private String token;
 
-    public Long getUserId() {
+    public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
+	public Long getUserId() {
         return userId;
     }
 
@@ -100,4 +116,14 @@ public class SsoUser {
     public void setTpSysName(String tpSysName) {
         this.tpSysName = tpSysName;
     }
+
+	public String getSessionId() {
+		return sessionId;
+	}
+
+	public void setSessionId(String sessionId) {
+		this.sessionId = sessionId;
+	}
+    
+    
 }
