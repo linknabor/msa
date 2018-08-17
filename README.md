@@ -21,3 +21,12 @@
 9.获取唯一主键的函数的用法：先注入SnowFlake, 然后调用snowFlake.nextId()。在生产环境请在配置文件请配置machine.id和datacenter.id,值设为正整数即可。
 10.使用http请求的方法：先注入HttpClientProxy,然后调用doPost等方法。 
 11.使用maven编译时可以用公司的maven仓库，速度会比较快。仓库地址:http://svn-service.chinacloudapp.cn:8081/nexus/content/groups/public/
+12.判断非空一律使用OjbectUtil.isEmpty();
+13.时间相关函数调用DateUtil工具包
+14.json转换请使用objectMapper，方法如下：
+1)json转对象
+ObjectMapper objectMapper = new ObjectMapper();
+Someobj somObj = objectMapper.readValue(respJson, Someobj.class);
+2)对象转json字符串
+ObjectMapper mapper = new ObjectMapper();
+String requestJsonStr = mapper.writeValueAsString(map);	//map 转json
