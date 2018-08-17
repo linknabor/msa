@@ -1,9 +1,9 @@
 package com.eshequ.msa.sso.web;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
@@ -18,49 +18,75 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eshequ.msa.sso.entity.SsoUser;
+import com.eshequ.msa.sso.service.LoginRemote;
 import com.eshequ.msa.sso.service.LoginService;
 import com.eshequ.msa.util.BeanUtil;
 import com.eshequ.msa.util.VerifyCodeServlet;
 import com.google.gson.Gson;
 
+import ch.qos.logback.core.subst.Token;
+
 @RestController
 public class LoginController {
 	@Autowired 
 	private LoginService loginService;
+	@Autowired
+	private LoginRemote loginRemote;
 
-	
 	/**
 	 * 登录
 	 * @param userName 用户名
 	 * @param password 密码
 	 * @return 结果集
-	 * @throws UnsupportedEncodingException 
+	 * @throws IOException 
 	 */
 	@RequestMapping(value = "/login",method = RequestMethod.GET)
-	public Map<String,String> login(HttpServletRequest request,HttpServletResponse response,String userName,String password,String tpSysName) throws UnsupportedEncodingException {
-		request.setCharacterEncoding("utf-8");
+	public void login(HttpServletResponse response,HttpServletRequest request, String reqUrl, String userName,String password,String tpSysName) throws IOException {
+		tpSysName = "系统";
+		HttpSession session = request.getSession();
 		Map<String,String> result  = new HashMap<String,String>();
 		result = loginService.login(userName, password,tpSysName);
 		if(result.get("result")=="00") {
 			SsoUser user = loginService.selectUserByUserName(userName,tpSysName);//查询当前登录用户信息
-			//用户信息 存储session
-			HttpSession session = request.getSession();
-			session.setMaxInactiveInterval(60*60*2);//单位是秒
-			session.setAttribute("loginUser", user);
+			user.setSessionId(session.getId());
 			
-			//用户信息 存储cookie
-			cook(request,response);
+			session.setAttribute("isLogin", "true");
 			
+			String token = UUID.randomUUID().toString();//授权码
+			user.setToken(token);
+			session.setAttribute("token", token);
+			
+			System.out.println(session.getAttribute("token"));
+
 			//用户信息 存储redis
 			RedisTemplate<String, String> redisTemplate =  (RedisTemplate<String, String>)BeanUtil.getBean("redisTemplate");
 			Gson gson = new Gson();
 			String loginUserJson = gson.toJson(user);
-			redisTemplate.opsForValue().set("loginUserRedis", loginUserJson);
-			
+			redisTemplate.opsForValue().set(session.getId(), loginUserJson);//用当前的sessionId作为唯一标识，存储用户信息(包括生成的token，和sessionId)
+			redisTemplate.opsForValue().set("tokenSessionId", session.getId());//存储一个取得sso令牌sessionId的一个redis，用于检验token是否有效
+
+			System.out.println(redisTemplate.opsForValue().get("loginUserRedis"));
+			System.out.println(redisTemplate.opsForValue().get(session.getId()));
+
 			//获取新的验证码
-			getCode(request, response);
+//			getCode(request, response);
+			
+			
+//			response.sendRedirect("/crm/loginSuccessController?token="+token+"&sessionId=");
+//			http请求-->下发token到crm系统并且告知sessionId
+
+			//跳转至客户端访问的页面
+			//crm跳转到crm的认证去检测token是否真实有效，在crm认证中心，保存token建立会话
+//			loginRemote.saveCrmToken(token);
+			
+			response.sendRedirect(reqUrl+"?token="+token+"&sessionId="+session.getId());
+			
+		}else {
+			
+			response.sendRedirect("http://localhost:9091/sso/index.html");
+			return;
 		}
-		return result;
+		
 	}
 	
 	/**
@@ -75,9 +101,11 @@ public class LoginController {
 		Map<String,String> result  = new HashMap<String,String>();
 		if(httpSession.getAttribute("loginUser") != null) {
 			result.put("loginUser", httpSession.getAttribute("loginUser").toString());
+			System.out.println(httpSession.getId());
 		}else {
 			result.put("loginUser", "00");
 		}
+		
 		return result;
 	}
 	
@@ -123,6 +151,7 @@ public class LoginController {
 		Map<String,String> result  = new HashMap<String,String>();
 		Gson gson = new Gson();
 		String loginRedis = redisTemplate.opsForValue().get("loginUserRedis");
+		
 		if(loginRedis!=null) {
 			SsoUser user = gson.fromJson(loginRedis, SsoUser.class);
 			System.out.println(user.getUserName());
@@ -143,6 +172,62 @@ public class LoginController {
 			e.printStackTrace();
 		}
 	}
+	
+	@RequestMapping(value = "/test",method = RequestMethod.GET)
+	public void test(String token,String sessionId) {
+		Gson gson = new Gson();
+		Object o = new Object();
+		o=1;
+		SsoUser u = (SsoUser)o;
+		System.out.println(token);
+	}
+	
+	//sso登录认证中心
+	@RequestMapping(value = "/test1",method = RequestMethod.GET)
+	public void test1(String name,HttpServletResponse response,HttpServletRequest request,String reqUrl) throws IOException {
+		HttpSession session = request.getSession();
+		Object token = session.getAttribute("token");//sso session
+		String ii = session.getId();
+		if(token==null) {
+			//未登录 跳去登录页面
+			response.sendRedirect("http://localhost:9091/sso/index.html?reqUrl="+reqUrl);
+		}else{
+			//sso token 存在，去crm校验token是否有效
+//			loginRemote.saveCrmToken(token.toString());
+			//跳转目标页面
+			response.sendRedirect(reqUrl+"?token="+token+"&sessionId="+session.getId());
+		}
+	}
+	
+	//sso注销认证中心
+	@RequestMapping(value = "/exitCenter",method = RequestMethod.GET)
+	public void exitCenter(String sysName,String token,HttpServletResponse response,HttpServletRequest request) throws IOException {
+		HttpSession session = request.getSession();
+		Object ssoToken = session.getAttribute("token");//sso token
+		String ii = session.getId();
+		if(token.equals(ssoToken)) {
+			//token验证成功，销毁sso全局会话
+			session.removeAttribute("token");
+			session.removeAttribute("isLogin");
+			//将所有系统的session都注销掉（目前只注销crm）
+			response.sendRedirect("http://localhost:9090/crm/distorySession");
+			
+			//注销所有会话后，返回到登录页面（据说，senRedirect后面的语句会继续执行，除非return）
+			response.sendRedirect("http://localhost:9091/sso/index.html");
+		}else{
+			//跳转退出失败 提示页面
+			response.sendRedirect("http://localhost:9091/sso/error.html");
+		}
+	}
+	
+
+	
+	@RequestMapping(value = "/feign",method = RequestMethod.GET)
+	public void feign(HttpSession httpSession) throws IOException {
+		String pp = httpSession.getId();
+		loginRemote.testFeign("");
+	}
+	
 	
 	
 }

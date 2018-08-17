@@ -13,19 +13,7 @@
     <result column="LOGIN_CERT" jdbcType="VARCHAR" property="loginCert" />
     <result column="TP_SYS_NAME" jdbcType="VARCHAR" property="tpSysName" />
   </resultMap>
-  <sql id="Base_Column_List">
-   USER_ID, USER_NAME, PASSWORD, STATUS, ORG_NAME, ROLE_ID, ENTERPRISE_ID, MOBILE, LOGIN_CERT, 
-    TP_SYS_NAME
-  </sql>
 
-
-
-<!--   <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
-    select 
-    <include refid="Base_Column_List" />
-    from sso_user
-    where ID = #{id,jdbcType=BIGINT}
-  </select> -->
 <!--   验证登录信息是否有效 -->
   <select id="validateLoginUser" parameterType="String" resultType="int">
     select count(1) from sso_user
@@ -42,27 +30,4 @@
     and TP_SYS_NAME = #{tpSysName}
   </select>
   
-<!--   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-    delete from sso_user
-    where ID = #{id,jdbcType=BIGINT}
-  </delete>
-  <insert id="insert" parameterType="com.eshequ.msa.crm.entity.SsoUser">
-    insert into sso_user (ID, USER_NAME, PASSWORD, 
-      STATUS, ORG_ID, ORG_NAME, 
-      ROLE_ID)
-    values (#{id,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{status,jdbcType=CHAR}, #{orgId,jdbcType=BIGINT}, #{orgName,jdbcType=VARCHAR}, 
-      #{roleId,jdbcType=BIGINT})
-  </insert>
-
-  <update id="updateByPrimaryKey" parameterType="com.eshequ.msa.crm.entity.SsoUser">
-    update sso_user
-    set USER_NAME = #{userName,jdbcType=VARCHAR},
-      PASSWORD = #{password,jdbcType=VARCHAR},
-      STATUS = #{status,jdbcType=CHAR},
-      ORG_ID = #{orgId,jdbcType=BIGINT},
-      ORG_NAME = #{orgName,jdbcType=VARCHAR},
-      ROLE_ID = #{roleId,jdbcType=BIGINT}
-    where ID = #{id,jdbcType=BIGINT}
-  </update> -->
 </mapper>

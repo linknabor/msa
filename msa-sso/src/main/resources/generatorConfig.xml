@@ -6,6 +6,7 @@
 		location="D:\j2ee\apache-maven-3.3.3\thirdpartylib\mysql\mysql-connector-java\5.1.46\mysql-connector-java-5.1.46.jar" />
 
 	<context id="MysqlTables" targetRuntime="MyBatis3">
+	
 		<commentGenerator>
 			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
 			<property name="suppressAllComments" value="true" />
@@ -36,7 +37,9 @@
  78      -->
 		<!-- model -->
 		<javaModelGenerator targetPackage="com.eshequ.msa.sso.entity" 
-			targetProject=".\src\main\java\" />
+			targetProject=".\src\main\java\">
+			<property name="rootClass" value="com.eshequ.msa.common.BaseModel"/>
+		</javaModelGenerator>
 		
 		
 		<!-- 生成SQL map的XML文件生成器，
@@ -51,7 +54,9 @@
      	</sqlMapGenerator>
      	
      	<javaClientGenerator targetPackage="com.eshequ.msa.sso.mapper"
-			targetProject=".\src\main\java\" type="XMLMAPPER" />
+			targetProject=".\src\main\java\" type="XMLMAPPER" >
+			<property name="rootInterface" value="com.eshequ.msa.common.CommonMapper"/>
+		</javaClientGenerator>
      	
 		<!-- <table schema="servplat" tableName="sp_serve_bill_pay_trade" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
@@ -63,7 +68,9 @@
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
 			
-			<property name="useActualColumnNames" value="false"/>	
+			<property name="useActualColumnNames" value="false"/>
+			<!-- 只生成resultMap-->
+			<property name="modelOnly" value="true"/>
 		</table>
 
 	</context>
