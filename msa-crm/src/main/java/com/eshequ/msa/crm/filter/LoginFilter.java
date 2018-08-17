@@ -38,6 +38,8 @@ public class LoginFilter implements Filter {
 		String requestUri = request.getRequestURI();
 		Object ssoToken =request.getParameter("token");//url带来的token,就是sso创建的token
 		Object sessionId = request.getParameter("sessionId");//sso的sessionId
+		Boolean isToken = Boolean.valueOf(request.getParameter("isToken")) ;//token是否被验证过
+		
 		if (requestUri.contains("/actuator/health")) {
 			//health check, do nothing
 		}else {
@@ -51,54 +53,29 @@ public class LoginFilter implements Filter {
 				//如果发现crm是登录状态，直接去目标页面
 				chain.doFilter(request, response);
 				response.sendRedirect(reqUrl);
+				return;
 			}else if(ssoToken != null && ssoToken != "") {
 				//如果发现crm未登录，但是ssoToken存在，检验ssoToken是否真实
-				String SsoUserJson =redisTemplate.opsForValue().get(sessionId);
-				Gson gson = new Gson();
-				SsoUser user= gson.fromJson(SsoUserJson, SsoUser.class);
-				//如果未登录，设置为登录状态
-				if(isLogin == null) {				
-					httpSession.setAttribute("isLogin", true);
-					httpSession.setAttribute("token", user.getToken());//储存token到crm，方便之后注销
-				}
-				//SsoToken有效，跳转目标页，无效，跳转登录页
-				if(user.getToken().equals(ssoToken)) {
+				//去sso验证token
+				if(!isToken) {
+					response.sendRedirect("http://localhost:9091/sso/checkSsoToken?ssoToken="+ssoToken+"&reqUrl="+reqUrl);
+					return;
+				}else {
+//					如果未登录，设置为登录状态
+					if(isLogin == null) {				
+						httpSession.setAttribute("isLogin", true);
+						httpSession.setAttribute("token", ssoToken);//储存token到crm，方便之后注销
+					}
 					//验证成功
 					chain.doFilter(request, response);
 					response.sendRedirect(reqUrl);
-				}else {
-					//失败
-//					chain.doFilter(request, response);
-					response.sendRedirect("http://localhost:9091/sso/index.html");
+					return;
 				}
 			}
-			
-			
-//			if(isLogin != null  || ssoToken != null) {
-//				if(isLogin == null) {				
-//					httpSession.setAttribute("isLogin", true);
-//				}
-//				
-//				String SsoUserJson =redisTemplate.opsForValue().get(sessionId);
-//				Gson gson = new Gson();
-//				SsoUser user= gson.fromJson(SsoUserJson, SsoUser.class);
-//				if(user.getToken().equals(ssoToken)) {
-//					//验证成功
-//					chain.doFilter(request, response);
-//					response.sendRedirect(reqUrl);
-//				}else {
-//					//失败
-////					chain.doFilter(request, response);
-//					response.sendRedirect("http://localhost:9091/sso/index.html");
-//				}
-//				
-//				return;
-//				
-//			}
 			else {
-//				request.getRequestDispatcher("http://localhost:9091/sso/test1?reqUrl="+reqUrl).forward(request, response);
+//				request.getRequestDispatcher("http://localhost:9091/sso/ssoAuthentication?reqUrl="+reqUrl).forward(request, response);
 				//未登录，重定向到sso认证中心
-				response.sendRedirect("http://localhost:9091/sso/test1?reqUrl="+reqUrl);
+				response.sendRedirect("http://localhost:9091/sso/ssoAuthentication?reqUrl="+reqUrl);
 				return;
 			}
 			

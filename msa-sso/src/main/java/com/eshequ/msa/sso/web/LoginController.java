@@ -80,7 +80,7 @@ public class LoginController {
 //			loginRemote.saveCrmToken(token);
 			
 			response.sendRedirect(reqUrl+"?token="+token+"&sessionId="+session.getId());
-			
+			return;
 		}else {
 			
 			response.sendRedirect("http://localhost:9091/sso/index.html");
@@ -183,8 +183,8 @@ public class LoginController {
 	}
 	
 	//sso登录认证中心
-	@RequestMapping(value = "/test1",method = RequestMethod.GET)
-	public void test1(String name,HttpServletResponse response,HttpServletRequest request,String reqUrl) throws IOException {
+	@RequestMapping(value = "/ssoAuthentication",method = RequestMethod.GET)
+	public void ssoAuthentication(String name,HttpServletResponse response,HttpServletRequest request,String reqUrl) throws IOException {
 		HttpSession session = request.getSession();
 		Object token = session.getAttribute("token");//sso session
 		String ii = session.getId();
@@ -228,6 +228,23 @@ public class LoginController {
 		loginRemote.testFeign("");
 	}
 	
-	
+	@RequestMapping(value = "/checkSsoToken",method = RequestMethod.GET)
+	public void checkSsoToken(HttpSession httpSession,HttpServletRequest request,HttpServletResponse response) throws IOException {
+		String token = httpSession.getAttribute("token").toString();//sso真是token
+		String ssoToken = request.getParameter("ssoToken");//crm传来的token
+		String reqUrl = request.getParameter("reqUrl");//crm传来的目标页
+		boolean isToken = false;
+		//SsoToken有效，跳转目标页，无效，跳转登录页
+		if(token.equals(ssoToken)) {
+			//验证成功 目标页面
+			isToken = true;
+			response.sendRedirect(reqUrl+"?token="+ssoToken+"&isToken="+isToken);
+			return;
+		}else {
+			//失败 登录页面
+			response.sendRedirect("http://localhost:9091/sso/index.html");
+			return;
+		}
+	}
 	
 }
