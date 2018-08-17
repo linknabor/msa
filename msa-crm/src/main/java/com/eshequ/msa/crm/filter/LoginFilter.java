@@ -15,7 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
 
-import com.eshequ.msa.crm.entity.SsoUser;
+import com.eshequ.msa.crm.model.SsoUser;
 import com.eshequ.msa.util.BeanUtil;
 import com.google.gson.Gson;
 
@@ -46,14 +46,22 @@ public class LoginFilter implements Filter {
 			Boolean isLogin = (Boolean) httpSession.getAttribute("isLogin");//根据是否有token判断是否登录(crm token)
 			StringBuffer urlBuf = request.getRequestURL();
 			String reqUrl  = urlBuf.toString();
-			if(isLogin != null  || ssoToken != null) {
-				if(isLogin == null) {				
-					httpSession.setAttribute("isLogin", true);
-				}
-				
+			
+			if(isLogin != null) {
+				//如果发现crm是登录状态，直接去目标页面
+				chain.doFilter(request, response);
+				response.sendRedirect(reqUrl);
+			}else if(ssoToken != null && ssoToken != "") {
+				//如果发现crm未登录，但是ssoToken存在，检验ssoToken是否真实
 				String SsoUserJson =redisTemplate.opsForValue().get(sessionId);
 				Gson gson = new Gson();
 				SsoUser user= gson.fromJson(SsoUserJson, SsoUser.class);
+				//如果未登录，设置为登录状态
+				if(isLogin == null) {				
+					httpSession.setAttribute("isLogin", true);
+					httpSession.setAttribute("token", user.getToken());//储存token到crm，方便之后注销
+				}
+				//SsoToken有效，跳转目标页，无效，跳转登录页
 				if(user.getToken().equals(ssoToken)) {
 					//验证成功
 					chain.doFilter(request, response);
@@ -63,10 +71,31 @@ public class LoginFilter implements Filter {
 //					chain.doFilter(request, response);
 					response.sendRedirect("http://localhost:9091/sso/index.html");
 				}
-				
-				return;
-				
-			}else {
+			}
+			
+			
+//			if(isLogin != null  || ssoToken != null) {
+//				if(isLogin == null) {				
+//					httpSession.setAttribute("isLogin", true);
+//				}
+//				
+//				String SsoUserJson =redisTemplate.opsForValue().get(sessionId);
+//				Gson gson = new Gson();
+//				SsoUser user= gson.fromJson(SsoUserJson, SsoUser.class);
+//				if(user.getToken().equals(ssoToken)) {
+//					//验证成功
+//					chain.doFilter(request, response);
+//					response.sendRedirect(reqUrl);
+//				}else {
+//					//失败
+////					chain.doFilter(request, response);
+//					response.sendRedirect("http://localhost:9091/sso/index.html");
+//				}
+//				
+//				return;
+//				
+//			}
+			else {
 //				request.getRequestDispatcher("http://localhost:9091/sso/test1?reqUrl="+reqUrl).forward(request, response);
 				//未登录，重定向到sso认证中心
 				response.sendRedirect("http://localhost:9091/sso/test1?reqUrl="+reqUrl);

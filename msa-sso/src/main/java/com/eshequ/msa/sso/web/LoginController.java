@@ -17,13 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eshequ.msa.sso.config.RedisConfig;
 import com.eshequ.msa.sso.entity.SsoUser;
 import com.eshequ.msa.sso.service.LoginRemote;
 import com.eshequ.msa.sso.service.LoginService;
 import com.eshequ.msa.util.BeanUtil;
 import com.eshequ.msa.util.VerifyCodeServlet;
 import com.google.gson.Gson;
+
+import ch.qos.logback.core.subst.Token;
 
 @RestController
 public class LoginController {
@@ -32,9 +33,6 @@ public class LoginController {
 	@Autowired
 	private LoginRemote loginRemote;
 
-	
-
-	
 	/**
 	 * 登录
 	 * @param userName 用户名
@@ -43,19 +41,15 @@ public class LoginController {
 	 * @throws IOException 
 	 */
 	@RequestMapping(value = "/login",method = RequestMethod.GET)
-	public void login(HttpSession session1, HttpServletResponse response,HttpServletRequest request, String reqUrl, String userName,String password,String tpSysName) throws IOException {
+	public void login(HttpServletResponse response,HttpServletRequest request, String reqUrl, String userName,String password,String tpSysName) throws IOException {
 		tpSysName = "系统";
 		HttpSession session = request.getSession();
 		Map<String,String> result  = new HashMap<String,String>();
 		result = loginService.login(userName, password,tpSysName);
-		String ii = session.getId();
-		Object tokem = session.getAttribute("token");
 		if(result.get("result")=="00") {
 			SsoUser user = loginService.selectUserByUserName(userName,tpSysName);//查询当前登录用户信息
 			user.setSessionId(session.getId());
 			
-			//用户信息 存储session
-//			session.setAttribute("loginUser", user);
 			session.setAttribute("isLogin", "true");
 			
 			String token = UUID.randomUUID().toString();//授权码
@@ -63,10 +57,7 @@ public class LoginController {
 			session.setAttribute("token", token);
 			
 			System.out.println(session.getAttribute("token"));
-			
-			//用户信息 存储cookie
-//			cook(request,response);
-			
+
 			//用户信息 存储redis
 			RedisTemplate<String, String> redisTemplate =  (RedisTemplate<String, String>)BeanUtil.getBean("redisTemplate");
 			Gson gson = new Gson();
@@ -184,12 +175,16 @@ public class LoginController {
 	
 	@RequestMapping(value = "/test",method = RequestMethod.GET)
 	public void test(String token,String sessionId) {
+		Gson gson = new Gson();
+		Object o = new Object();
+		o=1;
+		SsoUser u = (SsoUser)o;
 		System.out.println(token);
 	}
 	
-	//sso认证中心
+	//sso登录认证中心
 	@RequestMapping(value = "/test1",method = RequestMethod.GET)
-	public void test1(String name,HttpSession session1,HttpServletResponse response,HttpServletRequest request,String reqUrl) throws IOException {
+	public void test1(String name,HttpServletResponse response,HttpServletRequest request,String reqUrl) throws IOException {
 		HttpSession session = request.getSession();
 		Object token = session.getAttribute("token");//sso session
 		String ii = session.getId();
@@ -203,10 +198,34 @@ public class LoginController {
 			response.sendRedirect(reqUrl+"?token="+token+"&sessionId="+session.getId());
 		}
 	}
+	
+	//sso注销认证中心
+	@RequestMapping(value = "/exitCenter",method = RequestMethod.GET)
+	public void exitCenter(String sysName,String token,HttpServletResponse response,HttpServletRequest request) throws IOException {
+		HttpSession session = request.getSession();
+		Object ssoToken = session.getAttribute("token");//sso token
+		String ii = session.getId();
+		if(token.equals(ssoToken)) {
+			//token验证成功，销毁sso全局会话
+			session.removeAttribute("token");
+			session.removeAttribute("isLogin");
+			//将所有系统的session都注销掉（目前只注销crm）
+			response.sendRedirect("http://localhost:9090/crm/distorySession");
+			
+			//注销所有会话后，返回到登录页面（据说，senRedirect后面的语句会继续执行，除非return）
+			response.sendRedirect("http://localhost:9091/sso/index.html");
+		}else{
+			//跳转退出失败 提示页面
+			response.sendRedirect("http://localhost:9091/sso/error.html");
+		}
+	}
+	
+
+	
 	@RequestMapping(value = "/feign",method = RequestMethod.GET)
 	public void feign(HttpSession httpSession) throws IOException {
 		String pp = httpSession.getId();
-		loginRemote.saveCrmToken("");
+		loginRemote.testFeign("");
 	}
 	
 	
