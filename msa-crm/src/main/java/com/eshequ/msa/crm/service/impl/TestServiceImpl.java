@@ -1,20 +1,16 @@
 package com.eshequ.msa.crm.service.impl;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.StringUtils;
 
 //import com.eshequ.msa.sso.mapper.SpServeBillPayTradeMapper;
 //import com.eshequ.msa.sso.model.SpServeBillPayTrade;
 import com.eshequ.msa.crm.service.TestService;
 import com.eshequ.msa.util.SnowFlake;
 import com.eshequ.msa.util.http.HttpClientProxy;
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Service
 public class TestServiceImpl implements TestService {
