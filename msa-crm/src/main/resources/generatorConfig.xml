@@ -3,15 +3,15 @@
 <generatorConfiguration>
 
 	<classPathEntry
-		location="D:\j2ee\apache-maven-3.3.3\thirdpartylib\mysql\mysql-connector-java\5.1.46\mysql-connector-java-5.1.46.jar" />
+		location="E:\maven\repository\mysql\mysql-connector-java\5.1.45\mysql-connector-java-5.1.45.jar" />
 
 	<context id="MysqlTables" targetRuntime="MyBatis3">
 		<commentGenerator>
 			<!-- 是否去除自动生成的注释 true：是 ： false:否 -->
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
-		<jdbcConnection connectionURL="jdbc:mysql://localhost:3306/servplat"
-			driverClass="com.mysql.jdbc.Driver" password="servplat" userId="servplat" />
+		<jdbcConnection connectionURL="jdbc:mysql://localhost:3306/crm"
+			driverClass="com.mysql.jdbc.Driver" password="crm" userId="crm" />
 			
 		<!-- java类型处理器 
 	         用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl；
@@ -35,7 +35,7 @@
  77         targetProject：目标项目，指定一个存在的目录下，生成的内容会放到指定目录中，如果目录不存在，MBG不会自动建目录
  78      -->
 		<!-- model -->
-		<javaModelGenerator targetPackage="com.eshequ.msa.crm.entity" 
+		<javaModelGenerator targetPackage="com.eshequ.msa.crm.model" 
 			targetProject=".\src\main\java\" />
 		
 		
@@ -53,13 +53,73 @@
      	<javaClientGenerator targetPackage="com.eshequ.msa.crm.mapper"
 			targetProject=".\src\main\java\" type="XMLMAPPER" />
      	
-		<!-- <table schema="servplat" tableName="sp_serve_bill_pay_trade" enableCountByExample="false"
+		<table schema="crm" tableName="crm_aftersale_service" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
+			
 			<property name="useActualColumnNames" value="false"/>	
-		</table> -->
-		
-		<table schema="servplat" tableName="sp_base_csp" enableCountByExample="false"
+		</table>
+		<table schema="crm" tableName="crm_aftersale_service_order" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			
+			<property name="useActualColumnNames" value="false"/>	
+		</table>
+		<table schema="crm" tableName="crm_channel" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			
+			<property name="useActualColumnNames" value="false"/>	
+		</table>
+		<table schema="crm" tableName="crm_channel_communication_record" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			
+			<property name="useActualColumnNames" value="false"/>	
+		</table>
+		<table schema="crm" tableName="crm_channel_link" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			
+			<property name="useActualColumnNames" value="false"/>	
+		</table>
+		<table schema="crm" tableName="crm_industry_info" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			
+			<property name="useActualColumnNames" value="false"/>	
+		</table>
+		<table schema="crm" tableName="crm_marketing_cust" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			
+			<property name="useActualColumnNames" value="false"/>	
+		</table>
+		<table schema="crm" tableName="crm_marketing_cust_call" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			
+			<property name="useActualColumnNames" value="false"/>	
+		</table>
+		<table schema="crm" tableName="crm_marketing_cust_link" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			
+			<property name="useActualColumnNames" value="false"/>	
+		</table>
+		<table schema="crm" tableName="crm_marketing_pre_sale_record" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			
+			<property name="useActualColumnNames" value="false"/>	
+		</table>
+		<table schema="crm" tableName="crm_pre_sale_plan" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			
+			<property name="useActualColumnNames" value="false"/>	
+		</table>
+		<table schema="crm" tableName="crm_relate_plat_cust" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
 			
