@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.eshequ.msa.crm.service.LoginRemote;
 import com.eshequ.msa.crm.service.TestService;
 
 @RestController
@@ -22,6 +23,9 @@ public class TestController extends BaseController{
 	
 	@Autowired
 	private TestService testService;
+	
+	@Autowired
+	private LoginRemote loginRemote;
 	
 	@RequestMapping(value = "/testQuery/{num}", method = RequestMethod.GET)
 	public String testQuery(@PathVariable String num) {
@@ -50,6 +54,14 @@ public class TestController extends BaseController{
 		map.put("context", httpSession.getServletContext().getContextPath());
 		httpSession.setAttribute("userInfo", map.toString());
 		return map.toString();
+	}
+	
+	@RequestMapping(value = "/testRemote", method = RequestMethod.GET)
+	public String testRemote() {
+		
+		
+		loginRemote.testRemote("name");
+		return "";
 	}
 	
 	
