@@ -30,12 +30,3 @@ Someobj somObj = objectMapper.readValue(respJson, Someobj.class);
 2)对象转json字符串
 ObjectMapper mapper = new ObjectMapper();
 String requestJsonStr = mapper.writeValueAsString(map);	//map 转json
-15.生产图片验证码的方式:调用VeriCodeUtil.generateVeriCode()即可，返回一个vo，带有生成的4位数字外加一个bufferedImg.
-调用样例：
-OutputStream os = response.getOutputStream();
-VeriCodeVO vo = VeriCodeUtil.generateVeriCode();
-response.setHeader("Pragma", "no-cache");
-response.setHeader("Cache-Control", "no-cache");
-response.setDateHeader("Expires", 0);
-response.setContentType("image/jpeg");
-ImageIO.write(vo.getBufferedImage(), "jpeg", os);

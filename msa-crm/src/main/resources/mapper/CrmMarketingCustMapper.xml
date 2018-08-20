@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.crm.mapper.CrmMarketingCustMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.crm.model.CrmMarketingCust">
+    <id column="CUST_ID" jdbcType="BIGINT" property="custId" />
+    <result column="CUST_NAME" jdbcType="CHAR" property="custName" />
+    <result column="CUST_ADDR" jdbcType="CHAR" property="custAddr" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="REGION_ID" jdbcType="BIGINT" property="regionId" />
+    <result column="CITY_ID" jdbcType="BIGINT" property="cityId" />
+    <result column="PROVINCE_ID" jdbcType="BIGINT" property="provinceId" />
+    <result column="INDUSTRY_ID" jdbcType="BIGINT" property="industryId" />
+  </resultMap>
+  
+</mapper>
