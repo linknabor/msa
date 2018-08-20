@@ -83,7 +83,7 @@ public class LoginController {
 			return;
 		}else {
 			
-			response.sendRedirect("http://localhost:9091/sso/index.html");
+			response.sendRedirect("http://192.168.0.101:9091/sso/index.html");
 			return;
 		}
 		

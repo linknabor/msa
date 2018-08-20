@@ -74,13 +74,13 @@ public class LoginFilter implements Filter {
 					return;
 				}else {
 					//失败 登录页面
-					response.sendRedirect("http://localhost:9091/sso/index.html");
+					response.sendRedirect("http://192.168.0.101:9091/sso/index.html");
 					return;
 				}	
 			}
 			else {
 				//未登录，重定向到sso认证中心
-				response.sendRedirect("http://localhost:9091/sso/ssoAuthentication?reqUrl="+reqUrl);
+				response.sendRedirect("http://192.168.0.101:9091/sso/ssoAuthentication?reqUrl="+reqUrl);
 				return;
 			}
 			
