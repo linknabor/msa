@@ -1,11 +1,15 @@
 package com.eshequ.msa.sso.web;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
 
+import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -23,6 +27,8 @@ import com.eshequ.msa.sso.service.LoginRemote;
 import com.eshequ.msa.sso.service.LoginService;
 import com.eshequ.msa.util.BeanUtil;
 import com.eshequ.msa.util.VerifyCodeServlet;
+import com.eshequ.msa.util.vericode.VeriCodeUtil;
+import com.eshequ.msa.util.vericode.VeriCodeVO;
 import com.google.gson.Gson;
 
 
@@ -43,10 +49,12 @@ public class LoginController {
 	 * @throws IOException 
 	 */
 	@RequestMapping(value = "/login",method = RequestMethod.GET)
-	public void login(HttpServletResponse response,HttpServletRequest request, String reqUrl, String userName,String password,String tpSysName,RedirectAttributes res) throws IOException {
+	public void login(HttpServletResponse response,HttpServletRequest request, String reqUrl, String userName, String veriCode,String password,String tpSysName,RedirectAttributes res) throws IOException {
 		tpSysName = "系统";
 		HttpSession session = request.getSession();
 		Map<String,String> result  = new HashMap<String,String>();
+		String code = session.getAttribute("veriCode").toString();
+		if(veriCode.equals(code)) {
 		result = loginService.login(userName, password,tpSysName);
 		if(result.get("result")=="00") {
 			SsoUser user = loginService.selectUserByUserName(userName,tpSysName);//查询当前登录用户信息
@@ -66,19 +74,7 @@ public class LoginController {
 			redisTemplate.opsForValue().set(session.getId(), loginUserJson);//用当前的sessionId作为唯一标识，存储用户信息(包括生成的token，和sessionId)
 			redisTemplate.opsForValue().set("tokenSessionId", session.getId());//存储一个取得sso令牌sessionId的一个redis，用于检验token是否有效
 
-			System.out.println(redisTemplate.opsForValue().get("loginUserRedis"));
-			System.out.println(redisTemplate.opsForValue().get(session.getId()));
-
-			//获取新的验证码
-//			getCode(request, response);
-			
-			
-//			response.sendRedirect("/crm/loginSuccessController?token="+token+"&sessionId=");
 //			http请求-->下发token到crm系统并且告知sessionId
-
-			//跳转至客户端访问的页面
-			//crm跳转到crm的认证去检测token是否真实有效，在crm认证中心，保存token建立会话
-//			loginRemote.saveCrmToken(token);
 			response.sendRedirect(reqUrl+"?token="+token+"&sessionId="+session.getId());
 			return;
 		}else {
@@ -86,7 +82,11 @@ public class LoginController {
 			response.sendRedirect("http://192.168.0.101:9091/sso/index.html");
 			return;
 		}
-		
+		}else {
+			//验证码不正确，跳转到登录页面
+			response.sendRedirect("http://192.168.0.101:9091/sso/index.html");
+			return;
+		}
 	}
 	
 	/**
@@ -157,20 +157,22 @@ public class LoginController {
 		}
 		return result;
 	}
-	
-	
+		
 	//获取验证码
-	@RequestMapping(value = "/getCode",method = RequestMethod.GET)
-	public void getCode(HttpServletRequest res,HttpServletResponse req) {
-		VerifyCodeServlet v = new VerifyCodeServlet();
-		try {
-			v.service(req, res);
-		} catch (ServletException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		@RequestMapping(value = "/getCode",method = RequestMethod.GET)
+		public String getCode1(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException {
+			OutputStream os = response.getOutputStream();
+			VeriCodeVO vo = VeriCodeUtil.generateVeriCode();
+			response.setHeader("Pragma", "no-cache");
+			response.setHeader("Cache-Control", "no-cache");
+			response.setDateHeader("Expires", 0);
+			response.setContentType("image/jpeg");
+			System.out.println(vo.getVeriCode());
+			session.setAttribute("veriCode", vo.getVeriCode());
+			session.getAttribute("token");
+			ImageIO.write(vo.getBufferedImage(), "jpeg", os);
+			return vo.getVeriCode();
 		}
-	}
 	
 	@RequestMapping(value = "/checkSsoToken",method = RequestMethod.POST)
 	public String checkSsoToken(String ssoToken,String reqUrl,String sessionId,HttpServletResponse response,HttpServletRequest request) {
