@@ -58,9 +58,7 @@ public class TestController extends BaseController{
 	
 	@RequestMapping(value = "/testRemote", method = RequestMethod.GET)
 	public String testRemote() {
-		
-		
-		loginRemote.testRemote("name");
+
 		return "";
 	}
 	

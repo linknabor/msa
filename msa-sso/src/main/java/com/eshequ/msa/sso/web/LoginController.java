@@ -16,6 +16,7 @@ import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.eshequ.msa.sso.entity.SsoUser;
 import com.eshequ.msa.sso.service.LoginRemote;
@@ -24,7 +25,6 @@ import com.eshequ.msa.util.BeanUtil;
 import com.eshequ.msa.util.VerifyCodeServlet;
 import com.google.gson.Gson;
 
-import ch.qos.logback.core.subst.Token;
 
 @RestController
 public class LoginController {
@@ -32,7 +32,9 @@ public class LoginController {
 	private LoginService loginService;
 	@Autowired
 	private LoginRemote loginRemote;
-
+	@Autowired
+	private RedisTemplate<String, Object> redisTemplate;
+	
 	/**
 	 * 登录
 	 * @param userName 用户名
@@ -41,7 +43,7 @@ public class LoginController {
 	 * @throws IOException 
 	 */
 	@RequestMapping(value = "/login",method = RequestMethod.GET)
-	public void login(HttpServletResponse response,HttpServletRequest request, String reqUrl, String userName,String password,String tpSysName) throws IOException {
+	public void login(HttpServletResponse response,HttpServletRequest request, String reqUrl, String userName,String password,String tpSysName,RedirectAttributes res) throws IOException {
 		tpSysName = "系统";
 		HttpSession session = request.getSession();
 		Map<String,String> result  = new HashMap<String,String>();
@@ -59,7 +61,6 @@ public class LoginController {
 			System.out.println(session.getAttribute("token"));
 
 			//用户信息 存储redis
-			RedisTemplate<String, String> redisTemplate =  (RedisTemplate<String, String>)BeanUtil.getBean("redisTemplate");
 			Gson gson = new Gson();
 			String loginUserJson = gson.toJson(user);
 			redisTemplate.opsForValue().set(session.getId(), loginUserJson);//用当前的sessionId作为唯一标识，存储用户信息(包括生成的token，和sessionId)
@@ -78,7 +79,6 @@ public class LoginController {
 			//跳转至客户端访问的页面
 			//crm跳转到crm的认证去检测token是否真实有效，在crm认证中心，保存token建立会话
 //			loginRemote.saveCrmToken(token);
-			
 			response.sendRedirect(reqUrl+"?token="+token+"&sessionId="+session.getId());
 			return;
 		}else {
@@ -147,10 +147,9 @@ public class LoginController {
 	 */
 	@RequestMapping(value = "/getLoginUserRedis",method = RequestMethod.GET)
 	public Map<String,String> getLoginUserRedis() {
-		RedisTemplate<String, String> redisTemplate =  (RedisTemplate<String, String>)BeanUtil.getBean("redisTemplate");
 		Map<String,String> result  = new HashMap<String,String>();
 		Gson gson = new Gson();
-		String loginRedis = redisTemplate.opsForValue().get("loginUserRedis");
+		String loginRedis = (String) redisTemplate.opsForValue().get("loginUserRedis");
 		
 		if(loginRedis!=null) {
 			SsoUser user = gson.fromJson(loginRedis, SsoUser.class);
@@ -173,13 +172,18 @@ public class LoginController {
 		}
 	}
 	
-	@RequestMapping(value = "/test",method = RequestMethod.GET)
-	public void test(String token,String sessionId) {
+	@RequestMapping(value = "/checkSsoToken",method = RequestMethod.POST)
+	public String checkSsoToken(String ssoToken,String reqUrl,String sessionId,HttpServletResponse response,HttpServletRequest request) {
+		HttpSession session = request.getSession();getClass();
+		String s = session.getId();
+		String isToken = "false";
 		Gson gson = new Gson();
-		Object o = new Object();
-		o=1;
-		SsoUser u = (SsoUser)o;
-		System.out.println(token);
+		String userJson = redisTemplate.opsForValue().get(sessionId).toString();
+		SsoUser user =  gson.fromJson(userJson, SsoUser.class);
+		if(user.getToken().equals(ssoToken)) {
+			isToken = "true";
+		}
+		return isToken;
 	}
 	
 	//sso登录认证中心
@@ -220,31 +224,12 @@ public class LoginController {
 		}
 	}
 	
-
-	
 	@RequestMapping(value = "/feign",method = RequestMethod.GET)
 	public void feign(HttpSession httpSession) throws IOException {
 		String pp = httpSession.getId();
-		loginRemote.testFeign("");
+		System.out.println(pp);
+//		loginRemote.checkSsoToken("");
 	}
-	
-	@RequestMapping(value = "/checkSsoToken",method = RequestMethod.GET)
-	public void checkSsoToken(HttpSession httpSession,HttpServletRequest request,HttpServletResponse response) throws IOException {
-		String token = httpSession.getAttribute("token").toString();//sso真是token
-		String ssoToken = request.getParameter("ssoToken");//crm传来的token
-		String reqUrl = request.getParameter("reqUrl");//crm传来的目标页
-		boolean isToken = false;
-		//SsoToken有效，跳转目标页，无效，跳转登录页
-		if(token.equals(ssoToken)) {
-			//验证成功 目标页面
-			isToken = true;
-			response.sendRedirect(reqUrl+"?token="+ssoToken+"&isToken="+isToken);
-			return;
-		}else {
-			//失败 登录页面
-			response.sendRedirect("http://localhost:9091/sso/index.html");
-			return;
-		}
-	}
+
 	
 }
