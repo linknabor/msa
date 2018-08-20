@@ -14,9 +14,11 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.view.RedirectView;
 
 import com.eshequ.msa.crm.model.SsoUser;
 import com.eshequ.msa.crm.service.LoginRemote;
@@ -25,7 +27,7 @@ import com.eshequ.msa.util.VerifyCodeServlet;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 
-@RestController
+@Controller
 public class LoginController {	
 	//退出登录
 	@RequestMapping(value = "/exit",method = RequestMethod.GET)
@@ -41,14 +43,11 @@ public class LoginController {
 		httpSession.removeAttribute("isLogin");
 	}
 	
-	@RequestMapping(value = "/testFeign",method = RequestMethod.GET)
-	public void saveCrmToken() {
-		Gson gson = new Gson();
-		Object o = new Object();
-		o=1;
-		SsoUser u = (SsoUser)o;
-
+	@RequestMapping(value = "/testFeign",method = RequestMethod.POST)
+	public String saveCrmToken(String name) {
+		return "redirect:/bill/hhh.html";
 	}
+	
 	
 	
 }

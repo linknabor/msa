@@ -1,5 +1,7 @@
 package com.eshequ.msa.crm.service.targetcustimpl;
 
+import java.util.List;
+
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,8 +18,10 @@ public class TargetCustServiceImpl implements TargetCustService{
 	@Autowired
 	private CrmMarketingCustMapper mapper;
 	@Override
-	public String targetcustQuery(String num) {
-		return null;
+	public List<CrmMarketingCust> targetcustQuery(String num) {
+		
+		List<CrmMarketingCust> list = mapper.selectAll();
+		return list;
 	}
 
 	@Override
@@ -25,7 +29,7 @@ public class TargetCustServiceImpl implements TargetCustService{
 	public void targetcustAdd(TargetCustVo vo) {
 		CrmMarketingCust record = new CrmMarketingCust();
 		BeanUtils.copyProperties(vo, record);
-		mapper.insert(record);
+		mapper.insertSelective(record);
 	}
 
 	@Override

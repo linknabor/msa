@@ -1,31 +1,32 @@
 package com.eshequ.msa.crm.vo.targetcust;
 
+
 public class TargetCustVo {
-	String cust_id;
-	String cust_name;
-	String cust_addr;
+	long custId;
+	String custName;
+	String custAddr;
 	String remark;
-	String regoin_id;
-	String city_id;
-	String province_id;
-	String industry_id;
-	public String getCust_id() {
-		return cust_id;
+	long regionId;
+	long cityId;
+	long provinceId;
+	long industryId;
+	public long getCustId() {
+		return custId;
 	}
-	public void setCust_id(String cust_id) {
-		this.cust_id = cust_id;
+	public void setCustId(long custId) {
+		this.custId = custId;
 	}
-	public String getCust_name() {
-		return cust_name;
+	public String getCustName() {
+		return custName;
 	}
-	public void setCust_name(String cust_name) {
-		this.cust_name = cust_name;
+	public void setCustName(String custName) {
+		this.custName = custName;
 	}
-	public String getCust_addr() {
-		return cust_addr;
+	public String getCustAddr() {
+		return custAddr;
 	}
-	public void setCust_addr(String cust_addr) {
-		this.cust_addr = cust_addr;
+	public void setCustAddr(String custAddr) {
+		this.custAddr = custAddr;
 	}
 	public String getRemark() {
 		return remark;
@@ -33,29 +34,31 @@ public class TargetCustVo {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	public String getRegoin_id() {
-		return regoin_id;
+	public long getRegionId() {
+		return regionId;
 	}
-	public void setRegoin_id(String regoin_id) {
-		this.regoin_id = regoin_id;
+	public void setRegionId(long regionId) {
+		this.regionId = regionId;
 	}
-	public String getCity_id() {
-		return city_id;
+	public long getCityId() {
+		return cityId;
 	}
-	public void setCity_id(String city_id) {
-		this.city_id = city_id;
+	public void setCityId(long cityId) {
+		this.cityId = cityId;
 	}
-	public String getProvince_id() {
-		return province_id;
+	public long getProvinceId() {
+		return provinceId;
 	}
-	public void setProvince_id(String province_id) {
-		this.province_id = province_id;
+	public void setProvinceId(long provinceId) {
+		this.provinceId = provinceId;
 	}
-	public String getIndustry_id() {
-		return industry_id;
+	public long getIndustryId() {
+		return industryId;
 	}
-	public void setIndustry_id(String industry_id) {
-		this.industry_id = industry_id;
+	public void setIndustryId(long industryId) {
+		this.industryId = industryId;
 	}
+	
+	
 	
 }

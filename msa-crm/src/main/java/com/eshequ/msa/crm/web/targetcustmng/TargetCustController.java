@@ -1,5 +1,7 @@
 package com.eshequ.msa.crm.web.targetcustmng;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.eshequ.msa.crm.model.CrmMarketingCust;
 import com.eshequ.msa.crm.service.TargetCustService;
 import com.eshequ.msa.crm.service.targetcustimpl.TargetCustServiceImpl;
 import com.eshequ.msa.crm.vo.targetcust.TargetCustVo;
@@ -23,7 +26,7 @@ public class TargetCustController extends BaseController{
 	@Autowired
 	private SnowFlake snowFlake;
 	@RequestMapping(value = "/targetcustQuery/{num}", method = RequestMethod.GET)
-	public String targetcustQuery(@PathVariable String num){
+	public List<CrmMarketingCust> targetcustQuery(@PathVariable String num){
 		return targetCustService.targetcustQuery(num);
 	}
 	
@@ -46,15 +49,15 @@ public class TargetCustController extends BaseController{
 		new TargetCustController().test(); 
 	}
 	private void test(){
-		TargetCustVo vo = new TargetCustVo();
-		vo.setCust_id("1111111111");
-		vo.setCust_name("测试客户1");
-		vo.setCust_addr("三林路158号1401室");
-		vo.setCity_id("1111111111");
-		vo.setIndustry_id("1111111111");
-		vo.setProvince_id("1111111111");
-		vo.setRegoin_id("1111111111");
-		vo.setRemark("备注");
-		new TargetCustServiceImpl().targetcustAdd(vo);
+//		TargetCustVo vo = new TargetCustVo();
+//		vo.setCust_id("1111111111");
+//		vo.setCust_name("测试客户1");
+//		vo.setCust_addr("三林路158号1401室");
+//		vo.setCity_id("1111111111");
+//		vo.setIndustry_id("1111111111");
+//		vo.setProvince_id("1111111111");
+//		vo.setRegoin_id("1111111111");
+//		vo.setRemark("备注");
+//		new TargetCustServiceImpl().targetcustAdd(vo);
 	}
 }

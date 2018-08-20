@@ -1,6 +1,9 @@
 package com.eshequ.msa.crm.model;
 
+import javax.persistence.Id;
+
 public class CrmMarketingCust {
+	@Id
     private Long custId;
 
     private String custName;
