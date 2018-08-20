@@ -1,7 +1,6 @@
 package com.eshequ.msa.crm.filter;
 
 import java.io.IOException;
-import java.util.Map;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -14,13 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Component;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
 import com.eshequ.msa.crm.service.LoginRemote;
-import com.eshequ.msa.util.BeanUtil;
 
 @Component("loginFilter")
 public class LoginFilter implements Filter {
@@ -36,7 +31,6 @@ public class LoginFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
 			throws IOException, ServletException {
-		RedisTemplate<String, String> redisTemplate =  (RedisTemplate<String, String>)BeanUtil.getBean("redisTemplate");
 		HttpServletRequest request = (HttpServletRequest)req;
 		HttpServletResponse response = (HttpServletResponse)resp;
 		HttpSession httpSession = request.getSession();
@@ -74,13 +68,13 @@ public class LoginFilter implements Filter {
 					return;
 				}else {
 					//失败 登录页面
-					response.sendRedirect("http://localhost:9091/sso/index.html");
+					response.sendRedirect("http://192.168.0.101:9091/sso/index.html");
 					return;
 				}	
 			}
 			else {
 				//未登录，重定向到sso认证中心
-				response.sendRedirect("http://localhost:9091/sso/ssoAuthentication?reqUrl="+reqUrl);
+				response.sendRedirect("http://192.168.0.101:9091/sso/ssoAuthentication?reqUrl="+reqUrl);
 				return;
 			}
 			
