@@ -10,7 +10,7 @@ public class LoginFeignFallBack implements LoginRemote{
 	@Override
 	public String checkSsoToken(String token, String reqUrl,String sessionId) {
 		logger.error("sso验证时，发生运行异常！！！");
-		System.out.println("错误");
+		System.out.println("feign请求时，发生错误！");
 		return "error";
 	}
 

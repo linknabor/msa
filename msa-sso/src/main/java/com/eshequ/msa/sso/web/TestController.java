@@ -59,4 +59,11 @@ public class TestController extends BaseController{
 		
 	}
 	
+	@RequestMapping(value = "/testMultiDataSource", method = RequestMethod.GET )
+	public String testMultiDataSource() {
+		
+		return testService.testMultiDataSource();
+		
+	}
+	
 }
