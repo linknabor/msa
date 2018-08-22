@@ -38,4 +38,5 @@ response.setHeader("Pragma", "no-cache");
 response.setHeader("Cache-Control", "no-cache");
 response.setDateHeader("Expires", 0);
 response.setContentType("image/jpeg");
-ImageIO.write(vo.getBufferedImage(), "jpeg", os);
+ImageIO.write(vo.getBufferedImage(), "jpeg", os);String requestJsonStr = mapper.writeValueAsString(map);	//map תjson
+
