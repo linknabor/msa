@@ -7,7 +7,7 @@ import com.eshequ.msa.crm.vo.targetcust.TargetCustVo;
 
 public interface TargetCustService {
 
-	 List<CrmMarketingCust> targetcustQuery(String num);
+	 List<CrmMarketingCust> targetcustQuery(TargetCustVo vo);
 	 void targetcustAdd(TargetCustVo vo);
 	 void targetcustEdit(TargetCustVo vo);
 	 void targetcustDel(String custId);
