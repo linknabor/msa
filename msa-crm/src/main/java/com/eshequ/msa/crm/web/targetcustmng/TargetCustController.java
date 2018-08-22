@@ -45,11 +45,14 @@ public class TargetCustController extends BaseController{
 		 targetCustService.targetcustEdit(vo);
 	}
 	
-	@RequestMapping(value = "/targetcustDel/{custId}", method = RequestMethod.POST)
-	public void targetcustDel(@PathVariable String custId){
-		 targetCustService.targetcustDel(custId);
+	@RequestMapping(value = "/targetcustDel", method = RequestMethod.POST)
+	public void targetcustDel(@RequestBody TargetCustVo vo){
+		 targetCustService.targetcustDel(vo);
 	}
 	
-	
+	@RequestMapping(value = "/targetcustDelById/{id}", method = RequestMethod.POST)
+	public void targetcustDelById(@PathVariable String id){
+		 targetCustService.targetcustDelById(Long.valueOf(id));
+	}
 	
 }

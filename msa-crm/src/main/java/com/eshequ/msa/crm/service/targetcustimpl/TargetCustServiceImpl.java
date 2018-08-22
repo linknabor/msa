@@ -37,12 +37,13 @@ public class TargetCustServiceImpl implements TargetCustService{
 	public void targetcustAdd(TargetCustVo vo) {
 		CrmMarketingCust record = new CrmMarketingCust();
 		BeanUtils.copyProperties(vo, record);
-		record.setCustId(snowFlake.nextId()+"");
+		record.setCustId(snowFlake.nextId());
 		mapper.insertSelective(record);
 	}
 
 	//编辑目标客户
 	@Override
+	@Transactional
 	public void targetcustEdit(TargetCustVo vo) {
 		CrmMarketingCust record = new CrmMarketingCust();
 		BeanUtils.copyProperties(vo, record);
@@ -51,8 +52,17 @@ public class TargetCustServiceImpl implements TargetCustService{
 
 	//删除目标客户
 	@Override
-	public void targetcustDel(String custId) {
-		mapper.deleteByPrimaryKey(custId);
+	@Transactional
+	public void targetcustDel(TargetCustVo vo) {
+		CrmMarketingCust record = new CrmMarketingCust();
+		BeanUtils.copyProperties(vo, record);
+		mapper.delete(record);
+	}
+
+	@Override
+	@Transactional
+	public void targetcustDelById(long id) {
+		mapper.deleteByPrimaryKey(id);
 	}
 
 }

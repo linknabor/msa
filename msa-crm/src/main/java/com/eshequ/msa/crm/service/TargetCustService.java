@@ -10,6 +10,7 @@ public interface TargetCustService {
 	 List<CrmMarketingCust> targetcustQuery(TargetCustVo vo);
 	 void targetcustAdd(TargetCustVo vo);
 	 void targetcustEdit(TargetCustVo vo);
-	 void targetcustDel(String custId);
+	 void targetcustDel(TargetCustVo vo);
+	 void targetcustDelById(long id);
 
 }

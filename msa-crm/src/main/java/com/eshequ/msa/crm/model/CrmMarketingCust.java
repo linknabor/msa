@@ -1,12 +1,16 @@
 package com.eshequ.msa.crm.model;
 
 import com.eshequ.msa.common.BaseModel;
+
 import java.math.BigDecimal;
 
-public class CrmMarketingCust extends BaseModel {
-    private String custId;
+import org.springframework.data.annotation.Id;
 
-    private BigDecimal houCount;
+public class CrmMarketingCust extends BaseModel {
+	@Id
+    private long custId;
+
+    private int houCount;
 
     private BigDecimal yearAmt;
 
@@ -30,21 +34,21 @@ public class CrmMarketingCust extends BaseModel {
 
     private String provinceId;
 
-    private Long industryId;
+    private String industryId;
 
-	public String getCustId() {
+	public long getCustId() {
 		return custId;
 	}
 
-	public void setCustId(String custId) {
+	public void setCustId(long custId) {
 		this.custId = custId;
 	}
 
-	public BigDecimal getHouCount() {
+	public int getHouCount() {
 		return houCount;
 	}
 
-	public void setHouCount(BigDecimal houCount) {
+	public void setHouCount(int houCount) {
 		this.houCount = houCount;
 	}
 
@@ -136,11 +140,11 @@ public class CrmMarketingCust extends BaseModel {
 		this.provinceId = provinceId;
 	}
 
-	public Long getIndustryId() {
+	public String getIndustryId() {
 		return industryId;
 	}
 
-	public void setIndustryId(Long industryId) {
+	public void setIndustryId(String industryId) {
 		this.industryId = industryId;
 	}
 
