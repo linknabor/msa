@@ -35,14 +35,14 @@ public class LoginServiceImpl implements LoginService{
 			int count = ssoUserMapper.validateLoginUser(userName,password,tpSysName);
 			if(count > 0) {
 				//存在用户
-				result.put("result", "00");
+				result.put("result", "01");
 //				Map<String,String> map = new HashMap<String,String>();
 //				map.put("a", "a");
 //				String a =  httpClientProxy.doPost("http://localhost:9090/crm/testconnect", map, "utf-8");
 //				System.out.println(a);
 			}else {
 				//没有用户
-				result.put("result", "01");
+				result.put("result", "00");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

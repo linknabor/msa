@@ -6,6 +6,7 @@ import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 import javax.imageio.ImageIO;
 import javax.servlet.ServletException;
@@ -16,6 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -40,6 +42,10 @@ public class LoginController {
 	private LoginRemote loginRemote;
 	@Autowired
 	private RedisTemplate<String, Object> redisTemplate;
+	@Value("${crm.localhost.ip}")
+	private String crmLocalhostIp;
+	@Value("${sso.localhost.ip}")
+	private String ssoLocalhostIp;
 	
 	/**
 	 * 登录
@@ -49,43 +55,46 @@ public class LoginController {
 	 * @throws IOException 
 	 */
 	@RequestMapping(value = "/login",method = RequestMethod.GET)
-	public void login(HttpServletResponse response,HttpServletRequest request, String reqUrl, String userName, String veriCode,String password,String tpSysName,RedirectAttributes res) throws IOException {
+	public Map<String,String> login(HttpServletResponse response,HttpServletRequest request, String reqUrl, String userName, String veriCode,String password,String tpSysName,RedirectAttributes res) throws IOException {
 		tpSysName = "系统";
 		HttpSession session = request.getSession();
 		Map<String,String> result  = new HashMap<String,String>();
-		String code = session.getAttribute("veriCode").toString();
+//		String code = session.getAttribute("veriCode").toString();
+		String sessionId = session.getId();
+		Object code = redisTemplate.opsForValue().get(sessionId+"code");//redis中的验证码
+		if(code == null) {
+			//验证码过期，请重新生成验证码
+			result.put("result", "02");
+			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/login.html");
+			return result;
+		}
 		if(veriCode.equals(code)) {
 		result = loginService.login(userName, password,tpSysName);
-		if(result.get("result")=="00") {
+		if(result.get("result")=="01") {
 			SsoUser user = loginService.selectUserByUserName(userName,tpSysName);//查询当前登录用户信息
-			user.setSessionId(session.getId());
-			
+			user.setSessionId(sessionId);
 			session.setAttribute("isLogin", "true");
-			
 			String token = UUID.randomUUID().toString();//授权码
 			user.setToken(token);
 			session.setAttribute("token", token);
-			
 			System.out.println(session.getAttribute("token"));
-
 			//用户信息 存储redis
 			Gson gson = new Gson();
 			String loginUserJson = gson.toJson(user);
-			redisTemplate.opsForValue().set(session.getId(), loginUserJson);//用当前的sessionId作为唯一标识，存储用户信息(包括生成的token，和sessionId)
-			redisTemplate.opsForValue().set("tokenSessionId", session.getId());//存储一个取得sso令牌sessionId的一个redis，用于检验token是否有效
-
+			redisTemplate.opsForValue().set(sessionId, loginUserJson);//用当前的sessionId作为唯一标识，存储用户信息(包括生成的token，和sessionId)
+			redisTemplate.opsForValue().set("tokenSessionId", sessionId);//存储一个取得sso令牌sessionId的一个redis，用于检验token是否有效
 //			http请求-->下发token到crm系统并且告知sessionId
-			response.sendRedirect(reqUrl+"?token="+token+"&sessionId="+session.getId());
-			return;
+			response.sendRedirect(reqUrl+"?token="+token+"&sessionId="+sessionId);
+			return result;
 		}else {
-			
-			response.sendRedirect("http://192.168.0.101:9091/sso/index.html");
-			return;
+			//不存在用户，到登录页面
+			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/login.html");
+			return result;
 		}
 		}else {
 			//验证码不正确，跳转到登录页面
-			response.sendRedirect("http://192.168.0.101:9091/sso/index.html");
-			return;
+			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/login.html");
+			return result;
 		}
 	}
 	
@@ -160,20 +169,31 @@ public class LoginController {
 		
 	//获取验证码
 		@RequestMapping(value = "/getCode",method = RequestMethod.GET)
-		public String getCode1(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException {
+		public String getCode(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException {
+			Object code = redisTemplate.opsForValue().get(session.getId()+"code");//
 			OutputStream os = response.getOutputStream();
 			VeriCodeVO vo = VeriCodeUtil.generateVeriCode();
 			response.setHeader("Pragma", "no-cache");
 			response.setHeader("Cache-Control", "no-cache");
 			response.setDateHeader("Expires", 0);
 			response.setContentType("image/jpeg");
-			System.out.println(vo.getVeriCode());
-			session.setAttribute("veriCode", vo.getVeriCode());
-			session.getAttribute("token");
-			ImageIO.write(vo.getBufferedImage(), "jpeg", os);
+//			response.setHeader("Access-Control-Allow-Origin","*");
+//			response.setHeader("Access-Control-Allow-Credentials","true");
+//	        response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");  
+//	        response.setHeader("Access-Control-Max-Age", "3600");  
+//	        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Cache-Control, token");
+			System.out.println("验证码："+vo.getVeriCode());
+			Long lon = redisTemplate.getExpire(session.getId()+"code",TimeUnit.SECONDS);
+			System.out.println("验证码有效时间剩余："+lon+"秒");
+			redisTemplate.opsForValue().set(session.getId()+"code", vo.getVeriCode());//存储验证码到reids
+			redisTemplate.expire(session.getId()+"code", 10, TimeUnit.SECONDS);//设置超时时间10秒 第三个参数控制时间单位，详情查看TimeUnit
+//			ImageIO.write(vo.getBufferedImage(), "jpeg", os);
+//			response.setContentType("application/json");
+//			session.setAttribute("code", vo.getVeriCode());
 			return vo.getVeriCode();
 		}
 	
+	//检查token是否有效
 	@RequestMapping(value = "/checkSsoToken",method = RequestMethod.POST)
 	public String checkSsoToken(String ssoToken,String reqUrl,String sessionId,HttpServletResponse response,HttpServletRequest request) {
 		HttpSession session = request.getSession();getClass();
@@ -196,10 +216,8 @@ public class LoginController {
 		String ii = session.getId();
 		if(token==null) {
 			//未登录 跳去登录页面
-			response.sendRedirect("http://localhost:9091/sso/index.html?reqUrl="+reqUrl);
+			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/login.html?reqUrl="+reqUrl);
 		}else{
-			//sso token 存在，去crm校验token是否有效
-//			loginRemote.saveCrmToken(token.toString());
 			//跳转目标页面
 			response.sendRedirect(reqUrl+"?token="+token+"&sessionId="+session.getId());
 		}
@@ -216,13 +234,13 @@ public class LoginController {
 			session.removeAttribute("token");
 			session.removeAttribute("isLogin");
 			//将所有系统的session都注销掉（目前只注销crm）
-			response.sendRedirect("http://localhost:9090/crm/distorySession");
+			response.sendRedirect("http://"+crmLocalhostIp+"/crm/distorySession");
 			
 			//注销所有会话后，返回到登录页面（据说，senRedirect后面的语句会继续执行，除非return）
-			response.sendRedirect("http://localhost:9091/sso/index.html");
+			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/login.html");
 		}else{
 			//跳转退出失败 提示页面
-			response.sendRedirect("http://localhost:9091/sso/error.html");
+			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/error.html");
 		}
 	}
 	
