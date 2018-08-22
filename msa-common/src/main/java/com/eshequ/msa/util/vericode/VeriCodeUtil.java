@@ -58,7 +58,7 @@ public class VeriCodeUtil {
 		}
 		
 		VeriCodeVO vo = new VeriCodeVO();
-		vo.setVeriCode(random.toString());
+		vo.setVeriCode(randomCode.toString());
 		vo.setBufferedImage(buffImg);
 		return vo;
 
