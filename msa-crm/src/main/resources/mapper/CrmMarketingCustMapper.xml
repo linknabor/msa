@@ -3,8 +3,14 @@
 <mapper namespace="com.eshequ.msa.crm.mapper.CrmMarketingCustMapper">
   <resultMap id="BaseResultMap" type="com.eshequ.msa.crm.model.CrmMarketingCust">
     <id column="CUST_ID" jdbcType="BIGINT" property="custId" />
-    <result column="CUST_NAME" jdbcType="CHAR" property="custName" />
-    <result column="CUST_ADDR" jdbcType="CHAR" property="custAddr" />
+    <result column="HOU_COUNT" jdbcType="DECIMAL" property="houCount" />
+    <result column="YEAR_AMT" jdbcType="DECIMAL" property="yearAmt" />
+    <result column="QUALIFICATION_LEVEL" jdbcType="CHAR" property="qualificationLevel" />
+    <result column="SALE_STATUS" jdbcType="CHAR" property="saleStatus" />
+    <result column="GROUP_COM" jdbcType="VARCHAR" property="groupCom" />
+    <result column="SYS_OPERID" jdbcType="BIGINT" property="sysOperid" />
+    <result column="CUST_NAME" jdbcType="VARCHAR" property="custName" />
+    <result column="CUST_ADDR" jdbcType="VARCHAR" property="custAddr" />
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
     <result column="REGION_ID" jdbcType="BIGINT" property="regionId" />
     <result column="CITY_ID" jdbcType="BIGINT" property="cityId" />
