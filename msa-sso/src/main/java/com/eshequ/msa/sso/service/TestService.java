@@ -11,4 +11,6 @@ public interface TestService {
 	
 	String testHttp();
 	
+	String testMultiDataSource();
+	
 }
