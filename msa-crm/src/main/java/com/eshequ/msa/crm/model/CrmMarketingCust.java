@@ -1,10 +1,22 @@
 package com.eshequ.msa.crm.model;
 
-import javax.persistence.Id;
+import com.eshequ.msa.common.BaseModel;
+import java.math.BigDecimal;
 
-public class CrmMarketingCust {
-	@Id
-    private Long custId;
+public class CrmMarketingCust extends BaseModel {
+    private String custId;
+
+    private BigDecimal houCount;
+
+    private BigDecimal yearAmt;
+
+    private String qualificationLevel;
+
+    private String saleStatus;
+
+    private String groupCom;
+
+    private String sysOperid;
 
     private String custName;
 
@@ -12,75 +24,125 @@ public class CrmMarketingCust {
 
     private String remark;
 
-    private Long regionId;
+    private String regionId;
 
-    private Long cityId;
+    private String cityId;
 
-    private Long provinceId;
+    private String provinceId;
 
     private Long industryId;
 
-    public Long getCustId() {
-        return custId;
-    }
+	public String getCustId() {
+		return custId;
+	}
 
-    public void setCustId(Long custId) {
-        this.custId = custId;
-    }
+	public void setCustId(String custId) {
+		this.custId = custId;
+	}
 
-    public String getCustName() {
-        return custName;
-    }
+	public BigDecimal getHouCount() {
+		return houCount;
+	}
 
-    public void setCustName(String custName) {
-        this.custName = custName;
-    }
+	public void setHouCount(BigDecimal houCount) {
+		this.houCount = houCount;
+	}
 
-    public String getCustAddr() {
-        return custAddr;
-    }
+	public BigDecimal getYearAmt() {
+		return yearAmt;
+	}
 
-    public void setCustAddr(String custAddr) {
-        this.custAddr = custAddr;
-    }
+	public void setYearAmt(BigDecimal yearAmt) {
+		this.yearAmt = yearAmt;
+	}
 
-    public String getRemark() {
-        return remark;
-    }
+	public String getQualificationLevel() {
+		return qualificationLevel;
+	}
 
-    public void setRemark(String remark) {
-        this.remark = remark;
-    }
+	public void setQualificationLevel(String qualificationLevel) {
+		this.qualificationLevel = qualificationLevel;
+	}
 
-    public Long getRegionId() {
-        return regionId;
-    }
+	public String getSaleStatus() {
+		return saleStatus;
+	}
 
-    public void setRegionId(Long regionId) {
-        this.regionId = regionId;
-    }
+	public void setSaleStatus(String saleStatus) {
+		this.saleStatus = saleStatus;
+	}
 
-    public Long getCityId() {
-        return cityId;
-    }
+	public String getGroupCom() {
+		return groupCom;
+	}
 
-    public void setCityId(Long cityId) {
-        this.cityId = cityId;
-    }
+	public void setGroupCom(String groupCom) {
+		this.groupCom = groupCom;
+	}
 
-    public Long getProvinceId() {
-        return provinceId;
-    }
+	public String getSysOperid() {
+		return sysOperid;
+	}
 
-    public void setProvinceId(Long provinceId) {
-        this.provinceId = provinceId;
-    }
+	public void setSysOperid(String sysOperid) {
+		this.sysOperid = sysOperid;
+	}
 
-    public Long getIndustryId() {
-        return industryId;
-    }
+	public String getCustName() {
+		return custName;
+	}
 
-    public void setIndustryId(Long industryId) {
-        this.industryId = industryId;
-    }
+	public void setCustName(String custName) {
+		this.custName = custName;
+	}
+
+	public String getCustAddr() {
+		return custAddr;
+	}
+
+	public void setCustAddr(String custAddr) {
+		this.custAddr = custAddr;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
+	public String getRegionId() {
+		return regionId;
+	}
+
+	public void setRegionId(String regionId) {
+		this.regionId = regionId;
+	}
+
+	public String getCityId() {
+		return cityId;
+	}
+
+	public void setCityId(String cityId) {
+		this.cityId = cityId;
+	}
+
+	public String getProvinceId() {
+		return provinceId;
+	}
+
+	public void setProvinceId(String provinceId) {
+		this.provinceId = provinceId;
+	}
+
+	public Long getIndustryId() {
+		return industryId;
+	}
+
+	public void setIndustryId(Long industryId) {
+		this.industryId = industryId;
+	}
+
+    
 }
