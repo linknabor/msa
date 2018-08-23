@@ -30,4 +30,3 @@ Someobj somObj = objectMapper.readValue(respJson, Someobj.class);
 2)对象转json字符串
 ObjectMapper mapper = new ObjectMapper();
 String requestJsonStr = mapper.writeValueAsString(map);	//map 转json
-

@@ -8,4 +8,10 @@ public class LoginFeignFallBack implements LoginRemote{
 		return "错误";
 	}
 
+	@Override
+	public String cancellation() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

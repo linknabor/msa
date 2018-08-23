@@ -3,7 +3,9 @@ package com.eshequ.msa.sso.web;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -35,7 +37,7 @@ import com.google.gson.Gson;
 
 
 @RestController
-public class LoginController {
+public class LoginController extends BaseController{
 	@Autowired 
 	private LoginService loginService;
 	@Autowired
@@ -59,13 +61,16 @@ public class LoginController {
 		tpSysName = "系统";
 		HttpSession session = request.getSession();
 		Map<String,String> result  = new HashMap<String,String>();
+		List<String> allowedOrigins = Arrays.asList("http://192.168.0.115:9090", "http://localhost:9090", "http://login.stalary.com");
+		String origin = request.getHeader("Origin");
+		response.setHeader("Access-Control-Allow-Origin", allowedOrigins.contains(origin) ? origin : "");
 //		String code = session.getAttribute("veriCode").toString();
 		String sessionId = session.getId();
 		Object code = redisTemplate.opsForValue().get(sessionId+"code");//redis中的验证码
 		if(code == null) {
 			//验证码过期，请重新生成验证码
-			result.put("result", "02");
-			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/login.html");
+			result.put("result", "03");
+//			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/login.html");
 			return result;
 		}
 		if(veriCode.equals(code)) {
@@ -93,7 +98,8 @@ public class LoginController {
 		}
 		}else {
 			//验证码不正确，跳转到登录页面
-			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/login.html");
+			result.put("result", "02");
+//			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/login.html");
 			return result;
 		}
 	}
@@ -170,33 +176,26 @@ public class LoginController {
 	//获取验证码
 		@RequestMapping(value = "/getCode",method = RequestMethod.GET)
 		public String getCode(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException {
-			Object code = redisTemplate.opsForValue().get(session.getId()+"code");//
+ 			Object code = redisTemplate.opsForValue().get(session.getId()+"code");//
 			OutputStream os = response.getOutputStream();
 			VeriCodeVO vo = VeriCodeUtil.generateVeriCode();
 			response.setHeader("Pragma", "no-cache");
 			response.setHeader("Cache-Control", "no-cache");
 			response.setDateHeader("Expires", 0);
 			response.setContentType("image/jpeg");
-//			response.setHeader("Access-Control-Allow-Origin","*");
-//			response.setHeader("Access-Control-Allow-Credentials","true");
-//	        response.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, OPTIONS, DELETE");  
-//	        response.setHeader("Access-Control-Max-Age", "3600");  
-//	        response.setHeader("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, Cache-Control, token");
 			System.out.println("验证码："+vo.getVeriCode());
 			Long lon = redisTemplate.getExpire(session.getId()+"code",TimeUnit.SECONDS);
 			System.out.println("验证码有效时间剩余："+lon+"秒");
 			redisTemplate.opsForValue().set(session.getId()+"code", vo.getVeriCode());//存储验证码到reids
-			redisTemplate.expire(session.getId()+"code", 10, TimeUnit.SECONDS);//设置超时时间10秒 第三个参数控制时间单位，详情查看TimeUnit
+			redisTemplate.expire(session.getId()+"code", 90, TimeUnit.SECONDS);//设置超时时间10秒 第三个参数控制时间单位，详情查看TimeUnit
 //			ImageIO.write(vo.getBufferedImage(), "jpeg", os);
-//			response.setContentType("application/json");
-//			session.setAttribute("code", vo.getVeriCode());
 			return vo.getVeriCode();
 		}
 	
 	//检查token是否有效
 	@RequestMapping(value = "/checkSsoToken",method = RequestMethod.POST)
-	public String checkSsoToken(String ssoToken,String reqUrl,String sessionId,HttpServletResponse response,HttpServletRequest request) {
-		HttpSession session = request.getSession();getClass();
+	public String checkSsoToken(String ssoToken,String sessionId,HttpServletResponse response,HttpServletRequest request) {
+		HttpSession session = request.getSession();
 		String s = session.getId();
 		String isToken = "false";
 		Gson gson = new Gson();
@@ -227,20 +226,23 @@ public class LoginController {
 	@RequestMapping(value = "/exitCenter",method = RequestMethod.GET)
 	public void exitCenter(String sysName,String token,HttpServletResponse response,HttpServletRequest request) throws IOException {
 		HttpSession session = request.getSession();
-		Object ssoToken = session.getAttribute("token");//sso token
-		String ii = session.getId();
+		String ssoToken = (String)session.getAttribute("token");//sso的token
+//		String ssoToken = (String)redisTemplate.opsForValue().get(session.getId());//sso token
+		String sessionId = session.getId();
+//		String s = loginRemote.testFeign(ssoToken,sessionId);
 		if(token.equals(ssoToken)) {
 			//token验证成功，销毁sso全局会话
-			session.removeAttribute("token");
-			session.removeAttribute("isLogin");
-			//将所有系统的session都注销掉（目前只注销crm）
-			response.sendRedirect("http://"+crmLocalhostIp+"/crm/distorySession");
+//			session.removeAttribute("token");//删除sso的session token
+//			session.removeAttribute("isLogin");//删除sso登录状态
+//			redisTemplate.delete(session.getId());//删除redis中存储的sso的token
 			
+			//将所有系统的session都注销掉（目前只注销crm）
+			String s = loginRemote.testFeign(ssoToken,sessionId);//这是sso-->crm的会话
 			//注销所有会话后，返回到登录页面（据说，senRedirect后面的语句会继续执行，除非return）
-			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/login.html");
+//			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/login.html");
 		}else{
 			//跳转退出失败 提示页面
-			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/error.html");
+//			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/error.html");
 		}
 	}
 	

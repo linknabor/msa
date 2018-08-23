@@ -9,12 +9,14 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.context.annotation.Profile;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 
 /**
@@ -26,6 +28,8 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 @Profile("dev-multi-datasource")
 @MapperScan(basePackages = "com.eshequ.msa.sso.mapper", sqlSessionFactoryRef = "masterSqlSessionFactory")
 public class MasterDataSourceConfig {
+	@Value("${mybatis.mapper.resource}")
+	private String mapperResource;
 
 	@Bean
 	@Primary
@@ -53,6 +57,8 @@ public class MasterDataSourceConfig {
     	
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
         sessionFactory.setDataSource(masterDataSource);
+        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        sessionFactory.setMapperLocations(resolver.getResources(mapperResource));
         return sessionFactory.getObject();
     }
 	
