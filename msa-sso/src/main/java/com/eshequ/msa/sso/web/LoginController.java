@@ -194,8 +194,8 @@ public class LoginController extends BaseController{
 	
 	//检查token是否有效
 	@RequestMapping(value = "/checkSsoToken",method = RequestMethod.POST)
-	public String checkSsoToken(String ssoToken,String reqUrl,String sessionId,HttpServletResponse response,HttpServletRequest request) {
-		HttpSession session = request.getSession();getClass();
+	public String checkSsoToken(String ssoToken,String sessionId,HttpServletResponse response,HttpServletRequest request) {
+		HttpSession session = request.getSession();
 		String s = session.getId();
 		String isToken = "false";
 		Gson gson = new Gson();
@@ -226,20 +226,23 @@ public class LoginController extends BaseController{
 	@RequestMapping(value = "/exitCenter",method = RequestMethod.GET)
 	public void exitCenter(String sysName,String token,HttpServletResponse response,HttpServletRequest request) throws IOException {
 		HttpSession session = request.getSession();
-		Object ssoToken = session.getAttribute("token");//sso token
-		String ii = session.getId();
+		String ssoToken = (String)session.getAttribute("token");//sso的token
+//		String ssoToken = (String)redisTemplate.opsForValue().get(session.getId());//sso token
+		String sessionId = session.getId();
+//		String s = loginRemote.testFeign(ssoToken,sessionId);
 		if(token.equals(ssoToken)) {
 			//token验证成功，销毁sso全局会话
-			session.removeAttribute("token");
-			session.removeAttribute("isLogin");
-			//将所有系统的session都注销掉（目前只注销crm）
-			response.sendRedirect("http://"+crmLocalhostIp+"/crm/distorySession");
+//			session.removeAttribute("token");//删除sso的session token
+//			session.removeAttribute("isLogin");//删除sso登录状态
+//			redisTemplate.delete(session.getId());//删除redis中存储的sso的token
 			
+			//将所有系统的session都注销掉（目前只注销crm）
+			String s = loginRemote.testFeign(ssoToken,sessionId);//这是sso-->crm的会话
 			//注销所有会话后，返回到登录页面（据说，senRedirect后面的语句会继续执行，除非return）
-			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/login.html");
+//			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/login.html");
 		}else{
 			//跳转退出失败 提示页面
-			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/error.html");
+//			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/error.html");
 		}
 	}
 	

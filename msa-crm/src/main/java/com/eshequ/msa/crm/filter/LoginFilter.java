@@ -55,8 +55,6 @@ public class LoginFilter implements Filter {
 			//如果是检查token页面，不予拦截
 			chain.doFilter(request, response);
 		}else {
-			System.out.println(requestUri);
-			System.out.println(httpSession.getId());
 			Boolean isLogin = (Boolean) httpSession.getAttribute("isLogin");//根据是否有token判断是否登录(crm token)
 			StringBuffer urlBuf = request.getRequestURL();
 			String reqUrl  = urlBuf.toString();
@@ -66,7 +64,7 @@ public class LoginFilter implements Filter {
 //				response.setHeader("location", reqUrl);
 				chain.doFilter(request, response);
 			}else if(ssoToken != null) {
-				isToken = loginRemote.checkSsoToken(ssoToken, reqUrl,sessionId);//检验token是否真实
+				isToken = loginRemote.checkSsoToken(ssoToken,sessionId);//检验token是否真实
 				if(isToken.equals("true")) {
 					//真实有效
 					//如果未登录，设置为登录状态
