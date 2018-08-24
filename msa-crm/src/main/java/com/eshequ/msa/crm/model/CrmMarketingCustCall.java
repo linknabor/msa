@@ -1,6 +1,8 @@
 package com.eshequ.msa.crm.model;
 
-public class CrmMarketingCustCall {
+import com.eshequ.msa.common.BaseModel;
+
+public class CrmMarketingCustCall extends BaseModel {
     private String callId;
 
     private String callDate;

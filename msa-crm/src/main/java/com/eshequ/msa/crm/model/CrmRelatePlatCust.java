@@ -1,6 +1,8 @@
 package com.eshequ.msa.crm.model;
 
-public class CrmRelatePlatCust {
+import com.eshequ.msa.common.BaseModel;
+
+public class CrmRelatePlatCust extends BaseModel {
     private Long custId;
 
     private String enterpriseId;

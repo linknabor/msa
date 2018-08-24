@@ -1,6 +1,8 @@
 package com.eshequ.msa.crm.model;
 
-public class CrmChannel {
+import com.eshequ.msa.common.BaseModel;
+
+public class CrmChannel extends BaseModel {
     private String channelId;
 
     private String channelName;

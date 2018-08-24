@@ -1,6 +1,8 @@
 package com.eshequ.msa.crm.model;
 
-public class CrmAftersaleService {
+import com.eshequ.msa.common.BaseModel;
+
+public class CrmAftersaleService extends BaseModel {
     private String serviceId;
 
     private String recordDate;

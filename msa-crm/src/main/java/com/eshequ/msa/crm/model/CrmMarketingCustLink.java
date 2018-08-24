@@ -1,6 +1,8 @@
 package com.eshequ.msa.crm.model;
 
-public class CrmMarketingCustLink {
+import com.eshequ.msa.common.BaseModel;
+
+public class CrmMarketingCustLink extends BaseModel {
     private String linkId;
 
     private String defaultFlag;

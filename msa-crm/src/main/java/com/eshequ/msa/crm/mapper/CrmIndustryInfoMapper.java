@@ -1,8 +1,9 @@
 package com.eshequ.msa.crm.mapper;
 
+import com.eshequ.msa.common.CommonMapper;
 import com.eshequ.msa.crm.model.CrmIndustryInfo;
 
-public interface CrmIndustryInfoMapper {
+public interface CrmIndustryInfoMapper extends CommonMapper<CrmIndustryInfo> {
     int deleteByPrimaryKey(Long industryId);
 
     int insert(CrmIndustryInfo record);

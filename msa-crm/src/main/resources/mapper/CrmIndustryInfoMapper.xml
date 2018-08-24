@@ -5,5 +5,4 @@
     <id column="INDUSTRY_ID" jdbcType="BIGINT" property="industryId" />
     <result column="INDUSTRY_NAME" jdbcType="CHAR" property="industryName" />
   </resultMap>
-  
 </mapper>
