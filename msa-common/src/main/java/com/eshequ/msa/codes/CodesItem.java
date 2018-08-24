@@ -1,125 +1,94 @@
-package com.eshequ.msa.codes;																															
-/**Auto Created by VBScript Do not modify!*/
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.PostConstruct;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
-
-import com.eshequ.msa.codes.mapper.CodeInfoMapper;
-import com.eshequ.msa.codes.model.CodeInfo;
-import com.eshequ.msa.exception.NotFoundException;                                                                    
-                                
-@Component
-public abstract class CodesItem {
-	
-	private static CodeInfoMapper mapper;
-	
-	@Autowired
-	private CodeInfoMapper codeInfoMapper;
-	
-	/**å•ä½çŠ¶æ€   */
+package com.eshequ.msa.codes;																																
+/**Auto Created by VBScript Do not modify!*/																								 	
+import java.util.ArrayList;                                                                 	
+import java.util.Collections;                                                         				
+import java.util.Comparator;                                                    							
+import java.util.HashMap;                                       															
+import java.util.Iterator;                                      															
+import java.util.List;                                                           						
+import java.util.Map;                                                           							
+import javax.annotation.PostConstruct;                                                       
+import org.springframework.beans.factory.annotation.Autowired;                               
+import org.springframework.stereotype.Component;                                             
+import com.eshequ.msa.codes.mapper.CodeInfoMapper;                                           
+import com.eshequ.msa.codes.model.CodeInfo;                                                  
+import com.eshequ.msa.exception.NotFoundException;                                           
+@Component                                                                                   
+public abstract class CodesItem {                                                      			
+	/**µ¥Î»×´Ì¬   */
 	protected static final String orgStatus=new String("50");
-	/**è´¦å•æ”¶è´¹ç±»å‹   */
-	protected static final String billFeeType=new String("51");
-	/**å‘ç¥¨å¼€å…·ç±»å‹   */
+	/**·¢Æ±¿ª¾ßÀàĞÍ   */
 	protected static final String invoiceType=new String("52");
-	/**å‘ç¥¨å¼€å…·çŠ¶æ€   */
+	/**·¢Æ±¿ª¾ß×´Ì¬   */
 	protected static final String invoiceStatus=new String("53");
-	/**å‘ç¥¨ç”³è¯·ç±»å‹   */
+	/**·¢Æ±ÉêÇëÀàĞÍ   */
 	protected static final String invoiceApplyType=new String("54");
-	/**ä¿¡æ¯çŠ¶æ€   */
-	protected static final String infoState=new String("17");
-	/**ç‰©ä¸šé¡¹ç›®æ€§è´¨   */
+	/**ÎïÒµÏîÄ¿ĞÔÖÊ   */
 	protected static final String proCreateType=new String("18");
-	/**ç‰©ä¸šé¡¹ç›®ç±»å‹   */
+	/**ÎïÒµÏîÄ¿ÀàĞÍ   */
 	protected static final String sectType=new String("19");
-	/**çŠ¶æ€   */
+	/**×´Ì¬   */
 	protected static final String infoStatus=new String("20");
-	/**å»ºç­‘ç±»å‹   */
+	/**½¨ÖşÀàĞÍ   */
 	protected static final String buildType=new String("21");
-	/**æ˜¯å¦æ ‡å¿—   */
+	/**ÊÇ·ñ±êÖ¾   */
 	protected static final String isFlag=new String("22");
-	/**æˆ·å‹   */
+	/**»§ĞÍ   */
 	protected static final String houseModel=new String("23");
-	/**è½¦ä½ç±»å‹   */
+	/**³µÎ»ÀàĞÍ   */
 	protected static final String carportType=new String("24");
-	/**æœå‘   */
+	/**³¯Ïò   */
 	protected static final String ward=new String("25");
-	/**å•†é“ºç±»å‹   */
+	/**ÉÌÆÌÀàĞÍ   */
 	protected static final String shopsType=new String("26");
-	/**å¹¿å‘Šä½ç±»å‹   */
+	/**¹ã¸æÎ»ÀàĞÍ   */
 	protected static final String adLocateType=new String("27");
-	/**ç‰©ä¸šå•å…ƒæ€§è´¨   */
+	/**ÎïÒµµ¥ÔªĞÔÖÊ   */
 	protected static final String mngCellKind=new String("28");
-	/**ç‰©ä¸šäº§æƒæ€§è´¨   */
+	/**ÎïÒµ²úÈ¨ĞÔÖÊ   */
 	protected static final String housePropertyKind=new String("29");
-	/**ç”µæ¢¯æ ‡å¿—   */
+	/**µçÌİ±êÖ¾   */
 	protected static final String liftFlag=new String("30");
-	/**å»ºç­‘ç”¨é€”   */
+	/**½¨ÖşÓÃÍ¾   */
 	protected static final String buildUsage=new String("31");
-	/**ç‰©ä¸šå•å…ƒç±»å‹   */
+	/**ÎïÒµµ¥ÔªÀàĞÍ   */
 	protected static final String mngCellType=new String("32");
-	/**åœè½¦ç±»å‹   */
+	/**Í£³µÀàĞÍ   */
 	protected static final String parkType=new String("33");
-	/**è½¦è¾†ç±»å‹   */
+	/**³µÁ¾ÀàĞÍ   */
 	protected static final String carType=new String("34");
-	/**é¢œè‰²   */
+	/**ÑÕÉ«   */
 	protected static final String colour=new String("35");
-	/**è½¦è¾†å½’å±   */
+	/**³µÁ¾¹éÊô   */
 	protected static final String carOwnerType=new String("36");
-	/**ç¼´è´¹ç™»è®°æ—¥æœŸç±»å‹   */
-	protected static final String feeDateType=new String("37");
-	/**è¯ä»¶ç±»å‹   */
+	/**Ö¤¼şÀàĞÍ   */
 	protected static final String certType=new String("38");
-	/**å®¢æˆ·ç±»å‹   */
+	/**¿Í»§ÀàĞÍ   */
 	protected static final String custType=new String("39");
-	/**å®¢æˆ·æ€§è´¨   */
+	/**¿Í»§ĞÔÖÊ   */
 	protected static final String custKind=new String("40");
-	/**æ”¯ä»˜æ¸ é“   */
+	/**Ö§¸¶ÇşµÀ   */
 	protected static final String payMethod=new String("41");
-	/**æ”¯ä»˜å¹³å°   */
+	/**Ö§¸¶Æ½Ì¨   */
 	protected static final String platChannel=new String("42");
-	/**å•†æˆ·ç±»å‹   */
+	/**ÉÌ»§ÀàĞÍ   */
 	protected static final String mchType=new String("43");
-	/**æ”¯ä»˜äº¤æ˜“çŠ¶æ€   */
+	/**Ö§¸¶½»Ò××´Ì¬   */
 	protected static final String tradeState=new String("44");
-	/**é€€æ¬¾äº¤æ˜“çŠ¶æ€   */
+	/**ÍË¿î½»Ò××´Ì¬   */
 	protected static final String refundState=new String("45");
-	/**äº§å“ç‰ˆæœ¬   */
+	/**²úÆ·°æ±¾   */
 	protected static final String productVersion=new String("46");
-	/**è®°è´¦æ–¹å¼   */
-	protected static final String acctMethod=new String("47");
-	/**è´¦å•äº¤æ˜“çŠ¶æ€   */
-	protected static final String mergerStatus=new String("48");
-	/**é“¶è¡Œå¡ç±»å‹   */
+	/**ÒøĞĞ¿¨ÀàĞÍ   */
 	protected static final String cardType=new String("49");
 
-	public CodesItem() {
-		super();
-	}
-	
-	@PostConstruct
-    public void init() {
-		mapper = this.codeInfoMapper;
-    }
-	
+
 	protected static final Map mapCat= new HashMap(100);
 	static{
 		mapCat.put("OrgStatus",orgStatus);
-		mapCat.put("InfoStatus",infoStatus);
-		mapCat.put("BillFeeType",billFeeType);
 		mapCat.put("InvoiceType",invoiceType);
 		mapCat.put("InvoiceStatus",invoiceStatus);
 		mapCat.put("InvoiceApplyType",invoiceApplyType);
-		mapCat.put("InfoState",infoState);
 		mapCat.put("ProCreateType",proCreateType);
 		mapCat.put("SectType",sectType);
 		mapCat.put("InfoStatus",infoStatus);
@@ -139,7 +108,6 @@ public abstract class CodesItem {
 		mapCat.put("CarType",carType);
 		mapCat.put("Colour",colour);
 		mapCat.put("CarOwnerType",carOwnerType);
-		mapCat.put("FeeDateType",feeDateType);
 		mapCat.put("CertType",certType);
 		mapCat.put("CustType",custType);
 		mapCat.put("CustKind",custKind);
@@ -149,83 +117,87 @@ public abstract class CodesItem {
 		mapCat.put("TradeState",tradeState);
 		mapCat.put("RefundState",refundState);
 		mapCat.put("ProductVersion",productVersion);
-		mapCat.put("AcctMethod",acctMethod);
-		mapCat.put("MergerStatus",mergerStatus);
 		mapCat.put("CardType",cardType);
 	}
 
 
 	protected static final  Map mapCategoryCode=new HashMap(100);																			
 	protected static final  Map mapCodeObject=new HashMap(100);																				
+ private static CodeInfoMapper mapper;
+ @Autowired
+ private CodeInfoMapper codeInfoMapper;
 	public boolean equals(String obj) {                                                               
-		return this.code.equals(obj);                                                        
+		return this.code.equals(obj);                                                        						
 	}                                                                                                 
 	public boolean equals(Object obj) {  
-		return this.code.equals(obj);                                                           
-	}                                                                                            
+		return this.code.equals(obj);                                                           				
+	}                                                                                            			
 	public String toString(){ return this.code; }                                                     
 	                                                                                                  
-	/**æ ¹æ®æŒ‡å®šçš„ä»£ç å€¼è½¬æ¢æˆä¸­æ–‡åå­—                                                                 
-	 * @param category   æœ¬ä»£ç æ‰€å±çš„ç±»åˆ«çš„ç¼–å·                                                       
-	 * @param code   æœ¬ä»£ç çš„ä»£ç å€¼                                                                   
+	/**¸ù¾İÖ¸¶¨µÄ´úÂëÖµ×ª»»³ÉÖĞÎÄÃû×Ö                                                                 
+	 * @param category   ±¾´úÂëËùÊôµÄÀà±ğµÄ±àºÅ                                                       
+	 * @param code   ±¾´úÂëµÄ´úÂëÖµ                                                                   
 	 * @return                                                                                        
 	 * @throws                                                                                        
 	 */                                                                                               
 	protected static String getValue(String category,String code){                                    
-		@SuppressWarnings("rawtypes")
 		Map map=(Map)mapCategoryCode.get(category);                                                     
-		if(map==null) return "";                                    						              
-		String temp=(String)map.get(code);                                    						  
-		return (temp==null)? "" : temp;                                    								
-	}              
-	
-	public static List<CodeInfo> getCodeList(String categoryCode){
-        List<CodeInfo> list = new ArrayList<CodeInfo>();
-        Map mp = (Map)mapCategoryCode.get(categoryCode);
-        if(mp==null) return list;
-        String temp;
-        for (Iterator it = mp.keySet().iterator(); it.hasNext();){
-            temp = (String)it.next();
-            CodeInfo codeInfo = new CodeInfo();
-            codeInfo.setCiSpClass(categoryCode);
-            codeInfo.setCiSpCode(temp);
-            codeInfo.setCiSpName((String)mp.get(temp));
-            list.add(codeInfo);
-        }
-
-        //æ’åº
-        Collections.sort(list, new Comparator<CodeInfo>() {
-            @Override
-            public int compare(CodeInfo o1, CodeInfo o2) {
-                int i = o1.getCiSpCode().compareTo(o2.getCiSpCode());
-                if (i==0) {
-                    return o1.getCiSpName().compareTo(o2.getCiSpName());
-                }
-                return i;
-            }
-        });
-
-        return list;
-    }         
-	
-	public static Map getCategoryItems(String categoryName){
-		String categoryCode = (String)mapCat.get(categoryName);
-		if(categoryCode==null)
-			throw new RuntimeException(categoryName + "ä»£ç å¤§ç±»åˆ«æœªè¿›è¡Œåˆå§‹åŒ–ï¼");
-		Map mp=(Map)mapCategoryCode.get(categoryCode);
-		return mp;
+		if(map==null) return "";                                    						              				
+		String temp=(String)map.get(code);                                    						  						
+		return (temp==null)? "" : temp;                                    														
 	}
-	/**ç›´æ¥è½¬æ¢æˆä¸­æ–‡åå­—                                                                             
-	 * @æ— å‚æ•°                                                                                        
+
+		public static List<CodeInfo> getCodeList(String categoryCode){
+		   List<CodeInfo> list = new ArrayList<CodeInfo>();
+		   Map mp = (Map)mapCategoryCode.get(categoryCode);
+		   if(mp==null) return list;
+		   String temp;
+		   for (Iterator it = mp.keySet().iterator(); it.hasNext();){
+		      temp = (String)it.next();
+		      CodeInfo codeInfo = new CodeInfo();
+		      codeInfo.setCiSpClass(categoryCode);
+		      codeInfo.setCiSpCode(temp);
+		      codeInfo.setCiSpName((String)mp.get(temp));
+		      list.add(codeInfo);
+		      }
+		      Collections.sort(list, new Comparator<CodeInfo>() {
+		         @Override
+		         public int compare(CodeInfo o1, CodeInfo o2) {
+		            int i = o1.getCiSpCode().compareTo(o2.getCiSpCode());
+		      			if (i==0) {return o1.getCiSpName().compareTo(o2.getCiSpName());}
+		            return i;
+		         }
+		      });
+		      return list;
+   }
+
+		public static Map getCategoryItems(String categoryName){
+		   String categoryCode = (String)mapCat.get(categoryName);
+		   if(categoryCode==null)
+		      throw new RuntimeException(categoryName + "´úÂë´óÀà±ğÎ´½øĞĞ³õÊ¼»¯£¡");
+		   
+		   Map mp=(Map)mapCategoryCode.get(categoryCode);
+		   return mp;
+		}
+
+	/**Ö±½Ó×ª»»³ÉÖĞÎÄÃû×Ö                                                                             
+	 * @ÎŞ²ÎÊı                                                                                        
 	 * @return                                                                                        
 	 */                                                                                               
 	public  String getValue(){                                                                        
 		 return getValue( this.category,this.code);                                                     
 	}                                                                                                 
+	public CodesItem() {
+	}                                                                                                 
+	
+	@PostConstruct                                                                                    
+	public void init() {                                                                              
+	   mapper = this.codeInfoMapper;                                                                  
+	}                                                                                                 
 	/**                                                                                               
-	 * æ„é€ å‡½æ•°.                                                                                      
-	 * @param category   æœ¬ä»£ç æ‰€å±çš„ç±»åˆ«çš„ç¼–å·                                                       
-	 * @param code   æœ¬ä»£ç çš„ä»£ç å€¼                                                                   
+	 * ¹¹Ôìº¯Êı.                                                                                      
+	 * @param category   ±¾´úÂëËùÊôµÄÀà±ğµÄ±àºÅ                                                       
+	 * @param code   ±¾´úÂëµÄ´úÂëÖµ                                                                   
 	 * @return                                                                                        
 	 * @throws                                                                                        
 	 */                                                                                               
@@ -234,14 +206,12 @@ public abstract class CodesItem {
 		this.code=code;                                                                                 
 	}                                                                                                 
 	                                                                                                  
-	protected static final List<CodeInfo> getCodeFromDB(String category) {             
-		
-		List<CodeInfo> list = mapper.selectByClass(category);
-        if(list.size()<1){
-            throw new NotFoundException("å½“å‰ä½¿ç”¨çš„ä»£ç é¡¹åœ¨æ•°æ®åº“æ— æ³•å–åˆ° code="+ category);
-        }
-        return list;
-		
+	protected static final List<CodeInfo> getCodeFromDB(String category) {             							
+			List<CodeInfo> list = mapper.selectByClass(category);                                  
+			if(list.size()<1){	                                                                        
+				throw new NotFoundException("µ±Ç°Ê¹ÓÃµÄ´úÂëÏîÔÚÊı¾İ¿âÎŞ·¨È¡µ½ code=" + category);             
+			}                                                                                     
+		return list;                                                                                      
 	}                                                                                                 
 	private String code;                                                                              
 	protected String category;                                                                        
