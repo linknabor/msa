@@ -26,7 +26,7 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
  */
 @Configuration
 @Profile("dev-multi-datasource")
-@MapperScan(basePackages = "com.eshequ.msa.sso.mapper", sqlSessionFactoryRef = "masterSqlSessionFactory")
+@MapperScan(basePackages = "com.eshequ.msa.crm.mapper", sqlSessionFactoryRef = "masterSqlSessionFactory")
 public class MasterDataSourceConfig {
 	@Value("${mybatis.mapper.resource}")
 	private String mapperResource;
