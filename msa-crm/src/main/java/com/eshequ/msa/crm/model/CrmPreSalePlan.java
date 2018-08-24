@@ -1,6 +1,8 @@
 package com.eshequ.msa.crm.model;
 
-public class CrmPreSalePlan {
+import com.eshequ.msa.common.BaseModel;
+
+public class CrmPreSalePlan extends BaseModel {
     private String planId;
 
     private String saleDate;

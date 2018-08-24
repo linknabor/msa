@@ -1,16 +1,22 @@
 package com.eshequ.msa.crm.model;
 
-import com.eshequ.msa.common.BaseModel;
-
 import java.math.BigDecimal;
 
-import org.springframework.data.annotation.Id;
+import javax.persistence.Id;
 
-public class CrmMarketingCust extends BaseModel {
+import com.eshequ.msa.common.BaseModel;
+
+public class CrmMarketingCust extends BaseModel{
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@Id
-    private long custId;
+    private Long custId;
 
-    private int houCount;
+    private BigDecimal houCount;
 
     private BigDecimal yearAmt;
 
@@ -20,7 +26,7 @@ public class CrmMarketingCust extends BaseModel {
 
     private String groupCom;
 
-    private String sysOperid;
+    private Long sysOperid;
 
     private String custName;
 
@@ -28,125 +34,123 @@ public class CrmMarketingCust extends BaseModel {
 
     private String remark;
 
-    private String regionId;
+    private Long regionId;
 
-    private String cityId;
+    private Long cityId;
 
-    private String provinceId;
+    private Long provinceId;
 
-    private String industryId;
+    private Long industryId;
 
-	public long getCustId() {
-		return custId;
-	}
+    public Long getCustId() {
+        return custId;
+    }
 
-	public void setCustId(long custId) {
-		this.custId = custId;
-	}
+    public void setCustId(Long custId) {
+        this.custId = custId;
+    }
 
-	public int getHouCount() {
-		return houCount;
-	}
+    public BigDecimal getHouCount() {
+        return houCount;
+    }
 
-	public void setHouCount(int houCount) {
-		this.houCount = houCount;
-	}
+    public void setHouCount(BigDecimal houCount) {
+        this.houCount = houCount;
+    }
 
-	public BigDecimal getYearAmt() {
-		return yearAmt;
-	}
+    public BigDecimal getYearAmt() {
+        return yearAmt;
+    }
 
-	public void setYearAmt(BigDecimal yearAmt) {
-		this.yearAmt = yearAmt;
-	}
+    public void setYearAmt(BigDecimal yearAmt) {
+        this.yearAmt = yearAmt;
+    }
 
-	public String getQualificationLevel() {
-		return qualificationLevel;
-	}
+    public String getQualificationLevel() {
+        return qualificationLevel;
+    }
 
-	public void setQualificationLevel(String qualificationLevel) {
-		this.qualificationLevel = qualificationLevel;
-	}
+    public void setQualificationLevel(String qualificationLevel) {
+        this.qualificationLevel = qualificationLevel;
+    }
 
-	public String getSaleStatus() {
-		return saleStatus;
-	}
+    public String getSaleStatus() {
+        return saleStatus;
+    }
 
-	public void setSaleStatus(String saleStatus) {
-		this.saleStatus = saleStatus;
-	}
+    public void setSaleStatus(String saleStatus) {
+        this.saleStatus = saleStatus;
+    }
 
-	public String getGroupCom() {
-		return groupCom;
-	}
+    public String getGroupCom() {
+        return groupCom;
+    }
 
-	public void setGroupCom(String groupCom) {
-		this.groupCom = groupCom;
-	}
+    public void setGroupCom(String groupCom) {
+        this.groupCom = groupCom;
+    }
 
-	public String getSysOperid() {
-		return sysOperid;
-	}
+    public Long getSysOperid() {
+        return sysOperid;
+    }
 
-	public void setSysOperid(String sysOperid) {
-		this.sysOperid = sysOperid;
-	}
+    public void setSysOperid(Long sysOperid) {
+        this.sysOperid = sysOperid;
+    }
 
-	public String getCustName() {
-		return custName;
-	}
+    public String getCustName() {
+        return custName;
+    }
 
-	public void setCustName(String custName) {
-		this.custName = custName;
-	}
+    public void setCustName(String custName) {
+        this.custName = custName;
+    }
 
-	public String getCustAddr() {
-		return custAddr;
-	}
+    public String getCustAddr() {
+        return custAddr;
+    }
 
-	public void setCustAddr(String custAddr) {
-		this.custAddr = custAddr;
-	}
+    public void setCustAddr(String custAddr) {
+        this.custAddr = custAddr;
+    }
 
-	public String getRemark() {
-		return remark;
-	}
+    public String getRemark() {
+        return remark;
+    }
 
-	public void setRemark(String remark) {
-		this.remark = remark;
-	}
+    public void setRemark(String remark) {
+        this.remark = remark;
+    }
 
-	public String getRegionId() {
-		return regionId;
-	}
+    public Long getRegionId() {
+        return regionId;
+    }
 
-	public void setRegionId(String regionId) {
-		this.regionId = regionId;
-	}
+    public void setRegionId(Long regionId) {
+        this.regionId = regionId;
+    }
 
-	public String getCityId() {
-		return cityId;
-	}
+    public Long getCityId() {
+        return cityId;
+    }
 
-	public void setCityId(String cityId) {
-		this.cityId = cityId;
-	}
+    public void setCityId(Long cityId) {
+        this.cityId = cityId;
+    }
 
-	public String getProvinceId() {
-		return provinceId;
-	}
+    public Long getProvinceId() {
+        return provinceId;
+    }
 
-	public void setProvinceId(String provinceId) {
-		this.provinceId = provinceId;
-	}
+    public void setProvinceId(Long provinceId) {
+        this.provinceId = provinceId;
+    }
 
-	public String getIndustryId() {
-		return industryId;
-	}
+    public Long getIndustryId() {
+        return industryId;
+    }
 
-	public void setIndustryId(String industryId) {
-		this.industryId = industryId;
-	}
-
-    
+    public void setIndustryId(Long industryId) {
+        this.industryId = industryId;
+    }
 }

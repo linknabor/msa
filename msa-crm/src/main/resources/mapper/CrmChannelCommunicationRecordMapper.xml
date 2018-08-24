@@ -8,5 +8,4 @@
     <result column="COMMUNICATION_DATE" jdbcType="CHAR" property="communicationDate" />
     <result column="COMMUNICATION_CONTENT" jdbcType="VARCHAR" property="communicationContent" />
   </resultMap>
-  
 </mapper>

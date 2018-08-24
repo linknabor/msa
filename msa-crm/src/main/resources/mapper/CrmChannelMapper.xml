@@ -6,5 +6,4 @@
     <result column="CHANNEL_NAME" jdbcType="VARCHAR" property="channelName" />
     <result column="CHANNEL_TYPE" jdbcType="CHAR" property="channelType" />
   </resultMap>
-  
 </mapper>

@@ -2,16 +2,21 @@ package com.eshequ.msa.crm.service.targetcustimpl;
 
 import java.util.List;
 
+import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import tk.mybatis.mapper.entity.Example;
+
 import com.eshequ.msa.crm.mapper.CrmMarketingCustMapper;
 import com.eshequ.msa.crm.model.CrmMarketingCust;
 import com.eshequ.msa.crm.service.TargetCustService;
 import com.eshequ.msa.crm.vo.targetcust.TargetCustVo;
+import com.eshequ.msa.util.MybatisGeneratorUtil;
 import com.eshequ.msa.util.SnowFlake;
+import com.github.pagehelper.PageHelper;
 
 @Service
 public class TargetCustServiceImpl implements TargetCustService{
@@ -24,10 +29,9 @@ public class TargetCustServiceImpl implements TargetCustService{
 	
 	//查询目标客户
 	@Override
+	@Transactional
 	public List<CrmMarketingCust> targetcustQuery(TargetCustVo vo) {
-		CrmMarketingCust record = new CrmMarketingCust();
-		BeanUtils.copyProperties(vo, record);
-		List<CrmMarketingCust> list = mapper.select(record);
+		List<CrmMarketingCust> list =  mapper.queryCustByExample(vo);
 		return list;
 	}
 
@@ -59,10 +63,30 @@ public class TargetCustServiceImpl implements TargetCustService{
 		mapper.delete(record);
 	}
 
+	//根据主键删除目标客户
 	@Override
 	@Transactional
-	public void targetcustDelById(long id) {
+	public void targetcustDelById(Long id) {
 		mapper.deleteByPrimaryKey(id);
+	}
+
+	//根据条件查询
+	@Override
+	public List<CrmMarketingCust> targetcustQueryByExample(TargetCustVo vo) {
+		Example example = new Example(CrmMarketingCust.class);
+		Example.Criteria criteria = example.createCriteria();
+		//添加条件
+//		criteria.andLike("custName", "%"+ vo.getCustName() + "%");
+//		criteria.andLike("custAddr", "%"+ vo.getCustName() + "%");
+		List<CrmMarketingCust> list = mapper.selectByExample(example);
+		return list;
+	}
+
+	@Override
+	public List<CrmMarketingCust> targetcustQueryAll() {
+		PageHelper.startPage(0, 1, true);
+		List<CrmMarketingCust> list = mapper.selectAll();
+		return list;
 	}
 
 }

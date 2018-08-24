@@ -15,5 +15,4 @@
     <result column="AFTER_SALE_ID" jdbcType="VARCHAR" property="afterSaleId" />
     <result column="CUST_ID" jdbcType="BIGINT" property="custId" />
   </resultMap>
-  
 </mapper>

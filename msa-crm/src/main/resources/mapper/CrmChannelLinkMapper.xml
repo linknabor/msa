@@ -10,5 +10,4 @@
     <result column="POSITION" jdbcType="VARCHAR" property="position" />
     <result column="LINK_ADDR" jdbcType="VARCHAR" property="linkAddr" />
   </resultMap>
-  
 </mapper>
