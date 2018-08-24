@@ -10,8 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.eshequ.msa.sso.entity.SsoUser;
 import com.eshequ.msa.sso.mapper.SsoUserMapper;
+import com.eshequ.msa.sso.model.SsoUser;
 import com.eshequ.msa.sso.service.LoginService;
 import com.eshequ.msa.sso.web.TestController;
 import com.eshequ.msa.util.MD5Util;

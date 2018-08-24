@@ -95,8 +95,7 @@ public class LoginFilter implements Filter {
 //			
 //			
 //		}
-		chain.doFilter(req, resp);
-	}
+		chain.doFilter(req, resp);	}
 
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {

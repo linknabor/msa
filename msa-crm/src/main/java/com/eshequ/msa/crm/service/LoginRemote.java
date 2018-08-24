@@ -9,5 +9,5 @@ import org.springframework.web.bind.annotation.RequestParam;
 public interface LoginRemote {
 	//项目名/controller/接口名
 	@RequestMapping(value="/sso/checkSsoToken",method=RequestMethod.POST)
-	String checkSsoToken(@RequestParam("ssoToken") String token,@RequestParam("reqUrl") String reqUrl,@RequestParam("sessionId") String sessionId);
+	String checkSsoToken(@RequestParam("ssoToken") String token,@RequestParam("sessionId") String sessionId);
 }
