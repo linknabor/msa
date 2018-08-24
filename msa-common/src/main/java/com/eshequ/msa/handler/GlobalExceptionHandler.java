@@ -18,14 +18,14 @@ public class GlobalExceptionHandler<T> {
 
     @SuppressWarnings("unchecked")
 	@ExceptionHandler(BusinessException.class)
-    public BaseResult<T> baseExceptionHandler(BusinessException exception) {
+    public BaseResult<T> businessExceptionHandler(BusinessException exception) {
         logger.error(exception.getMessage(), exception);
         return BaseResult.fail(exception.getMessage());
     }
     
     @SuppressWarnings("unchecked")
-	@ExceptionHandler(BusinessException.class)
-    public BaseResult<T> baseExceptionHandler(AppSysException exception) {
+	@ExceptionHandler(AppSysException.class)
+    public BaseResult<T> appSysExceptionHandler(AppSysException exception) {
         logger.error(exception.getMessage(), exception);
         return BaseResult.fail(exception.getMessage());
     }

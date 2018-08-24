@@ -1,13 +1,7 @@
 package com.eshequ.msa.sso.service;
 
-import java.util.Map;
-
-<<<<<<< HEAD
 import com.eshequ.msa.common.BaseResult;
-import com.eshequ.msa.sso.entity.SsoUser;
-=======
 import com.eshequ.msa.sso.model.SsoUser;
->>>>>>> 5be8fa73112b2a00315dfd8b5b56013c358dbe29
 
 public interface LoginService {
 	/**
