@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.eshequ.msa.common.BaseResult;
 import com.eshequ.msa.sso.entity.SsoUser;
 import com.eshequ.msa.sso.mapper.SsoUserMapper;
 import com.eshequ.msa.sso.service.LoginService;
@@ -28,28 +29,22 @@ public class LoginServiceImpl implements LoginService{
 	
 	//登录
 	@Override
-	public Map<String, String> login(String userName, String password,String tpSysName) {
-		Map<String,String> result  = new HashMap<String,String>();
+	public BaseResult login(String userName, String password,String tpSysName) {
 		try {
 			password = MD5Util.MD5Encode(password, null);//md5加密后匹配数据库中的密码
 			int count = ssoUserMapper.validateLoginUser(userName,password,tpSysName);
 			if(count > 0) {
 				//存在用户
-				result.put("result", "01");
-//				Map<String,String> map = new HashMap<String,String>();
-//				map.put("a", "a");
-//				String a =  httpClientProxy.doPost("http://localhost:9090/crm/testconnect", map, "utf-8");
-//				System.out.println(a);
+				return BaseResult.successResult(1);
 			}else {
 				//没有用户
-				result.put("result", "00");
+				return BaseResult.fail(0, "没有查询到匹配的用户");
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.error(e.toString());
-			result.put("result", "99");
+			return BaseResult.fail(99, "查询用户信息时，发生错误！");
 		}
-		return result;
 	}
 
 	//根据用户名查询用户

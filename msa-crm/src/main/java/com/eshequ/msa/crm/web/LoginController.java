@@ -1,31 +1,13 @@
 package com.eshequ.msa.crm.web;
 
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.view.RedirectView;
-
-import com.eshequ.msa.crm.model.SsoUser;
-import com.eshequ.msa.crm.service.LoginRemote;
-import com.eshequ.msa.util.BeanUtil;
-import com.eshequ.msa.util.VerifyCodeServlet;
-import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 
 @RestController
 public class LoginController {	
@@ -54,8 +36,10 @@ public class LoginController {
 	
 	@RequestMapping(value = "/cancellation",method = RequestMethod.POST)
 	public String cancellation() {
-		String s = "";
-		System.out.println(s);
+			String s = "aaaaaaaaa";
+			System.out.println(s);
+
+		
 		return "";
 	}
 	

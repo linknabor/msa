@@ -2,6 +2,7 @@ package com.eshequ.msa.sso.service;
 
 import java.util.Map;
 
+import com.eshequ.msa.common.BaseResult;
 import com.eshequ.msa.sso.entity.SsoUser;
 
 public interface LoginService {
@@ -12,7 +13,7 @@ public interface LoginService {
 	 * @param tpSysName 第三方系统名称
 	 * @return
 	 */
-	Map<String,String> login(String userName,String password,String tpSysName);
+	BaseResult login(String userName,String password,String tpSysName);
 	
 	/**
 	 * 根据用户名查询用户
