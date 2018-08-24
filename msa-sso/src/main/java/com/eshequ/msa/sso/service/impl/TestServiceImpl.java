@@ -9,8 +9,8 @@ import org.springframework.stereotype.Service;
 
 import com.eshequ.msa.codes.mapper.CodeInfoMapper;
 import com.eshequ.msa.codes.model.CodeInfo;
-import com.eshequ.msa.sso.entity.SsoUser;
 import com.eshequ.msa.sso.mapper.SsoUserMapper;
+import com.eshequ.msa.sso.model.SsoUser;
 //import com.eshequ.msa.sso.mapper.SpServeBillPayTradeMapper;
 //import com.eshequ.msa.sso.model.SpServeBillPayTrade;
 import com.eshequ.msa.sso.service.TestService;

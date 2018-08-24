@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.eshequ.msa.sso.mapper.SsoRoleMapper">
-  <resultMap id="BaseResultMap" type="com.eshequ.msa.sso.entity.SsoRole">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.sso.model.SsoRole">
     <id column="ROLE_ID" jdbcType="BIGINT" property="roleId" />
     <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName" />
   </resultMap>

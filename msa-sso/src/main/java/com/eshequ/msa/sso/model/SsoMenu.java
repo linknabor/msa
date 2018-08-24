@@ -1,4 +1,4 @@
-package com.eshequ.msa.sso.entity;
+package com.eshequ.msa.sso.model;
 
 public class SsoMenu {
     private Long menuId;
