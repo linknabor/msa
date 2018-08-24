@@ -1,4 +1,4 @@
-package com.eshequ.msa.sso.entity;
+package com.eshequ.msa.sso.model;
 
 import javax.persistence.Transient;
 
