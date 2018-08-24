@@ -12,6 +12,6 @@ public interface LoginRemote {
 	String testFeign(@RequestParam("token") String token,@RequestParam("sessionId") String sessionId);
 	
 	//注销crm的账号
-	@RequestMapping(value="/crm/cancellation ",method=RequestMethod.POST)
-	String cancellation();
+	@RequestMapping(value="/crm/cancellation",method=RequestMethod.POST)
+	String cancellation(@RequestParam("token") String token,@RequestParam("sessionId") String sessionId);
 }

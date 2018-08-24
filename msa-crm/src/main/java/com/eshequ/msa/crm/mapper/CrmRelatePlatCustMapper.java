@@ -1,8 +1,9 @@
 package com.eshequ.msa.crm.mapper;
 
+import com.eshequ.msa.common.CommonMapper;
 import com.eshequ.msa.crm.model.CrmRelatePlatCust;
 
-public interface CrmRelatePlatCustMapper {
+public interface CrmRelatePlatCustMapper extends CommonMapper<CrmRelatePlatCust> {
     int deleteByPrimaryKey(Long custId);
 
     int insert(CrmRelatePlatCust record);

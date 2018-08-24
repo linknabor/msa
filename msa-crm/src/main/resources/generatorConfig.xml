@@ -37,7 +37,7 @@
  78      -->
 		<!-- model -->
 
-		<javaModelGenerator targetPackage="com.eshequ.msa.sso.model" 
+		<javaModelGenerator targetPackage="com.eshequ.msa.crm.model" 
 			targetProject=".\src\main\java\">
 			<property name="rootClass" value="com.eshequ.msa.common.BaseModel"/>
 		</javaModelGenerator>
@@ -55,7 +55,7 @@
      	</sqlMapGenerator>
      	
   
-     	<javaClientGenerator targetPackage="com.eshequ.msa.sso.mapper"
+     	<javaClientGenerator targetPackage="com.eshequ.msa.crm.mapper"
 			targetProject=".\src\main\java\" type="XMLMAPPER" >
 			<property name="rootInterface" value="com.eshequ.msa.common.CommonMapper"/>
 		</javaClientGenerator>
@@ -66,6 +66,7 @@
 			enableSelectByExample="false" selectByExampleQueryId="false">
 			
 			<property name="useActualColumnNames" value="false"/>	
+			<property name="modelOnly" value="true"/>
 		</table>
 		<table schema="crm" tableName="crm_aftersale_service_order" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
@@ -80,61 +81,71 @@
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
 			
-			<property name="useActualColumnNames" value="false"/>	
+			<property name="useActualColumnNames" value="false"/>
+			<property name="modelOnly" value="true"/>	
 		</table>
 		<table schema="crm" tableName="crm_channel_communication_record" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
 			
-			<property name="useActualColumnNames" value="false"/>	
+			<property name="useActualColumnNames" value="false"/>
+			<property name="modelOnly" value="true"/>	
 		</table>
 		<table schema="crm" tableName="crm_channel_link" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
 			
-			<property name="useActualColumnNames" value="false"/>	
+			<property name="useActualColumnNames" value="false"/>
+			<property name="modelOnly" value="true"/>	
 		</table>
 		<table schema="crm" tableName="crm_industry_info" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
 			
-			<property name="useActualColumnNames" value="false"/>	
+			<property name="useActualColumnNames" value="false"/>
+			<property name="modelOnly" value="true"/>	
 		</table>
 		<table schema="crm" tableName="crm_marketing_cust" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
 			
 			<property name="useActualColumnNames" value="false"/>	
+			<property name="modelOnly" value="true"/>
 		</table>
 		<table schema="crm" tableName="crm_marketing_cust_call" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
 			
-			<property name="useActualColumnNames" value="false"/>	
+			<property name="useActualColumnNames" value="false"/>
+			<property name="modelOnly" value="true"/>	
 		</table>
 		<table schema="crm" tableName="crm_marketing_cust_link" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
 			
-			<property name="useActualColumnNames" value="false"/>	
+			<property name="useActualColumnNames" value="false"/>
+			<property name="modelOnly" value="true"/>	
 		</table>
 		<table schema="crm" tableName="crm_marketing_pre_sale_record" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
 			
-			<property name="useActualColumnNames" value="false"/>	
+			<property name="useActualColumnNames" value="false"/>
+			<property name="modelOnly" value="true"/>	
 		</table>
 		<table schema="crm" tableName="crm_pre_sale_plan" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
 			
-			<property name="useActualColumnNames" value="false"/>	
+			<property name="useActualColumnNames" value="false"/>
+			<property name="modelOnly" value="true"/>	
 		</table>
 		<table schema="crm" tableName="crm_relate_plat_cust" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
 			
-			<property name="useActualColumnNames" value="false"/>	
+			<property name="useActualColumnNames" value="false"/>
+			<property name="modelOnly" value="true"/>	
 		</table>
 
 	</context>

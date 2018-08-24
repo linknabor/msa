@@ -16,5 +16,4 @@
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
     <result column="CUST_ID" jdbcType="BIGINT" property="custId" />
   </resultMap>
-  
 </mapper>

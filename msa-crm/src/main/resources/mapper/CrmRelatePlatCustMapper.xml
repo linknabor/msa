@@ -5,5 +5,4 @@
     <id column="CUST_ID" jdbcType="BIGINT" property="custId" />
     <result column="ENTERPRISE_ID" jdbcType="VARCHAR" property="enterpriseId" />
   </resultMap>
-  
 </mapper>

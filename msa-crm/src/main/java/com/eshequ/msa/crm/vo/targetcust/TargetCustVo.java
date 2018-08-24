@@ -1,27 +1,33 @@
 package com.eshequ.msa.crm.vo.targetcust;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
+import javax.persistence.Id;
 
-public class TargetCustVo {
-	private String custId;
+public class TargetCustVo implements Serializable{
+	private static final long serialVersionUID = 1L;
+	@Id
+	private long custId;
 	private String custName;
 	private String custAddr;
 	private String remark;
-	private String regionId;
-	private String cityId;
-	private String provinceId;
-	private String industryId;
-	private int houCount;
+	private long regionId;
+	private long cityId;
+	private long provinceId;
+	private long industryId;
+	private BigDecimal houCount;
     private BigDecimal yearAmt;
     private String qualificationLevel;
     private String saleStatus;
     private String groupCom;
-    private String sysOperid;
-	public String getCustId() {
+    private long sysOperid;
+    private BigDecimal minHouCount;
+    private BigDecimal maxHouCount;
+	public long getCustId() {
 		return custId;
 	}
-	public void setCustId(String custId) {
+	public void setCustId(long custId) {
 		this.custId = custId;
 	}
 	public String getCustName() {
@@ -42,34 +48,34 @@ public class TargetCustVo {
 	public void setRemark(String remark) {
 		this.remark = remark;
 	}
-	public String getRegionId() {
+	public long getRegionId() {
 		return regionId;
 	}
-	public void setRegionId(String regionId) {
+	public void setRegionId(long regionId) {
 		this.regionId = regionId;
 	}
-	public String getCityId() {
+	public long getCityId() {
 		return cityId;
 	}
-	public void setCityId(String cityId) {
+	public void setCityId(long cityId) {
 		this.cityId = cityId;
 	}
-	public String getProvinceId() {
+	public long getProvinceId() {
 		return provinceId;
 	}
-	public void setProvinceId(String provinceId) {
+	public void setProvinceId(long provinceId) {
 		this.provinceId = provinceId;
 	}
-	public String getIndustryId() {
+	public long getIndustryId() {
 		return industryId;
 	}
-	public void setIndustryId(String industryId) {
+	public void setIndustryId(long industryId) {
 		this.industryId = industryId;
 	}
-	public int getHouCount() {
+	public BigDecimal getHouCount() {
 		return houCount;
 	}
-	public void setHouCount(int houCount) {
+	public void setHouCount(BigDecimal houCount) {
 		this.houCount = houCount;
 	}
 	public BigDecimal getYearAmt() {
@@ -96,12 +102,25 @@ public class TargetCustVo {
 	public void setGroupCom(String groupCom) {
 		this.groupCom = groupCom;
 	}
-	public String getSysOperid() {
+	public long getSysOperid() {
 		return sysOperid;
 	}
-	public void setSysOperid(String sysOperid) {
+	public void setSysOperid(long sysOperid) {
 		this.sysOperid = sysOperid;
 	}
+	public BigDecimal getMinHouCount() {
+		return minHouCount;
+	}
+	public void setMinHouCount(BigDecimal minHouCount) {
+		this.minHouCount = minHouCount;
+	}
+	public BigDecimal getMaxHouCount() {
+		return maxHouCount;
+	}
+	public void setMaxHouCount(BigDecimal maxHouCount) {
+		this.maxHouCount = maxHouCount;
+	}
+	
 	
 	
 }

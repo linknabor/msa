@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -16,7 +17,6 @@ import com.eshequ.msa.crm.model.CrmMarketingCust;
 import com.eshequ.msa.crm.service.TargetCustService;
 import com.eshequ.msa.crm.vo.targetcust.TargetCustVo;
 import com.eshequ.msa.crm.web.BaseController;
-import com.eshequ.msa.util.SnowFlake;
 @RestController
 public class TargetCustController extends BaseController{
 
@@ -28,8 +28,6 @@ public class TargetCustController extends BaseController{
 	@Autowired
 	private RestTemplate restTemplate;
 	
-	@Autowired
-	private SnowFlake snowFlake;
 	@RequestMapping(value = "/targetcustQuery", method = RequestMethod.POST)
 	public List<CrmMarketingCust> targetcustQuery(@RequestBody TargetCustVo vo){
 		return targetCustService.targetcustQuery(vo);
@@ -51,8 +49,21 @@ public class TargetCustController extends BaseController{
 	}
 	
 	@RequestMapping(value = "/targetcustDelById/{id}", method = RequestMethod.POST)
-	public void targetcustDelById(@PathVariable String id){
-		 targetCustService.targetcustDelById(Long.valueOf(id));
+	public void targetcustDelById(@PathVariable long id){
+		 targetCustService.targetcustDelById(id);
 	}
 	
+	@RequestMapping(value = "/targetcustQueryByExample", method = RequestMethod.POST)
+	@ResponseBody
+	public List<CrmMarketingCust> targetcustQueryByExample(@RequestBody TargetCustVo vo){
+		 List<CrmMarketingCust> list = targetCustService.targetcustQueryByExample(vo);
+		 return list;
+	}
+	
+	@RequestMapping(value = "/targetcustQueryAll", method = RequestMethod.POST)
+	@ResponseBody
+	public List<CrmMarketingCust> targetcustQueryAll(){
+		 List<CrmMarketingCust> list = targetCustService.targetcustQueryAll();
+		 return list;
+	}
 }

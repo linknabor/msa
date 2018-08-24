@@ -1,6 +1,8 @@
 package com.eshequ.msa.crm.model;
 
-public class CrmMarketingPreSaleRecord {
+import com.eshequ.msa.common.BaseModel;
+
+public class CrmMarketingPreSaleRecord extends BaseModel {
     private String recordId;
 
     private String isSuccess;

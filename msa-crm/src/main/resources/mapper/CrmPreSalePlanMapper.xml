@@ -11,5 +11,4 @@
     <result column="LINK_ID" jdbcType="VARCHAR" property="linkId" />
     <result column="CUST_ID" jdbcType="BIGINT" property="custId" />
   </resultMap>
-  
 </mapper>

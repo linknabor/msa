@@ -1,6 +1,8 @@
 package com.eshequ.msa.crm.model;
 
-public class CrmIndustryInfo {
+import com.eshequ.msa.common.BaseModel;
+
+public class CrmIndustryInfo extends BaseModel {
     private Long industryId;
 
     private String industryName;
