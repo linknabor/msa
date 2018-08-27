@@ -28,6 +28,10 @@ public class LoginFilter implements Filter {
 	private String crmLocalhostIp;
 	@Value("${sso.localhost.ip}")
 	private String ssoLocalhostIp;
+	@Value("${filter.reqUrl.login}")
+	private String reqUrlLogin;
+	@Value("${filter.reqUrl.checkSsoToken}")
+	private String reqUrlCheckSsoToken;
 
 	@Override
 	public void destroy() {
@@ -51,7 +55,7 @@ public class LoginFilter implements Filter {
 		}
 		if (requestUri.contains("/actuator/health")) {
 			//health check, do nothing
-		}else if(requestUri.contains("/crm/checkSsoToken.html?reqUrl")) {
+		}else if(requestUri.contains(reqUrlCheckSsoToken+"?reqUrl")) {
 			//如果是检查token页面，不予拦截
 			chain.doFilter(request, response);
 		}else {
@@ -80,7 +84,7 @@ public class LoginFilter implements Filter {
 					return;
 				}else {
 					//失败 登录页面
-					response.sendRedirect("http://"+ssoLocalhostIp+"/sso/login.html");
+					response.sendRedirect("http://"+ssoLocalhostIp+reqUrlLogin);
 					return;
 				}	
 			}
@@ -89,7 +93,7 @@ public class LoginFilter implements Filter {
 				//因为这样它的实际效果是crm-->sso之间创建了会话，而不是user-->sso
 				//所以使用跳转到crm下的html页面，在从中ajax请求sso的认证中心，来保证session的正确
 //				response.sendRedirect("http://192.168.0.101:9091/sso/ssoAuthentication?reqUrl="+reqUrl);
-				response.sendRedirect("http://"+crmLocalhostIp+ "/crm/checkSsoToken.html?reqUrl="+reqUrl);
+				response.sendRedirect("http://"+crmLocalhostIp+reqUrlCheckSsoToken+"?reqUrl="+reqUrl);
 				return;
 			}
 			

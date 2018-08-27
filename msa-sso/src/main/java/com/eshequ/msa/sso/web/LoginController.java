@@ -45,6 +45,10 @@ public class LoginController extends BaseController{
 	private String crmLocalhostIp;
 	@Value("${sso.localhost.ip}")
 	private String ssoLocalhostIp;
+	@Value("${filter.reqUrl.login}")
+	private String reqUrlLogin;
+	@Value("${filter.reqUrl.checkSsoToken}")
+	private String reqUrlCheckSsoToken;
 	
 	/**
 	 * 登录
@@ -84,11 +88,15 @@ public class LoginController extends BaseController{
 			redisTemplate.opsForValue().set(sessionId, loginUserJson);//用当前的sessionId作为唯一标识，存储用户信息(包括生成的token，和sessionId)
 			redisTemplate.opsForValue().set("tokenSessionId", sessionId);//存储一个取得sso令牌sessionId的一个redis，用于检验token是否有效
 //			http请求-->下发token到crm系统并且告知sessionId
-			response.sendRedirect(reqUrl+"?token="+token+"&sessionId="+sessionId);
+//			response.sendRedirect(reqUrl+"?token="+token+"&sessionId="+sessionId);
+			Map<String,String> map = new HashMap<String,String>();
+			map.put("token", token);
+			map.put("sessionId", sessionId);
+			map.put("reqUrl", reqUrl);
+			result.setResult(map);
 			return result;
 		}else {
 			//不存在用户，到登录页面
-//			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/login.html");
 			return result;
 		}
 		}else {
@@ -150,22 +158,6 @@ public class LoginController extends BaseController{
 		}
 		return result;
 	}
-	/**
-	 * 获得登录信息的redis
-	 * @return
-	 */
-	@RequestMapping(value = "/getLoginUserRedis",method = RequestMethod.GET)
-	public Map<String,String> getLoginUserRedis() {
-		Map<String,String> result  = new HashMap<String,String>();
-		Gson gson = new Gson();
-		String loginRedis = (String) redisTemplate.opsForValue().get("loginUserRedis");
-		
-		if(loginRedis!=null) {
-			SsoUser user = gson.fromJson(loginRedis, SsoUser.class);
-			System.out.println(user.getUserName());
-		}
-		return result;
-	}
 		
 	//获取验证码
 		@RequestMapping(value = "/getCode",method = RequestMethod.GET)
@@ -206,10 +198,9 @@ public class LoginController extends BaseController{
 	public void ssoAuthentication(String name,HttpServletResponse response,HttpServletRequest request,String reqUrl) throws IOException {
 		HttpSession session = request.getSession();
 		Object token = session.getAttribute("token");//sso session
-		String ii = session.getId();
 		if(token==null) {
 			//未登录 跳去登录页面
-			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/login.html?reqUrl="+reqUrl);
+			response.sendRedirect("http://"+ssoLocalhostIp+reqUrlLogin+"?reqUrl="+reqUrl);
 		}else{
 			//跳转目标页面
 			response.sendRedirect(reqUrl+"?token="+token+"&sessionId="+session.getId());
