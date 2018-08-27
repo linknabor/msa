@@ -2,7 +2,6 @@ package com.eshequ.msa.crm.service.targetcustimpl;
 
 import java.util.List;
 
-import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,11 +9,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import tk.mybatis.mapper.entity.Example;
 
-import com.eshequ.msa.crm.mapper.CrmMarketingCustMapper;
-import com.eshequ.msa.crm.model.CrmMarketingCust;
+import com.eshequ.msa.crm.mapper.targetcustmapper.CrmMarketingCustMapper;
+import com.eshequ.msa.crm.model.targetcustmodel.CrmMarketingCust;
 import com.eshequ.msa.crm.service.TargetCustService;
 import com.eshequ.msa.crm.vo.targetcust.TargetCustVo;
-import com.eshequ.msa.util.MybatisGeneratorUtil;
 import com.eshequ.msa.util.SnowFlake;
 import com.github.pagehelper.PageHelper;
 
