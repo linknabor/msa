@@ -195,16 +195,20 @@ public class LoginController extends BaseController{
 	
 	//sso登录认证中心
 	@RequestMapping(value = "/ssoAuthentication",method = RequestMethod.GET)
-	public void ssoAuthentication(String name,HttpServletResponse response,HttpServletRequest request,String reqUrl) throws IOException {
+	public String ssoAuthentication(String name,HttpServletResponse response,HttpServletRequest request,String reqUrl) throws IOException {
 		HttpSession session = request.getSession();
 		Object token = session.getAttribute("token");//sso session
+		String url = "";
 		if(token==null) {
 			//未登录 跳去登录页面
-			response.sendRedirect("http://"+ssoLocalhostIp+reqUrlLogin+"?reqUrl="+reqUrl);
+			url = "http://"+ssoLocalhostIp+reqUrlLogin+"?reqUrl="+reqUrl;
+//			response.sendRedirect("http://"+ssoLocalhostIp+reqUrlLogin+"?reqUrl="+reqUrl);
 		}else{
 			//跳转目标页面
-			response.sendRedirect(reqUrl+"?token="+token+"&sessionId="+session.getId());
+			url = reqUrl+"?token="+token+"&sessionId="+session.getId();
+//			response.sendRedirect(reqUrl+"?token="+token+"&sessionId="+session.getId());
 		}
+		return url;
 	}
 	
 	//sso注销认证中心

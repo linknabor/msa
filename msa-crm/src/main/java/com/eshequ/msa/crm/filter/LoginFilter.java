@@ -1,6 +1,7 @@
 package com.eshequ.msa.crm.filter;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -32,6 +33,8 @@ public class LoginFilter implements Filter {
 	private String reqUrlLogin;
 	@Value("${filter.reqUrl.checkSsoToken}")
 	private String reqUrlCheckSsoToken;
+	@Value("${crm.web.localhost.ip}")
+	private String crmWebLocalhostIp;
 
 	@Override
 	public void destroy() {
@@ -84,7 +87,7 @@ public class LoginFilter implements Filter {
 					return;
 				}else {
 					//失败 登录页面
-					response.sendRedirect("http://"+ssoLocalhostIp+reqUrlLogin);
+					response.sendRedirect("http://"+ssoLocalhostIp+reqUrlLogin+"?loginStatus=0");
 					return;
 				}	
 			}
@@ -93,7 +96,11 @@ public class LoginFilter implements Filter {
 				//因为这样它的实际效果是crm-->sso之间创建了会话，而不是user-->sso
 				//所以使用跳转到crm下的html页面，在从中ajax请求sso的认证中心，来保证session的正确
 //				response.sendRedirect("http://192.168.0.101:9091/sso/ssoAuthentication?reqUrl="+reqUrl);
-				response.sendRedirect("http://"+crmLocalhostIp+reqUrlCheckSsoToken+"?reqUrl="+reqUrl);
+				
+				response.sendRedirect("http://"+crmWebLocalhostIp+reqUrlCheckSsoToken+"?reqUrl="+reqUrl);
+//				http://192.168.0.112:8080/pass?reqUrl=http://192.168.0.101:9091/sso/error.html?token=&sessionId=68a258c6-47c2-4d39-8e4d-fe6a1006fece
+//				response.sendRedirect("http://"+crmLocalhostIp+reqUrlCheckSsoToken+"?reqUrl="+reqUrl);
+				
 				return;
 			}
 			
