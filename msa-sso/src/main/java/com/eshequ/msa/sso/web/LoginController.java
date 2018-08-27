@@ -2,7 +2,9 @@ package com.eshequ.msa.sso.web;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -56,9 +58,9 @@ public class LoginController extends BaseController{
 		tpSysName = "系统";
 		HttpSession session = request.getSession();
 		BaseResult result = new BaseResult();
-//		List<String> allowedOrigins = Arrays.asList("http://192.168.0.115:9090", "http://localhost:9090", "http://login.stalary.com");
+		List<String> allowedOrigins = Arrays.asList("http://192.168.0.115:9090", "http://localhost:9090", "http://login.stalary.com");
 		String origin = request.getHeader("Origin");
-//		response.setHeader("Access-Control-Allow-Origin", allowedOrigins.contains(origin) ? origin : "");
+		response.setHeader("Access-Control-Allow-Origin", allowedOrigins.contains(origin) ? origin : "");
 //		String code = session.getAttribute("veriCode").toString();
 		String sessionId = session.getId();
 		Object code = redisTemplate.opsForValue().get(sessionId+"code");//redis中的验证码
@@ -86,7 +88,7 @@ public class LoginController extends BaseController{
 			return result;
 		}else {
 			//不存在用户，到登录页面
-			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/login.html");
+//			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/login.html");
 			return result;
 		}
 		}else {
@@ -224,12 +226,12 @@ public class LoginController extends BaseController{
 		String s = loginRemote.testFeign(ssoToken,sessionId);
 		if(token.equals(ssoToken)) {
 			//token验证成功，销毁sso全局会话
-			session.removeAttribute("token");//删除sso的session token
-			session.removeAttribute("isLogin");//删除sso登录状态
-			redisTemplate.delete(session.getId());//删除redis中存储的sso的token	
+//			session.removeAttribute("token");//删除sso的session token
+//			session.removeAttribute("isLogin");//删除sso登录状态
+//			redisTemplate.delete(session.getId());//删除redis中存储的sso的token	
 			
 			//将所有系统的session都注销掉（目前只注销crm）
-//			String s = loginRemote.testFeign(ssoToken,sessionId);//这是sso-->crm的会话
+			String s1 = loginRemote.testFeign(ssoToken,sessionId);//这是sso-->crm的会话
 			//注销所有会话后，返回到登录页面（据说，senRedirect后面的语句会继续执行，除非return）
 //			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/login.html");
 		}else{
@@ -245,6 +247,7 @@ public class LoginController extends BaseController{
 		System.out.println("oidhsailtlsiljbbv(*^%*(&(*$&*(&&(");
 		loginRemote.cancellation(ssoToken,sessionId);
 	}
+	
 
 	
 }
