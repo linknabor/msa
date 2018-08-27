@@ -1,0 +1,61 @@
+package com.eshequ.msa.codes;																														
+/**Auto Created by VBScript Do not modify!*/												 
+import java.util.HashMap;                                                                  
+import java.util.List;                                                       
+import java.util.Map;                                                           
+import com.eshequ.msa.codes.model.CodeInfo;                     
+/**代码类型名：注册信息状态  */												 
+public class RegInfoStatus extends CodesItem {                                      
+	private RegInfoStatus(String code){super(CodesItem.regInfoStatus,code);}	        
+	public static String getValue(String code){                                         
+		return CodesItem.getValue(CodesItem.regInfoStatus,code);                         
+	}                                                                                   
+	public static String getValue(RegInfoStatus code){	                                
+		return CodesItem.getValue(CodesItem.regInfoStatus,code.toString());              
+	}                                                                                   
+	public static List<CodeInfo> getCodeList(){	                                                
+		return CodesItem.getCodeList(CodesItem.regInfoStatus);                           
+	}                                                                                   
+	public static final RegInfoStatus getObject(String code){                          
+		Map map=(Map)mapCodeObject.get(CodesItem.regInfoStatus);                         
+		return map==null?null:(RegInfoStatus)map.get(code);                                             
+	}                                                                                   
+	static {		fillObjectToMap();	}                                                   
+	private static final void fillObjectToMap(){                                        
+		List<CodeInfo> listCode = getCodeFromDB(CodesItem.regInfoStatus);                                                                 
+		Map map = new HashMap(listCode.size());        
+		String temp = null;	                          
+		Map map2 = new HashMap(listCode.size());                           
+		for (int i=0; i<listCode.size();i++){                                            
+			CodeInfo codeInfo = listCode.get(i);                                              
+			temp = codeInfo.getCiSpCode();                                              
+			map.put(temp, codeInfo.getCiSpName());                                     
+			map2.put(temp, new RegInfoStatus(temp));                                        
+		}                                                                                 
+		mapCategoryCode.put(CodesItem.infoStatus, map);                                
+		mapCodeObject.put(CodesItem.infoStatus, map2);		                              
+	}                                                                                   
+/////////////////////////////////////////////////////////////////////////////////		
+	public int hashCode(){return super.hashCode();}
+	public boolean equals(Object obj)
+	{
+		if( obj instanceof CodesItem)
+			return (this == obj);
+		else
+			return super.equals(obj);
+	}
+/////////////////////////////////////////////////////////////////////////////////    
+
+
+
+
+	/**未审核<WeiShenHe>  */
+	public static final RegInfoStatus WeiShenHe                               		= getObject("0");
+	/**已审核<YiShengHe>  */
+	public static final RegInfoStatus YiShengHe                               		= getObject("1");
+	/**已复核<YiFuHE>  */
+	public static final RegInfoStatus YiFuHE                                  		= getObject("2");
+	/**未通过<WeiTongGuo>  */
+	public static final RegInfoStatus WeiTongGuo                              		= getObject("3");
+}
+

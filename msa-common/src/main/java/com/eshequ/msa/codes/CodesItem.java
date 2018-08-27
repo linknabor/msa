@@ -16,7 +16,7 @@ import com.eshequ.msa.codes.model.CodeInfo;
 import com.eshequ.msa.exception.NotFoundException;
 
 @Component
-public class CodesItem {
+public abstract class CodesItem {
 	/** 单位状态 */
 	protected static final String orgStatus = new String("50");
 	/** 发票开具类型 */
@@ -25,6 +25,12 @@ public class CodesItem {
 	protected static final String invoiceStatus = new String("53");
 	/** 发票申请类型 */
 	protected static final String invoiceApplyType = new String("54");
+	/** 注册信息状态 */
+	protected static final String regInfoStatus = new String("55");
+	/** 机构类别 */
+	protected static final String orgType = new String("56");
+	/** 机构状态 */
+	protected static final String orgStart = new String("57");
 	/** 物业项目性质 */
 	protected static final String proCreateType = new String("18");
 	/** 物业项目类型 */
@@ -90,6 +96,9 @@ public class CodesItem {
 		mapCat.put("InvoiceType", invoiceType);
 		mapCat.put("InvoiceStatus", invoiceStatus);
 		mapCat.put("InvoiceApplyType", invoiceApplyType);
+		mapCat.put("RegInfoStatus", regInfoStatus);
+		mapCat.put("OrgType", orgType);
+		mapCat.put("OrgStart", orgStart);
 		mapCat.put("ProCreateType", proCreateType);
 		mapCat.put("SectType", sectType);
 		mapCat.put("InfoStatus", infoStatus);
@@ -190,6 +199,7 @@ public class CodesItem {
 	/**
 	 * 直接转换成中文名字
 	 * 
+	 * @无参数
 	 * @return
 	 */
 	public String getValue() {
@@ -197,12 +207,10 @@ public class CodesItem {
 	}
 
 	public CodesItem() {
-
 	}
 
 	@PostConstruct
 	public void init() {
-
 		mapper = this.codeInfoMapper;
 	}
 
