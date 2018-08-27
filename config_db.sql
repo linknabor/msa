@@ -1,3 +1,12 @@
+DROP TABLE IF EXISTS CODE_INFO ;
+CREATE TABLE CODE_INFO(
+CI_SP_CODE                                        VARCHAR(40) NOT NULL, #代码值
+CI_SP_CLASS                                       VARCHAR(40) NOT NULL, #所属类别号
+CI_SP_CLASSNAME                                   VARCHAR(80) NOT NULL, #类别名称
+CI_SP_NAME                                        VARCHAR(256) NOT NULL, #代码名称
+CI_SP_REMARK                                      VARCHAR(512) NULL, #备注
+CONSTRAINT CODE_INFO_PK PRIMARY KEY(CI_SP_CODE,CI_SP_CLASS)   );
+
 #　系统的引用值个数:33
 #　本引用值的代码个数:3 -------i==1
 delete from code_info where ci_sp_class='50';
