@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import com.eshequ.msa.crm.model.CrmMarketingCust;
+import com.eshequ.msa.crm.model.targetcustmodel.CrmMarketingCust;
 import com.eshequ.msa.crm.service.TargetCustService;
 import com.eshequ.msa.crm.vo.targetcust.TargetCustVo;
 import com.eshequ.msa.crm.web.BaseController;
