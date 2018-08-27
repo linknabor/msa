@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eshequ.common.CodeInfoMapper">
-  <resultMap id="BaseResultMap" type="com.eshequ.model.CodeInfo">
+<mapper namespace="com.eshequ.msa.codes.mapper.CodeInfoMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.codes.model.CodeInfo">
     <id column="CI_SP_CODE" jdbcType="VARCHAR" property="ciSpCode" />
     <id column="CI_SP_CLASS" jdbcType="VARCHAR" property="ciSpClass" />
     <result column="CI_SP_CLASSNAME" jdbcType="VARCHAR" property="ciSpClassname" />
