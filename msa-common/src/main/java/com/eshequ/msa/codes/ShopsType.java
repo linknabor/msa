@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：商铺类型  */												 
+/** Auto generated */												 
 public class ShopsType extends CodesItem {                                      
 	private ShopsType(String code){super(CodesItem.shopsType,code);}	        
 	public static String getValue(String code){                                         
@@ -49,11 +49,8 @@ public class ShopsType extends CodesItem {
 
 
 
-	/**底商<DiShang>  */
 	public static final ShopsType DiShang                                 		= getObject("01");
-	/**写字间<XieZiJian>  */
 	public static final ShopsType XieZiJian                               		= getObject("02");
-	/**商场<ShangChuang>  */
 	public static final ShopsType ShangChuang                             		= getObject("03");
 }
 

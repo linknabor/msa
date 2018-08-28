@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：物业单元类型  */												 
+/** Auto generated */												 
 public class MngCellType extends CodesItem {                                      
 	private MngCellType(String code){super(CodesItem.mngCellType,code);}	        
 	public static String getValue(String code){                                         
@@ -49,15 +49,10 @@ public class MngCellType extends CodesItem {
 
 
 
-	/**住宅<FangJian>  */
 	public static final MngCellType FangJian                                		= getObject("01");
-	/**商铺<ShangPu>  */
 	public static final MngCellType ShangPu                                 		= getObject("02");
-	/**车位<CheWei>  */
 	public static final MngCellType CheWei                                  		= getObject("03");
-	/**广告位<GuangGaoWei>  */
 	public static final MngCellType GuangGaoWei                             		= getObject("04");
-	/**地下室<DiXiaShi>  */
 	public static final MngCellType DiXiaShi                                		= getObject("05");
 }
 

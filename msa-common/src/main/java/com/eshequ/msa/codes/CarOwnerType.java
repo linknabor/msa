@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：车辆归属  */												 
+/** Auto generated */												 
 public class CarOwnerType extends CodesItem {                                      
 	private CarOwnerType(String code){super(CodesItem.carOwnerType,code);}	        
 	public static String getValue(String code){                                         
@@ -49,11 +49,8 @@ public class CarOwnerType extends CodesItem {
 
 
 
-	/**私车<SiChe>  */
 	public static final CarOwnerType SiChe                                   		= getObject("01");
-	/**公车<GongChe>  */
 	public static final CarOwnerType GongChe                                 		= getObject("02");
-	/**其他<QiTa>  */
 	public static final CarOwnerType QiTa                                    		= getObject("99");
 }
 

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：机构类别  */												 
+/** Auto generated */												 
 public class OrgType extends CodesItem {                                      
 	private OrgType(String code){super(CodesItem.orgType,code);}	        
 	public static String getValue(String code){                                         
@@ -49,9 +49,7 @@ public class OrgType extends CodesItem {
 
 
 
-	/**运营商<YunyinShang>  */
 	public static final OrgType YunyinShang                             		= getObject("01");
-	/**合作伙伴<HeZuoHuoBan>  */
 	public static final OrgType HeZuoHuoBan                             		= getObject("02");
 }
 

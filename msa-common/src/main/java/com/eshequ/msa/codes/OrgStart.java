@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：机构状态  */												 
+/** Auto generated */												 
 public class OrgStart extends CodesItem {                                      
 	private OrgStart(String code){super(CodesItem.orgStart,code);}	        
 	public static String getValue(String code){                                         
@@ -49,9 +49,7 @@ public class OrgStart extends CodesItem {
 
 
 
-	/**正常<ZhengChang>  */
 	public static final OrgStart ZhengChang                              		= getObject("0");
-	/**注销<ZhuXiao>  */
 	public static final OrgStart ZhuXiao                                 		= getObject("1");
 }
 

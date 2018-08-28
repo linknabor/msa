@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：朝向  */												 
+/** Auto generated */												 
 public class Ward extends CodesItem {                                      
 	private Ward(String code){super(CodesItem.ward,code);}	        
 	public static String getValue(String code){                                         
@@ -49,21 +49,13 @@ public class Ward extends CodesItem {
 
 
 
-	/**南<Nan>  */
 	public static final Ward Nan                                     		= getObject("01");
-	/**北<Bei>  */
 	public static final Ward Bei                                     		= getObject("02");
-	/**东<Dong>  */
 	public static final Ward Dong                                    		= getObject("03");
-	/**西<Xi>  */
 	public static final Ward Xi                                      		= getObject("04");
-	/**东南<DongNan>  */
 	public static final Ward DongNan                                 		= getObject("05");
-	/**西南<XiNan>  */
 	public static final Ward XiNan                                   		= getObject("06");
-	/**东北<DongBei>  */
 	public static final Ward DongBei                                 		= getObject("07");
-	/**西北<XiBei>  */
 	public static final Ward XiBei                                   		= getObject("08");
 }
 

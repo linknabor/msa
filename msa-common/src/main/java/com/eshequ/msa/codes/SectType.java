@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：物业项目类型  */												 
+/** Auto generated */												 
 public class SectType extends CodesItem {                                      
 	private SectType(String code){super(CodesItem.sectType,code);}	        
 	public static String getValue(String code){                                         
@@ -49,11 +49,8 @@ public class SectType extends CodesItem {
 
 
 
-	/**住宅<ZhuZhai>  */
 	public static final SectType ZhuZhai                                 		= getObject("01");
-	/**商用<ShangYong>  */
 	public static final SectType ShangYong                               		= getObject("02");
-	/**商住两用<ShangZhuLiangYong>  */
 	public static final SectType ShangZhuLiangYong                       		= getObject("03");
 }
 

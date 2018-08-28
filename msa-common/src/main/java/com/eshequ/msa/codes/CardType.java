@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：银行卡类型  */												 
+/** Auto generated */												 
 public class CardType extends CodesItem {                                      
 	private CardType(String code){super(CodesItem.cardType,code);}	        
 	public static String getValue(String code){                                         
@@ -49,9 +49,7 @@ public class CardType extends CodesItem {
 
 
 
-	/**借记卡<DebitCard>  */
 	public static final CardType DebitCard                               		= getObject("1");
-	/**贷记卡<CreditCard>  */
 	public static final CardType CreditCard                              		= getObject("2");
 }
 

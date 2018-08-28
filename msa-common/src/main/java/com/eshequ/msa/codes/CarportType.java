@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：车位类型  */												 
+/** Auto generated */												 
 public class CarportType extends CodesItem {                                      
 	private CarportType(String code){super(CodesItem.carportType,code);}	        
 	public static String getValue(String code){                                         
@@ -49,9 +49,7 @@ public class CarportType extends CodesItem {
 
 
 
-	/**室内<DiXiaCheWei>  */
 	public static final CarportType DiXiaCheWei                             		= getObject("01");
-	/**地面<DiShangCheWei>  */
 	public static final CarportType DiShangCheWei                           		= getObject("02");
 }
 

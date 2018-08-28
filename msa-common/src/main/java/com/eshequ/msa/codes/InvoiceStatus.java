@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：发票开具状态  */												 
+/** Auto generated */												 
 public class InvoiceStatus extends CodesItem {                                      
 	private InvoiceStatus(String code){super(CodesItem.invoiceStatus,code);}	        
 	public static String getValue(String code){                                         
@@ -49,17 +49,11 @@ public class InvoiceStatus extends CodesItem {
 
 
 
-	/**申请中<ShenQingZhong>  */
 	public static final InvoiceStatus ShenQingZhong                           		= getObject("01");
-	/**开票中<KaiPiaoZhong>  */
 	public static final InvoiceStatus KaiPiaoZhong                            		= getObject("02");
-	/**成功<ChengGong>  */
 	public static final InvoiceStatus ChengGong                               		= getObject("03");
-	/**作废中<ZuoFeiZhong>  */
 	public static final InvoiceStatus ZuoFeiZhong                             		= getObject("97");
-	/**失败<ShiBai>  */
 	public static final InvoiceStatus ShiBai                                  		= getObject("98");
-	/**作废<ZuoFei>  */
 	public static final InvoiceStatus ZuoFei                                  		= getObject("99");
 }
 

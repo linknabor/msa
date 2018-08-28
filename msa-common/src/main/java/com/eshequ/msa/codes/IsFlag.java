@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：是否标志  */												 
+/** Auto generated */												 
 public class IsFlag extends CodesItem {                                      
 	private IsFlag(String code){super(CodesItem.isFlag,code);}	        
 	public static String getValue(String code){                                         
@@ -49,9 +49,7 @@ public class IsFlag extends CodesItem {
 
 
 
-	/**否<Fou>  */
 	public static final IsFlag Fou                                     		= getObject("0");
-	/**是<Shi>  */
 	public static final IsFlag Shi                                     		= getObject("1");
 }
 

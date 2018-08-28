@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：注册信息状态  */												 
+/** Auto generated */												 
 public class RegInfoStatus extends CodesItem {                                      
 	private RegInfoStatus(String code){super(CodesItem.regInfoStatus,code);}	        
 	public static String getValue(String code){                                         
@@ -49,13 +49,9 @@ public class RegInfoStatus extends CodesItem {
 
 
 
-	/**未审核<WeiShenHe>  */
 	public static final RegInfoStatus WeiShenHe                               		= getObject("0");
-	/**已审核<YiShengHe>  */
 	public static final RegInfoStatus YiShengHe                               		= getObject("1");
-	/**已复核<YiFuHE>  */
 	public static final RegInfoStatus YiFuHE                                  		= getObject("2");
-	/**未通过<WeiTongGuo>  */
 	public static final RegInfoStatus WeiTongGuo                              		= getObject("3");
 }
 

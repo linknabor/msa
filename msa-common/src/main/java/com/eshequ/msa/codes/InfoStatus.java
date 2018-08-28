@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：状态  */												 
+/** Auto generated */												 
 public class InfoStatus extends CodesItem {                                      
 	private InfoStatus(String code){super(CodesItem.infoStatus,code);}	        
 	public static String getValue(String code){                                         
@@ -49,9 +49,7 @@ public class InfoStatus extends CodesItem {
 
 
 
-	/**正常<ZhengChang>  */
 	public static final InfoStatus ZhengChang                              		= getObject("0");
-	/**注销<ZhuXiao>  */
 	public static final InfoStatus ZhuXiao                                 		= getObject("1");
 }
 

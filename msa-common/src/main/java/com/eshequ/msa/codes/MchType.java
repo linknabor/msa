@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：商户类型  */												 
+/** Auto generated */												 
 public class MchType extends CodesItem {                                      
 	private MchType(String code){super(CodesItem.mchType,code);}	        
 	public static String getValue(String code){                                         
@@ -49,9 +49,7 @@ public class MchType extends CodesItem {
 
 
 
-	/**主商户<Main>  */
 	public static final MchType Main                                    		= getObject("1");
-	/**子商户<Sub>  */
 	public static final MchType Sub                                     		= getObject("2");
 }
 
