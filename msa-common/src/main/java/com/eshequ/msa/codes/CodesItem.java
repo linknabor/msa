@@ -14,7 +14,7 @@ import com.eshequ.msa.codes.mapper.CodeInfoMapper;
 import com.eshequ.msa.codes.model.CodeInfo;                                                  
 import com.eshequ.msa.exception.NotFoundException;                                           
 @Component                                                                                   
-public abstract class CodesItem {                                                      			
+public class CodesItem {                                                      			
 	/**单位状态   */
 	protected static final String orgStatus=new String("50");
 	/**发票开具类型   */
