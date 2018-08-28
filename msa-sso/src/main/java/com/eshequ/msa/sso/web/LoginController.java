@@ -25,6 +25,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.eshequ.msa.common.BaseResult;
+import com.eshequ.msa.exception.BusinessException;
+import com.eshequ.msa.handler.GlobalExceptionHandler;
 import com.eshequ.msa.sso.model.SsoUser;
 import com.eshequ.msa.sso.service.LoginRemote;
 import com.eshequ.msa.sso.service.LoginService;
@@ -60,8 +62,8 @@ public class LoginController extends BaseController{
 	@RequestMapping(value = "/login",method = RequestMethod.GET)
 	public BaseResult login(HttpServletResponse response,HttpServletRequest request, String reqUrl,@RequestParam("userName") String userName, String veriCode,String password,String tpSysName,RedirectAttributes res) throws IOException {
 		tpSysName = "系统";
+//		GlobalExceptionHandler exceptionHandler = new GlobalExceptionHandler();
 		HttpSession session = request.getSession();
-		BaseResult result = new BaseResult();
 		List<String> allowedOrigins = Arrays.asList("http://192.168.0.115:9090", "http://localhost:9090", "http://login.stalary.com");
 		String origin = request.getHeader("Origin");
 		response.setHeader("Access-Control-Allow-Origin", allowedOrigins.contains(origin) ? origin : "");
@@ -70,39 +72,39 @@ public class LoginController extends BaseController{
 		Object code = redisTemplate.opsForValue().get(sessionId+"code");//redis中的验证码
 		if(code == null) {
 			//验证码过期，请重新生成验证码
-			result.fail(3, "验证码过期！");
+			BaseResult.fail(3, "验证码过期！");
 		}
 		if(code.equals(veriCode)) {
-			result = loginService.login(userName, password,tpSysName);
-		if(result.isSuccess()) {
-			SsoUser user = loginService.selectUserByUserName(userName,tpSysName);//查询当前登录用户信息
-			user.setSessionId(sessionId);
-			session.setAttribute("isLogin", "true");
-			String token = UUID.randomUUID().toString();//授权码
-			user.setToken(token);
-			session.setAttribute("token", token);
-			System.out.println(session.getAttribute("token"));
-			//用户信息 存储redis
-			Gson gson = new Gson();
-			String loginUserJson = gson.toJson(user);
-			redisTemplate.opsForValue().set(sessionId, loginUserJson);//用当前的sessionId作为唯一标识，存储用户信息(包括生成的token，和sessionId)
-			redisTemplate.opsForValue().set("tokenSessionId", sessionId);//存储一个取得sso令牌sessionId的一个redis，用于检验token是否有效
-//			http请求-->下发token到crm系统并且告知sessionId
-//			response.sendRedirect(reqUrl+"?token="+token+"&sessionId="+sessionId);
-			Map<String,String> map = new HashMap<String,String>();
-			map.put("token", token);
-			map.put("sessionId", sessionId);
-			map.put("reqUrl", reqUrl);
-			result.setResult(map);
-			return result;
-		}else {
-			//不存在用户，到登录页面
-			return result;
-		}
+			BaseResult result = loginService.login(userName, password,tpSysName);
+			if(result.isSuccess()) {
+				SsoUser user = loginService.selectUserByUserName(userName,tpSysName);//查询当前登录用户信息
+				user.setSessionId(sessionId);
+				session.setAttribute("isLogin", "true");
+				String token = UUID.randomUUID().toString();//授权码
+				user.setToken(token);
+				session.setAttribute("token", token);
+				System.out.println(session.getAttribute("token"));
+				//用户信息 存储redis
+				Gson gson = new Gson();
+				String loginUserJson = gson.toJson(user);
+				redisTemplate.opsForValue().set(sessionId, loginUserJson);//用当前的sessionId作为唯一标识，存储用户信息(包括生成的token，和sessionId)
+				redisTemplate.opsForValue().set("tokenSessionId", sessionId);//存储一个取得sso令牌sessionId的一个redis，用于检验token是否有效
+	//			http请求-->下发token到crm系统并且告知sessionId
+	//			response.sendRedirect(reqUrl+"?token="+token+"&sessionId="+sessionId);
+				Map<String,String> map = new HashMap<String,String>();
+				map.put("token", token);
+				map.put("sessionId", sessionId);
+				map.put("reqUrl", reqUrl);
+				result.setResult(map);
+				return result;
+			}else {
+				//不存在用户，到登录页面
+//				return exceptionHandler.businessExceptionHandler1(0, new BusinessException());
+				return result;
+			} 
 		}else {
 			//验证码不正确，跳转到登录页面
-			result.fail(2, "验证码不正确！");
-			return result;
+			return BaseResult.fail(2, "验证码不正确！");
 		}
 	}
 	
