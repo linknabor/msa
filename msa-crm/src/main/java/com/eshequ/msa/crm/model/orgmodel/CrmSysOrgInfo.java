@@ -1,8 +1,11 @@
 package com.eshequ.msa.crm.model.orgmodel;
 
+import javax.persistence.Id;
+
 import com.eshequ.msa.common.BaseModel;
 
 public class CrmSysOrgInfo extends BaseModel {
+	@Id
     private Long orgId;
 
     private String orgStatus;

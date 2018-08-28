@@ -12,4 +12,13 @@
     <result column="ORG_ADDR" jdbcType="VARCHAR" property="orgAddr" />
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
   </resultMap>
+  <select id="queryOrgByExample" resultType="com.eshequ.msa.crm.model.orgmodel.CrmSysOrgInfo" parameterType="com.eshequ.msa.crm.vo.org.OrgVo">
+  	select * from crm_sys_org_info where 1=1
+  	<if test="orgType != null">
+  		and ORG_TYPE = #{orgType}
+  	</if>
+  	<if test="orgName != null">
+  		and ORG_NAME like CONCAT('%', #{orgName}, '%')
+  	</if>
+  </select>
 </mapper>
