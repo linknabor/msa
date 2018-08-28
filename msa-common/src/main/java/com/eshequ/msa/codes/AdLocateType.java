@@ -32,8 +32,8 @@ public class AdLocateType extends CodesItem {
 			map.put(temp, codeInfo.getCiSpName());                                     
 			map2.put(temp, new AdLocateType(temp));                                        
 		}                                                                                 
-		mapCategoryCode.put(CodesItem.infoStatus, map);                                
-		mapCodeObject.put(CodesItem.infoStatus, map2);		                              
+		mapCategoryCode.put(CodesItem.adLocateType, map);                                
+		mapCodeObject.put(CodesItem.adLocateType, map2);		                              
 	}                                                                                   
 /////////////////////////////////////////////////////////////////////////////////		
 	public int hashCode(){return super.hashCode();}

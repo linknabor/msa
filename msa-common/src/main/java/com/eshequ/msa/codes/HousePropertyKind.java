@@ -32,8 +32,8 @@ public class HousePropertyKind extends CodesItem {
 			map.put(temp, codeInfo.getCiSpName());                                     
 			map2.put(temp, new HousePropertyKind(temp));                                        
 		}                                                                                 
-		mapCategoryCode.put(CodesItem.infoStatus, map);                                
-		mapCodeObject.put(CodesItem.infoStatus, map2);		                              
+		mapCategoryCode.put(CodesItem.housePropertyKind, map);                                
+		mapCodeObject.put(CodesItem.housePropertyKind, map2);		                              
 	}                                                                                   
 /////////////////////////////////////////////////////////////////////////////////		
 	public int hashCode(){return super.hashCode();}

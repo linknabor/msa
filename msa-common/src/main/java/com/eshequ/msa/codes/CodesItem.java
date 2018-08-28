@@ -15,71 +15,77 @@ import com.eshequ.msa.codes.model.CodeInfo;
 import com.eshequ.msa.exception.NotFoundException;                                           
 @Component                                                                                   
 public abstract class CodesItem {                                                      			
-	/**µ¥Î»×´Ì¬   */
+	/**å•ä½çŠ¶æ€   */
 	protected static final String orgStatus=new String("50");
-	/**·¢Æ±¿ª¾ßÀàĞÍ   */
+	/**å‘ç¥¨å¼€å…·ç±»å‹   */
 	protected static final String invoiceType=new String("52");
-	/**·¢Æ±¿ª¾ß×´Ì¬   */
+	/**å‘ç¥¨å¼€å…·çŠ¶æ€   */
 	protected static final String invoiceStatus=new String("53");
-	/**·¢Æ±ÉêÇëÀàĞÍ   */
+	/**å‘ç¥¨ç”³è¯·ç±»å‹   */
 	protected static final String invoiceApplyType=new String("54");
-	/**ÎïÒµÏîÄ¿ĞÔÖÊ   */
+	/**æ³¨å†Œä¿¡æ¯çŠ¶æ€   */
+	protected static final String regInfoStatus=new String("55");
+	/**æœºæ„ç±»åˆ«   */
+	protected static final String orgType=new String("56");
+	/**æœºæ„çŠ¶æ€   */
+	protected static final String orgStart=new String("57");
+	/**ç‰©ä¸šé¡¹ç›®æ€§è´¨   */
 	protected static final String proCreateType=new String("18");
-	/**ÎïÒµÏîÄ¿ÀàĞÍ   */
+	/**ç‰©ä¸šé¡¹ç›®ç±»å‹   */
 	protected static final String sectType=new String("19");
-	/**×´Ì¬   */
+	/**çŠ¶æ€   */
 	protected static final String infoStatus=new String("20");
-	/**½¨ÖşÀàĞÍ   */
+	/**å»ºç­‘ç±»å‹   */
 	protected static final String buildType=new String("21");
-	/**ÊÇ·ñ±êÖ¾   */
+	/**æ˜¯å¦æ ‡å¿—   */
 	protected static final String isFlag=new String("22");
-	/**»§ĞÍ   */
+	/**æˆ·å‹   */
 	protected static final String houseModel=new String("23");
-	/**³µÎ»ÀàĞÍ   */
+	/**è½¦ä½ç±»å‹   */
 	protected static final String carportType=new String("24");
-	/**³¯Ïò   */
+	/**æœå‘   */
 	protected static final String ward=new String("25");
-	/**ÉÌÆÌÀàĞÍ   */
+	/**å•†é“ºç±»å‹   */
 	protected static final String shopsType=new String("26");
-	/**¹ã¸æÎ»ÀàĞÍ   */
+	/**å¹¿å‘Šä½ç±»å‹   */
 	protected static final String adLocateType=new String("27");
-	/**ÎïÒµµ¥ÔªĞÔÖÊ   */
+	/**ç‰©ä¸šå•å…ƒæ€§è´¨   */
 	protected static final String mngCellKind=new String("28");
-	/**ÎïÒµ²úÈ¨ĞÔÖÊ   */
+	/**ç‰©ä¸šäº§æƒæ€§è´¨   */
 	protected static final String housePropertyKind=new String("29");
-	/**µçÌİ±êÖ¾   */
+	/**ç”µæ¢¯æ ‡å¿—   */
 	protected static final String liftFlag=new String("30");
-	/**½¨ÖşÓÃÍ¾   */
+	/**å»ºç­‘ç”¨é€”   */
 	protected static final String buildUsage=new String("31");
-	/**ÎïÒµµ¥ÔªÀàĞÍ   */
+	/**ç‰©ä¸šå•å…ƒç±»å‹   */
 	protected static final String mngCellType=new String("32");
-	/**Í£³µÀàĞÍ   */
+	/**åœè½¦ç±»å‹   */
 	protected static final String parkType=new String("33");
-	/**³µÁ¾ÀàĞÍ   */
+	/**è½¦è¾†ç±»å‹   */
 	protected static final String carType=new String("34");
-	/**ÑÕÉ«   */
+	/**é¢œè‰²   */
 	protected static final String colour=new String("35");
-	/**³µÁ¾¹éÊô   */
+	/**è½¦è¾†å½’å±   */
 	protected static final String carOwnerType=new String("36");
-	/**Ö¤¼şÀàĞÍ   */
+	/**è¯ä»¶ç±»å‹   */
 	protected static final String certType=new String("38");
-	/**¿Í»§ÀàĞÍ   */
+	/**å®¢æˆ·ç±»å‹   */
 	protected static final String custType=new String("39");
-	/**¿Í»§ĞÔÖÊ   */
+	/**å®¢æˆ·æ€§è´¨   */
 	protected static final String custKind=new String("40");
-	/**Ö§¸¶ÇşµÀ   */
+	/**æ”¯ä»˜æ¸ é“   */
 	protected static final String payMethod=new String("41");
-	/**Ö§¸¶Æ½Ì¨   */
+	/**æ”¯ä»˜å¹³å°   */
 	protected static final String platChannel=new String("42");
-	/**ÉÌ»§ÀàĞÍ   */
+	/**å•†æˆ·ç±»å‹   */
 	protected static final String mchType=new String("43");
-	/**Ö§¸¶½»Ò××´Ì¬   */
+	/**æ”¯ä»˜äº¤æ˜“çŠ¶æ€   */
 	protected static final String tradeState=new String("44");
-	/**ÍË¿î½»Ò××´Ì¬   */
+	/**é€€æ¬¾äº¤æ˜“çŠ¶æ€   */
 	protected static final String refundState=new String("45");
-	/**²úÆ·°æ±¾   */
+	/**äº§å“ç‰ˆæœ¬   */
 	protected static final String productVersion=new String("46");
-	/**ÒøĞĞ¿¨ÀàĞÍ   */
+	/**é“¶è¡Œå¡ç±»å‹   */
 	protected static final String cardType=new String("49");
 
 
@@ -89,6 +95,9 @@ public abstract class CodesItem {
 		mapCat.put("InvoiceType",invoiceType);
 		mapCat.put("InvoiceStatus",invoiceStatus);
 		mapCat.put("InvoiceApplyType",invoiceApplyType);
+		mapCat.put("RegInfoStatus",regInfoStatus);
+		mapCat.put("OrgType",orgType);
+		mapCat.put("OrgStart",orgStart);
 		mapCat.put("ProCreateType",proCreateType);
 		mapCat.put("SectType",sectType);
 		mapCat.put("InfoStatus",infoStatus);
@@ -134,9 +143,9 @@ public abstract class CodesItem {
 	}                                                                                            			
 	public String toString(){ return this.code; }                                                     
 	                                                                                                  
-	/**¸ù¾İÖ¸¶¨µÄ´úÂëÖµ×ª»»³ÉÖĞÎÄÃû×Ö                                                                 
-	 * @param category   ±¾´úÂëËùÊôµÄÀà±ğµÄ±àºÅ                                                       
-	 * @param code   ±¾´úÂëµÄ´úÂëÖµ                                                                   
+	/**æ ¹æ®æŒ‡å®šçš„ä»£ç å€¼è½¬æ¢æˆä¸­æ–‡åå­—                                                                 
+	 * @param category   æœ¬ä»£ç æ‰€å±çš„ç±»åˆ«çš„ç¼–å·                                                       
+	 * @param code   æœ¬ä»£ç çš„ä»£ç å€¼                                                                   
 	 * @return                                                                                        
 	 * @throws                                                                                        
 	 */                                                                                               
@@ -174,14 +183,14 @@ public abstract class CodesItem {
 		public static Map getCategoryItems(String categoryName){
 		   String categoryCode = (String)mapCat.get(categoryName);
 		   if(categoryCode==null)
-		      throw new RuntimeException(categoryName + "´úÂë´óÀà±ğÎ´½øĞĞ³õÊ¼»¯£¡");
+		      throw new RuntimeException(categoryName + "ä»£ç å¤§ç±»åˆ«æœªè¿›è¡Œåˆå§‹åŒ–ï¼");
 		   
 		   Map mp=(Map)mapCategoryCode.get(categoryCode);
 		   return mp;
 		}
 
-	/**Ö±½Ó×ª»»³ÉÖĞÎÄÃû×Ö                                                                             
-	 * @ÎŞ²ÎÊı                                                                                        
+	/**ç›´æ¥è½¬æ¢æˆä¸­æ–‡åå­—                                                                             
+	 * @æ— å‚æ•°                                                                                        
 	 * @return                                                                                        
 	 */                                                                                               
 	public  String getValue(){                                                                        
@@ -195,9 +204,9 @@ public abstract class CodesItem {
 	   mapper = this.codeInfoMapper;                                                                  
 	}                                                                                                 
 	/**                                                                                               
-	 * ¹¹Ôìº¯Êı.                                                                                      
-	 * @param category   ±¾´úÂëËùÊôµÄÀà±ğµÄ±àºÅ                                                       
-	 * @param code   ±¾´úÂëµÄ´úÂëÖµ                                                                   
+	 * æ„é€ å‡½æ•°.                                                                                      
+	 * @param category   æœ¬ä»£ç æ‰€å±çš„ç±»åˆ«çš„ç¼–å·                                                       
+	 * @param code   æœ¬ä»£ç çš„ä»£ç å€¼                                                                   
 	 * @return                                                                                        
 	 * @throws                                                                                        
 	 */                                                                                               
@@ -209,7 +218,7 @@ public abstract class CodesItem {
 	protected static final List<CodeInfo> getCodeFromDB(String category) {             							
 			List<CodeInfo> list = mapper.selectByClass(category);                                  
 			if(list.size()<1){	                                                                        
-				throw new NotFoundException("µ±Ç°Ê¹ÓÃµÄ´úÂëÏîÔÚÊı¾İ¿âÎŞ·¨È¡µ½ code=" + category);             
+				throw new NotFoundException("å½“å‰ä½¿ç”¨çš„ä»£ç é¡¹åœ¨æ•°æ®åº“æ— æ³•å–åˆ° code=" + category);             
 			}                                                                                     
 		return list;                                                                                      
 	}                                                                                                 

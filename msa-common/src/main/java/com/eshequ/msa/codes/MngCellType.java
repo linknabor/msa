@@ -32,8 +32,8 @@ public class MngCellType extends CodesItem {
 			map.put(temp, codeInfo.getCiSpName());                                     
 			map2.put(temp, new MngCellType(temp));                                        
 		}                                                                                 
-		mapCategoryCode.put(CodesItem.infoStatus, map);                                
-		mapCodeObject.put(CodesItem.infoStatus, map2);		                              
+		mapCategoryCode.put(CodesItem.mngCellType, map);                                
+		mapCodeObject.put(CodesItem.mngCellType, map2);		                              
 	}                                                                                   
 /////////////////////////////////////////////////////////////////////////////////		
 	public int hashCode(){return super.hashCode();}

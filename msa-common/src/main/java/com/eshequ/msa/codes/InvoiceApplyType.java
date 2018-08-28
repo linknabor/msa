@@ -32,8 +32,8 @@ public class InvoiceApplyType extends CodesItem {
 			map.put(temp, codeInfo.getCiSpName());                                     
 			map2.put(temp, new InvoiceApplyType(temp));                                        
 		}                                                                                 
-		mapCategoryCode.put(CodesItem.infoStatus, map);                                
-		mapCodeObject.put(CodesItem.infoStatus, map2);		                              
+		mapCategoryCode.put(CodesItem.invoiceApplyType, map);                                
+		mapCodeObject.put(CodesItem.invoiceApplyType, map2);		                              
 	}                                                                                   
 /////////////////////////////////////////////////////////////////////////////////		
 	public int hashCode(){return super.hashCode();}

@@ -32,8 +32,8 @@ public class CarType extends CodesItem {
 			map.put(temp, codeInfo.getCiSpName());                                     
 			map2.put(temp, new CarType(temp));                                        
 		}                                                                                 
-		mapCategoryCode.put(CodesItem.infoStatus, map);                                
-		mapCodeObject.put(CodesItem.infoStatus, map2);		                              
+		mapCategoryCode.put(CodesItem.carType, map);                                
+		mapCodeObject.put(CodesItem.carType, map2);		                              
 	}                                                                                   
 /////////////////////////////////////////////////////////////////////////////////		
 	public int hashCode(){return super.hashCode();}

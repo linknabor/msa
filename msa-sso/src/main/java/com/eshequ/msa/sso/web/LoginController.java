@@ -2,7 +2,9 @@ package com.eshequ.msa.sso.web;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -43,6 +45,10 @@ public class LoginController extends BaseController{
 	private String crmLocalhostIp;
 	@Value("${sso.localhost.ip}")
 	private String ssoLocalhostIp;
+	@Value("${filter.reqUrl.login}")
+	private String reqUrlLogin;
+	@Value("${filter.reqUrl.checkSsoToken}")
+	private String reqUrlCheckSsoToken;
 	
 	/**
 	 * 登录
@@ -56,9 +62,9 @@ public class LoginController extends BaseController{
 		tpSysName = "系统";
 		HttpSession session = request.getSession();
 		BaseResult result = new BaseResult();
-//		List<String> allowedOrigins = Arrays.asList("http://192.168.0.115:9090", "http://localhost:9090", "http://login.stalary.com");
+		List<String> allowedOrigins = Arrays.asList("http://192.168.0.115:9090", "http://localhost:9090", "http://login.stalary.com");
 		String origin = request.getHeader("Origin");
-//		response.setHeader("Access-Control-Allow-Origin", allowedOrigins.contains(origin) ? origin : "");
+		response.setHeader("Access-Control-Allow-Origin", allowedOrigins.contains(origin) ? origin : "");
 //		String code = session.getAttribute("veriCode").toString();
 		String sessionId = session.getId();
 		Object code = redisTemplate.opsForValue().get(sessionId+"code");//redis中的验证码
@@ -82,11 +88,15 @@ public class LoginController extends BaseController{
 			redisTemplate.opsForValue().set(sessionId, loginUserJson);//用当前的sessionId作为唯一标识，存储用户信息(包括生成的token，和sessionId)
 			redisTemplate.opsForValue().set("tokenSessionId", sessionId);//存储一个取得sso令牌sessionId的一个redis，用于检验token是否有效
 //			http请求-->下发token到crm系统并且告知sessionId
-			response.sendRedirect(reqUrl+"?token="+token+"&sessionId="+sessionId);
+//			response.sendRedirect(reqUrl+"?token="+token+"&sessionId="+sessionId);
+			Map<String,String> map = new HashMap<String,String>();
+			map.put("token", token);
+			map.put("sessionId", sessionId);
+			map.put("reqUrl", reqUrl);
+			result.setResult(map);
 			return result;
 		}else {
 			//不存在用户，到登录页面
-			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/login.html");
 			return result;
 		}
 		}else {
@@ -148,22 +158,6 @@ public class LoginController extends BaseController{
 		}
 		return result;
 	}
-	/**
-	 * 获得登录信息的redis
-	 * @return
-	 */
-	@RequestMapping(value = "/getLoginUserRedis",method = RequestMethod.GET)
-	public Map<String,String> getLoginUserRedis() {
-		Map<String,String> result  = new HashMap<String,String>();
-		Gson gson = new Gson();
-		String loginRedis = (String) redisTemplate.opsForValue().get("loginUserRedis");
-		
-		if(loginRedis!=null) {
-			SsoUser user = gson.fromJson(loginRedis, SsoUser.class);
-			System.out.println(user.getUserName());
-		}
-		return result;
-	}
 		
 	//获取验证码
 		@RequestMapping(value = "/getCode",method = RequestMethod.GET)
@@ -201,17 +195,20 @@ public class LoginController extends BaseController{
 	
 	//sso登录认证中心
 	@RequestMapping(value = "/ssoAuthentication",method = RequestMethod.GET)
-	public void ssoAuthentication(String name,HttpServletResponse response,HttpServletRequest request,String reqUrl) throws IOException {
+	public String ssoAuthentication(String name,HttpServletResponse response,HttpServletRequest request,String reqUrl) throws IOException {
 		HttpSession session = request.getSession();
 		Object token = session.getAttribute("token");//sso session
-		String ii = session.getId();
+		String url = "";
 		if(token==null) {
 			//未登录 跳去登录页面
-			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/login.html?reqUrl="+reqUrl);
+			url = "http://"+ssoLocalhostIp+reqUrlLogin+"?reqUrl="+reqUrl;
+//			response.sendRedirect("http://"+ssoLocalhostIp+reqUrlLogin+"?reqUrl="+reqUrl);
 		}else{
 			//跳转目标页面
-			response.sendRedirect(reqUrl+"?token="+token+"&sessionId="+session.getId());
+			url = reqUrl+"?token="+token+"&sessionId="+session.getId();
+//			response.sendRedirect(reqUrl+"?token="+token+"&sessionId="+session.getId());
 		}
+		return url;
 	}
 	
 	//sso注销认证中心
@@ -224,12 +221,12 @@ public class LoginController extends BaseController{
 		String s = loginRemote.testFeign(ssoToken,sessionId);
 		if(token.equals(ssoToken)) {
 			//token验证成功，销毁sso全局会话
-			session.removeAttribute("token");//删除sso的session token
-			session.removeAttribute("isLogin");//删除sso登录状态
-			redisTemplate.delete(session.getId());//删除redis中存储的sso的token	
+//			session.removeAttribute("token");//删除sso的session token
+//			session.removeAttribute("isLogin");//删除sso登录状态
+//			redisTemplate.delete(session.getId());//删除redis中存储的sso的token	
 			
 			//将所有系统的session都注销掉（目前只注销crm）
-//			String s = loginRemote.testFeign(ssoToken,sessionId);//这是sso-->crm的会话
+			String s1 = loginRemote.testFeign(ssoToken,sessionId);//这是sso-->crm的会话
 			//注销所有会话后，返回到登录页面（据说，senRedirect后面的语句会继续执行，除非return）
 //			response.sendRedirect("http://"+ssoLocalhostIp+"/sso/login.html");
 		}else{
@@ -245,6 +242,7 @@ public class LoginController extends BaseController{
 		System.out.println("oidhsailtlsiljbbv(*^%*(&(*$&*(&&(");
 		loginRemote.cancellation(ssoToken,sessionId);
 	}
+	
 
 	
 }
