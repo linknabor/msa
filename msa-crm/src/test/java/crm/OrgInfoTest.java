@@ -68,7 +68,7 @@ public class OrgInfoTest {
 	@Test
 	public void testOrgQuery(){
 		OrgVo vo = new OrgVo();
-		vo.setOrgName("组织机构1");
+		vo.setOrgName("明教");
 		String url = "http://localhost:9090/crm/orgQueryByExample";
 		ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, vo, String.class);
 	}
