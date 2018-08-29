@@ -17,7 +17,7 @@
     <result column="PROVINCE_ID" jdbcType="BIGINT" property="provinceId" />
     <result column="INDUSTRY_ID" jdbcType="BIGINT" property="industryId" />
   </resultMap>
-  <select id="queryCustByExample" resultType="com.eshequ.msa.crm.model.CrmMarketingCust" parameterType="com.eshequ.msa.crm.vo.targetcust.TargetCustVo">
+  <select id="queryCustByExample" resultType="com.eshequ.msa.crm.model.targetcustmodel.CrmMarketingCust" parameterType="com.eshequ.msa.crm.vo.targetcust.TargetCustVo">
   	select * from crm_marketing_cust where 1=1
   	<if test="custName != null">
   		and cust_name like CONCAT('%', #{custName}, '%')

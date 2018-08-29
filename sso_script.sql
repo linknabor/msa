@@ -1,4 +1,5 @@
-CREATE database testdb DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+CREATE database msasso DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+use msasso;
 
 #角色信息表
 DROP TABLE IF EXISTS SSO_ROLE ;
@@ -10,9 +11,14 @@ CONSTRAINT SSO_ROLE_PK PRIMARY KEY(ROLE_ID)   );
 #用户菜单信息表
 DROP TABLE IF EXISTS SSO_MENU ;
 CREATE TABLE SSO_MENU(
-MENU_ID                                           BIGINT default 0 NOT NULL, #菜单id
+MENU_ID                                           BIGINT default 0 NOT NULL, #菜单ID
 MENU_NAME                                         VARCHAR(40) NOT NULL, #菜单名称
-FORWARD_URL                                       VARCHAR(255) NOT NULL, #菜单跳转链接
+MENU_CODE                                         VARCHAR(40) NULL, #菜单编码
+MENU_LEVEL                                        CHAR(1) NULL, #菜单级别
+PARENT_ID                                         BIGINT default 0 NOT NULL, #父菜单ID
+MENU_POS                                          DECIMAL(10) default 0 NOT NULL, #菜单位置编号
+ENTRANCE_URL                                      VARCHAR(255) NOT NULL, #入口链接
+MENU_DESC                                         VARCHAR(255) NULL, #菜单描述
 CONSTRAINT SSO_MENU_PK PRIMARY KEY(MENU_ID)   );
 
 #用户信息表

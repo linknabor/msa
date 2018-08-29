@@ -7,9 +7,9 @@
 		<artifactId>msa-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>msa-crm</artifactId>
-	<name>msa-crm</name>
-	<description>msa-crm</description>
+	<artifactId>msa-sso</artifactId>
+	<name>msa-sso</name>
+	<description>msa-sso</description>
 
 	<dependencyManagement>
 		<dependencies>
@@ -176,5 +176,17 @@
 			<version>${msa.common.version}</version>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<mainClass>com.eshequ.sso.config.AppConfig</mainClass>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

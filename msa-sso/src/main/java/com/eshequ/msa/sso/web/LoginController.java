@@ -2,9 +2,7 @@ package com.eshequ.msa.sso.web;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -44,14 +42,8 @@ public class LoginController extends BaseController{
 	private LoginRemote loginRemote;
 	@Autowired
 	private RedisTemplate<String, Object> redisTemplate;
-	@Value("${crm.localhost.ip}")
-	private String crmLocalhostIp;
-	@Value("${sso.localhost.ip}")
-	private String ssoLocalhostIp;
-	@Value("${filter.reqUrl.login}")
+	@Value("${sso.login.url}")
 	private String reqUrlLogin;
-	@Value("${filter.reqUrl.checkSsoToken}")
-	private String reqUrlCheckSsoToken;
 	
 	/**
 	 * 登录
@@ -61,13 +53,9 @@ public class LoginController extends BaseController{
 	 * @throws IOException 
 	 */
 	@RequestMapping(value = "/login",method = RequestMethod.GET)
-	public BaseResult login(HttpServletResponse response,HttpServletRequest request, String reqUrl,@RequestParam("userName") String userName, String veriCode,String password,String tpSysName,RedirectAttributes res) throws IOException {
+	public BaseResult<Map<String, String>> login(HttpServletResponse response,HttpServletRequest request, String reqUrl,@RequestParam("userName") String userName, String veriCode,String password,String tpSysName,RedirectAttributes res) throws IOException {
 		tpSysName = "系统";
-//		GlobalExceptionHandler exceptionHandler = new GlobalExceptionHandler();
 		HttpSession session = request.getSession();
-		List<String> allowedOrigins = Arrays.asList("http://192.168.0.115:9090", "http://localhost:9090", "http://login.stalary.com");
-		String origin = request.getHeader("Origin");
-		response.setHeader("Access-Control-Allow-Origin", allowedOrigins.contains(origin) ? origin : "");
 //		String code = session.getAttribute("veriCode").toString();
 		String sessionId = session.getId();
 		Object code = redisTemplate.opsForValue().get(sessionId+"code");//redis中的验证码
@@ -76,7 +64,8 @@ public class LoginController extends BaseController{
 			BaseResult.fail(3, "验证码过期！");
 		}
 		if(code.equals(veriCode)) {
-			BaseResult result = loginService.login(userName, password,tpSysName);
+			@SuppressWarnings("unchecked")
+			BaseResult<Map<String, String>> result = loginService.login(userName, password,tpSysName);
 			if(result.isSuccess()) {
 				SsoUser user = loginService.selectUserByUserName(userName,tpSysName);//查询当前登录用户信息
 				user.setSessionId(sessionId);
@@ -206,7 +195,7 @@ public class LoginController extends BaseController{
 		String url = "";
 		if(token==null) {
 			//未登录 跳去登录页面
-			url = "http://"+ssoLocalhostIp+reqUrlLogin+"?reqUrl="+reqUrl;
+			url = reqUrlLogin+"?reqUrl="+reqUrl;
 //			response.sendRedirect("http://"+ssoLocalhostIp+reqUrlLogin+"?reqUrl="+reqUrl);
 		}else{
 			//跳转目标页面
