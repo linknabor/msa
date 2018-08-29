@@ -101,18 +101,4 @@ public class SnowFlake {
         return	System.currentTimeMillis();
     }
     
-	public static void main(String[] args) {
-    	
-        SnowFlake snowFlake = new SnowFlake();
-
-        long start = System.currentTimeMillis();
-        for (int i = 0; i < 1000000; i++) {
-            System.out.println(snowFlake.nextId());
-        }
-
-        System.out.println(System.currentTimeMillis() - start);
-        System.out.println("curr:"+System.currentTimeMillis());
-
-
-    }
 }
