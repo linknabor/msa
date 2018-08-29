@@ -25,13 +25,14 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.eshequ.msa.common.BaseResult;
-import com.eshequ.msa.exception.BusinessException;
-import com.eshequ.msa.handler.GlobalExceptionHandler;
 import com.eshequ.msa.sso.model.SsoUser;
 import com.eshequ.msa.sso.service.LoginRemote;
 import com.eshequ.msa.sso.service.LoginService;
 import com.eshequ.msa.util.vericode.VeriCodeUtil;
 import com.eshequ.msa.util.vericode.VeriCodeVO;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 
 
@@ -114,18 +115,20 @@ public class LoginController extends BaseController{
 	 * @param userName 用户名
 	 * @param password 密码
 	 * @return
+	 * @throws IOException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	@RequestMapping(value = "/getLoginUserSession",method = RequestMethod.GET)
-	public Map<String,String> login(HttpServletRequest request,HttpSession httpSession) {
-		Map<String,String> result  = new HashMap<String,String>();
-		if(httpSession.getAttribute("loginUser") != null) {
-			result.put("loginUser", httpSession.getAttribute("loginUser").toString());
-			System.out.println(httpSession.getId());
-		}else {
-			result.put("loginUser", "00");
+	@RequestMapping(value = "/getLoginUser",method = RequestMethod.GET)
+	public SsoUser login(HttpServletRequest request,HttpSession httpSession) throws JsonParseException, JsonMappingException, IOException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		Object respJson = redisTemplate.opsForValue().get(httpSession.getId());
+		SsoUser user = null;
+		if(respJson != null) {
+			//Json转对象
+			user = objectMapper.readValue(respJson.toString(), SsoUser.class); 
 		}
-		
-		return result;
+		return user;
 	}
 	
 	/**
