@@ -5,4 +5,11 @@
     <id column="ROLE_ID" jdbcType="BIGINT" property="roleId" />
     <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName" />
   </resultMap>
+  
+    
+    <!-- 修改角色 -->
+  <update  id="updateSsoRole" parameterType="com.eshequ.msa.sso.model.SsoRole" >
+    update sso_role set role_name = #{roleName} 
+    where role_id = #{roleId}
+  </update >
 </mapper>

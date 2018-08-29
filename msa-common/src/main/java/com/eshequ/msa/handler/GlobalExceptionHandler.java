@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.eshequ.msa.common.BaseResult;
 import com.eshequ.msa.exception.AppSysException;
 import com.eshequ.msa.exception.BusinessException;
+import com.eshequ.msa.util.ObjectUtil;
 
 @ControllerAdvice("com.eshequ.msa")
 @ResponseBody
@@ -20,6 +21,9 @@ public class GlobalExceptionHandler<T> {
 	@ExceptionHandler(BusinessException.class)
     public BaseResult<T> businessExceptionHandler(BusinessException exception) {
         logger.error(exception.getMessage(), exception);
+        if (Integer.MIN_VALUE < exception.getCode()) {
+        	return BaseResult.fail(exception.getCode(), exception.getMessage());
+		}
         return BaseResult.fail(exception.getMessage());
     }
     
