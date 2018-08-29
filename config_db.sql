@@ -1,3 +1,7 @@
+CREATE database msaconfig DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
+use msaconfig;
+
+
 DROP TABLE IF EXISTS CODE_INFO ;
 CREATE TABLE CODE_INFO(
 CI_SP_CODE                                        VARCHAR(40) NOT NULL, #´úÂëÖµ
