@@ -54,9 +54,7 @@ public class LoginController extends BaseController{
 	 */
 	@RequestMapping(value = "/login",method = RequestMethod.GET)
 	public BaseResult<Map<String, String>> login(HttpServletResponse response,HttpServletRequest request, String reqUrl,@RequestParam("userName") String userName, String veriCode,String password,String tpSysName,RedirectAttributes res) throws IOException {
-		tpSysName = "系统";
 		HttpSession session = request.getSession();
-//		String code = session.getAttribute("veriCode").toString();
 		String sessionId = session.getId();
 		Object code = redisTemplate.opsForValue().get(sessionId+"code");//redis中的验证码
 		if(code == null) {
@@ -80,7 +78,6 @@ public class LoginController extends BaseController{
 				redisTemplate.opsForValue().set(sessionId, loginUserJson);//用当前的sessionId作为唯一标识，存储用户信息(包括生成的token，和sessionId)
 				redisTemplate.opsForValue().set("tokenSessionId", sessionId);//存储一个取得sso令牌sessionId的一个redis，用于检验token是否有效
 	//			http请求-->下发token到crm系统并且告知sessionId
-	//			response.sendRedirect(reqUrl+"?token="+token+"&sessionId="+sessionId);
 				Map<String,String> map = new HashMap<String,String>();
 				map.put("token", token);
 				map.put("sessionId", sessionId);
@@ -89,7 +86,6 @@ public class LoginController extends BaseController{
 				return result;
 			}else {
 				//不存在用户，到登录页面
-//				return exceptionHandler.businessExceptionHandler1(0, new BusinessException());
 				return result;
 			} 
 		}else {
@@ -156,7 +152,6 @@ public class LoginController extends BaseController{
 	//获取验证码
 		@RequestMapping(value = "/getCode",method = RequestMethod.GET)
 		public String getCode(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException {
- 			Object code = redisTemplate.opsForValue().get(session.getId()+"code");//
 			OutputStream os = response.getOutputStream();
 			VeriCodeVO vo = VeriCodeUtil.generateVeriCode();
 			response.setHeader("Pragma", "no-cache");
@@ -196,11 +191,9 @@ public class LoginController extends BaseController{
 		if(token==null) {
 			//未登录 跳去登录页面
 			url = reqUrlLogin+"?reqUrl="+reqUrl;
-//			response.sendRedirect("http://"+ssoLocalhostIp+reqUrlLogin+"?reqUrl="+reqUrl);
 		}else{
 			//跳转目标页面
 			url = reqUrl+"?token="+token+"&sessionId="+session.getId();
-//			response.sendRedirect(reqUrl+"?token="+token+"&sessionId="+session.getId());
 		}
 		return url;
 	}
