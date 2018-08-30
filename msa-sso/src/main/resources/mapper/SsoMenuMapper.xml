@@ -11,4 +11,18 @@
     <result column="ENTRANCE_URL" jdbcType="VARCHAR" property="entranceUrl" />
     <result column="MENU_DESC" jdbcType="VARCHAR" property="menuDesc" />
   </resultMap>
+  
+      <!-- 修改菜单 -->
+  <update  id="updateSsoMenu" parameterType="com.eshequ.msa.sso.model.SsoMenu" >
+    update sso_menu 
+    set 
+    menu_name = #{menuName},
+    menu_code = #{menuCode},
+    menu_level = #{menuLevel},
+    parent_id = #{parentId},
+    menu_pos = #{menuPos},
+    entrance_url = #{entranceUrl},
+    menu_desc = #{menuDesc}
+    where menu_id = #{menuId}
+  </update >
 </mapper>
