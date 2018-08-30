@@ -35,4 +35,13 @@ public class ParaServiceImpl implements ParaService{
 		mapper.updateByPrimaryKey(record);
 	}
 
+	@Override
+	@Transactional
+	public void paraAdd(ParaVo vo) {
+		MsaCfgSysPara record = new MsaCfgSysPara();
+		BeanUtils.copyProperties(vo, record);
+		record.setParaId(snowFlake.nextId());
+		mapper.insertSelective(record);
+	}
+
 }

@@ -24,6 +24,11 @@ public class ParaController extends BaseController{
 		return list;
 	}
 	
+	@RequestMapping(value = "/paraAdd", method = RequestMethod.POST)
+	public void paraAdd(@RequestBody ParaVo vo){
+		paraService.paraAdd(vo);
+	}
+	
 	@RequestMapping(value = "/paraEdit", method = RequestMethod.POST)
 	public void paraEdit(@RequestBody ParaVo vo){
 		paraService.paraEdit(vo);
