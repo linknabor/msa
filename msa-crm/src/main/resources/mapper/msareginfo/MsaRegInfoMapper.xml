@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.crm.mapper.msareginfo.MsaRegInfoMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.crm.model.msareginfo.MsaRegInfo">
+    <id column="REG_ENTERPRISE_ID" jdbcType="VARCHAR" property="regEnterpriseId" />
+    <result column="STATUS" jdbcType="CHAR" property="status" />
+    <result column="REG_DATE" jdbcType="CHAR" property="regDate" />
+    <result column="REG_TIME" jdbcType="CHAR" property="regTime" />
+    <result column="RANDOM_CODE" jdbcType="VARCHAR" property="randomCode" />
+    <result column="LOGIN_NAME" jdbcType="VARCHAR" property="loginName" />
+    <result column="ENTERPRISE_NAME" jdbcType="VARCHAR" property="enterpriseName" />
+    <result column="LINK_MAN" jdbcType="VARCHAR" property="linkMan" />
+    <result column="ORG_TEL" jdbcType="VARCHAR" property="orgTel" />
+    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
+    <result column="POST_CODE" jdbcType="VARCHAR" property="postCode" />
+    <result column="ORG_ADDR" jdbcType="VARCHAR" property="orgAddr" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="PRODUCT_VERSION" jdbcType="CHAR" property="productVersion" />
+    <result column="START_DATE" jdbcType="CHAR" property="startDate" />
+    <result column="BACK_TE_NAME" jdbcType="VARCHAR" property="backTeName" />
+  </resultMap>
+</mapper>
