@@ -32,7 +32,7 @@ public class ParaServiceImpl implements ParaService{
 	public void paraEdit(ParaVo vo) {
 		MsaCfgSysPara record = new MsaCfgSysPara();
 		BeanUtils.copyProperties(vo, record);
-		mapper.updateByPrimaryKey(record);
+		mapper.updateByPrimaryKeySelective(record);
 	}
 
 	@Override

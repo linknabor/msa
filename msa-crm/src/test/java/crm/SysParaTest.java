@@ -26,6 +26,9 @@ public class SysParaTest {
 	@Test
 	public void testSysParaEdit(){
 		ParaVo vo = new ParaVo();
+		vo.setParaId(Long.valueOf("7938576457273344"));
+		vo.setParaName("activityNumber");
+		
 		String url = "http://localhost:9090/crm/paraEdit";
 		ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, vo, String.class);
 		System.out.println("编辑成功！");
