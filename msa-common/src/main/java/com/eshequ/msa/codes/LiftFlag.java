@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：电梯标志  */												 
+/** Auto generated */												 
 public class LiftFlag extends CodesItem {                                      
 	private LiftFlag(String code){super(CodesItem.liftFlag,code);}	        
 	public static String getValue(String code){                                         
@@ -49,9 +49,7 @@ public class LiftFlag extends CodesItem {
 
 
 
-	/**无<Wu>  */
 	public static final LiftFlag Wu                                      		= getObject("0");
-	/**有<You>  */
 	public static final LiftFlag You                                     		= getObject("1");
 }
 

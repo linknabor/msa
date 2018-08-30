@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：物业项目性质  */												 
+/** Auto generated */												 
 public class ProCreateType extends CodesItem {                                      
 	private ProCreateType(String code){super(CodesItem.proCreateType,code);}	        
 	public static String getValue(String code){                                         
@@ -49,19 +49,12 @@ public class ProCreateType extends CodesItem {
 
 
 
-	/**商品房<ShangPinFang>  */
 	public static final ProCreateType ShangPinFang                            		= getObject("1");
-	/**动迁房<DongQianFang>  */
 	public static final ProCreateType DongQianFang                            		= getObject("2");
-	/**经适房<JingShiFang>  */
 	public static final ProCreateType JingShiFang                             		= getObject("3");
-	/**售后房<ShouHouFang>  */
 	public static final ProCreateType ShouHouFang                             		= getObject("4");
-	/**直管公房<ZhiGuanGongFang>  */
 	public static final ProCreateType ZhiGuanGongFang                         		= getObject("5");
-	/**混合<HunHe>  */
 	public static final ProCreateType HunHe                                   		= getObject("6");
-	/**系统公房<XiTongGongFang>  */
 	public static final ProCreateType XiTongGongFang                          		= getObject("7");
 }
 

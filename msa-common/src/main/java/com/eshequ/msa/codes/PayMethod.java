@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：支付渠道  */												 
+/** Auto generated */												 
 public class PayMethod extends CodesItem {                                      
 	private PayMethod(String code){super(CodesItem.payMethod,code);}	        
 	public static String getValue(String code){                                         
@@ -49,27 +49,16 @@ public class PayMethod extends CodesItem {
 
 
 
-	/**现金<XianJin>  */
 	public static final PayMethod XianJin                                 		= getObject("01");
-	/**转账<ZhuanZhang>  */
 	public static final PayMethod ZhuanZhang                              		= getObject("02");
-	/**POS（脱机）<Pos>  */
 	public static final PayMethod Pos                                     		= getObject("03");
-	/**支付宝<AliPayWeb>  */
 	public static final PayMethod AliPayWeb                               		= getObject("04");
-	/**财付通<TenPayWeb>  */
 	public static final PayMethod TenPayWeb                               		= getObject("05");
-	/**微信公众号<WeChat>  */
 	public static final PayMethod WeChat                                  		= getObject("06");
-	/**微信App<WechatApp>  */
 	public static final PayMethod WechatApp                               		= getObject("07");
-	/**微信扫码<WechatMicropay>  */
 	public static final PayMethod WechatMicropay                          		= getObject("08");
-	/**支付宝扫码<AliPayMicropay>  */
 	public static final PayMethod AliPayMicropay                          		= getObject("09");
-	/**POS（联机）<MobilePos>  */
 	public static final PayMethod MobilePos                               		= getObject("10");
-	/**上海物业App<WyFeeMp>  */
 	public static final PayMethod WyFeeMp                                 		= getObject("99");
 }
 

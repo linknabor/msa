@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：广告位类型  */												 
+/** Auto generated */												 
 public class AdLocateType extends CodesItem {                                      
 	private AdLocateType(String code){super(CodesItem.adLocateType,code);}	        
 	public static String getValue(String code){                                         
@@ -49,17 +49,11 @@ public class AdLocateType extends CodesItem {
 
 
 
-	/**广告牌<GuangGaoPai>  */
 	public static final AdLocateType GuangGaoPai                             		= getObject("01");
-	/**电梯广告<DianTiGuangGao>  */
 	public static final AdLocateType DianTiGuangGao                          		= getObject("02");
-	/**宣传栏<XuanChuanLan>  */
 	public static final AdLocateType XuanChuanLan                            		= getObject("03");
-	/**路灯柱<LuDengZhu>  */
 	public static final AdLocateType LuDengZhu                               		= getObject("04");
-	/**灯箱<DengXiang>  */
 	public static final AdLocateType DengXiang                               		= getObject("05");
-	/**其他<QiTa>  */
 	public static final AdLocateType QiTa                                    		= getObject("99");
 }
 

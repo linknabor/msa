@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：支付交易状态  */												 
+/** Auto generated */												 
 public class TradeState extends CodesItem {                                      
 	private TradeState(String code){super(CodesItem.tradeState,code);}	        
 	public static String getValue(String code){                                         
@@ -49,15 +49,10 @@ public class TradeState extends CodesItem {
 
 
 
-	/**正在支付中<ZaiTu>  */
 	public static final TradeState ZaiTu                                   		= getObject("01");
-	/**已支付<YiZhiFu>  */
 	public static final TradeState YiZhiFu                                 		= getObject("02");
-	/**未支付<WeiZhiFu>  */
 	public static final TradeState WeiZhiFu                                		= getObject("03");
-	/**已清算<YiQingSuan>  */
 	public static final TradeState YiQingSuan                              		= getObject("04");
-	/**已返点<YiFanDian>  */
 	public static final TradeState YiFanDian                               		= getObject("05");
 }
 

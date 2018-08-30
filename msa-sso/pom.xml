@@ -7,9 +7,9 @@
 		<artifactId>msa-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
-	<artifactId>msa-crm</artifactId>
-	<name>msa-crm</name>
-	<description>msa-crm</description>
+	<artifactId>msa-sso</artifactId>
+	<name>msa-sso</name>
+	<description>msa-sso</description>
 
 	<dependencyManagement>
 		<dependencies>

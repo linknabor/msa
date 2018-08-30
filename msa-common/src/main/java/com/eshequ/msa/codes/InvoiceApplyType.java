@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：发票申请类型  */												 
+/** Auto generated */												 
 public class InvoiceApplyType extends CodesItem {                                      
 	private InvoiceApplyType(String code){super(CodesItem.invoiceApplyType,code);}	        
 	public static String getValue(String code){                                         
@@ -49,9 +49,7 @@ public class InvoiceApplyType extends CodesItem {
 
 
 
-	/**正数发票开具<KaiJuFaPiao>  */
 	public static final InvoiceApplyType KaiJuFaPiao                             		= getObject("0");
-	/**负数发票开具<HongChongFaPiao>  */
 	public static final InvoiceApplyType HongChongFaPiao                         		= getObject("1");
 }
 

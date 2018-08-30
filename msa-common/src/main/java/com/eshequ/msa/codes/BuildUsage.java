@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：建筑用途  */												 
+/** Auto generated */												 
 public class BuildUsage extends CodesItem {                                      
 	private BuildUsage(String code){super(CodesItem.buildUsage,code);}	        
 	public static String getValue(String code){                                         
@@ -49,15 +49,10 @@ public class BuildUsage extends CodesItem {
 
 
 
-	/**住宅<ZhuZhai>  */
 	public static final BuildUsage ZhuZhai                                 		= getObject("01");
-	/**商业<ShangYe>  */
 	public static final BuildUsage ShangYe                                 		= getObject("02");
-	/**车库<CheKu>  */
 	public static final BuildUsage CheKu                                   		= getObject("03");
-	/**地下室<DiXiaShi>  */
 	public static final BuildUsage DiXiaShi                                		= getObject("04");
-	/**其他<QiTa>  */
 	public static final BuildUsage QiTa                                    		= getObject("99");
 }
 

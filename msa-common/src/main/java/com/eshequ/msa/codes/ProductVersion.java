@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：产品版本  */												 
+/** Auto generated */												 
 public class ProductVersion extends CodesItem {                                      
 	private ProductVersion(String code){super(CodesItem.productVersion,code);}	        
 	public static String getValue(String code){                                         
@@ -49,11 +49,8 @@ public class ProductVersion extends CodesItem {
 
 
 
-	/**标准版<BiaoZhun>  */
 	public static final ProductVersion BiaoZhun                                		= getObject("01");
-	/**专业版<ZhuanYe>  */
 	public static final ProductVersion ZhuanYe                                 		= getObject("02");
-	/**企业版<QiYeBan>  */
 	public static final ProductVersion QiYeBan                                 		= getObject("03");
 }
 

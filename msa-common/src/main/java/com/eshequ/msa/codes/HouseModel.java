@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：户型  */												 
+/** Auto generated */												 
 public class HouseModel extends CodesItem {                                      
 	private HouseModel(String code){super(CodesItem.houseModel,code);}	        
 	public static String getValue(String code){                                         
@@ -49,19 +49,12 @@ public class HouseModel extends CodesItem {
 
 
 
-	/**一室<YiShi>  */
 	public static final HouseModel YiShi                                   		= getObject("01");
-	/**二室<ErShi>  */
 	public static final HouseModel ErShi                                   		= getObject("02");
-	/**三室<SanShi>  */
 	public static final HouseModel SanShi                                  		= getObject("03");
-	/**四室<SiShi>  */
 	public static final HouseModel SiShi                                   		= getObject("04");
-	/**五室<WuShi>  */
 	public static final HouseModel WuShi                                   		= getObject("05");
-	/**五室以上<WuShiYiShang>  */
 	public static final HouseModel WuShiYiShang                            		= getObject("06");
-	/**其他<QiTa>  */
 	public static final HouseModel QiTa                                    		= getObject("99");
 }
 

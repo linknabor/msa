@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：退款交易状态  */												 
+/** Auto generated */												 
 public class RefundState extends CodesItem {                                      
 	private RefundState(String code){super(CodesItem.refundState,code);}	        
 	public static String getValue(String code){                                         
@@ -49,19 +49,12 @@ public class RefundState extends CodesItem {
 
 
 
-	/**编辑<BianJi>  */
 	public static final RefundState BianJi                                  		= getObject("00");
-	/**交易完成<JiaoYiWanCheng>  */
 	public static final RefundState JiaoYiWanCheng                          		= getObject("01");
-	/**交易撤销<JiaoYiCheXiao>  */
 	public static final RefundState JiaoYiCheXiao                           		= getObject("02");
-	/**待审核<DaiShenHe>  */
 	public static final RefundState DaiShenHe                               		= getObject("03");
-	/**待复核<DaiFuHe>  */
 	public static final RefundState DaiFuHe                                 		= getObject("04");
-	/**在途<ZaiTu>  */
 	public static final RefundState ZaiTu                                   		= getObject("05");
-	/**审核退回<ShenHeTuiHui>  */
 	public static final RefundState ShenHeTuiHui                            		= getObject("06");
 }
 

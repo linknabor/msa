@@ -62,14 +62,14 @@ public class OrgServiceImpl implements OrgService{
 
 	@Override
 	public List<CrmSysOrgInfo> orgQueryByExample(OrgVo vo) {
-		// TODO Auto-generated method stub
-		return null;
+		List<CrmSysOrgInfo> list = mapper.queryOrgByExample(vo);
+		return list;
 	}
 
 	@Override
 	public List<CrmSysOrgInfo> orgQueryAll() {
-		// TODO Auto-generated method stub
-		return null;
+		List<CrmSysOrgInfo> list = mapper.selectAll();
+		return list;
 	}
 
 }

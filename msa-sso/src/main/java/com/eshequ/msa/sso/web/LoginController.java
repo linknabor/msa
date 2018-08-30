@@ -2,9 +2,7 @@ package com.eshequ.msa.sso.web;
 
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Arrays;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
@@ -30,7 +28,9 @@ import com.eshequ.msa.sso.service.LoginRemote;
 import com.eshequ.msa.sso.service.LoginService;
 import com.eshequ.msa.util.vericode.VeriCodeUtil;
 import com.eshequ.msa.util.vericode.VeriCodeVO;
-import com.google.gson.Gson;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 
 @RestController
@@ -41,14 +41,8 @@ public class LoginController extends BaseController{
 	private LoginRemote loginRemote;
 	@Autowired
 	private RedisTemplate<String, Object> redisTemplate;
-	@Value("${crm.localhost.ip}")
-	private String crmLocalhostIp;
-	@Value("${sso.localhost.ip}")
-	private String ssoLocalhostIp;
-	@Value("${filter.reqUrl.login}")
+	@Value("${sso.login.url}")
 	private String reqUrlLogin;
-	@Value("${filter.reqUrl.checkSsoToken}")
-	private String reqUrlCheckSsoToken;
 	
 	/**
 	 * 登录
@@ -58,51 +52,44 @@ public class LoginController extends BaseController{
 	 * @throws IOException 
 	 */
 	@RequestMapping(value = "/login",method = RequestMethod.GET)
-	public BaseResult login(HttpServletResponse response,HttpServletRequest request, String reqUrl,@RequestParam("userName") String userName, String veriCode,String password,String tpSysName,RedirectAttributes res) throws IOException {
-		tpSysName = "系统";
+	public BaseResult<Map<String, String>> login(HttpServletResponse response,HttpServletRequest request, String reqUrl,@RequestParam("userName") String userName, String veriCode,String password,String tpSysName,RedirectAttributes res) throws IOException {
 		HttpSession session = request.getSession();
-		BaseResult result = new BaseResult();
-		List<String> allowedOrigins = Arrays.asList("http://192.168.0.115:9090", "http://localhost:9090", "http://login.stalary.com");
-		String origin = request.getHeader("Origin");
-		response.setHeader("Access-Control-Allow-Origin", allowedOrigins.contains(origin) ? origin : "");
-//		String code = session.getAttribute("veriCode").toString();
 		String sessionId = session.getId();
 		Object code = redisTemplate.opsForValue().get(sessionId+"code");//redis中的验证码
 		if(code == null) {
 			//验证码过期，请重新生成验证码
-			result.fail(3, "验证码过期！");
+			BaseResult.fail(3, "验证码过期！");
 		}
 		if(code.equals(veriCode)) {
-			result = loginService.login(userName, password,tpSysName);
-		if(result.isSuccess()) {
-			SsoUser user = loginService.selectUserByUserName(userName,tpSysName);//查询当前登录用户信息
-			user.setSessionId(sessionId);
-			session.setAttribute("isLogin", "true");
-			String token = UUID.randomUUID().toString();//授权码
-			user.setToken(token);
-			session.setAttribute("token", token);
-			System.out.println(session.getAttribute("token"));
-			//用户信息 存储redis
-			Gson gson = new Gson();
-			String loginUserJson = gson.toJson(user);
-			redisTemplate.opsForValue().set(sessionId, loginUserJson);//用当前的sessionId作为唯一标识，存储用户信息(包括生成的token，和sessionId)
-			redisTemplate.opsForValue().set("tokenSessionId", sessionId);//存储一个取得sso令牌sessionId的一个redis，用于检验token是否有效
-//			http请求-->下发token到crm系统并且告知sessionId
-//			response.sendRedirect(reqUrl+"?token="+token+"&sessionId="+sessionId);
-			Map<String,String> map = new HashMap<String,String>();
-			map.put("token", token);
-			map.put("sessionId", sessionId);
-			map.put("reqUrl", reqUrl);
-			result.setResult(map);
-			return result;
-		}else {
-			//不存在用户，到登录页面
-			return result;
-		}
+			@SuppressWarnings("unchecked")
+			BaseResult<Map<String, String>> result = loginService.login(userName, password,tpSysName);
+			if(result.isSuccess()) {
+				SsoUser user = loginService.selectUserByUserName(userName,tpSysName);//查询当前登录用户信息
+				user.setSessionId(sessionId);
+				session.setAttribute("isLogin", "true");
+				String token = UUID.randomUUID().toString();//授权码
+				user.setToken(token);
+				session.setAttribute("token", token);
+				System.out.println(session.getAttribute("token"));
+				//用户信息 存储redis
+				ObjectMapper objectMapper = new ObjectMapper();
+				String loginUserJson = objectMapper.writeValueAsString(user);
+				redisTemplate.opsForValue().set(sessionId, loginUserJson);//用当前的sessionId作为唯一标识，存储用户信息(包括生成的token，和sessionId)
+				redisTemplate.opsForValue().set("tokenSessionId", sessionId);//存储一个取得sso令牌sessionId的一个redis，用于检验token是否有效
+	//			http请求-->下发token到crm系统并且告知sessionId
+				Map<String,String> map = new HashMap<String,String>();
+				map.put("token", token);
+				map.put("sessionId", sessionId);
+				map.put("reqUrl", reqUrl);
+				result.setResult(map);
+				return result;
+			}else {
+				//不存在用户，到登录页面
+				return result;
+			} 
 		}else {
 			//验证码不正确，跳转到登录页面
-			result.fail(2, "验证码不正确！");
-			return result;
+			return BaseResult.fail(2, "验证码不正确！");
 		}
 	}
 	
@@ -112,18 +99,20 @@ public class LoginController extends BaseController{
 	 * @param userName 用户名
 	 * @param password 密码
 	 * @return
+	 * @throws IOException 
+	 * @throws JsonMappingException 
+	 * @throws JsonParseException 
 	 */
-	@RequestMapping(value = "/getLoginUserSession",method = RequestMethod.GET)
-	public Map<String,String> login(HttpServletRequest request,HttpSession httpSession) {
-		Map<String,String> result  = new HashMap<String,String>();
-		if(httpSession.getAttribute("loginUser") != null) {
-			result.put("loginUser", httpSession.getAttribute("loginUser").toString());
-			System.out.println(httpSession.getId());
-		}else {
-			result.put("loginUser", "00");
+	@RequestMapping(value = "/getLoginUser",method = RequestMethod.GET)
+	public SsoUser login(HttpServletRequest request,HttpSession httpSession) throws JsonParseException, JsonMappingException, IOException {
+		ObjectMapper objectMapper = new ObjectMapper();
+		Object respJson = redisTemplate.opsForValue().get(httpSession.getId());
+		SsoUser user = null;
+		if(respJson != null) {
+			//Json转对象
+			user = objectMapper.readValue(respJson.toString(), SsoUser.class); 
 		}
-		
-		return result;
+		return user;
 	}
 	
 	/**
@@ -162,7 +151,6 @@ public class LoginController extends BaseController{
 	//获取验证码
 		@RequestMapping(value = "/getCode",method = RequestMethod.GET)
 		public String getCode(HttpServletRequest request,HttpServletResponse response,HttpSession session) throws IOException {
- 			Object code = redisTemplate.opsForValue().get(session.getId()+"code");//
 			OutputStream os = response.getOutputStream();
 			VeriCodeVO vo = VeriCodeUtil.generateVeriCode();
 			response.setHeader("Pragma", "no-cache");
@@ -180,13 +168,14 @@ public class LoginController extends BaseController{
 	
 	//检查token是否有效
 	@RequestMapping(value = "/checkSsoToken",method = RequestMethod.POST)
-	public String checkSsoToken(String ssoToken,String sessionId,HttpServletResponse response,HttpServletRequest request) {
+	public String checkSsoToken(String ssoToken,String sessionId,HttpServletResponse response,HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException {
 		HttpSession session = request.getSession();
 		String s = session.getId();
 		String isToken = "false";
-		Gson gson = new Gson();
+		
 		String userJson = redisTemplate.opsForValue().get(sessionId).toString();
-		SsoUser user =  gson.fromJson(userJson, SsoUser.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		SsoUser user = objectMapper.readValue(userJson, SsoUser.class);
 		if(user.getToken().equals(ssoToken)) {
 			isToken = "true";
 		}
@@ -201,12 +190,10 @@ public class LoginController extends BaseController{
 		String url = "";
 		if(token==null) {
 			//未登录 跳去登录页面
-			url = "http://"+ssoLocalhostIp+reqUrlLogin+"?reqUrl="+reqUrl;
-//			response.sendRedirect("http://"+ssoLocalhostIp+reqUrlLogin+"?reqUrl="+reqUrl);
+			url = reqUrlLogin+"?reqUrl="+reqUrl;
 		}else{
 			//跳转目标页面
 			url = reqUrl+"?token="+token+"&sessionId="+session.getId();
-//			response.sendRedirect(reqUrl+"?token="+token+"&sessionId="+session.getId());
 		}
 		return url;
 	}

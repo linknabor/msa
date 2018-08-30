@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：建筑类型  */												 
+/** Auto generated */												 
 public class BuildType extends CodesItem {                                      
 	private BuildType(String code){super(CodesItem.buildType,code);}	        
 	public static String getValue(String code){                                         
@@ -49,17 +49,11 @@ public class BuildType extends CodesItem {
 
 
 
-	/**高层<GaoCeng>  */
 	public static final BuildType GaoCeng                                 		= getObject("1");
-	/**多层<DuoCeng>  */
 	public static final BuildType DuoCeng                                 		= getObject("2");
-	/**小高层<XiaoGaoCeng>  */
 	public static final BuildType XiaoGaoCeng                             		= getObject("3");
-	/**联体别墅<LianTiBieShu>  */
 	public static final BuildType LianTiBieShu                            		= getObject("4");
-	/**单体别墅<DanTiBieShu>  */
 	public static final BuildType DanTiBieShu                             		= getObject("5");
-	/**其他<QiTa>  */
 	public static final BuildType QiTa                                    		= getObject("9");
 }
 

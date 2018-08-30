@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：客户类型  */												 
+/** Auto generated */												 
 public class CustType extends CodesItem {                                      
 	private CustType(String code){super(CodesItem.custType,code);}	        
 	public static String getValue(String code){                                         
@@ -49,13 +49,9 @@ public class CustType extends CodesItem {
 
 
 
-	/**个人<GeRen>  */
 	public static final CustType GeRen                                   		= getObject("01");
-	/**公司<GongSi>  */
 	public static final CustType GongSi                                  		= getObject("02");
-	/**业委会<YeWeiHui>  */
 	public static final CustType YeWeiHui                                		= getObject("03");
-	/**开发商<KaiFaShang>  */
 	public static final CustType KaiFaShang                              		= getObject("04");
 }
 

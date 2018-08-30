@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.List;                                                       
 import java.util.Map;                                                           
 import com.eshequ.msa.codes.model.CodeInfo;                     
-/**代码类型名：车辆类型  */												 
+/** Auto generated */												 
 public class CarType extends CodesItem {                                      
 	private CarType(String code){super(CodesItem.carType,code);}	        
 	public static String getValue(String code){                                         
@@ -49,19 +49,12 @@ public class CarType extends CodesItem {
 
 
 
-	/**轿车<JiaoChe>  */
 	public static final CarType JiaoChe                                 		= getObject("01");
-	/**越野车<YueYeChe>  */
 	public static final CarType YueYeChe                                		= getObject("02");
-	/**跑车<PaoChe>  */
 	public static final CarType PaoChe                                  		= getObject("03");
-	/**旅行车<LvXingChe>  */
 	public static final CarType LvXingChe                               		= getObject("04");
-	/**客车<KeChe>  */
 	public static final CarType KeChe                                   		= getObject("05");
-	/**货车<HuoChe>  */
 	public static final CarType HuoChe                                  		= getObject("06");
-	/**其他<QiTa>  */
 	public static final CarType QiTa                                    		= getObject("99");
 }
 
