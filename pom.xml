@@ -35,7 +35,7 @@
 		<spring.cloud.version>Finchley.SR1</spring.cloud.version>
 		<spring.redis.boot.version>2.0.0.RELEASE</spring.redis.boot.version>
 		<msa.common.version>0.0.1-SNAPSHOT</msa.common.version>
-		<dest.war.dir>f:\pub\msa\</dest.war.dir>
+		<dest.war.dir>d:\pub\msa\</dest.war.dir>
 	</properties>
 
 	<profiles>
@@ -104,7 +104,7 @@
 					<skip>true</skip>
 				</configuration>
 			</plugin>
-			
+
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -141,29 +141,45 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-resources-plugin</artifactId>
-				<configuration>
-					<encoding>UTF-8</encoding>
-					<delimiters>
-						<delimiter>@</delimiter>
-					</delimiters>
-					<useDefaultDelimiters>false</useDefaultDelimiters>
-				</configuration>
+				<executions>
+					<execution>
+						<id>copy-resources</id>
+						<phase>compile</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<!-- 覆盖原有文件 -->
+							<overwrite>true</overwrite>
+							<!-- 也可以用下面这样的方式（指定相对url的方式指定outputDirectory） 
+							 -->
+							 <outputDirectory>${basedir}/target/classes</outputDirectory>
+							<!-- 待处理的资源定义 -->
+							<resources>
+								<resource>
+									<!-- 指定resources插件处理哪个目录下的资源文件 -->
+									<directory>src/main/resources/environment/${profileActive}</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 
 		</plugins>
 
-		<!-- 最后生成的资源文件 -->
 		<resources>
-			<!-- 所有公共资源文件 -->
 			<resource>
 				<directory>src/main/resources</directory>
 				<includes>
-					<include>application-${profileActive}.properties</include>
-					<include>application-${profileActive}-multi-datasource.properties</include>
-					<include>application.properties</include>
+					<include>**/*.properties</include>
 				</includes>
+				<filtering>true</filtering>
 			</resource>
 		</resources>
+
+
 
 	</build>
 
