@@ -38,6 +38,36 @@
 		<dest.war.dir>f:\pub\msa\</dest.war.dir>
 	</properties>
 
+	<profiles>
+		<!-- 开发 -->
+		<profile>
+			<!-- profile的id -->
+			<id>dev</id>
+			<properties>
+				<!-- 此处的jastar.env可以自定义，其他地方可以使用${jastar.env}来引用此属性 -->
+				<profileActive>dev</profileActive>
+			</properties>
+			<activation>
+				<!-- 默认激活此配置 -->
+				<activeByDefault>true</activeByDefault>
+			</activation>
+		</profile>
+		<!-- 测试 -->
+		<profile>
+			<id>test</id>
+			<properties>
+				<profileActive>test</profileActive>
+			</properties>
+		</profile>
+		<!-- 生产 -->
+		<profile>
+			<id>prd</id>
+			<properties>
+				<profileActive>prd</profileActive>
+			</properties>
+		</profile>
+	</profiles>
+
 	<build>
 		<plugins>
 			<plugin>
@@ -107,7 +137,33 @@
 					</execution>
 				</executions>
 			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-resources-plugin</artifactId>
+				<configuration>
+					<encoding>UTF-8</encoding>
+					<delimiters>
+						<delimiter>@</delimiter>
+					</delimiters>
+					<useDefaultDelimiters>false</useDefaultDelimiters>
+				</configuration>
+			</plugin>
+
 		</plugins>
+
+		<!-- 最后生成的资源文件 -->
+		<resources>
+			<!-- 所有公共资源文件 -->
+			<resource>
+				<directory>src/main/resources</directory>
+				<includes>
+					<include>application-${profileActive}.properties</include>
+					<include>application-${profileActive}-multi-datasource.properties</include>
+					<include>application.properties</include>
+				</includes>
+			</resource>
+		</resources>
 
 	</build>
 
