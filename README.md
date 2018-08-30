@@ -1,5 +1,5 @@
 # 开发之前请看说明!!!
-
+0.开发前请将application.properties中的spring.profiles.active=@profileActive@ 的值得改成spring.profiles.active=dev,dev-multi-datasource。请勿提交此文件
 1.msa-common作为平台所有项目的子模块Modules,每个子项目请在pom文件中自行引入如下依赖Dependency:
 <dependency>
 	<groupId>com.eshequ</groupId>
