@@ -1,7 +1,6 @@
 package com.eshequ.msa.crm.filter;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -23,18 +22,14 @@ import com.eshequ.msa.crm.service.LoginRemote;
 public class LoginFilter implements Filter {
 	@Autowired
 	private LoginRemote loginRemote;
-	@Value("${spring.profiles.active}")
-	private String active;
-	@Value("${crm.localhost.ip}")
-	private String crmLocalhostIp;
-	@Value("${sso.localhost.ip}")
-	private String ssoLocalhostIp;
-	@Value("${filter.reqUrl.login}")
-	private String reqUrlLogin;
-	@Value("${filter.reqUrl.checkSsoToken}")
-	private String reqUrlCheckSsoToken;
-	@Value("${crm.web.localhost.ip}")
-	private String crmWebLocalhostIp;
+	
+	@Value("${sso.login.url}")
+	private String ssoUrlLogin;
+	
+	@Value("${crm.login.url}")
+	private String crmLoginUrl;
+	
+	private static final String validateURI = "/sso/?reqUrl";
 
 	@Override
 	public void destroy() {
@@ -58,7 +53,7 @@ public class LoginFilter implements Filter {
 		}
 		if (requestUri.contains("/actuator/health")) {
 			//health check, do nothing
-		}else if(requestUri.contains(reqUrlCheckSsoToken+"?reqUrl")) {
+		}else if(requestUri.contains(validateURI)) {
 			//如果是检查token页面，不予拦截
 			chain.doFilter(request, response);
 		}else {
@@ -87,7 +82,7 @@ public class LoginFilter implements Filter {
 					return;
 				}else {
 					//失败 登录页面
-					response.sendRedirect("http://"+ssoLocalhostIp+reqUrlLogin+"?loginStatus=0");
+					response.sendRedirect(ssoUrlLogin+"?loginStatus=0");
 					return;
 				}	
 			}
@@ -97,7 +92,7 @@ public class LoginFilter implements Filter {
 				//所以使用跳转到crm下的html页面，在从中ajax请求sso的认证中心，来保证session的正确
 //				response.sendRedirect("http://192.168.0.101:9091/sso/ssoAuthentication?reqUrl="+reqUrl);
 				
-				response.sendRedirect("http://"+crmWebLocalhostIp+reqUrlCheckSsoToken+"?reqUrl="+reqUrl);
+				response.sendRedirect(crmLoginUrl+"?reqUrl="+reqUrl);
 //				http://192.168.0.112:8080/pass?reqUrl=http://192.168.0.101:9091/sso/error.html?token=&sessionId=68a258c6-47c2-4d39-8e4d-fe6a1006fece
 //				response.sendRedirect("http://"+crmLocalhostIp+reqUrlCheckSsoToken+"?reqUrl="+reqUrl);
 				
