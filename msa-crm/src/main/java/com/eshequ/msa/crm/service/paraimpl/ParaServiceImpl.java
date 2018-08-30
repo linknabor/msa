@@ -44,4 +44,9 @@ public class ParaServiceImpl implements ParaService{
 		mapper.insertSelective(record);
 	}
 
+	@Override
+	public void paraDelById(long id) {
+		mapper.deleteByPrimaryKey(id);
+	}
+
 }

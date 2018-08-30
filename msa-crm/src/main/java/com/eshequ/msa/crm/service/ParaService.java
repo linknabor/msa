@@ -10,4 +10,5 @@ public interface ParaService {
 	List<MsaCfgSysPara> paraQueryAll();
 	void paraEdit(ParaVo vo);
 	void paraAdd(ParaVo vo);
+	void paraDelById(long id);
 }

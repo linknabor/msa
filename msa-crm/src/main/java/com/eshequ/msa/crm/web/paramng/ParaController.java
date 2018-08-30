@@ -3,6 +3,7 @@ package com.eshequ.msa.crm.web.paramng;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -32,5 +33,10 @@ public class ParaController extends BaseController{
 	@RequestMapping(value = "/paraEdit", method = RequestMethod.POST)
 	public void paraEdit(@RequestBody ParaVo vo){
 		paraService.paraEdit(vo);
+	}
+	
+	@RequestMapping(value = "/paraDelById/{id}", method = RequestMethod.POST)
+	public void paraEdit(@PathVariable long id){
+		paraService.paraDelById(id);
 	}
 }
