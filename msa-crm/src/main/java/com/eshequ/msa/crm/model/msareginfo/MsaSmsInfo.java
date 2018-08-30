@@ -1,15 +1,20 @@
 package com.eshequ.msa.crm.model.msareginfo;
-
 import com.eshequ.msa.common.BaseModel;
 
 public class MsaSmsInfo extends BaseModel {
     private Long smsId;
+
+    private String mobile;
 
     private String sendDate;
 
     private String sendTime;
 
     private String content;
+
+    private Long smsBatch;
+
+    private String smsStatus;
 
     private String mappingSmsId;
 
@@ -19,6 +24,14 @@ public class MsaSmsInfo extends BaseModel {
 
     public void setSmsId(Long smsId) {
         this.smsId = smsId;
+    }
+
+    public String getMobile() {
+        return mobile;
+    }
+
+    public void setMobile(String mobile) {
+        this.mobile = mobile;
     }
 
     public String getSendDate() {
@@ -43,6 +56,22 @@ public class MsaSmsInfo extends BaseModel {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public Long getSmsBatch() {
+        return smsBatch;
+    }
+
+    public void setSmsBatch(Long smsBatch) {
+        this.smsBatch = smsBatch;
+    }
+
+    public String getSmsStatus() {
+        return smsStatus;
+    }
+
+    public void setSmsStatus(String smsStatus) {
+        this.smsStatus = smsStatus;
     }
 
     public String getMappingSmsId() {

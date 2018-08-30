@@ -23,15 +23,16 @@ public class MsaRegInfoTest {
 
 	@Autowired
 	private SnowFlake snowFlake;
-	
+
 	@Autowired
 	private RestTemplate restTemplate;
-	
+
 	@Autowired
 	private ClientHttpRequestFactory factory;
+
 	@Test
-	public void addMsaInfo(){
-		MsaRegInfo m=new MsaRegInfo();
+	public void addMsaInfo() {
+		MsaRegInfo m = new MsaRegInfo();
 		m.setEmail("1500732323@163.com");
 		m.setEnterpriseName("奈博科技");
 		m.setLoginName("bobcjx");
@@ -46,6 +47,5 @@ public class MsaRegInfoTest {
 		ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, m, String.class);
 		System.out.println("添加成功！");
 	}
-	
-	
+
 }

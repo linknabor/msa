@@ -1,7 +1,19 @@
 package com.eshequ.msa.util;
 
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
+import org.apache.commons.httpclient.HttpClient;
+import org.apache.commons.httpclient.NameValuePair;
+import org.apache.commons.httpclient.URI;
+import org.apache.commons.httpclient.methods.GetMethod;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -11,35 +23,40 @@ import com.eshequ.msa.util.http.HttpClientProxy;
 
 @Component
 public class SmsUtil {
-	
+
+	private static Logger log = LoggerFactory.getLogger(SmsUtil.class);
+
 	@Autowired
 	private HttpClientProxy httpClientProxy;
-	
+
 	@Value("${sms.account}")
 	private String account;
-	
+
 	@Value("${sms.password}")
 	private String password;
-	
+
 	@Value("${sms.url}")
 	private String url;
-	
+
 	/**
 	 * 请求的参数封装成ap的键值对形式
+	 * 
 	 * @param map
 	 * @return
 	 */
-	public String send(Map<String, String> map) {
-	
+	public boolean send(Map<String, String> map) {
+		boolean ret = false;
 		if (map == null) {
 			throw new BusinessException("短信内容不能为空。");
 		}
 		map.put("account", account);
 		map.put("pswd", password);
 		map.put("needstatus", String.valueOf(true));
-		return httpClientProxy.doPost(url, map, "utf-8");
-		
+		String response = httpClientProxy.doPost(url, map, "utf-8");
+		String status = response.substring(response.indexOf(",") + 1, response.indexOf("\n"));
+		if ("0".equals(status)) {
+			ret = true;
+		}
+		return ret;
 	}
-	
-
 }

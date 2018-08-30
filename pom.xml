@@ -34,6 +34,7 @@
 		<spring.redis.boot.version>2.0.0.RELEASE</spring.redis.boot.version>
 		<msa.common.version>0.0.1-SNAPSHOT</msa.common.version>
 		<poi.version>3.5-FINAL</poi.version>
+		<!-- <httpclient.version>3.1</httpclient.version> -->
 	</properties>
 	
 	<build>
