@@ -88,7 +88,7 @@ public class TestController extends BaseController{
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("mobile", "18116419486");
 		map.put("message", "have a nice day !");
-		return smsUtil.send(map);
+		return String.valueOf(smsUtil.send(map));
 		
 	}
 	

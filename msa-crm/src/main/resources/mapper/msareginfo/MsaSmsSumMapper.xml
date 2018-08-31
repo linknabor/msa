@@ -10,9 +10,11 @@
 	</resultMap>
 	<select id="findMsaSmsByDate" parameterType="java.lang.String"
 		resultMap="BaseResultMap">
-		select * from msa_sms_sum where 1=1
+		select * from msa_sms_sum 
+		<where>
 		<if test="sendDate != null">
-			and send_date=#{sendDate}
+		 send_date=#{sendDate}
 		</if>
+		</where>
 	</select>
 </mapper>
