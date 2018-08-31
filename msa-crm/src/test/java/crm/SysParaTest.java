@@ -27,7 +27,7 @@ public class SysParaTest {
 	public void testSysParaEdit(){
 		ParaVo vo = new ParaVo();
 		vo.setParaId(Long.valueOf("7938576457273344"));
-		vo.setParaName("activityNumber");
+		vo.setParaName("activityNumber333");
 		
 		String url = "http://localhost:9090/crm/paraEdit";
 		ResponseEntity<String> responseEntity = restTemplate.postForEntity(url, vo, String.class);
