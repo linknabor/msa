@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.eshequ.msa.common.BaseResult;
+import com.eshequ.msa.exception.BusinessException;
 import com.eshequ.msa.sso.model.SsoUser;
 import com.eshequ.msa.sso.service.LoginRemote;
 import com.eshequ.msa.sso.service.LoginService;
@@ -61,40 +62,41 @@ public class LoginController extends BaseController{
 		Object code = redisTemplate.opsForValue().get(sessionId+"code");//redis中的验证码
 		if(code == null) {
 			//验证码过期，请重新生成验证码
-			return BaseResult.fail(3, "验证码过期！");
+			throw new BusinessException(3, "验证码过期！");
 		}
+		logger.info("系统验证码："+code+"，用户输入验证码："+veriCode);
+		logger.info("code.equals(veriCode)结果为："+code.equals(veriCode));
 		if(code.equals(veriCode)) {
-			@SuppressWarnings("unchecked")
-			BaseResult<Map<String, String>> result = loginService.login(userName, password,tpSysName);
-			if(result.isSuccess()) {
-				SsoUser user = loginService.selectUserByUserName(userName,tpSysName);//查询当前登录用户信息
-				user.setSessionId(sessionId);
-				session.setAttribute("isLogin", "true");
-				String token = UUID.randomUUID().toString();//授权码
-				user.setToken(token);
-				session.setAttribute("token", token);
-				System.out.println(session.getAttribute("token"));
-				logger.info("当前sessionId："+session.getAttribute("token"));
-				//用户信息 存储redis
-				ObjectMapper objectMapper = new ObjectMapper();
-				String loginUserJson = objectMapper.writeValueAsString(user);
-				redisTemplate.opsForValue().set(sessionId, loginUserJson);//用当前的sessionId作为唯一标识，存储用户信息(包括生成的token，和sessionId)
-				redisTemplate.opsForValue().set("tokenSessionId", sessionId);//存储一个取得sso令牌sessionId的一个redis，用于检验token是否有效
-	//			http请求-->下发token到crm系统并且告知sessionId
-				Map<String,String> map = new HashMap<String,String>();
-				map.put("token", token);
-				map.put("sessionId", sessionId);
-				map.put("reqUrl", reqUrl);
-				result.setResult(map);
-				return result;
-			}else {
-				//不存在用户，到登录页面
-				return result;
-			} 
-		}else {
-			//验证码不正确，跳转到登录页面
-			return BaseResult.fail(2, "验证码不正确！");
+			throw new BusinessException(2, "验证码不正确！");
 		}
+		@SuppressWarnings("unchecked")
+		BaseResult<Map<String, String>> result = loginService.login(userName, password,tpSysName);
+		if(result.isSuccess()) {
+			SsoUser user = loginService.selectUserByUserName(userName,tpSysName);//查询当前登录用户信息
+			user.setSessionId(sessionId);
+			session.setAttribute("isLogin", "true");
+			String token = UUID.randomUUID().toString();//授权码
+			user.setToken(token);
+			session.setAttribute("token", token);
+			System.out.println(session.getAttribute("token"));
+			logger.info("当前sessionId："+session.getAttribute("token"));
+			//用户信息 存储redis
+			ObjectMapper objectMapper = new ObjectMapper();
+			String loginUserJson = objectMapper.writeValueAsString(user);
+			redisTemplate.opsForValue().set(sessionId, loginUserJson);//用当前的sessionId作为唯一标识，存储用户信息(包括生成的token，和sessionId)
+			redisTemplate.opsForValue().set("tokenSessionId", sessionId);//存储一个取得sso令牌sessionId的一个redis，用于检验token是否有效
+//			http请求-->下发token到crm系统并且告知sessionId
+			Map<String,String> map = new HashMap<String,String>();
+			map.put("token", token);
+			map.put("sessionId", sessionId);
+			map.put("reqUrl", reqUrl);
+			result.setResult(map);
+			return result;
+		}else {
+			//不存在用户，到登录页面
+			return result;
+		} 
+		
 	}
 	
 	/**
