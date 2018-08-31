@@ -13,7 +13,7 @@
 		<result column="IMPORT_BATCH" jdbcType="BIGINT" property="importBatch" />
 	</resultMap>
 	<select id="findMobileByImpotBatchs" resultMap="BaseResultMap">
-		select mobile from ops_arrearage_info where import_batch in
+		select mobile,arrearage_amt,cust_addr from ops_arrearage_info where import_batch in
 		<foreach collection="importBatchs" open="(" separator=","
 			close=")" item="importBatch">
 			#{importBatch}

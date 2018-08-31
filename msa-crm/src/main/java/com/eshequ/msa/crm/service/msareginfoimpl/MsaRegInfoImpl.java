@@ -200,10 +200,9 @@ public class MsaRegInfoImpl implements MsaRegInfoService {
 		int count = 0;
 		long smsBatch = snowFlake.nextId();
 		for (int i = 0; i < mobileList.size(); i++) {
-			OpsArrearageInfo oai = opsArrearageInfoMapper.findInfoByMobile(mobileList.get(0).getMobile());
-			String mobile = oai.getMobile();
-			String message = "【合协社区】" + "尊敬的业主，这里是合协社区微信公众平台，您名下" + oai.getCustAddr() + "住房有未缴物业费，总金额为："
-					+ oai.getArrearageAmt() + "元，" + "我们会在七个工作日内给您发送书面清单，请注意查收。合协社区将为您解决欠费问题，提供友善的服务。";
+			String mobile = mobileList.get(i).getMobile();
+			String message = "【合协社区】" + "尊敬的业主，这里是合协社区微信公众平台，您名下" + mobileList.get(i).getCustAddr() + "住房有未缴物业费，总金额为："
+					+ mobileList.get(i).getArrearageAmt() + "元，" + "我们会在七个工作日内给您发送书面清单，请注意查收。合协社区将为您解决欠费问题，提供友善的服务。";
 			Map<String, String> SmsMap = new HashMap<>();
 			SmsMap.put("mobile", mobile);
 			SmsMap.put("msg", message);
