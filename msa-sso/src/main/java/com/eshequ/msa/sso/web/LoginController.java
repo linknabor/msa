@@ -162,6 +162,7 @@ public class LoginController extends BaseController{
 			response.setDateHeader("Expires", 0);
 			response.setContentType("image/jpeg");
 			System.out.println("验证码："+vo.getVeriCode());
+			logger.info("本次sessionId："+session.getId());
 			logger.info("验证码："+vo.getVeriCode());
 			Long lon = redisTemplate.getExpire(session.getId()+"code",TimeUnit.SECONDS);
 			System.out.println("验证码有效时间剩余："+lon+"秒");
