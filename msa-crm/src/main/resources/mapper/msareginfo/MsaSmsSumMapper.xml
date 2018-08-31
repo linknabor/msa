@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.crm.mapper.msareginfo.MsaSmsSumMapper">
+	<resultMap id="BaseResultMap" type="com.eshequ.msa.crm.model.msareginfo.MsaSmsSum">
+		<id column="SMS_BATCH" jdbcType="BIGINT" property="smsBatch" />
+		<result column="TOTAL_COUNT" jdbcType="DECIMAL" property="totalCount" />
+		<result column="SEND_DATE" jdbcType="CHAR" property="sendDate" />
+		<result column="SEND_TIME" jdbcType="CHAR" property="sendTime" />
+		<result column="TOTAL_FAILED" jdbcType="DECIMAL" property="totalFailed" />
+	</resultMap>
+	<select id="findMsaSmsByDate" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select * from msa_sms_sum 
+		<where>
+		<if test="sendDate != null">
+		 send_date=#{sendDate}
+		</if>
+		</where>
+	</select>
+</mapper>

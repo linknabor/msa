@@ -31,7 +31,6 @@ import com.eshequ.msa.util.vericode.VeriCodeVO;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.google.gson.Gson;
 
 
 @RestController
@@ -73,8 +72,8 @@ public class LoginController extends BaseController{
 				session.setAttribute("token", token);
 				System.out.println(session.getAttribute("token"));
 				//用户信息 存储redis
-				Gson gson = new Gson();
-				String loginUserJson = gson.toJson(user);
+				ObjectMapper objectMapper = new ObjectMapper();
+				String loginUserJson = objectMapper.writeValueAsString(user);
 				redisTemplate.opsForValue().set(sessionId, loginUserJson);//用当前的sessionId作为唯一标识，存储用户信息(包括生成的token，和sessionId)
 				redisTemplate.opsForValue().set("tokenSessionId", sessionId);//存储一个取得sso令牌sessionId的一个redis，用于检验token是否有效
 	//			http请求-->下发token到crm系统并且告知sessionId
@@ -169,13 +168,14 @@ public class LoginController extends BaseController{
 	
 	//检查token是否有效
 	@RequestMapping(value = "/checkSsoToken",method = RequestMethod.POST)
-	public String checkSsoToken(String ssoToken,String sessionId,HttpServletResponse response,HttpServletRequest request) {
+	public String checkSsoToken(String ssoToken,String sessionId,HttpServletResponse response,HttpServletRequest request) throws JsonParseException, JsonMappingException, IOException {
 		HttpSession session = request.getSession();
 		String s = session.getId();
 		String isToken = "false";
-		Gson gson = new Gson();
+		
 		String userJson = redisTemplate.opsForValue().get(sessionId).toString();
-		SsoUser user =  gson.fromJson(userJson, SsoUser.class);
+		ObjectMapper objectMapper = new ObjectMapper();
+		SsoUser user = objectMapper.readValue(userJson, SsoUser.class);
 		if(user.getToken().equals(ssoToken)) {
 			isToken = "true";
 		}
