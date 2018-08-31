@@ -65,7 +65,7 @@ public class LoginController extends BaseController{
 			throw new BusinessException(3, "验证码过期！");
 		}
 		logger.info("系统验证码："+code+"，用户输入验证码："+veriCode);
-		logger.info("code.equals(veriCode)结果为："+code.equals(veriCode));
+		logger.info("code.equals(veriCode)结果为："+code.equalsIgnoreCase(veriCode));
 		if(!code.equalsIgnoreCase(veriCode)) {
 			throw new BusinessException(2, "验证码不正确！");
 		}
@@ -193,7 +193,7 @@ public class LoginController extends BaseController{
 	
 	//sso登录认证中心
 	@RequestMapping(value = "/ssoAuthentication",method = RequestMethod.POST)
-	public String ssoAuthentication(String name,HttpServletResponse response,HttpServletRequest request,String reqUrl) throws IOException {
+	public String ssoAuthentication(HttpServletResponse response,HttpServletRequest request,String reqUrl) throws IOException {
 		HttpSession session = request.getSession();
 		Object token = session.getAttribute("token");//sso session
 		String url = "";
