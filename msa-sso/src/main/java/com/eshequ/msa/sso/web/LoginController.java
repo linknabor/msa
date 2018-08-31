@@ -59,14 +59,14 @@ public class LoginController extends BaseController{
 	public BaseResult<Map<String, String>> login(HttpServletResponse response,HttpServletRequest request, String reqUrl,@RequestParam("userName") String userName, String veriCode,String password,String tpSysName,RedirectAttributes res) throws IOException {
 		HttpSession session = request.getSession();
 		String sessionId = session.getId();
-		Object code = redisTemplate.opsForValue().get(sessionId+"code");//redis中的验证码
+		String code = (String) redisTemplate.opsForValue().get(sessionId+"code");//redis中的验证码
 		if(code == null) {
 			//验证码过期，请重新生成验证码
 			throw new BusinessException(3, "验证码过期！");
 		}
 		logger.info("系统验证码："+code+"，用户输入验证码："+veriCode);
 		logger.info("code.equals(veriCode)结果为："+code.equals(veriCode));
-		if(code.equals(veriCode)) {
+		if(!code.equalsIgnoreCase(veriCode)) {
 			throw new BusinessException(2, "验证码不正确！");
 		}
 		@SuppressWarnings("unchecked")
