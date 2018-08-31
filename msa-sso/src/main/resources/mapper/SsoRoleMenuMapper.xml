@@ -5,4 +5,18 @@
     <id column="MENU_ID" jdbcType="BIGINT" property="menuId" />
     <id column="ROLE_ID" jdbcType="BIGINT" property="roleId" />
   </resultMap>
+  
+  <!-- 通过角色id删除菜单 -->
+  <delete id="deleteSsoRoleMenuByRoleId" parameterType="Long">
+  delete from sso_role_menu where role_id = #{roleId}
+  </delete>
+  
+  <!-- 添加角色和菜单 -->
+	<insert id="insertSsoRoleMenu" parameterType="Map">
+		insert into sso_role_menu values 
+		<foreach collection="menuIdArray" item="menuId" index="index"
+			separator=",">
+			(#{menuId},#{roleId})
+		</foreach>
+	</insert>
 </mapper>
