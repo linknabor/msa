@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -43,6 +45,7 @@ public class LoginController extends BaseController{
 	private RedisTemplate<String, Object> redisTemplate;
 	@Value("${sso.login.url}")
 	private String reqUrlLogin;
+	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 	
 	/**
 	 * 登录
@@ -51,7 +54,7 @@ public class LoginController extends BaseController{
 	 * @return 结果集
 	 * @throws IOException 
 	 */
-	@RequestMapping(value = "/login",method = RequestMethod.GET)
+	@RequestMapping(value = "/login",method = RequestMethod.POST)
 	public BaseResult<Map<String, String>> login(HttpServletResponse response,HttpServletRequest request, String reqUrl,@RequestParam("userName") String userName, String veriCode,String password,String tpSysName,RedirectAttributes res) throws IOException {
 		HttpSession session = request.getSession();
 		String sessionId = session.getId();
@@ -71,6 +74,7 @@ public class LoginController extends BaseController{
 				user.setToken(token);
 				session.setAttribute("token", token);
 				System.out.println(session.getAttribute("token"));
+				logger.info("当前sessionId："+session.getAttribute("token"));
 				//用户信息 存储redis
 				ObjectMapper objectMapper = new ObjectMapper();
 				String loginUserJson = objectMapper.writeValueAsString(user);
@@ -158,8 +162,10 @@ public class LoginController extends BaseController{
 			response.setDateHeader("Expires", 0);
 			response.setContentType("image/jpeg");
 			System.out.println("验证码："+vo.getVeriCode());
+			logger.info("验证码："+vo.getVeriCode());
 			Long lon = redisTemplate.getExpire(session.getId()+"code",TimeUnit.SECONDS);
 			System.out.println("验证码有效时间剩余："+lon+"秒");
+			logger.info("验证码有效时间剩余："+lon+"秒");
 			redisTemplate.opsForValue().set(session.getId()+"code", vo.getVeriCode());//存储验证码到reids
 			redisTemplate.expire(session.getId()+"code", 600, TimeUnit.SECONDS);//设置超时时间10秒 第三个参数控制时间单位，详情查看TimeUnit
 			ImageIO.write(vo.getBufferedImage(), "jpeg", os);
