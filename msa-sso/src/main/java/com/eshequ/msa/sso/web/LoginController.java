@@ -59,7 +59,7 @@ public class LoginController extends BaseController{
 		Object code = redisTemplate.opsForValue().get(sessionId+"code");//redis中的验证码
 		if(code == null) {
 			//验证码过期，请重新生成验证码
-			BaseResult.fail(3, "验证码过期！");
+			return BaseResult.fail(3, "验证码过期！");
 		}
 		if(code.equals(veriCode)) {
 			@SuppressWarnings("unchecked")
@@ -104,7 +104,7 @@ public class LoginController extends BaseController{
 	 * @throws JsonMappingException 
 	 * @throws JsonParseException 
 	 */
-	@RequestMapping(value = "/getLoginUser",method = RequestMethod.GET)
+	@RequestMapping(value = "/getLoginUser",method = RequestMethod.POST)
 	public SsoUser login(HttpServletRequest request,HttpSession httpSession) throws JsonParseException, JsonMappingException, IOException {
 		ObjectMapper objectMapper = new ObjectMapper();
 		Object respJson = redisTemplate.opsForValue().get(httpSession.getId());
@@ -183,7 +183,7 @@ public class LoginController extends BaseController{
 	}
 	
 	//sso登录认证中心
-	@RequestMapping(value = "/ssoAuthentication",method = RequestMethod.GET)
+	@RequestMapping(value = "/ssoAuthentication",method = RequestMethod.POST)
 	public String ssoAuthentication(String name,HttpServletResponse response,HttpServletRequest request,String reqUrl) throws IOException {
 		HttpSession session = request.getSession();
 		Object token = session.getAttribute("token");//sso session

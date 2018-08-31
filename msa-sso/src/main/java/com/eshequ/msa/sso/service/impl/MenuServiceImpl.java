@@ -1,13 +1,19 @@
 package com.eshequ.msa.sso.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.eshequ.msa.common.BaseResult;
 import com.eshequ.msa.sso.mapper.SsoMenuMapper;
+import com.eshequ.msa.sso.mapper.SsoRoleMenuMapper;
 import com.eshequ.msa.sso.model.SsoMenu;
+import com.eshequ.msa.sso.model.SsoRoleMenu;
 import com.eshequ.msa.sso.service.MenuService;
 import com.eshequ.msa.util.SnowFlake;
 
@@ -16,7 +22,11 @@ public class MenuServiceImpl implements MenuService{
 	@Autowired
 	private SsoMenuMapper ssoMenuMapper;
 	@Autowired
+	private SsoRoleMenuMapper ssoRoleMenuMapper;
+	@Autowired
 	private SnowFlake snowFlake;
+	@Autowired
+	private RedisTemplate<String, Object> redisTemplate;
 	
 	@Override
 	public BaseResult<?> saveMenu(SsoMenu menu, String type) {
@@ -49,12 +59,13 @@ public class MenuServiceImpl implements MenuService{
 		return BaseResult.fail(99, "操作菜单错误！");
 	}
 
-	//获得菜单
+	//根据角色id和菜单等级获得菜单
 	@Override
-	public List<SsoMenu> getMenuByLevel(String menuLevel) {
-		SsoMenu ssoMenu = new SsoMenu();
-		ssoMenu.setMenuLevel(menuLevel);
-		List<SsoMenu> result = ssoMenuMapper.select(ssoMenu);
+	public List<SsoMenu> getRoleMenuByLevel(String menuLevel,Long roleId) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("menuLevel", menuLevel);
+		map.put("roleId", roleId);
+		List<SsoMenu> result = ssoMenuMapper.selectRoleMenuByLevel(map);
 		return result;
 	}
 
@@ -75,6 +86,19 @@ public class MenuServiceImpl implements MenuService{
 	public List<SsoMenu> getAllMenu() {
 		List<SsoMenu> list = ssoMenuMapper.selectAll();
 		return list;
+	}
+
+	//给角色添加菜单权限
+	@Override
+	@Transactional
+	public void saveRoleMenuByRoleId(Long[] menuIdArray,Long roleId) {
+		//先清空当前角色所有的菜单，再依次添加新的菜单
+		int i = ssoRoleMenuMapper.deleteSsoRoleMenuByRoleId(roleId);
+		
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("menuIdArray", menuIdArray);
+		map.put("roleId", roleId);
+		ssoRoleMenuMapper.insertSsoRoleMenu(map);
 	}
 
 	

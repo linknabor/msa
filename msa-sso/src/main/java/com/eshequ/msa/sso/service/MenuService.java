@@ -22,15 +22,24 @@ public interface MenuService {
 	BaseResult<?> deleteMenu(Long menuId);
 	
 	/**
-	 * 根据菜单等级获得菜单
+	 * 根据角色id和菜单等级获得菜单
 	 * @param menuLevel 菜单等级
+	 * @param roleId 角色id
 	 * @return
 	 */
-	List<SsoMenu> getMenuByLevel(String menuLevel);
+	List<SsoMenu> getRoleMenuByLevel(String menuLevel,Long roleId);
 	
 	/**
 	 * 获得全部菜单
 	 * @return
 	 */
 	List<SsoMenu> getAllMenu();
+	
+	/**
+	 * 给角色添加菜单权限
+	 * @param roleId 角色id
+	 * @param menuIdArray 菜单id数组
+	 */
+	void saveRoleMenuByRoleId(Long[] menuIdArray,Long roleId);
+	
 }

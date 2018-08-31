@@ -12,6 +12,13 @@
     <result column="MENU_DESC" jdbcType="VARCHAR" property="menuDesc" />
   </resultMap>
   
+ <!--  根据角色id和菜单等级查询菜单 -->
+  <select id="selectRoleMenuByLevel" parameterType="Map" resultMap="BaseResultMap">
+	SELECT * FROM `sso_menu` m INNER JOIN `sso_role_menu` rm ON m.`MENU_ID` = rm.`MENU_ID`
+	WHERE rm.ROLE_ID = #{roleId} 
+	and m.MENU_LEVEL = #{menuLevel}
+  </select>
+  
       <!-- 修改菜单 -->
   <update  id="updateSsoMenu" parameterType="com.eshequ.msa.sso.model.SsoMenu" >
     update sso_menu 
