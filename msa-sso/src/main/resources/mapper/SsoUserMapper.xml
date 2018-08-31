@@ -30,4 +30,15 @@
     and TP_SYS_NAME = #{tpSysName}
   </select>
   
+  <!-- 根据用户名查询用户 -->
+  <select id="getUserByUserName" parameterType="String" resultType="int">
+    select count(*) from sso_user
+    where user_name = #{userName}
+  </select>
+  
+   <!-- 根据用户名查询用户 -->
+  <select id="updatePswdByUserId" parameterType="long" resultType="int">
+    update sso_user set password=#{password}
+    where user_id = #{userId}
+  </select>
 </mapper>

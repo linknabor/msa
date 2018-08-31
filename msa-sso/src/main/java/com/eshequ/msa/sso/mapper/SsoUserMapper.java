@@ -23,5 +23,19 @@ public interface SsoUserMapper  extends CommonMapper<SsoUser>{
 	 */
 	SsoUser selectUserByUserName(@Param("userName")String userName,@Param("tpSysName")String tpSysName);
 	
+	/**
+	 * 根据用户名查询用户
+	 * @param userName
+	 * @return
+	 */
+	int getUserByUserName(@Param("userName")String userName);
+	
+	/**
+	 * 根据用户id重置密码
+	 * @param userName
+	 * @return
+	 */
+	int updatePswdByUserId(@Param("userId")String password,@Param("userId")String userId);
+	
 	
 }
