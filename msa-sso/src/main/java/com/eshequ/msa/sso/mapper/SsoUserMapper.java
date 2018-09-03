@@ -1,5 +1,7 @@
 package com.eshequ.msa.sso.mapper;
 
+import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 import com.eshequ.msa.common.CommonMapper;
@@ -32,10 +34,42 @@ public interface SsoUserMapper  extends CommonMapper<SsoUser>{
 	
 	/**
 	 * 根据用户id重置密码
-	 * @param userName
+	 * @param password
+	 * @param userId
 	 * @return
 	 */
-	int updatePswdByUserId(@Param("userId")String password,@Param("userId")String userId);
+	int updatePswdByUserId(@Param("password")String password,@Param("userId")String userId);
 	
+	/**
+	 * 根据用户id更改用户状态
+	 * @param status
+	 * @param userId
+	 * @return
+	 */
+	int updateStatusByUserId(@Param("status")String status,@Param("userId")String userId);
+	/**
+	 * 条件查询用户信息
+	 * @param ssoUser
+	 * @param startDate
+	 * @param endDate
+	 * @return
+	 */
+	List<SsoUser> getUser(SsoUser ssoUser, String startDate, String endDate);
 	
+	/**
+	 * 修改密码
+	 * @param userId
+	 * @param oldPassword
+	 * @param newPassword
+	 * @return
+	 */
+	int  updatePassword(String userId, String oldPassword, String newPassword);
+	
+	/**
+	 * 查询用户密码是否正确
+	 * @param userId
+	 * @param password
+	 * @return
+	 */
+	int  selectUserByIdAndPswd(String userId,String password);
 }

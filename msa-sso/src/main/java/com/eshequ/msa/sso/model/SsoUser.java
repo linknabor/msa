@@ -1,27 +1,39 @@
 package com.eshequ.msa.sso.model;
 
+import javax.persistence.Id;
 import javax.persistence.Transient;
 
 public class SsoUser {
+	@Id
     private Long userId;
 
     private String userName;
+    
+    private String realName;
+    
+    private String loginName;
 
     private String password;
 
     private String status;
+    
+    private String orgId;
 
     private String orgName;
 
     private Long roleId;
-
-    private String enterpriseId;
-
+    
+    private String roleName;
+    
     private String mobile;
 
     private String loginCert;
 
     private String tpSysName;
+    
+    private String createDate;
+    
+    private String createTime;
     
     @Transient  
     private String sessionId;
@@ -85,13 +97,6 @@ public class SsoUser {
         this.roleId = roleId;
     }
 
-    public String getEnterpriseId() {
-        return enterpriseId;
-    }
-
-    public void setEnterpriseId(String enterpriseId) {
-        this.enterpriseId = enterpriseId;
-    }
 
     public String getMobile() {
         return mobile;
@@ -123,6 +128,54 @@ public class SsoUser {
 
 	public void setSessionId(String sessionId) {
 		this.sessionId = sessionId;
+	}
+
+	public String getRealName() {
+		return realName;
+	}
+
+	public void setRealName(String realName) {
+		this.realName = realName;
+	}
+
+	public String getLoginName() {
+		return loginName;
+	}
+
+	public void setLoginName(String loginName) {
+		this.loginName = loginName;
+	}
+
+	public String getOrgId() {
+		return orgId;
+	}
+
+	public void setOrgId(String orgId) {
+		this.orgId = orgId;
+	}
+
+	public String getRoleName() {
+		return roleName;
+	}
+
+	public void setRoleName(String roleName) {
+		this.roleName = roleName;
+	}
+
+	public String getCreateDate() {
+		return createDate;
+	}
+
+	public void setCreateDate(String createDate) {
+		this.createDate = createDate;
+	}
+
+	public String getCreateTime() {
+		return createTime;
+	}
+
+	public void setCreateTime(String createTime) {
+		this.createTime = createTime;
 	}
     
     

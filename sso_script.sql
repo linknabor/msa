@@ -26,14 +26,19 @@ DROP TABLE IF EXISTS SSO_USER ;
 CREATE TABLE SSO_USER(
 USER_ID                                           BIGINT default 0 NOT NULL, #用户ID
 USER_NAME                                         VARCHAR(80) NOT NULL, #用户名称
+REAL_NAME                                         VARCHAR(256) NULL, #真实姓名
+LOGIN_NAME                                        VARCHAR(256) NULL, #登录名
 PASSWORD                                          VARCHAR(255) NULL, #密码
 STATUS                                            CHAR(1) NOT NULL, #状态
-ORG_NAME                                          VARCHAR(255) NULL, #机构名称
 ROLE_ID                                           BIGINT default 0 NOT NULL, #角色id
-ENTERPRISE_ID                                     VARCHAR(38) NOT NULL, #企业客户ID
+ROLE_NAME                                         VARCHAR(80) NULL, #角色名称
+ORG_ID                                            BIGINT default 0 NOT NULL, #机构ID
+ORG_NAME                                          VARCHAR(255) NULL, #机构名称
 MOBILE                                            VARCHAR(11) NULL, #手机号
 LOGIN_CERT                                        VARCHAR(255) NULL, #第三方系统登录凭证
 TP_SYS_NAME                                       VARCHAR(255) NULL, #第三方系统名称
+CREATE_DATE                                       CHAR(8) NULL, #创建日期
+CREATE_TIME                                       CHAR(6) NULL, #创建时间
 CONSTRAINT SSO_USER_PK PRIMARY KEY(USER_ID)   );
 
 #角色菜单关系表
