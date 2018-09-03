@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eshequ.msa.crm.mapper.targetcustmapper.CrmMarketingCustLinkMapper">
-  <resultMap id="BaseResultMap" type="com.eshequ.msa.crm.model.targetcustmodel.CrmMarketingCustLink">
+<mapper namespace="com.eshequ.msa.crm.mapper.targetcust.CrmMarketingCustLinkMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.crm.model.targetcust.CrmMarketingCustLink">
     <id column="LINK_ID" jdbcType="VARCHAR" property="linkId" />
     <result column="DEFAULT_FLAG" jdbcType="CHAR" property="defaultFlag" />
     <result column="NAME" jdbcType="VARCHAR" property="name" />
