@@ -59,13 +59,15 @@ public class LoginController extends BaseController{
 	public BaseResult<Map<String, String>> login(HttpServletResponse response,HttpServletRequest request, String reqUrl,@RequestParam("userName") String userName, String veriCode,String password,String tpSysName,RedirectAttributes res) throws IOException {
 		HttpSession session = request.getSession();
 		String sessionId = session.getId();
+		logger.info("当前sessionId："+sessionId);
 		String code = (String) redisTemplate.opsForValue().get(sessionId+"code");//redis中的验证码
+		logger.info("code："+code);
 		if(code == null) {
 			//验证码过期，请重新生成验证码
 			throw new BusinessException(3, "验证码过期！");
 		}
 		logger.info("系统验证码："+code+"，用户输入验证码："+veriCode);
-		logger.info("code.equals(veriCode)结果为："+code.equals(veriCode));
+		logger.info("code.equalsIgnoreCase(veriCode)结果为："+code.equalsIgnoreCase(veriCode));
 		if(!code.equalsIgnoreCase(veriCode)) {
 			throw new BusinessException(2, "验证码不正确！");
 		}
@@ -193,7 +195,7 @@ public class LoginController extends BaseController{
 	
 	//sso登录认证中心
 	@RequestMapping(value = "/ssoAuthentication",method = RequestMethod.POST)
-	public String ssoAuthentication(String name,HttpServletResponse response,HttpServletRequest request,String reqUrl) throws IOException {
+	public String ssoAuthentication(HttpServletResponse response,HttpServletRequest request,String reqUrl) throws IOException {
 		HttpSession session = request.getSession();
 		Object token = session.getAttribute("token");//sso session
 		String url = "";
