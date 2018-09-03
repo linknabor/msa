@@ -39,6 +39,8 @@ LOGIN_CERT                                        VARCHAR(255) NULL, #第三方系统
 TP_SYS_NAME                                       VARCHAR(255) NULL, #第三方系统名称
 CREATE_DATE                                       CHAR(8) NULL, #创建日期
 CREATE_TIME                                       CHAR(6) NULL, #创建时间
+CITY_ID                                           BIGINT default 0 NOT NULL, #城市ID
+CITY_NAME                                         VARCHAR(256) NULL, #城市名称
 CONSTRAINT SSO_USER_PK PRIMARY KEY(USER_ID)   );
 
 #角色菜单关系表
