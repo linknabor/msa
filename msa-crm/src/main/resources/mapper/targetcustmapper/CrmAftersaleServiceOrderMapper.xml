@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eshequ.msa.crm.mapper.targetcustmapper.CrmAftersaleServiceOrderMapper">
-  <resultMap id="BaseResultMap" type="com.eshequ.msa.crm.model.targetcustmodel.CrmAftersaleServiceOrder">
+<mapper namespace="com.eshequ.msa.crm.mapper.targetcust.CrmAftersaleServiceOrderMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.crm.model.targetcust.CrmAftersaleServiceOrder">
     <id column="SERVICE_ORDER_ID" jdbcType="VARCHAR" property="serviceOrderId" />
     <result column="ORDER_SERVICE_DATE" jdbcType="CHAR" property="orderServiceDate" />
     <result column="DATE_FLAG" jdbcType="CHAR" property="dateFlag" />

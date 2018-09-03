@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eshequ.msa.crm.mapper.targetcustmapper.CrmMarketingCustCallMapper">
-  <resultMap id="BaseResultMap" type="com.eshequ.msa.crm.model.targetcustmodel.CrmMarketingCustCall">
+<mapper namespace="com.eshequ.msa.crm.mapper.targetcust.CrmMarketingCustCallMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.crm.model.targetcust.CrmMarketingCustCall">
     <id column="CALL_ID" jdbcType="VARCHAR" property="callId" />
     <result column="CALL_DATE" jdbcType="CHAR" property="callDate" />
     <result column="CALL_TIME" jdbcType="CHAR" property="callTime" />

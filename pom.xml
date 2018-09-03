@@ -176,7 +176,8 @@
 
 	<modules>
 		<module>msa-common</module>
-		<module>msa-crm</module>
 		<module>msa-sso</module>
+		<module>msa-crm</module>
+		<module>msa-ops</module>
 	</modules>
 </project>
