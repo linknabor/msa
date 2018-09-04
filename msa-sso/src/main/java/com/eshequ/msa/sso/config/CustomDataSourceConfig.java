@@ -8,14 +8,16 @@ import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+
+import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 
 /**
  * 从数据源
@@ -28,18 +30,14 @@ public class CustomDataSourceConfig {
 	
 	@Value("${mybatis.mapper.resource}")
 	private String mapperResource;
-
-	@Bean
-	@ConfigurationProperties("spring.datasource.druid.two")
-	public DataSourceProperties customDataSourceProperties() {
-		return new DataSourceProperties();
-	}
 	
+	@Autowired
+	private Environment env;
+
 	@Bean(name = "customDataSource")
 	public DataSource customDataSource() {
-		
-		DataSourceProperties prop = customDataSourceProperties();
-		return prop.initializeDataSourceBuilder().build();
+		DataSource dataSouce = DruidDataSourceBuilder.create().build(env, "spring.datasource.druid.two.");
+		return dataSouce;
 	}
 	
     @Bean(name = "customTransactionManager")

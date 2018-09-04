@@ -44,7 +44,7 @@ public class GlobalExceptionHandler<T> {
     }
     
     @SuppressWarnings("unchecked")
-	@ExceptionHandler(Exception.class)
+	@ExceptionHandler(Throwable.class)
     public BaseResult<T> globalThrowableHandler(Throwable throwable) {
         logger.error(throwable.getMessage(), throwable);
         return BaseResult.fail(throwable.getMessage());
