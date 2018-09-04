@@ -1,5 +1,6 @@
 package com.eshequ.msa.sso.service.impl;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -87,6 +88,31 @@ public class MenuServiceImpl implements MenuService{
 		List<SsoMenu> list = ssoMenuMapper.selectAll();
 		return list;
 	}
+	
+	//根据角色获得所有菜单
+	@Override
+	public List<SsoMenu> getAllMenuByRole(Long roleId) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("roleId", roleId);//指定角色
+		//查找父级菜单
+		map.put("menuLevel", 1);
+		List<SsoMenu> list_parent = ssoMenuMapper.selectRoleMenuByLevel(map);
+		for (SsoMenu ssoMenu : list_parent) {
+			//查找角色下指定父级id的菜单（二级）
+			map.put("parentId", ssoMenu.getMenuId());
+			List<SsoMenu> list_two = ssoMenuMapper.selectRoleMenuByParentId(map);
+			ssoMenu.setSsoMenuList(list_two);
+			
+			//查找角色下指定父级id的菜单（三级）
+			for (SsoMenu ssoMenu2 : list_two) {
+				map.put("parentId", ssoMenu2.getMenuId());
+				List<SsoMenu> list_three = ssoMenuMapper.selectRoleMenuByParentId(map);
+				map.put("parentId", ssoMenu2.getMenuId());
+				ssoMenu2.setSsoMenuList(list_three);
+			}
+		}
+		return list_parent;
+	}
 
 	//给角色添加菜单权限
 	@Override
@@ -100,6 +126,7 @@ public class MenuServiceImpl implements MenuService{
 		map.put("roleId", roleId);
 		ssoRoleMenuMapper.insertSsoRoleMenu(map);
 	}
+
 
 	
 
