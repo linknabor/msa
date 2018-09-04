@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.eshequ.msa.crm.service.LoginRemote;
+import com.eshequ.msa.crm.service.login.LoginRemote;
 
 @Component("loginFilter")
 public class LoginFilter implements Filter {
@@ -26,8 +26,8 @@ public class LoginFilter implements Filter {
 	@Value("${sso.login.url}")
 	private String ssoUrlLogin;
 	
-	@Value("${crm.login.url}")
-	private String crmLoginUrl;
+	@Value("${common.login.url}")
+	private String commonLoginUrl;
 	
 	private static final String validateURI = "/sso/?reqUrl";
 
@@ -92,7 +92,7 @@ public class LoginFilter implements Filter {
 				//所以使用跳转到crm下的html页面，在从中ajax请求sso的认证中心，来保证session的正确
 //				response.sendRedirect("http://192.168.0.101:9091/sso/ssoAuthentication?reqUrl="+reqUrl);
 				
-				response.sendRedirect(crmLoginUrl+"?reqUrl="+reqUrl);
+				response.sendRedirect(commonLoginUrl+"?reqUrl="+reqUrl);
 //				http://192.168.0.112:8080/pass?reqUrl=http://192.168.0.101:9091/sso/error.html?token=&sessionId=68a258c6-47c2-4d39-8e4d-fe6a1006fece
 //				response.sendRedirect("http://"+crmLocalhostIp+reqUrlCheckSsoToken+"?reqUrl="+reqUrl);
 				

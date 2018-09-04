@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.ops.mapper.msareginfo.OpsArrearageInfoMapper">
+	<resultMap id="BaseResultMap"
+		type="com.eshequ.msa.ops.model.msareginfo.OpsArrearageInfo">
+		<id column="ARREARAGE_INFO" jdbcType="BIGINT" property="arrearageInfo" />
+		<result column="MOBILE" jdbcType="VARCHAR" property="mobile" />
+		<result column="CUST_NAME" jdbcType="VARCHAR" property="custName" />
+		<result column="CUST_ADDR" jdbcType="VARCHAR" property="custAddr" />
+		<result column="ARREARAGE_AMT" jdbcType="DECIMAL" property="arrearageAmt" />
+		<result column="IMPORT_DATE" jdbcType="CHAR" property="importDate" />
+		<result column="IMPORT_TIME" jdbcType="CHAR" property="importTime" />
+		<result column="IMPORT_BATCH" jdbcType="BIGINT" property="importBatch" />
+	</resultMap>
+	<select id="findMobileByImpotBatchs" resultMap="BaseResultMap">
+		select mobile,arrearage_amt,cust_addr from ops_arrearage_info where import_batch in
+		<foreach collection="importBatchs" open="(" separator=","
+			close=")" item="importBatch">
+			#{importBatch}
+		</foreach>
+	</select>
+
+	<select id="findInfoByMobile" parameterType="java.lang.String"
+		resultMap="BaseResultMap">
+		select mobile,arrearage_amt,cust_addr from ops_arrearage_info
+		where mobile=#{mobile}
+	</select>
+</mapper>

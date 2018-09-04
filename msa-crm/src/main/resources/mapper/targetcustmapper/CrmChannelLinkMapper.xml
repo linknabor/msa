@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eshequ.msa.crm.mapper.targetcustmapper.CrmChannelLinkMapper">
-  <resultMap id="BaseResultMap" type="com.eshequ.msa.crm.model.targetcustmodel.CrmChannelLink">
+<mapper namespace="com.eshequ.msa.crm.mapper.targetcust.CrmChannelLinkMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.crm.model.targetcust.CrmChannelLink">
     <id column="CHANNEL_LINK_ID" jdbcType="VARCHAR" property="channelLinkId" />
     <id column="CHANNEL_ID" jdbcType="VARCHAR" property="channelId" />
     <result column="IS_DEFAULT" jdbcType="CHAR" property="isDefault" />

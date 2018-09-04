@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eshequ.msa.crm.mapper.targetcustmapper.CrmMarketingPreSaleRecordMapper">
-  <resultMap id="BaseResultMap" type="com.eshequ.msa.crm.model.targetcustmodel.CrmMarketingPreSaleRecord">
+<mapper namespace="com.eshequ.msa.crm.mapper.targetcust.CrmMarketingPreSaleRecordMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.crm.model.targetcust.CrmMarketingPreSaleRecord">
     <id column="RECORD_ID" jdbcType="VARCHAR" property="recordId" />
     <result column="IS_SUCCESS" jdbcType="CHAR" property="isSuccess" />
     <result column="SCHEDULESTATUS" jdbcType="CHAR" property="schedulestatus" />

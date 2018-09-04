@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.eshequ.msa.common.BaseResult;
 import com.eshequ.msa.exception.AppSysException;
 import com.eshequ.msa.exception.BusinessException;
-import com.eshequ.msa.util.ObjectUtil;
 
 @ControllerAdvice("com.eshequ.msa")
 @ResponseBody
@@ -31,14 +30,24 @@ public class GlobalExceptionHandler<T> {
 	@ExceptionHandler(AppSysException.class)
     public BaseResult<T> appSysExceptionHandler(AppSysException exception) {
         logger.error(exception.getMessage(), exception);
+        if (Integer.MIN_VALUE < exception.getCode()) {
+        	return BaseResult.fail(exception.getCode(), exception.getMessage());
+		}
         return BaseResult.fail(exception.getMessage());
     }
 
     @SuppressWarnings("unchecked")
 	@ExceptionHandler(Exception.class)
-    public BaseResult<T> otherExceptionHandler(Exception exception) {
+    public BaseResult<T> globalExceptionHandler(Exception exception) {
         logger.error(exception.getMessage(), exception);
         return BaseResult.fail(exception.getMessage());
     }
+    
+//    @SuppressWarnings("unchecked")
+//	@ExceptionHandler(Exception.class)
+//    public BaseResult<T> otherThrowableHandler(Throwable throwable) {
+//        logger.error(throwable.getMessage(), throwable);
+//        return BaseResult.fail(throwable.getMessage());
+//    }
     
 }

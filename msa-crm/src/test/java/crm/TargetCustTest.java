@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.web.client.RestTemplate;
 
-import com.eshequ.msa.crm.model.targetcustmodel.CrmMarketingCust;
+import com.eshequ.msa.crm.model.targetcust.CrmMarketingCust;
 import com.eshequ.msa.crm.vo.targetcust.TargetCustVo;
 import com.eshequ.msa.util.SnowFlake;
 import com.fasterxml.jackson.databind.ObjectMapper;

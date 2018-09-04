@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eshequ.msa.crm.mapper.targetcustmapper.CrmMarketingCustMapper">
-  <resultMap id="BaseResultMap" type="com.eshequ.msa.crm.model.targetcustmodel.CrmMarketingCust">
+<mapper namespace="com.eshequ.msa.crm.mapper.targetcust.CrmMarketingCustMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.crm.model.targetcust.CrmMarketingCust">
     <id column="CUST_ID" jdbcType="BIGINT" property="custId" />
     <result column="HOU_COUNT" jdbcType="DECIMAL" property="houCount" />
     <result column="YEAR_AMT" jdbcType="DECIMAL" property="yearAmt" />
@@ -17,7 +17,7 @@
     <result column="PROVINCE_ID" jdbcType="BIGINT" property="provinceId" />
     <result column="INDUSTRY_ID" jdbcType="BIGINT" property="industryId" />
   </resultMap>
-  <select id="queryCustByExample" resultType="com.eshequ.msa.crm.model.targetcustmodel.CrmMarketingCust" parameterType="com.eshequ.msa.crm.vo.targetcust.TargetCustVo">
+  <select id="queryCustByExample" resultType="com.eshequ.msa.crm.model.targetcust.CrmMarketingCust" parameterType="com.eshequ.msa.crm.vo.targetcust.TargetCustVo">
   	select * from crm_marketing_cust where 1=1
   	<if test="custName != null">
   		and cust_name like CONCAT('%', #{custName}, '%')
