@@ -38,14 +38,14 @@ public class GlobalExceptionHandler<T> {
 
     @SuppressWarnings("unchecked")
 	@ExceptionHandler(Exception.class)
-    public BaseResult<T> exceptionHandler(Exception exception) {
+    public BaseResult<T> globalExceptionHandler(Exception exception) {
         logger.error(exception.getMessage(), exception);
         return BaseResult.fail(exception.getMessage());
     }
     
     @SuppressWarnings("unchecked")
 	@ExceptionHandler(Exception.class)
-    public BaseResult<T> throwableHandler(Throwable throwable) {
+    public BaseResult<T> globalThrowableHandler(Throwable throwable) {
         logger.error(throwable.getMessage(), throwable);
         return BaseResult.fail(throwable.getMessage());
     }
