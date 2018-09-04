@@ -29,16 +29,22 @@ public class MenuController extends BaseController{
 		return menuService.deleteMenu(menuId);
 	}
 	
-	//根据角色id和菜单等级获得菜单
+	//根据角色id和菜单等级获得菜单 
 	@RequestMapping(value="/getRoleMenuByLevel",method = RequestMethod.POST)
 	public List<SsoMenu> getRoleMenuByLevel(String menuLevel,Long roleId) {
 		return menuService.getRoleMenuByLevel(menuLevel, roleId);
 	}
 	
-	//根据菜单等级获得菜单
+	//获得所有菜单
 	@RequestMapping(value = "/getAllMenu", method = RequestMethod.POST)
 	public List<SsoMenu> getAllMenu() {
 		return menuService.getAllMenu();
+	}
+	
+	//根据角色获得所有菜单
+	@RequestMapping(value = "/getAllMenuByRole", method = RequestMethod.POST)
+	public List<SsoMenu> getAllMenuByRole(Long roleId) {
+		return menuService.getAllMenuByRole(roleId);
 	}
 	
 	//给角色添加菜单权限

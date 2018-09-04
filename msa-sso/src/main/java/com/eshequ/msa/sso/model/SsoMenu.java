@@ -1,7 +1,11 @@
 package com.eshequ.msa.sso.model;
 
-import com.eshequ.msa.common.BaseModel;
 import java.math.BigDecimal;
+import java.util.List;
+
+import javax.persistence.Transient;
+
+import com.eshequ.msa.common.BaseModel;
 
 public class SsoMenu extends BaseModel {
     private Long menuId;
@@ -19,6 +23,9 @@ public class SsoMenu extends BaseModel {
     private String entranceUrl;
 
     private String menuDesc;
+    
+    @Transient 
+    private List<SsoMenu> ssoMenuList;
 
     public Long getMenuId() {
         return menuId;
@@ -83,4 +90,14 @@ public class SsoMenu extends BaseModel {
     public void setMenuDesc(String menuDesc) {
         this.menuDesc = menuDesc;
     }
+
+	public List<SsoMenu> getSsoMenuList() {
+		return ssoMenuList;
+	}
+
+	public void setSsoMenuList(List<SsoMenu> ssoMenuList) {
+		this.ssoMenuList = ssoMenuList;
+	}
+    
+    
 }

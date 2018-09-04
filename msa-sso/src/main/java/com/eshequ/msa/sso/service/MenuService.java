@@ -36,6 +36,12 @@ public interface MenuService {
 	List<SsoMenu> getAllMenu();
 	
 	/**
+	 * 根据角色获得所有菜单
+	 * @param roleId 角色id
+	 */
+	List<SsoMenu> getAllMenuByRole(Long roleId);
+	
+	/**
 	 * 给角色添加菜单权限
 	 * @param roleId 角色id
 	 * @param menuIdArray 菜单id数组

@@ -20,5 +20,12 @@ public interface SsoMenuMapper extends CommonMapper<SsoMenu>{
 	 * @return
 	 */
 	List<SsoMenu> selectRoleMenuByLevel(Map<String,Object> map);
+	
+	/**
+	 * 根据父级id和角色id查询菜单
+	 * @param map
+	 * @return
+	 */
+	List<SsoMenu> selectRoleMenuByParentId(Map<String,Object> map);
     
 }
