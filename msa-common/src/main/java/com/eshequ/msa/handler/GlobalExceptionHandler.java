@@ -43,11 +43,11 @@ public class GlobalExceptionHandler<T> {
         return BaseResult.fail(exception.getMessage());
     }
     
-    @SuppressWarnings("unchecked")
-	@ExceptionHandler(Exception.class)
-    public BaseResult<T> globalThrowableHandler(Throwable throwable) {
-        logger.error(throwable.getMessage(), throwable);
-        return BaseResult.fail(throwable.getMessage());
-    }
+//    @SuppressWarnings("unchecked")
+//	@ExceptionHandler(Exception.class)
+//    public BaseResult<T> otherThrowableHandler(Throwable throwable) {
+//        logger.error(throwable.getMessage(), throwable);
+//        return BaseResult.fail(throwable.getMessage());
+//    }
     
 }
