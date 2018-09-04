@@ -21,6 +21,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.eshequ.msa.codes.InfoStatus;
+import com.eshequ.msa.common.BaseResult;
+import com.eshequ.msa.exception.BusinessException;
 import com.eshequ.msa.ops.mapper.msareginfo.MsaRegInfoMapper;
 import com.eshequ.msa.ops.mapper.msareginfo.MsaSmsInfoMapper;
 import com.eshequ.msa.ops.mapper.msareginfo.MsaSmsSumMapper;
@@ -58,17 +60,20 @@ public class MsaRegInfoImpl implements MsaRegInfoService {
 	private SmsUtil smsUtil;
 
 	@Override
-	public int addMsaInfo(MsaRegInfo MasRegInfo) {
+	public BaseResult<?> addMsaInfo(MsaRegInfo MasRegInfo) {
 		MasRegInfo.setRegEnterpriseId(String.valueOf(snowFlake.nextId()));
 		MasRegInfo.setRegDate(DateUtil.getSysDate());
 		MasRegInfo.setRegTime(DateUtil.getSysTime());
 		// MasRegInfo.setBackTeName(backTeName);
 		MasRegInfo.setStatus(InfoStatus.ZhengChang.toString());
-		return msaRegInfoMapper.insertSelective(MasRegInfo);
+		if(msaRegInfoMapper.insertSelective(MasRegInfo)>0){
+			return BaseResult.successResult("注册成功！");
+		}
+		return BaseResult.fail(0, "注册失败！");
 	}
 
 	@Override
-	public Map<String, String> importData(MultipartFile file) throws IOException {
+	public BaseResult<?> importData(MultipartFile file) throws IOException {
 		Map<String, String> map = new HashMap<String, String>();
 		String fileName = file.getOriginalFilename();
 		String suffix = fileName.substring(fileName.lastIndexOf(".") + 1);
@@ -81,9 +86,7 @@ public class MsaRegInfoImpl implements MsaRegInfoService {
 			HSSFSheet sheet = hssf.getSheetAt(0);
 			HSSFRow firstRow = sheet.getRow(0);
 			if (firstRow.getPhysicalNumberOfCells() != 3) {
-				map.put("status", "0");
-				map.put("message", "导入数据表头列数不正确！");
-				return map;
+				throw new BusinessException(0, "导入数据表头列数不正确！");
 			} else {
 				int totalRows = sheet.getLastRowNum();
 				OpsArrearageInfo oai = new OpsArrearageInfo();
@@ -95,39 +98,29 @@ public class MsaRegInfoImpl implements MsaRegInfoService {
 					HSSFRow row = sheet.getRow(i);
 					HSSFCell cell = row.getCell(0);
 					if (cell == null || cell.getCellType() == HSSFCell.CELL_TYPE_BLANK) {
-						map.put("status", "0");
-						map.put("message", "第" + i + "行数据：" + "地址为空！");
-						return map;
+						throw new BusinessException(0, "第" + i + "行数据：" + "地址为空！");
 					} else {
 						oai.setCustAddr(cell.getStringCellValue());
 					}
 					cell = row.getCell(1);
 					if (cell != null) {
 						if (cell.getCellType() != HSSFCell.CELL_TYPE_NUMERIC) {
-							map.put("status", "0");
-							map.put("message", "第" + i + "行数据：" + "欠款金额类型不正确！");
-							return map;
+							throw new BusinessException(0, "第" + i + "行数据：" + "欠款金额类型不正确！");
 						} else {
 							oai.setArrearageAmt(new BigDecimal(cell.getNumericCellValue()));
 						}
 					} else {
-						map.put("status", "0");
-						map.put("message", "第" + i + "行数据：" + "欠款金额为空！");
-						return map;
+						throw new BusinessException(0, "第" + i + "行数据：" + "欠款金额为空！");
 					}
 
 					cell = row.getCell(2);
 					if (cell == null || cell.getCellType() == HSSFCell.CELL_TYPE_BLANK) {
-						map.put("status", "0");
-						map.put("message", "第" + i + "行数据：" + "手机号为空！");
-						return map;
+						throw new BusinessException(0, "第" + i + "行数据：" + "手机号为空！");
 					} else {
 						oai.setMobile(df.format(cell.getNumericCellValue()).toString());
 					}
 					opsArrearageInfoMapper.insertSelective(oai);
 				}
-				map.put("status", "1");
-				map.put("message", "保存成功！");
 				map.put("count", String.valueOf(totalRows));
 				map.put("importBatch", String.valueOf(importBatch));
 			}
@@ -137,9 +130,7 @@ public class MsaRegInfoImpl implements MsaRegInfoService {
 			XSSFSheet sheet = xssf.getSheetAt(0);
 			XSSFRow firstRow = sheet.getRow(0);
 			if (firstRow.getPhysicalNumberOfCells() != 3) {
-				map.put("status", "0");
-				map.put("message", "导入数据表头列数不正确！");
-				return map;
+				throw new BusinessException(0,"导入数据表头列数不正确！");
 			} else {
 				int totalRows = sheet.getLastRowNum();
 				OpsArrearageInfo oai = new OpsArrearageInfo();
@@ -151,49 +142,39 @@ public class MsaRegInfoImpl implements MsaRegInfoService {
 					XSSFRow row = sheet.getRow(i);
 					XSSFCell cell = row.getCell(0);
 					if (cell == null || cell.getCellType() == XSSFCell.CELL_TYPE_BLANK) {
-						map.put("status", "0");
-						map.put("message", "第" + i + "行数据：" + "地址为空！");
-						return map;
+						throw new BusinessException(0,"第" + i + "行数据：" + "地址为空！");
 					} else {
 						oai.setCustAddr(cell.getStringCellValue());
 					}
 					cell = row.getCell(1);
 					if (cell != null) {
 						if (cell.getCellType() != XSSFCell.CELL_TYPE_NUMERIC) {
-							map.put("status", "0");
-							map.put("message", "第" + i + "行数据：" + "欠款金额类型不正确！");
-							return map;
+							throw new BusinessException(0, "第" + i + "行数据：" + "欠款金额类型不正确！");
 						} else {
 							oai.setArrearageAmt(new BigDecimal(cell.getNumericCellValue()));
 						}
 					} else {
-						map.put("status", "0");
-						map.put("message", "第" + i + "行数据：" + "欠款金额为空！");
-						return map;
+						throw new BusinessException(0,  "第" + i + "行数据：" + "欠款金额为空！");
 					}
 					cell = row.getCell(2);
 					if (cell == null || cell.getCellType() == XSSFCell.CELL_TYPE_BLANK) {
-						map.put("status", "0");
-						map.put("message", "第" + i + "行数据：" + "手机号为空！");
-						return map;
+						throw new BusinessException(0, "第" + i + "行数据：" + "手机号为空！");
 					} else {
 
 						oai.setMobile(df.format(cell.getNumericCellValue()).toString());
 					}
 					opsArrearageInfoMapper.insertSelective(oai);
 				}
-				map.put("status", "1");
-				map.put("message", "导入成功！");
 				map.put("count", String.valueOf(totalRows));
 				map.put("importBatch", String.valueOf(importBatch));
 			}
 		}
-		return map;
+		return BaseResult.successResult(map);
 	}
 
 	@Override
-	public Map<String, Object> sendSms(String importBatchs) {
-		Map<String, Object> map = new HashMap<>();
+	public BaseResult<?> sendSms(String importBatchs) {
+		Map<String, Integer> map = new HashMap<String, Integer>();
 		String[] array = importBatchs.split(",");
 		List<OpsArrearageInfo> mobileList = opsArrearageInfoMapper.findMobileByImpotBatchs(array);
 		// 统计短信失败数量
@@ -233,9 +214,7 @@ public class MsaRegInfoImpl implements MsaRegInfoService {
 		msaSmsSumMapper.insertSelective(mss);
 		map.put("failedCount", count);
 		map.put("totalCount", mobileList.size());
-		map.put("status", 1);
-		map.put("message", "发送成功！");
-		return map;
+		return BaseResult.successResult(map);
 	}
 
 	@Override
