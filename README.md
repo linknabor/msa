@@ -39,3 +39,5 @@ response.setDateHeader("Expires", 0);
 response.setContentType("image/jpeg");
 ImageIO.write(vo.getBufferedImage(), "jpeg", os);String requestJsonStr = mapper.writeValueAsString(map);	//map 转json
 
+16.异常处理：ControllerAdvice会自动捕获以下三类异常：BusinessException, AppSysException, Exception。在逻辑处理中抛出异常即可。
+17.Controller返回 统一用BaseResult形式。
