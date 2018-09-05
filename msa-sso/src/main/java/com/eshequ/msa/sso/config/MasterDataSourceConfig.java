@@ -8,15 +8,17 @@ import javax.sql.DataSource;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
+import org.springframework.core.env.Environment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
+
+import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 
 /**
  * 主数据源
@@ -26,20 +28,22 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 @Configuration
 @MapperScan(basePackages = "com.eshequ.msa.sso.mapper", sqlSessionFactoryRef = "masterSqlSessionFactory")
 public class MasterDataSourceConfig {
+	
 	@Value("${mybatis.mapper.resource}")
 	private String mapperResource;
 
-	@Bean
-	@Primary
-	@ConfigurationProperties("spring.datasource.druid.one")
-	public DataSourceProperties masterDataSourceProperties() {
-		return new DataSourceProperties();
-	}
+	@Autowired
+	private Environment env;
 	
+	/**
+	 * 这里必须注入druidDataSource，否则无法使用druid的监控
+	 * @return
+	 */
 	@Bean(name = "masterDataSource")
 	@Primary
 	public DataSource masterDataSource() {
-		return masterDataSourceProperties().initializeDataSourceBuilder().build();
+		DataSource dataSouce = DruidDataSourceBuilder.create().build(env, "spring.datasource.druid.one.");
+		return dataSouce;
 	}
 	
     @Bean(name = "masterTransactionManager")
