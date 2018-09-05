@@ -20,7 +20,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.eshequ.msa.codes.InfoStatus;
+import com.eshequ.msa.codes.RegInfoStatus;
 import com.eshequ.msa.common.BaseResult;
 import com.eshequ.msa.exception.BusinessException;
 import com.eshequ.msa.ops.mapper.msareginfo.MsaRegInfoMapper;
@@ -39,8 +39,11 @@ import com.eshequ.msa.util.SnowFlake;
 @Service
 @Transactional
 public class MsaRegInfoImpl implements MsaRegInfoService {
-	private final String FAILED_STATUS = "1";
-	private final String SUCCESS_STATUS = "0";
+	private final String FAILED_STATUS = "1";//发送失败
+	private final String SUCCESS_STATUS = "0";//发送成功
+	
+	private final String REVIEWED="0";//判断参数是审核
+	private final String RECHECK="1";//判断参数是复核
 	@Autowired
 	private MsaRegInfoMapper msaRegInfoMapper;
 
@@ -64,8 +67,7 @@ public class MsaRegInfoImpl implements MsaRegInfoService {
 		MasRegInfo.setRegEnterpriseId(String.valueOf(snowFlake.nextId()));
 		MasRegInfo.setRegDate(DateUtil.getSysDate());
 		MasRegInfo.setRegTime(DateUtil.getSysTime());
-		// MasRegInfo.setBackTeName(backTeName);
-		MasRegInfo.setStatus(InfoStatus.ZhengChang.toString());
+		MasRegInfo.setStatus(RegInfoStatus.WeiShenHe.toString());
 		if(msaRegInfoMapper.insertSelective(MasRegInfo)>0){
 			return BaseResult.successResult("注册成功！");
 		}
@@ -221,5 +223,45 @@ public class MsaRegInfoImpl implements MsaRegInfoService {
 	public List<MsaSmsSum> findMsaSmsSum(String date) {
 
 		return msaSmsSumMapper.findMsaSmsByDate(date);
+	}
+
+	@Override
+	public MsaRegInfo getMsaInfoById(String regEnterpriseId) {
+		MsaRegInfo mri=new MsaRegInfo();
+		mri.setRegEnterpriseId(regEnterpriseId);
+		return msaRegInfoMapper.selectOne(mri);
+	}
+
+	@Override
+	public BaseResult<?> updateMsaInfo(MsaRegInfo msaRegInfo, String type) {
+		String message="";
+		if(type.equals(REVIEWED)){
+			msaRegInfo.setStatus(RegInfoStatus.YiShengHe.toString());
+		}else if(type.equals(RECHECK)){
+			msaRegInfo.setStatus(RegInfoStatus.YiFuHE.toString());
+		}
+	//	msaRegInfo.setBackTeName(backTeName);
+		int count=msaRegInfoMapper.updateByPrimaryKeySelective(msaRegInfo);
+		  if(count>0){
+			if(type.equals(REVIEWED)){
+				message="审核成功！";
+			}else if(type.equals(RECHECK)){
+				message="复核成功！";
+			}
+				  return BaseResult.successResult(message);
+	       }else{
+	    	   if(type.equals(REVIEWED)){
+					message="审核失败！";
+				}else if(type.equals(RECHECK)){
+					message="复核失败！";
+				}
+	       }
+		return BaseResult.fail(message);
+	}
+
+	@Override
+	public List<MsaRegInfo> getMsaInfoList(MsaRegInfo msaRegInfo) {
+		
+		return msaRegInfoMapper.getMsaInfoList(msaRegInfo);
 	}
 }

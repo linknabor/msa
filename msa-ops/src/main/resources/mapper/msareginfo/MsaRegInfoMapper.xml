@@ -19,4 +19,18 @@
     <result column="START_DATE" jdbcType="CHAR" property="startDate" />
     <result column="BACK_TE_NAME" jdbcType="VARCHAR" property="backTeName" />
   </resultMap>
+  <select id="getMsaInfoList" parameterType=" com.eshequ.msa.ops.model.msareginfo" resultMap="BaseResultMap">
+  SELECT REG_ENTERPRISE_ID,ENTERPRISE_NAME,LINK_MAN,ORG_TEL,EMAIL,BACK_TE_NAME,STATUS,REG_DATE FROM MSA_REG_INFO
+  <where>
+<if test="productVersion != null">
+ and product_version=#{productVersion}
+</if> 
+<if test="enterpriseName != null">
+and enterprise_name=#{enterpriseName}
+</if>
+<if test="linkMan != null">
+and link_man=#{linkMan}
+</if>
+  </where>
+  </select>
 </mapper>

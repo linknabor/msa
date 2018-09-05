@@ -23,4 +23,13 @@ public interface MsaRegInfoService {
 	// 根据日期查询短信信息
 	List<MsaSmsSum> findMsaSmsSum(String date);
 
+	//根据企业注册id获取企业注册信息
+	MsaRegInfo getMsaInfoById(String regEnterpriseId);
+	
+    //根据type判断审核还是符合保存企业信息
+	BaseResult<?> updateMsaInfo(MsaRegInfo msaRegInfo,String type);
+    
+	//查询所有企业注册信息
+	List<MsaRegInfo> getMsaInfoList(MsaRegInfo msaRegInfo);
+
 }
