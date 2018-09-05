@@ -16,7 +16,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 @RestController
-public class UserController {
+public class UserController extends BaseController{
 	@Autowired
 	private UserService userService;
 
@@ -41,8 +41,8 @@ public class UserController {
 
 	}
 
-	@RequestMapping(value = "/getUser", method = RequestMethod.GET)
-	public PageInfo<SsoUser> getUser(@RequestParam(defaultValue = "0", required = false) int pageNum,
+	@RequestMapping(value = "/getUserList", method = RequestMethod.GET)
+	public PageInfo<SsoUser> getUserList(@RequestParam(defaultValue = "0", required = false) int pageNum,
 			@RequestParam(defaultValue = "10", required = false) int pageSize, SsoUser ssoUser, String startDate,
 			String endDate) {
 		PageHelper.startPage(pageNum, pageSize);
@@ -74,5 +74,11 @@ public class UserController {
 			return userService.updatePassword(userId, oldPassword, newPassword);
 		}
 		return BaseResult.fail(500, "参数错误！");
+	}
+	@RequestMapping(value = "/getUserById", method = RequestMethod.GET)
+	public SsoUser getUserById(String userId){
+		
+		return userService.getUserById(userId);
+		
 	}
 }

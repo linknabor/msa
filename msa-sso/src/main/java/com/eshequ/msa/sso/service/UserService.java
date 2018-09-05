@@ -67,4 +67,11 @@ public interface UserService {
 	 */
 	BaseResult<?> updatePassword(String userId, String oldPassword, String newPassword);
 
+	/**
+	 * 根据id获取用户信息
+	 * @param userId
+	 * @return
+	 */
+	SsoUser getUserById(String userId);
+
 }

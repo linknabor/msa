@@ -1,6 +1,7 @@
 package com.eshequ.msa.sso.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -54,7 +55,7 @@ public interface SsoUserMapper  extends CommonMapper<SsoUser>{
 	 * @param endDate
 	 * @return
 	 */
-	List<SsoUser> getUser(SsoUser ssoUser, String startDate, String endDate);
+	List<SsoUser> getUserList(Map<String,String> map);
 	
 	/**
 	 * 修改密码
@@ -63,7 +64,7 @@ public interface SsoUserMapper  extends CommonMapper<SsoUser>{
 	 * @param newPassword
 	 * @return
 	 */
-	int  updatePassword(String userId, String oldPassword, String newPassword);
+	int  updatePassword(@Param("userId")String userId, @Param("newPassword")String newPassword);
 	
 	/**
 	 * 查询用户密码是否正确
@@ -71,5 +72,5 @@ public interface SsoUserMapper  extends CommonMapper<SsoUser>{
 	 * @param password
 	 * @return
 	 */
-	int  selectUserByIdAndPswd(String userId,String password);
+	int  selectUserByIdAndPswd(@Param("userId")String userId,@Param("password")String password);
 }
