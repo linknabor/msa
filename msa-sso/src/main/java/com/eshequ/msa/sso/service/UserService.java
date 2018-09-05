@@ -3,6 +3,9 @@ package com.eshequ.msa.sso.service;
 import java.util.List;
 
 import com.eshequ.msa.common.BaseResult;
+import com.eshequ.msa.sso.model.MsaBaseCity;
+import com.eshequ.msa.sso.model.SsoOrgInfo;
+import com.eshequ.msa.sso.model.SsoRole;
 import com.eshequ.msa.sso.model.SsoUser;
 
 public interface UserService {
@@ -73,5 +76,30 @@ public interface UserService {
 	 * @return
 	 */
 	SsoUser getUserById(String userId);
+	
+    /**
+     * 获取所有机构信息
+     * @return
+     */
+	List<SsoOrgInfo> getOrgInfoList();
+	
+    /**
+     * 根据id获取机构信息
+     * @param orgId
+     * @return
+     */
+	SsoOrgInfo getOrgInfoById(String orgId);
+	
+    /**
+     * 根据机构id获取相关角色
+     * @param orgId
+     * @return
+     */
+	List<SsoRole> getRoleByOrgId(String orgId);
+    /**
+     * 获取所有城市
+     * @return
+     */
+	List<MsaBaseCity> getCityList();
 
 }

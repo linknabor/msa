@@ -10,7 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.eshequ.msa.codes.InfoStatus;
 import com.eshequ.msa.common.BaseResult;
+import com.eshequ.msa.sso.mapper.MsaBaseCityMapper;
+import com.eshequ.msa.sso.mapper.SsoOrgInfoMapper;
+import com.eshequ.msa.sso.mapper.SsoRoleMapper;
 import com.eshequ.msa.sso.mapper.SsoUserMapper;
+import com.eshequ.msa.sso.model.MsaBaseCity;
+import com.eshequ.msa.sso.model.SsoOrgInfo;
+import com.eshequ.msa.sso.model.SsoRole;
 import com.eshequ.msa.sso.model.SsoUser;
 import com.eshequ.msa.sso.service.UserService;
 import com.eshequ.msa.util.DateUtil;
@@ -24,6 +30,15 @@ public class UserServiceImpl implements UserService {
 	private final String INITIAL_PASSWORD="11111111";
 	@Autowired
 	private SsoUserMapper ssoUserMapper;
+	
+	@Autowired
+	private SsoOrgInfoMapper ssoOrgInfoMapper;
+	
+	@Autowired
+	private SsoRoleMapper ssoRoleMapper;
+	
+	@Autowired
+	private MsaBaseCityMapper msaBaseCityMapper;
                      
 	@Autowired
 	private SnowFlake snowFlake;
@@ -120,6 +135,27 @@ public class UserServiceImpl implements UserService {
 		su=ssoUserMapper.selectOne(su);
 		su.setPassword(null);
 		return su;
+	}
+
+	@Override
+	public List<SsoOrgInfo> getOrgInfoList() {
+		
+		return ssoOrgInfoMapper.getOrgInFoList();
+	}
+
+	@Override
+	public SsoOrgInfo getOrgInfoById(String orgId) {
+		return ssoOrgInfoMapper.getOrgInFoById(orgId);
+	}
+
+	@Override
+	public List<SsoRole> getRoleByOrgId(String orgId) {
+		return ssoRoleMapper.getRoleByOrgId(orgId);
+	}
+
+	@Override
+	public List<MsaBaseCity> getCityList() {
+		return msaBaseCityMapper.getCityList();
 	}
 
 }

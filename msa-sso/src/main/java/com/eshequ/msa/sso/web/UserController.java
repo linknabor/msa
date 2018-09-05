@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eshequ.msa.common.BaseResult;
+import com.eshequ.msa.sso.model.MsaBaseCity;
+import com.eshequ.msa.sso.model.SsoOrgInfo;
+import com.eshequ.msa.sso.model.SsoRole;
 import com.eshequ.msa.sso.model.SsoUser;
 import com.eshequ.msa.sso.service.UserService;
 import com.eshequ.msa.util.ObjectUtil;
@@ -16,7 +19,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 @RestController
-public class UserController extends BaseController{
+public class UserController extends BaseController {
 	@Autowired
 	private UserService userService;
 
@@ -75,10 +78,34 @@ public class UserController extends BaseController{
 		}
 		return BaseResult.fail(500, "参数错误！");
 	}
+
 	@RequestMapping(value = "/getUserById", method = RequestMethod.GET)
-	public SsoUser getUserById(String userId){
-		
+	public SsoUser getUserById(String userId) {
 		return userService.getUserById(userId);
-		
 	}
+
+	// 获取所有机构信息
+	@RequestMapping(value = "/getOrgInfoList", method = RequestMethod.GET)
+	public List<SsoOrgInfo> getOrgInfoList() {
+		return userService.getOrgInfoList();
+	}
+
+	// 根据机构id获取机构信息
+	@RequestMapping(value = "/getOrgInfoById", method = RequestMethod.GET)
+	public SsoOrgInfo getOrgInfoById(String orgId) {
+		return userService.getOrgInfoById(orgId);
+	}
+
+	// 根据机构id获取角色信息
+	@RequestMapping(value = "/getRoleByOrgId", method = RequestMethod.GET)
+	public List<SsoRole> getRoleByOrgId(String orgId) {
+		return userService.getRoleByOrgId(orgId);
+	}
+	
+	//获取所有城市
+	@RequestMapping(value = "/getCityList", method = RequestMethod.GET)
+	public List<MsaBaseCity> getCityList() {
+		return userService.getCityList();
+	}
+	
 }
