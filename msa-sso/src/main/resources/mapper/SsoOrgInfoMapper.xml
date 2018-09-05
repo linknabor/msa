@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.sso.mapper.SsoOrgInfoMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.sso.model.SsoOrgInfo">
+    <id column="ORG_ID" jdbcType="BIGINT" property="orgId" />
+    <result column="ORG_STATUS" jdbcType="CHAR" property="orgStatus" />
+    <result column="LOGIN_NAME" jdbcType="VARCHAR" property="loginName" />
+    <result column="ORG_NAME" jdbcType="VARCHAR" property="orgName" />
+    <result column="ORG_TYPE" jdbcType="CHAR" property="orgType" />
+    <result column="LINK_MAN" jdbcType="VARCHAR" property="linkMan" />
+    <result column="LINK_PHONE" jdbcType="VARCHAR" property="linkPhone" />
+    <result column="ORG_ADDR" jdbcType="VARCHAR" property="orgAddr" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <select id="getOrgInFoList" resultMap="BaseResultMap">
+  select org_id,org_name,login_name from sso_org_info
+  </select>
+  
+  <select id="getOrgInFoById" parameterType="String" resultMap="BaseResultMap">
+  select org_id,org_name,login_name from sso_org_info where org_id=#{orgId}
+  </select>
+</mapper>

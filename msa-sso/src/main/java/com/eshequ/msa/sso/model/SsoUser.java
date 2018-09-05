@@ -17,7 +17,7 @@ public class SsoUser {
 
     private String status;
     
-    private String orgId;
+    private Long orgId;
 
     private String orgName;
 
@@ -34,6 +34,10 @@ public class SsoUser {
     private String createDate;
     
     private String createTime;
+    
+    private Long   cityId;
+    
+    private String cityName;
     
     @Transient  
     private String sessionId;
@@ -146,14 +150,6 @@ public class SsoUser {
 		this.loginName = loginName;
 	}
 
-	public String getOrgId() {
-		return orgId;
-	}
-
-	public void setOrgId(String orgId) {
-		this.orgId = orgId;
-	}
-
 	public String getRoleName() {
 		return roleName;
 	}
@@ -176,6 +172,30 @@ public class SsoUser {
 
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
+	}
+
+	public Long getOrgId() {
+		return orgId;
+	}
+
+	public void setOrgId(Long orgId) {
+		this.orgId = orgId;
+	}
+
+	public Long getCityId() {
+		return cityId;
+	}
+
+	public void setCityId(Long cityId) {
+		this.cityId = cityId;
+	}
+
+	public String getCityName() {
+		return cityName;
+	}
+
+	public void setCityName(String cityName) {
+		this.cityName = cityName;
 	}
     
     

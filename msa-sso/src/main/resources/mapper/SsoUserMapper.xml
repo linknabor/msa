@@ -7,7 +7,7 @@
     <result column="REAL_NAME" jdbcType="VARCHAR" property="realName" />
     <result column="PASSWORD" jdbcType="VARCHAR" property="password" />
     <result column="STATUS" jdbcType="CHAR" property="status" />
-    <result column="ORG_ID" jdbcType="VARCHAR" property="orgId" />
+    <result column="ORG_ID" jdbcType="BIGINT" property="orgId" />
     <result column="ORG_NAME" jdbcType="VARCHAR" property="orgName" />
     <result column="ROLE_ID" jdbcType="BIGINT" property="roleId" />
     <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName" />
@@ -16,6 +16,8 @@
     <result column="TP_SYS_NAME" jdbcType="VARCHAR" property="tpSysName" />
      <result column="CREATE_DATE" jdbcType="CHAR" property="createDate" />
       <result column="CREATE_TIME" jdbcType="CHAR" property="createTime" />
+      <result column="CITY_ID" jdbcType="BIGINT" property="cityId" />
+      <result column="CITY_NAME" jdbcType="VARCHAR" property="cityName" />
   </resultMap>
 
 <!--   验证登录信息是否有效 -->
@@ -56,5 +58,26 @@
    <select id="selectUserByIdAndPswd" parameterType="String" resultType="int">
   select count(1) from sso_user
     where user_id= #{userId} and password=#{password}
+   </select>
+   
+   <select id="getUserList" parameterType="map" resultMap="BaseResultMap">
+   select user_id,user_name,real_name,org_id,org_name,status,role_id,role_name,create_date  from sso_user
+   <where>
+   <if test="startDate != null">
+   and create_date >= #{startDate}
+   </if>
+   <if test="endDate != null">
+   and create_date &lt;= #{endDate}
+   </if>
+   <if test="realName != null">
+   and real_name like CONCAT('%', #{realName}, '%')
+   </if>
+   <if test="status != null">
+   and status = #{status}
+   </if>
+   <if test="orgName != null">
+   and org_name like CONCAT('%', #{orgName}, '%')
+   </if>
+   </where>
    </select>
 </mapper>

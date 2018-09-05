@@ -12,4 +12,9 @@
     update sso_role set role_name = #{roleName} 
     where role_id = #{roleId}
   </update >
+  
+  <select id="getRoleByOrgId" parameterType="String" resultMap="BaseResultMap">
+  select r.role_id,r.role_name from sso_role r inner join sso_org_role o on o.role_id=r.role_id
+  where o.org_id=#{orgId}
+  </select>
 </mapper>

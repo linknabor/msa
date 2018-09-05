@@ -1,6 +1,8 @@
 package com.eshequ.msa.sso.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +10,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.eshequ.msa.codes.InfoStatus;
 import com.eshequ.msa.common.BaseResult;
+import com.eshequ.msa.sso.mapper.MsaBaseCityMapper;
+import com.eshequ.msa.sso.mapper.SsoOrgInfoMapper;
+import com.eshequ.msa.sso.mapper.SsoRoleMapper;
 import com.eshequ.msa.sso.mapper.SsoUserMapper;
+import com.eshequ.msa.sso.model.MsaBaseCity;
+import com.eshequ.msa.sso.model.SsoOrgInfo;
+import com.eshequ.msa.sso.model.SsoRole;
 import com.eshequ.msa.sso.model.SsoUser;
 import com.eshequ.msa.sso.service.UserService;
 import com.eshequ.msa.util.DateUtil;
@@ -19,9 +27,19 @@ import com.eshequ.msa.util.SnowFlake;
 @Transactional
 public class UserServiceImpl implements UserService {
 	private final String PASSWORD_POSTFIX = "sso";
+	private final String INITIAL_PASSWORD="11111111";
 	@Autowired
 	private SsoUserMapper ssoUserMapper;
-
+	
+	@Autowired
+	private SsoOrgInfoMapper ssoOrgInfoMapper;
+	
+	@Autowired
+	private SsoRoleMapper ssoRoleMapper;
+	
+	@Autowired
+	private MsaBaseCityMapper msaBaseCityMapper;
+                     
 	@Autowired
 	private SnowFlake snowFlake;
 
@@ -34,7 +52,7 @@ public class UserServiceImpl implements UserService {
 		ssoUser.setCreateDate(DateUtil.getSysDate());
 		ssoUser.setCreateTime(DateUtil.getSysTime());
 		ssoUser.setStatus(String.valueOf(InfoStatus.ZhengChang));
-		ssoUser.setPassword(MD5Util.MD5Encode("11111111"+ "-" + PASSWORD_POSTFIX, null));
+		ssoUser.setPassword(MD5Util.MD5Encode(INITIAL_PASSWORD+ "-" + PASSWORD_POSTFIX, null));
 		int count = ssoUserMapper.insertSelective(ssoUser);
 		if (count > 0) {
 			return BaseResult.successResult("添加用户成功！");
@@ -60,7 +78,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public BaseResult<?> resetPassWord(String userId) {
-		String password = MD5Util.MD5Encode("11111111" + "-" + PASSWORD_POSTFIX, null);
+		String password = MD5Util.MD5Encode(INITIAL_PASSWORD + "-" + PASSWORD_POSTFIX, null);
 		int count = ssoUserMapper.updatePswdByUserId(password, userId);
 		if (count > 0) {
 			return BaseResult.successResult("重置密码成功！");
@@ -88,18 +106,56 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<SsoUser> getUser(SsoUser ssoUser, String startDate, String endDate) {
-		return ssoUserMapper.getUser(ssoUser, startDate, endDate);
+		Map<String,String> map=new HashMap<>();
+		map.put("startDate", startDate);
+		map.put("realName", ssoUser.getRealName());
+		map.put("endDate", endDate);
+		map.put("status", ssoUser.getStatus());
+		map.put("orgName", ssoUser.getOrgName());
+		return ssoUserMapper.getUserList(map);
 	}
 
 	@Override
 	public BaseResult<?> updatePassword(String userId, String oldPassword, String newPassword) {
+		oldPassword=MD5Util.MD5Encode(oldPassword + "-" + PASSWORD_POSTFIX, null);
+		newPassword=MD5Util.MD5Encode(newPassword + "-" + PASSWORD_POSTFIX, null);
 		if(ssoUserMapper.selectUserByIdAndPswd(userId, oldPassword)<=0){
 			return BaseResult.fail(0,"原密码错误！");
 		}
-		if(ssoUserMapper.updatePassword(userId, oldPassword, newPassword)>0){
+		if(ssoUserMapper.updatePswdByUserId(newPassword, userId)>0){
 			return BaseResult.successResult("修改密码成功！");
 		}
 		return BaseResult.fail(0,"修改密码失败！");
+	}
+
+	@Override
+	public SsoUser getUserById(String userId) {
+		SsoUser su=new SsoUser();
+		su.setUserId(Long.parseLong(userId));
+		su=ssoUserMapper.selectOne(su);
+		su.setPassword(null);
+		return su;
+	}
+
+	@Override
+	public List<SsoOrgInfo> getOrgInfoList() {
+		
+		return ssoOrgInfoMapper.getOrgInFoList();
+	}
+
+	@Override
+	public SsoOrgInfo getOrgInfoById(String orgId) {
+		return ssoOrgInfoMapper.getOrgInFoById(orgId);
+	}
+
+	@Override
+	public List<SsoRole> getRoleByOrgId(String orgId) {
+		return ssoRoleMapper.getRoleByOrgId(orgId);
+	}
+
+	@Override
+	public List<MsaBaseCity> getCityList() {
+		return msaBaseCityMapper.getCityList();
 	}
 
 }
