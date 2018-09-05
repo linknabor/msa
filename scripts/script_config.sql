@@ -271,3 +271,8 @@ INSERT INTO CODE_INFO  VALUES ('03', '46', '产品版本', '企业版', 'ProductVersion
 delete from code_info where ci_sp_class='49';
 INSERT INTO CODE_INFO  VALUES ('1', '49', '银行卡类型', '借记卡', 'CardType');
 INSERT INTO CODE_INFO  VALUES ('2', '49', '银行卡类型', '贷记卡', 'CardType');
+#　本引用值的代码个数:3 -------i==38
+delete from code_info where ci_sp_class='60';
+INSERT INTO CODE_INFO  VALUES ('0', '60', '活跃度', '新', 'Activity');
+INSERT INTO CODE_INFO  VALUES ('1', '60', '活跃度', '活跃', 'Activity');
+INSERT INTO CODE_INFO  VALUES ('2', '60', '活跃度', '潜在流失', 'Activity');
