@@ -36,7 +36,7 @@
 		<spring.redis.boot.version>2.0.0.RELEASE</spring.redis.boot.version>
 		<msa.common.version>0.0.1-SNAPSHOT</msa.common.version>
 		<poi.version>3.5-FINAL</poi.version>
-		<dest.war.dir>f:\pub\msa\</dest.war.dir>
+		<dest.war.dir>d:\pub\msa\</dest.war.dir>
 	</properties>
 
 	<profiles>
@@ -179,5 +179,6 @@
 		<module>msa-sso</module>
 		<module>msa-crm</module>
 		<module>msa-ops</module>
+		<module>msa-datacenter</module>
 	</modules>
 </project>

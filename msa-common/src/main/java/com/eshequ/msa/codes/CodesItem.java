@@ -28,6 +28,10 @@ public class CodesItem {
 	
 	protected static final String orgType=new String("56");
 	
+	protected static final String smsStatus=new String("58");
+	
+	protected static final String menuFunLevel=new String("59");
+	
 	protected static final String proCreateType=new String("18");
 	
 	protected static final String sectType=new String("19");
@@ -86,9 +90,7 @@ public class CodesItem {
 	
 	protected static final String cardType=new String("49");
 	
-	protected static final String smsStatus=new String("58");
-	
-	protected static final String menuFunLevel=new String("59");
+	protected static final String activity=new String("60");
 
 
 	protected static final Map mapCat= new HashMap(100);
@@ -99,6 +101,8 @@ public class CodesItem {
 		mapCat.put("InvoiceApplyType",invoiceApplyType);
 		mapCat.put("RegInfoStatus",regInfoStatus);
 		mapCat.put("OrgType",orgType);
+		mapCat.put("SmsStatus",smsStatus);
+		mapCat.put("MenuFunLevel",menuFunLevel);
 		mapCat.put("ProCreateType",proCreateType);
 		mapCat.put("SectType",sectType);
 		mapCat.put("InfoStatus",infoStatus);
@@ -128,8 +132,7 @@ public class CodesItem {
 		mapCat.put("RefundState",refundState);
 		mapCat.put("ProductVersion",productVersion);
 		mapCat.put("CardType",cardType);
-		mapCat.put("SmsStatus",smsStatus);
-		mapCat.put("MenuFunLevel",menuFunLevel);
+		mapCat.put("Activity",activity);
 	}
 
 
@@ -146,9 +149,9 @@ public class CodesItem {
 	}                                                                                            			
 	public String toString(){ return this.code; }                                                     
 	                                                                                                  
-	/**æ ¹æ®æŒ‡å®šçš„ä»£ç å€¼è½¬æ¢æˆä¸­æ–‡åå­—                                                                 
-	 * @param category   æœ¬ä»£ç æ‰€å±çš„ç±»åˆ«çš„ç¼–å·                                                       
-	 * @param code   æœ¬ä»£ç çš„ä»£ç å€¼                                                                   
+	/**¸ù¾İÖ¸¶¨µÄ´úÂëÖµ×ª»»³ÉÖĞÎÄÃû×Ö                                                                 
+	 * @param category   ±¾´úÂëËùÊôµÄÀà±ğµÄ±àºÅ                                                       
+	 * @param code   ±¾´úÂëµÄ´úÂëÖµ                                                                   
 	 * @return                                                                                        
 	 */                                                                                               
 	protected static String getValue(String category,String code){                                    
@@ -185,14 +188,14 @@ public class CodesItem {
 		public static Map getCategoryItems(String categoryName){
 		   String categoryCode = (String)mapCat.get(categoryName);
 		   if(categoryCode==null)
-		      throw new RuntimeException(categoryName + "ä»£ç å¤§ç±»åˆ«æœªè¿›è¡Œåˆå§‹åŒ–ï¼");
+		      throw new RuntimeException(categoryName + "´úÂë´óÀà±ğÎ´½øĞĞ³õÊ¼»¯£¡");
 		   
 		   Map mp=(Map)mapCategoryCode.get(categoryCode);
 		   return mp;
 		}
 
 	/**                                                                                               
-	 * ç›´æ¥è½¬æ¢æˆä¸­æ–‡åå­—                                                                             
+	 * Ö±½Ó×ª»»³ÉÖĞÎÄÃû×Ö                                                                             
 	 * @return                                                                                        
 	 */                                                                                               
 	public  String getValue(){                                                                        
@@ -206,9 +209,9 @@ public class CodesItem {
 	   mapper = this.codeInfoMapper;                                                                  
 	}                                                                                                 
 	/**                                                                                               
-	 * æ„é€ å‡½æ•°.                                                                                      
-	 * @param category   æœ¬ä»£ç æ‰€å±çš„ç±»åˆ«çš„ç¼–å·                                                       
-	 * @param code   æœ¬ä»£ç çš„ä»£ç å€¼                                                                   
+	 * ¹¹Ôìº¯Êı.                                                                                      
+	 * @param category   ±¾´úÂëËùÊôµÄÀà±ğµÄ±àºÅ                                                       
+	 * @param code   ±¾´úÂëµÄ´úÂëÖµ                                                                   
 	 */                                                                                               
 	protected  CodesItem(String category,String code){                                                
 		this.category=category;                                                                         
@@ -218,7 +221,7 @@ public class CodesItem {
 	protected static final List<CodeInfo> getCodeFromDB(String category) {             							
 			List<CodeInfo> list = mapper.selectByClass(category);                                  
 			if(list.size()<1){	                                                                        
-				throw new NotFoundException("å½“å‰ä½¿ç”¨çš„ä»£ç é¡¹åœ¨æ•°æ®åº“æ— æ³•å–åˆ° code=" + category);             
+				throw new NotFoundException("µ±Ç°Ê¹ÓÃµÄ´úÂëÏîÔÚÊı¾İ¿âÎŞ·¨È¡µ½ code=" + category);             
 			}                                                                                     
 		return list;                                                                                      
 	}                                                                                                 
