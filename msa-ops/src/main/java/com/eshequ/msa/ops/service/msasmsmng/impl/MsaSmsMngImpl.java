@@ -1,4 +1,4 @@
-package com.eshequ.msa.ops.service.msareginfo.impl;
+package com.eshequ.msa.ops.service.msasmsmng.impl;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -20,36 +20,26 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.eshequ.msa.codes.RegInfoStatus;
-import com.eshequ.msa.codes.mapper.CodeInfoMapper;
-import com.eshequ.msa.codes.model.CodeInfo;
 import com.eshequ.msa.common.BaseResult;
-import com.eshequ.msa.common.User;
 import com.eshequ.msa.exception.BusinessException;
-import com.eshequ.msa.ops.mapper.msareginfo.MsaRegInfoMapper;
-import com.eshequ.msa.ops.mapper.msareginfo.MsaSmsInfoMapper;
-import com.eshequ.msa.ops.mapper.msareginfo.MsaSmsSumMapper;
-import com.eshequ.msa.ops.mapper.msareginfo.OpsArrearageInfoMapper;
-import com.eshequ.msa.ops.model.msareginfo.MsaRegInfo;
-import com.eshequ.msa.ops.model.msareginfo.MsaSmsInfo;
-import com.eshequ.msa.ops.model.msareginfo.MsaSmsSum;
-import com.eshequ.msa.ops.model.msareginfo.OpsArrearageInfo;
-import com.eshequ.msa.ops.service.msareginfo.MsaRegInfoService;
+import com.eshequ.msa.ops.mapper.msasmsmng.MsaSmsInfoMapper;
+import com.eshequ.msa.ops.mapper.msasmsmng.MsaSmsSumMapper;
+import com.eshequ.msa.ops.mapper.msasmsmng.OpsArrearageInfoMapper;
+import com.eshequ.msa.ops.model.msasmsmng.MsaSmsInfo;
+import com.eshequ.msa.ops.model.msasmsmng.MsaSmsSum;
+import com.eshequ.msa.ops.model.msasmsmng.OpsArrearageInfo;
+import com.eshequ.msa.ops.service.msasmsmng.MsaSmsMngService;
 import com.eshequ.msa.util.DateUtil;
 import com.eshequ.msa.util.SmsUtil;
 import com.eshequ.msa.util.SnowFlake;
-import com.eshequ.msa.util.http.HttpClientProxy;
 
 @Service
 @Transactional
-public class MsaRegInfoImpl implements MsaRegInfoService {
+public class MsaSmsMngImpl implements MsaSmsMngService {
+	
 	private final String FAILED_STATUS = "1";//发送失败
 	private final String SUCCESS_STATUS = "0";//发送成功
 	
-	private final String REVIEWED="0";//判断参数是审核
-	private final String RECHECK="1";//判断参数是复核
-	@Autowired
-	private MsaRegInfoMapper msaRegInfoMapper;
 
 	@Autowired
 	private OpsArrearageInfoMapper opsArrearageInfoMapper;
@@ -60,29 +50,13 @@ public class MsaRegInfoImpl implements MsaRegInfoService {
 	@Autowired
 	private MsaSmsSumMapper msaSmsSumMapper;
 	
-	@Autowired
-	private CodeInfoMapper codeInfoMapper;
 
 	@Autowired
 	private SnowFlake snowFlake;
 
 	@Autowired
 	private SmsUtil smsUtil;
-	
-	@Autowired
-	private HttpClientProxy httpClientProxy;
 
-	@Override
-	public BaseResult<?> addMsaInfo(MsaRegInfo MasRegInfo) {
-		MasRegInfo.setRegEnterpriseId(String.valueOf(snowFlake.nextId()));
-		MasRegInfo.setRegDate(DateUtil.getSysDate());
-		MasRegInfo.setRegTime(DateUtil.getSysTime());
-		MasRegInfo.setStatus(RegInfoStatus.WeiShenHe.toString());
-		if(msaRegInfoMapper.insertSelective(MasRegInfo)>0){
-			return BaseResult.successResult("注册成功！");
-		}
-		return BaseResult.fail(0, "注册失败！");
-	}
 
 	@Override
 	public BaseResult<?> importData(MultipartFile file) throws IOException {
@@ -234,56 +208,4 @@ public class MsaRegInfoImpl implements MsaRegInfoService {
 		return msaSmsSumMapper.findMsaSmsByDate(date);
 	}
 
-	@Override
-	public MsaRegInfo getMsaInfoById(String regEnterpriseId) {
-		MsaRegInfo mri=new MsaRegInfo();
-		mri.setRegEnterpriseId(regEnterpriseId);
-		return msaRegInfoMapper.selectOne(mri);
-	}
-
-	@Override
-	public BaseResult<?> updateMsaInfo(MsaRegInfo msaRegInfo, String type,User user) {
-		String message="";
-		if(REVIEWED.equals(type)){
-			msaRegInfo.setStatus(RegInfoStatus.YiShengHe.toString());
-		}else if(RECHECK.equals(type)){
-			msaRegInfo.setStatus(RegInfoStatus.YiFuHE.toString());
-		}
-		if(user != null){
-			msaRegInfo.setBackTeName(user.getUserName());
-		}
-		int count=msaRegInfoMapper.updateByPrimaryKeySelective(msaRegInfo);
-		  if(count>0){
-			if(REVIEWED.equals(type)){
-				message="审核成功！";
-			}else if(RECHECK.equals(type)){
-				//TODO 调另一个系统接口返回id httpClientProxy
-				//String url="";
-				message="复核成功！";
-			}else{
-				message="编辑成功！";
-			}
-				  return BaseResult.successResult(message);
-	       }else{
-	    	   if(REVIEWED.equals(type)){
-					message="审核失败！";
-				}else if(RECHECK.equals(type)){
-					message="复核失败！";
-				}else{
-					message="编辑失败！";
-				}
-	       }
-		return BaseResult.fail(message);
-	}
-
-	@Override
-	public List<MsaRegInfo> getMsaInfoList(MsaRegInfo msaRegInfo) {
-		
-		return msaRegInfoMapper.getMsaInfoList(msaRegInfo);
-	}
-
-	@Override
-	public List<CodeInfo> getProductVersion(String ciSpClass) {
-		return codeInfoMapper.selectByClass(ciSpClass);
-	}
 }

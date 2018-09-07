@@ -1,8 +1,12 @@
 package com.eshequ.msa.crm.model.msareginfo;
 
 import com.eshequ.msa.common.BaseModel;
+import java.math.BigDecimal;
+
+import javax.persistence.Id;
 
 public class MsaRegInfo extends BaseModel {
+	@Id
     private String regEnterpriseId;
 
     private String status;
@@ -34,6 +38,24 @@ public class MsaRegInfo extends BaseModel {
     private String startDate;
 
     private String backTeName;
+
+    private String industryType;
+
+    private Long provinceId;
+
+    private String provinceName;
+
+    private Long cityId;
+
+    private String cityName;
+
+    private String environment;
+
+    private BigDecimal sectNum;
+
+    private BigDecimal userNum;
+
+    private BigDecimal invoiceCount;
 
     public String getRegEnterpriseId() {
         return regEnterpriseId;
@@ -161,5 +183,77 @@ public class MsaRegInfo extends BaseModel {
 
     public void setBackTeName(String backTeName) {
         this.backTeName = backTeName;
+    }
+
+    public String getIndustryType() {
+        return industryType;
+    }
+
+    public void setIndustryType(String industryType) {
+        this.industryType = industryType;
+    }
+
+    public Long getProvinceId() {
+        return provinceId;
+    }
+
+    public void setProvinceId(Long provinceId) {
+        this.provinceId = provinceId;
+    }
+
+    public String getProvinceName() {
+        return provinceName;
+    }
+
+    public void setProvinceName(String provinceName) {
+        this.provinceName = provinceName;
+    }
+
+    public Long getCityId() {
+        return cityId;
+    }
+
+    public void setCityId(Long cityId) {
+        this.cityId = cityId;
+    }
+
+    public String getCityName() {
+        return cityName;
+    }
+
+    public void setCityName(String cityName) {
+        this.cityName = cityName;
+    }
+
+    public String getEnvironment() {
+        return environment;
+    }
+
+    public void setEnvironment(String environment) {
+        this.environment = environment;
+    }
+
+    public BigDecimal getSectNum() {
+        return sectNum;
+    }
+
+    public void setSectNum(BigDecimal sectNum) {
+        this.sectNum = sectNum;
+    }
+
+    public BigDecimal getUserNum() {
+        return userNum;
+    }
+
+    public void setUserNum(BigDecimal userNum) {
+        this.userNum = userNum;
+    }
+
+    public BigDecimal getInvoiceCount() {
+        return invoiceCount;
+    }
+
+    public void setInvoiceCount(BigDecimal invoiceCount) {
+        this.invoiceCount = invoiceCount;
     }
 }
