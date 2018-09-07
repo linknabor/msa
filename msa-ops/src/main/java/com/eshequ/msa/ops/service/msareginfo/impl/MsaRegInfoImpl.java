@@ -20,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.eshequ.msa.codes.InfoStatus;
 import com.eshequ.msa.codes.RegInfoStatus;
 import com.eshequ.msa.codes.mapper.CodeInfoMapper;
 import com.eshequ.msa.codes.model.CodeInfo;
@@ -39,6 +38,7 @@ import com.eshequ.msa.ops.service.msareginfo.MsaRegInfoService;
 import com.eshequ.msa.util.DateUtil;
 import com.eshequ.msa.util.SmsUtil;
 import com.eshequ.msa.util.SnowFlake;
+import com.eshequ.msa.util.http.HttpClientProxy;
 
 @Service
 @Transactional
@@ -68,6 +68,9 @@ public class MsaRegInfoImpl implements MsaRegInfoService {
 
 	@Autowired
 	private SmsUtil smsUtil;
+	
+	@Autowired
+	private HttpClientProxy httpClientProxy;
 
 	@Override
 	public BaseResult<?> addMsaInfo(MsaRegInfo MasRegInfo) {
@@ -241,9 +244,9 @@ public class MsaRegInfoImpl implements MsaRegInfoService {
 	@Override
 	public BaseResult<?> updateMsaInfo(MsaRegInfo msaRegInfo, String type,User user) {
 		String message="";
-		if(type.equals(REVIEWED)){
+		if(REVIEWED.equals(type)){
 			msaRegInfo.setStatus(RegInfoStatus.YiShengHe.toString());
-		}else if(type.equals(RECHECK)){
+		}else if(RECHECK.equals(type)){
 			msaRegInfo.setStatus(RegInfoStatus.YiFuHE.toString());
 		}
 		if(user != null){
@@ -251,17 +254,23 @@ public class MsaRegInfoImpl implements MsaRegInfoService {
 		}
 		int count=msaRegInfoMapper.updateByPrimaryKeySelective(msaRegInfo);
 		  if(count>0){
-			if(type.equals(REVIEWED)){
+			if(REVIEWED.equals(type)){
 				message="审核成功！";
-			}else if(type.equals(RECHECK)){
+			}else if(RECHECK.equals(type)){
+				//TODO 调另一个系统接口返回id httpClientProxy
+				//String url="";
 				message="复核成功！";
+			}else{
+				message="编辑成功！";
 			}
 				  return BaseResult.successResult(message);
 	       }else{
-	    	   if(type.equals(REVIEWED)){
+	    	   if(REVIEWED.equals(type)){
 					message="审核失败！";
-				}else if(type.equals(RECHECK)){
+				}else if(RECHECK.equals(type)){
 					message="复核失败！";
+				}else{
+					message="编辑失败！";
 				}
 	       }
 		return BaseResult.fail(message);
