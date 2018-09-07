@@ -1,8 +1,11 @@
 package com.eshequ.msa.ops.model.msareginfo;
 
+import javax.persistence.Id;
+
 import com.eshequ.msa.common.BaseModel;
 
 public class MsaRegInfo extends BaseModel {
+	@Id
     private String regEnterpriseId;
 
     private String status;

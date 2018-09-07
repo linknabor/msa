@@ -20,8 +20,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.eshequ.msa.codes.InfoStatus;
 import com.eshequ.msa.codes.RegInfoStatus;
+import com.eshequ.msa.codes.mapper.CodeInfoMapper;
+import com.eshequ.msa.codes.model.CodeInfo;
 import com.eshequ.msa.common.BaseResult;
+import com.eshequ.msa.common.User;
 import com.eshequ.msa.exception.BusinessException;
 import com.eshequ.msa.ops.mapper.msareginfo.MsaRegInfoMapper;
 import com.eshequ.msa.ops.mapper.msareginfo.MsaSmsInfoMapper;
@@ -55,6 +59,9 @@ public class MsaRegInfoImpl implements MsaRegInfoService {
 
 	@Autowired
 	private MsaSmsSumMapper msaSmsSumMapper;
+	
+	@Autowired
+	private CodeInfoMapper codeInfoMapper;
 
 	@Autowired
 	private SnowFlake snowFlake;
@@ -210,7 +217,6 @@ public class MsaRegInfoImpl implements MsaRegInfoService {
 		mss.setSendDate(DateUtil.getSysDate());
 		mss.setSendTime(DateUtil.getSysTime());
 		mss.setSmsBatch(smsBatch);
-		;
 		mss.setTotalCount(new BigDecimal(mobileList.size()));
 		mss.setTotalFailed(new BigDecimal(count));
 		msaSmsSumMapper.insertSelective(mss);
@@ -233,14 +239,16 @@ public class MsaRegInfoImpl implements MsaRegInfoService {
 	}
 
 	@Override
-	public BaseResult<?> updateMsaInfo(MsaRegInfo msaRegInfo, String type) {
+	public BaseResult<?> updateMsaInfo(MsaRegInfo msaRegInfo, String type,User user) {
 		String message="";
 		if(type.equals(REVIEWED)){
 			msaRegInfo.setStatus(RegInfoStatus.YiShengHe.toString());
 		}else if(type.equals(RECHECK)){
 			msaRegInfo.setStatus(RegInfoStatus.YiFuHE.toString());
 		}
-	//	msaRegInfo.setBackTeName(backTeName);
+		if(user != null){
+			msaRegInfo.setBackTeName(user.getUserName());
+		}
 		int count=msaRegInfoMapper.updateByPrimaryKeySelective(msaRegInfo);
 		  if(count>0){
 			if(type.equals(REVIEWED)){
@@ -263,5 +271,10 @@ public class MsaRegInfoImpl implements MsaRegInfoService {
 	public List<MsaRegInfo> getMsaInfoList(MsaRegInfo msaRegInfo) {
 		
 		return msaRegInfoMapper.getMsaInfoList(msaRegInfo);
+	}
+
+	@Override
+	public List<CodeInfo> getProductVersion(String ciSpClass) {
+		return codeInfoMapper.selectByClass(ciSpClass);
 	}
 }
