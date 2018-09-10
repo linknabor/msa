@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.eshequ.msa.bdp.mapper.projectstatusmng.MsaBaseEnterpriseMapper">
-  <resultMap id="BaseResultMap" type="com.eshequ.msa.bdp.model.projectstatusmng.MsaBaseEnterprise">
+<mapper namespace="com.eshequ.msa.bdp.mapper.MsaBaseEnterpriseMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.bdp.model.MsaBaseEnterprise">
     <id column="ENTERPRISE_ID" jdbcType="BIGINT" property="enterpriseId" />
     <result column="CUST_STATE" jdbcType="CHAR" property="enterpriseState" />
     <result column="CUST_NAME" jdbcType="VARCHAR" property="enterpriseName" />
