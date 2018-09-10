@@ -12,7 +12,7 @@ CONSTRAINT MSA_TEMPLET_SECT_PARA_PK PRIMARY KEY(PARA_NAME)   );
 DROP TABLE IF EXISTS MSA_TEMPLET_ENP_PARA ;
 CREATE TABLE MSA_TEMPLET_ENP_PARA(
 PARA_NAME                                         VARCHAR(40) NOT NULL, #参数名称
-企业ID                                              BIGINT default 0 NOT NULL, #企业ID
+ENTERPRISE_ID                                     BIGINT default 0 NOT NULL, #企业ID
 PARA_VALUE                                        VARCHAR(256) NOT NULL, #参数值
 PARA_TYPE                                         CHAR(2) NOT NULL, #参数类型
 REMARK                                            VARCHAR(256) NULL, #备注
