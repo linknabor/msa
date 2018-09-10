@@ -179,6 +179,6 @@
 		<module>msa-sso</module>
 		<module>msa-crm</module>
 		<module>msa-ops</module>
-		<module>msa-datacenter</module>
+		<module>msa-bdp</module>
 	</modules>
 </project>

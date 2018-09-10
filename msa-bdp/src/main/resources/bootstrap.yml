@@ -13,4 +13,4 @@ spring:
       host: localhost
       enabled: true
   application:
-    name: msa-ops
+    name: msa-bdp

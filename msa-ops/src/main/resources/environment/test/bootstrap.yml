@@ -13,4 +13,4 @@ spring:
       host: test-msa2
       enabled: true
   application:
-    name: msa-crm
+    name: msa-ops
