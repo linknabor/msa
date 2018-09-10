@@ -1,3 +1,11 @@
+# 子模块说明
+sso 单点登录,单独服务
+ops 运营管理,单独服务
+crm 客户管理，单独服务
+bdp 业务数据供应服务，单独服务
+dms 数据迁移服务，单独服务
+common 公用函数模块，公用模块
+
 # 开发之前请看说明!!!
 1.msa-common作为平台所有项目的子模块Modules,每个子项目请在pom文件中自行引入如下依赖Dependency:
 <dependency>
