@@ -3,9 +3,9 @@
 <mapper namespace="com.eshequ.msa.bdp.mapper.projectstatusmng.MsaBaseEnterpriseMapper">
   <resultMap id="BaseResultMap" type="com.eshequ.msa.bdp.model.projectstatusmng.MsaBaseEnterprise">
     <id column="ENTERPRISE_ID" jdbcType="BIGINT" property="enterpriseId" />
-    <result column="CUST_STATE" jdbcType="CHAR" property="custState" />
-    <result column="CUST_NAME" jdbcType="VARCHAR" property="custName" />
-    <result column="CUST_ADDR" jdbcType="VARCHAR" property="custAddr" />
+    <result column="CUST_STATE" jdbcType="CHAR" property="enterpriseState" />
+    <result column="CUST_NAME" jdbcType="VARCHAR" property="enterpriseName" />
+    <result column="CUST_ADDR" jdbcType="VARCHAR" property="enterpriseAddr" />
     <result column="ENTERPRISE_TYPE" jdbcType="CHAR" property="enterpriseType" />
     <result column="CUST_TEL" jdbcType="VARCHAR" property="custTel" />
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />

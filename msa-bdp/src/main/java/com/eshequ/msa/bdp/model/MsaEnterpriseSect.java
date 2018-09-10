@@ -1,4 +1,4 @@
-package com.eshequ.msa.bdp.model.projectstatusmng;
+package com.eshequ.msa.bdp.model;
 
 import com.eshequ.msa.common.BaseModel;
 

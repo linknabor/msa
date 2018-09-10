@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.eshequ.msa.bdp.model.projectstatusmng.MsaBaseSect;
+import com.eshequ.msa.bdp.model.MsaBaseSect;
 import com.eshequ.msa.bdp.service.projectstatusmng.ProjectStatusMngService;
 import com.eshequ.msa.bdp.vo.SectAndEnterpriseVo;
 import com.eshequ.msa.common.BaseResult;
