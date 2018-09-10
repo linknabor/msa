@@ -7,7 +7,7 @@ import javax.persistence.Id;
 
 public class MsaRegInfo extends BaseModel {
 	@Id
-    private String regEnterpriseId;
+    private Long regEnterpriseId;
 
     private String status;
 
@@ -57,15 +57,17 @@ public class MsaRegInfo extends BaseModel {
 
     private BigDecimal invoiceCount;
 
-    public String getRegEnterpriseId() {
-        return regEnterpriseId;
-    }
+  
 
-    public void setRegEnterpriseId(String regEnterpriseId) {
-        this.regEnterpriseId = regEnterpriseId;
-    }
+    public Long getRegEnterpriseId() {
+		return regEnterpriseId;
+	}
 
-    public String getStatus() {
+	public void setRegEnterpriseId(Long regEnterpriseId) {
+		this.regEnterpriseId = regEnterpriseId;
+	}
+
+	public String getStatus() {
         return status;
     }
 

@@ -28,7 +28,7 @@ public class MsaRegInfoController {
 	public BaseResult<?> addOrUpdateMsaInfo(MsaRegInfo msaRegInfo, String type,
 			@ModelAttribute(Constants.USER) User user) {
 		if (msaRegInfo != null) {
-			if (ObjectUtil.isEmpty(msaRegInfo.getRegEnterpriseId())) {
+			if (msaRegInfo.getRegEnterpriseId() != null) {
 				return msaRegInfoService.addMsaInfo(msaRegInfo);
 			} else {
 				if (!ObjectUtil.isEmpty(type)) {
@@ -45,7 +45,7 @@ public class MsaRegInfoController {
 	}
 
 	@RequestMapping(value = "/getMsaInfoById", method = RequestMethod.GET)
-	public MsaRegInfo getMsaInfoById(String regEnterpriseId) {
+	public MsaRegInfo getMsaInfoById(Long regEnterpriseId) {
 		return msaRegInfoService.getMsaInfoById(regEnterpriseId);
 	}
 

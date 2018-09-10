@@ -13,7 +13,7 @@ public interface MsaRegInfoService {
 	BaseResult<?> addMsaInfo(MsaRegInfo masRegInfo);
 
 	//根据企业注册id获取企业注册信息
-	MsaRegInfo getMsaInfoById(String regEnterpriseId);
+	MsaRegInfo getMsaInfoById(Long regEnterpriseId);
 	
     //根据type判断审核还是符合保存企业信息
 	BaseResult<?> updateMsaInfo(MsaRegInfo msaRegInfo,String type,User user);
