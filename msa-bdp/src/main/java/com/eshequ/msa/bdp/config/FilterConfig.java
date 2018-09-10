@@ -1,4 +1,4 @@
-package com.eshequ.msa.ops.config;
+package com.eshequ.msa.bdp.config;
 
 import javax.servlet.Filter;
 
@@ -7,7 +7,7 @@ import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.web.filter.CharacterEncodingFilter;
 
-import com.eshequ.msa.ops.filter.LoginFilter;
+import com.eshequ.msa.bdp.filter.LoginFilter;
 
 public class FilterConfig {
 	

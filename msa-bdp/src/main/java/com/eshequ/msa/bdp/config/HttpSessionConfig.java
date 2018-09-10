@@ -1,4 +1,4 @@
-package com.eshequ.msa.ops.config;
+package com.eshequ.msa.bdp.config;
 
 import javax.servlet.ServletContext;
 
@@ -11,7 +11,7 @@ import org.springframework.session.data.redis.config.ConfigureRedisAction;
 import org.springframework.session.data.redis.config.annotation.web.http.EnableRedisHttpSession;
 import org.springframework.session.web.context.AbstractHttpSessionApplicationInitializer;
 
-import com.eshequ.msa.ops.filter.SsoSessionFilter;
+import com.eshequ.msa.bdp.filter.SsoSessionFilter;
 
 @Configuration
 @EnableRedisHttpSession

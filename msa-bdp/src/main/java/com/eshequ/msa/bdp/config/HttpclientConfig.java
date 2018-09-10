@@ -1,4 +1,4 @@
-package com.eshequ.msa.ops.config;
+package com.eshequ.msa.bdp.config;
 
 import org.apache.http.client.config.RequestConfig;
 import org.apache.http.impl.client.CloseableHttpClient;

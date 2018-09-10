@@ -1,4 +1,4 @@
-package com.eshequ.msa.ops.config;
+package com.eshequ.msa.bdp.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

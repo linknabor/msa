@@ -1,4 +1,4 @@
-package com.eshequ.msa.ops.service.login;
+package com.eshequ.msa.bdp.service.login;
 
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.bdp.mapper.projectstatusmng.MsaEnterpriseSectMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.bdp.model.projectstatusmng.MsaEnterpriseSect">
+    <id column="ENTERPRISE_ID" jdbcType="BIGINT" property="enterpriseId" />
+    <id column="SECT_ID" jdbcType="BIGINT" property="sectId" />
+  </resultMap>
+</mapper>

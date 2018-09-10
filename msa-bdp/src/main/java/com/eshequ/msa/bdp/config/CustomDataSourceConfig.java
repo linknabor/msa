@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.eshequ.msa.ops.config;
+package com.eshequ.msa.bdp.config;
 
 import javax.sql.DataSource;
 

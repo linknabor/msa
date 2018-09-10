@@ -1,4 +1,4 @@
-package com.eshequ.msa.ops.filter;
+package com.eshequ.msa.bdp.filter;
 
 import java.io.IOException;
 
@@ -16,7 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
-import com.eshequ.msa.ops.service.login.LoginRemote;
+import com.eshequ.msa.bdp.service.login.LoginRemote;
 
 @Component("loginFilter")
 public class LoginFilter implements Filter {
@@ -40,7 +40,7 @@ public class LoginFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
 			throws IOException, ServletException {
-		HttpServletRequest request = (HttpServletRequest)req;
+		/*HttpServletRequest request = (HttpServletRequest)req;
 		HttpServletResponse response = (HttpServletResponse)resp;
 		HttpSession httpSession = request.getSession();
 		String requestUri = request.getRequestURI();
@@ -100,7 +100,7 @@ public class LoginFilter implements Filter {
 			}
 			
 			
-		}
+		}*/
 		chain.doFilter(req, resp);	
 		}
 
