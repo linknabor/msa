@@ -1,4 +1,4 @@
-package com.eshequ.msa.ops.web.msareginfo;
+package com.eshequ.msa.ops.web.msasmsmng;
 
 import java.io.IOException;
 import java.util.List;
@@ -11,25 +11,18 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.eshequ.msa.common.BaseResult;
-import com.eshequ.msa.ops.model.msareginfo.MsaRegInfo;
-import com.eshequ.msa.ops.model.msareginfo.MsaSmsSum;
-import com.eshequ.msa.ops.service.msareginfo.MsaRegInfoService;
+import com.eshequ.msa.ops.model.msasmsmng.MsaSmsSum;
+import com.eshequ.msa.ops.service.msasmsmng.MsaSmsMngService;
 import com.eshequ.msa.util.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 @RestController
-public class MsaRegInfoController {
+public class MsaSmsMngController {
 	@Autowired
-	private MsaRegInfoService msaRegInfoService;
+	private MsaSmsMngService msaRegInfoService;
 
-	@RequestMapping(value = "/addMsaInfo", method = RequestMethod.POST)
-	public BaseResult<?> addMsaInfo(MsaRegInfo msaRegInfo) {
-		if (msaRegInfo != null) {
-			return msaRegInfoService.addMsaInfo(msaRegInfo);
-		}
-		return BaseResult.fail(500,"参数错误！");
-	}
+
 
 	@RequestMapping(value = "/importData", method = RequestMethod.POST)
 	public BaseResult<?> importData(MultipartFile file) throws IOException {

@@ -1,4 +1,4 @@
-package com.eshequ.msa.ops.model.msareginfo;
+package com.eshequ.msa.ops.model.msasmsmng;
 
 import com.eshequ.msa.common.BaseModel;
 import java.math.BigDecimal;

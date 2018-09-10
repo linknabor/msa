@@ -1,4 +1,4 @@
-package com.eshequ.msa.crm.model.msareginfo;
+package com.eshequ.msa.ops.model.msasmsmng;
 import com.eshequ.msa.common.BaseModel;
 
 public class MsaSmsInfo extends BaseModel {

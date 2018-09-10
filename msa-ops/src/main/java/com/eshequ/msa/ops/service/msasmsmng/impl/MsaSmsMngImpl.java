@@ -1,4 +1,4 @@
-package com.eshequ.msa.ops.service.msareginfo.impl;
+package com.eshequ.msa.ops.service.msasmsmng.impl;
 
 import java.io.IOException;
 import java.math.BigDecimal;
@@ -20,29 +20,26 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.eshequ.msa.codes.InfoStatus;
 import com.eshequ.msa.common.BaseResult;
 import com.eshequ.msa.exception.BusinessException;
-import com.eshequ.msa.ops.mapper.msareginfo.MsaRegInfoMapper;
-import com.eshequ.msa.ops.mapper.msareginfo.MsaSmsInfoMapper;
-import com.eshequ.msa.ops.mapper.msareginfo.MsaSmsSumMapper;
-import com.eshequ.msa.ops.mapper.msareginfo.OpsArrearageInfoMapper;
-import com.eshequ.msa.ops.model.msareginfo.MsaRegInfo;
-import com.eshequ.msa.ops.model.msareginfo.MsaSmsInfo;
-import com.eshequ.msa.ops.model.msareginfo.MsaSmsSum;
-import com.eshequ.msa.ops.model.msareginfo.OpsArrearageInfo;
-import com.eshequ.msa.ops.service.msareginfo.MsaRegInfoService;
+import com.eshequ.msa.ops.mapper.msasmsmng.MsaSmsInfoMapper;
+import com.eshequ.msa.ops.mapper.msasmsmng.MsaSmsSumMapper;
+import com.eshequ.msa.ops.mapper.msasmsmng.OpsArrearageInfoMapper;
+import com.eshequ.msa.ops.model.msasmsmng.MsaSmsInfo;
+import com.eshequ.msa.ops.model.msasmsmng.MsaSmsSum;
+import com.eshequ.msa.ops.model.msasmsmng.OpsArrearageInfo;
+import com.eshequ.msa.ops.service.msasmsmng.MsaSmsMngService;
 import com.eshequ.msa.util.DateUtil;
 import com.eshequ.msa.util.SmsUtil;
 import com.eshequ.msa.util.SnowFlake;
 
 @Service
 @Transactional
-public class MsaRegInfoImpl implements MsaRegInfoService {
-	private final String FAILED_STATUS = "1";
-	private final String SUCCESS_STATUS = "0";
-	@Autowired
-	private MsaRegInfoMapper msaRegInfoMapper;
+public class MsaSmsMngImpl implements MsaSmsMngService {
+	
+	private final String FAILED_STATUS = "1";//发送失败
+	private final String SUCCESS_STATUS = "0";//发送成功
+	
 
 	@Autowired
 	private OpsArrearageInfoMapper opsArrearageInfoMapper;
@@ -52,6 +49,7 @@ public class MsaRegInfoImpl implements MsaRegInfoService {
 
 	@Autowired
 	private MsaSmsSumMapper msaSmsSumMapper;
+	
 
 	@Autowired
 	private SnowFlake snowFlake;
@@ -59,18 +57,6 @@ public class MsaRegInfoImpl implements MsaRegInfoService {
 	@Autowired
 	private SmsUtil smsUtil;
 
-	@Override
-	public BaseResult<?> addMsaInfo(MsaRegInfo MasRegInfo) {
-		MasRegInfo.setRegEnterpriseId(String.valueOf(snowFlake.nextId()));
-		MasRegInfo.setRegDate(DateUtil.getSysDate());
-		MasRegInfo.setRegTime(DateUtil.getSysTime());
-		// MasRegInfo.setBackTeName(backTeName);
-		MasRegInfo.setStatus(InfoStatus.ZhengChang.toString());
-		if(msaRegInfoMapper.insertSelective(MasRegInfo)>0){
-			return BaseResult.successResult("注册成功！");
-		}
-		return BaseResult.fail(0, "注册失败！");
-	}
 
 	@Override
 	public BaseResult<?> importData(MultipartFile file) throws IOException {
@@ -208,7 +194,6 @@ public class MsaRegInfoImpl implements MsaRegInfoService {
 		mss.setSendDate(DateUtil.getSysDate());
 		mss.setSendTime(DateUtil.getSysTime());
 		mss.setSmsBatch(smsBatch);
-		;
 		mss.setTotalCount(new BigDecimal(mobileList.size()));
 		mss.setTotalFailed(new BigDecimal(count));
 		msaSmsSumMapper.insertSelective(mss);
@@ -222,4 +207,5 @@ public class MsaRegInfoImpl implements MsaRegInfoService {
 
 		return msaSmsSumMapper.findMsaSmsByDate(date);
 	}
+
 }

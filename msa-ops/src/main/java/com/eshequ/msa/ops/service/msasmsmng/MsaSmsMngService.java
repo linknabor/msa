@@ -1,18 +1,14 @@
-package com.eshequ.msa.ops.service.msareginfo;
+package com.eshequ.msa.ops.service.msasmsmng;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.web.multipart.MultipartFile;
 
 import com.eshequ.msa.common.BaseResult;
-import com.eshequ.msa.ops.model.msareginfo.MsaRegInfo;
-import com.eshequ.msa.ops.model.msareginfo.MsaSmsSum;
+import com.eshequ.msa.ops.model.msasmsmng.MsaSmsSum;
 
-public interface MsaRegInfoService {
-	// 添加企业注册信息
-	BaseResult<?> addMsaInfo(MsaRegInfo masRegInfo);
+public interface MsaSmsMngService {
 
 	// 导入excel文件保存信息
 	BaseResult<?> importData(MultipartFile file) throws IOException;
