@@ -180,5 +180,6 @@
 		<module>msa-crm</module>
 		<module>msa-ops</module>
 		<module>msa-bdp</module>
+		<module>msa-dms</module>
 	</modules>
 </project>

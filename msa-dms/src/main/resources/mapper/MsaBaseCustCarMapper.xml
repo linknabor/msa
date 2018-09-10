@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.datacenter.mapper.MsaBaseCustCarMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.datacenter.model.MsaBaseCustCar">
+    <id column="CAR_ID" jdbcType="BIGINT" property="carId" />
+    <result column="CAR_STATUS" jdbcType="CHAR" property="carStatus" />
+    <result column="CAR_NO" jdbcType="VARCHAR" property="carNo" />
+    <result column="CAR_COLOUR" jdbcType="CHAR" property="carColour" />
+    <result column="CAR_TYPE" jdbcType="CHAR" property="carType" />
+    <result column="CAR_OWNER_TYPE" jdbcType="CHAR" property="carOwnerType" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="CAR_BRAND_ID" jdbcType="BIGINT" property="carBrandId" />
+    <result column="CAR_TYPE_ID" jdbcType="BIGINT" property="carTypeId" />
+    <result column="PARK_TYPE" jdbcType="CHAR" property="parkType" />
+    <result column="CARPORT_TYPE" jdbcType="CHAR" property="carportType" />
+    <result column="IS_PREPAID" jdbcType="CHAR" property="isPrepaid" />
+    <result column="CUST_ID" jdbcType="BIGINT" property="custId" />
+    <result column="CUST_NAME" jdbcType="VARCHAR" property="custName" />
+    <result column="CARD_NO" jdbcType="VARCHAR" property="cardNo" />
+  </resultMap>
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.datacenter.model.MsaBaseCustCar">
+    <id column="CAR_ID" jdbcType="BIGINT" property="carId" />
+    <result column="CAR_STATUS" jdbcType="CHAR" property="carStatus" />
+    <result column="CAR_NO" jdbcType="VARCHAR" property="carNo" />
+    <result column="CAR_COLOUR" jdbcType="CHAR" property="carColour" />
+    <result column="CAR_TYPE" jdbcType="CHAR" property="carType" />
+    <result column="CAR_OWNER_TYPE" jdbcType="CHAR" property="carOwnerType" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="CAR_BRAND_ID" jdbcType="BIGINT" property="carBrandId" />
+    <result column="CAR_TYPE_ID" jdbcType="BIGINT" property="carTypeId" />
+    <result column="PARK_TYPE" jdbcType="CHAR" property="parkType" />
+    <result column="CARPORT_TYPE" jdbcType="CHAR" property="carportType" />
+    <result column="IS_PREPAID" jdbcType="CHAR" property="isPrepaid" />
+    <result column="CUST_ID" jdbcType="BIGINT" property="custId" />
+    <result column="CUST_NAME" jdbcType="VARCHAR" property="custName" />
+    <result column="CARD_NO" jdbcType="VARCHAR" property="cardNo" />
+  </resultMap>
+</mapper>
