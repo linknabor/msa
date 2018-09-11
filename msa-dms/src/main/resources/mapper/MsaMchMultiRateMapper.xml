@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.datacenter.mapper.MsaMchMultiRateMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.datacenter.model.MsaMchMultiRate">
+    <id column="MCH_INFO_ID" jdbcType="BIGINT" property="mchInfoId" />
+    <id column="PAY_METHOD" jdbcType="CHAR" property="payMethod" />
+    <id column="METHOD_WAY" jdbcType="VARCHAR" property="methodWay" />
+    <result column="PAY_RATE" jdbcType="DECIMAL" property="payRate" />
+    <result column="CONSULT_THRESHOLD" jdbcType="VARCHAR" property="consultThreshold" />
+  </resultMap>
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.datacenter.model.MsaMchMultiRate">
+    <id column="MCH_INFO_ID" jdbcType="BIGINT" property="mchInfoId" />
+    <id column="PAY_METHOD" jdbcType="CHAR" property="payMethod" />
+    <id column="METHOD_WAY" jdbcType="VARCHAR" property="methodWay" />
+    <result column="PAY_RATE" jdbcType="DECIMAL" property="payRate" />
+    <result column="CONSULT_THRESHOLD" jdbcType="VARCHAR" property="consultThreshold" />
+  </resultMap>
+</mapper>
