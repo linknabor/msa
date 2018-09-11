@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.jdbc.datasource.DataSourceTransactionManager;
@@ -21,40 +20,37 @@ import org.springframework.jdbc.datasource.DataSourceTransactionManager;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 
 /**
- * 主数据源
+ * servplat数据源
  * @author davidhardson
  *
  */
 @Configuration
-@MapperScan(basePackages = "com.eshequ.msa.dms.mapper.msa", sqlSessionFactoryRef = "masterSqlSessionFactory")
-public class MasterDataSourceConfig {
-	
-	@Autowired
-	private Environment env;
+@MapperScan(basePackages = "com.eshequ.msa.dms.mapper.servplat", sqlSessionFactoryRef = "customSqlSessionFactory")
+public class ServplatDataSourceConfig {
 	
 	@Value("${mybatis.mapper.resource}")
 	private String mapperResource;
+
+	@Autowired
+	private Environment env;
 	
-	@Bean(name = "masterDataSource")
-	@Primary
-	public DataSource masterDataSource() {
-		DataSource dataSource = DruidDataSourceBuilder.create().build(env, "spring.datasource.druid.one.");
+	@Bean(name = "customDataSource")
+	public DataSource customDataSource() {
+		DataSource dataSource = DruidDataSourceBuilder.create().build(env, "spring.datasource.druid.two.");
 		return dataSource;
 	}
 	
-    @Bean(name = "masterTransactionManager")
-    @Primary
-    public DataSourceTransactionManager masterTransactionManager() {
-        return new DataSourceTransactionManager(masterDataSource());
+    @Bean(name = "customTransactionManager")
+    public DataSourceTransactionManager customTransactionManager() {
+        return new DataSourceTransactionManager(customDataSource());
     }
 
-    @Bean(name = "masterSqlSessionFactory")
-    @Primary
-    public SqlSessionFactory masterSqlSessionFactory(@Qualifier("masterDataSource") DataSource masterDataSource)
+    @Bean(name = "customSqlSessionFactory")
+    public SqlSessionFactory customSqlSessionFactory(@Qualifier("customDataSource") DataSource customDataSource)
             throws Exception {
     	
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-        sessionFactory.setDataSource(masterDataSource);
+        sessionFactory.setDataSource(customDataSource);
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         sessionFactory.setMapperLocations(resolver.getResources(mapperResource));
         return sessionFactory.getObject();

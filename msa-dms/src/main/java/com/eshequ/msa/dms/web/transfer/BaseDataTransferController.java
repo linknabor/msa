@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eshequ.msa.common.BaseResult;
-import com.eshequ.msa.dms.model.MsaBaseCity;
-import com.eshequ.msa.dms.model.MsaBaseRegion;
+import com.eshequ.msa.dms.model.msa.MsaBaseCity;
+import com.eshequ.msa.dms.model.msa.MsaBaseRegion;
 import com.eshequ.msa.dms.vo.basedata.CspVO;
 import com.eshequ.msa.dms.vo.basedata.ProvinceVO;
 

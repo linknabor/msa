@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.dms.mapper.msa.MsaMchCfgPayMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.dms.model.msa.MsaMchCfgPayKey">
+    <id column="PAY_METHOD" jdbcType="CHAR" property="payMethod" />
+    <id column="PAY_SCENARIOS" jdbcType="CHAR" property="payScenarios" />
+    <id column="INFO_ID" jdbcType="VARCHAR" property="infoId" />
+    <id column="MCH_INFO_ID" jdbcType="BIGINT" property="mchInfoId" />
+  </resultMap>
+</mapper>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.dms.mapper.servplat.SpSysParaMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.dms.model.servplat.SpSysPara">
+    <result column="PARA_NAME" jdbcType="VARCHAR" property="paraName" />
+    <result column="PARA_TYPE" jdbcType="CHAR" property="paraType" />
+    <result column="PARA_VALUE" jdbcType="VARCHAR" property="paraValue" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="sub_para_type" jdbcType="CHAR" property="subParaType" />
+  </resultMap>
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.dms.model.servplat.SpSysPara">
+    <result column="PARA_NAME" jdbcType="VARCHAR" property="paraName" />
+    <result column="PARA_TYPE" jdbcType="CHAR" property="paraType" />
+    <result column="PARA_VALUE" jdbcType="VARCHAR" property="paraValue" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="sub_para_type" jdbcType="CHAR" property="subParaType" />
+  </resultMap>
+</mapper>

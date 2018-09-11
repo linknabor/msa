@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.dms.mapper.msa.MsaBaseHouseMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.dms.model.msa.MsaBaseHouse">
+    <id column="MNG_CELL_ID" jdbcType="BIGINT" property="mngCellId" />
+    <result column="HOUSE_MODEL" jdbcType="CHAR" property="houseModel" />
+    <result column="HOUSE_WARD" jdbcType="CHAR" property="houseWard" />
+    <result column="HOUSE_AREA" jdbcType="VARCHAR" property="houseArea" />
+    <result column="HOUSE_PHONE" jdbcType="VARCHAR" property="housePhone" />
+  </resultMap>
+</mapper>
