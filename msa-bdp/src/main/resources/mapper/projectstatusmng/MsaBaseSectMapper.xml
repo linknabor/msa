@@ -45,5 +45,19 @@
   <select id="getSectAndEnterpriseList" parameterType="com.eshequ.msa.bdp.vo.SectAndEnterpriseVo" resultMap="SectAndEnterpriseVoMap">
   select be.CUST_NAME,s.SECT_ID,s.SECT_NAME,s.IS_FLAG,s.ACTIVITY,s.CNST_AREA,s.TOT_HOUS from msa_base_sect s inner join msa_enterprise_sect e 
 on s.SECT_ID=e.SECT_ID INNER JOIN msa_base_enterprise be  on be.ENTERPRISE_ID=e.ENTERPRISE_ID
+<where>
+<if test="custName != null">
+and be.cust_name like CONCAT('%', #{custName}, '%')
+</if>
+<if test="sectName != null">
+and s.sect_name like CONCAT('%', #{sectName}, '%')
+</if>
+<if test="isFlag != null">
+and s.is_flag = #{isFlag}
+</if>
+<if test="activity != null">
+and s.activity = #{activity}
+</if>
+</where>
   </select>
 </mapper>
