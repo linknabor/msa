@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
-import com.eshequ.msa.bdp.model.projectstatusmng.MsaBaseSect;
+import com.eshequ.msa.bdp.model.MsaBaseSect;
 import com.eshequ.msa.bdp.vo.SectAndEnterpriseVo;
 import com.eshequ.msa.common.BaseResult;
 
