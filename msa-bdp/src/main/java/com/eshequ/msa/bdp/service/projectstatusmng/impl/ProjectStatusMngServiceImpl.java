@@ -17,9 +17,8 @@ public class ProjectStatusMngServiceImpl implements ProjectStatusMngService {
 	@Autowired
 	private MsaBaseSectMapper msaBaseSectMapper;
 	@Override
-	public BaseResult<?> updateMasBaseSect(MsaBaseSect masBaseSect) {
-		msaBaseSectMapper.updateByPrimaryKeySelective(masBaseSect);
-		return null;
+	public int updateMasBaseSect(MsaBaseSect masBaseSect) {
+		return msaBaseSectMapper.updateByPrimaryKeySelective(masBaseSect);
 	}
 	@Override
 	public List<SectAndEnterpriseVo> getSectAndEnterpriseList(SectAndEnterpriseVo sectAndEnterpriseVo) {
