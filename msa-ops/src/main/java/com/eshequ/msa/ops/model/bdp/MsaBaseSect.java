@@ -1,4 +1,4 @@
-package com.eshequ.msa.bdp.model;
+package com.eshequ.msa.ops.model.bdp;
 
 import javax.persistence.Id;
 

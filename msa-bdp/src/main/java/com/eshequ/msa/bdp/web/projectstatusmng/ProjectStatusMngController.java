@@ -3,7 +3,9 @@ package com.eshequ.msa.bdp.web.projectstatusmng;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -20,21 +22,22 @@ public class ProjectStatusMngController {
 	@Autowired
      private ProjectStatusMngService projectStatusMngService;
 	@RequestMapping(value="/getSectAndEnterpriseList")
-	public PageInfo<SectAndEnterpriseVo> getSectAndEnterpriseList(@RequestParam(defaultValue = "0", required = false) int pageNum,
-			@RequestParam(defaultValue = "10", required = false) int pageSize,SectAndEnterpriseVo sectAndEnterpriseVo){
+	public BaseResult<?> getSectAndEnterpriseList(@RequestParam(defaultValue = "0", required = false) int pageNum,
+			@RequestParam(defaultValue = "10", required = false) int pageSize,@RequestBody SectAndEnterpriseVo sectAndEnterpriseVo){
 		PageHelper.startPage(pageNum, pageSize);
 		List<SectAndEnterpriseVo> lists = projectStatusMngService.getSectAndEnterpriseList(sectAndEnterpriseVo);
 		PageInfo<SectAndEnterpriseVo> pageInfo = new PageInfo<>(lists);
-		return pageInfo;
+		return BaseResult.successResult(pageInfo);
 		
 	}
-	@RequestMapping(value="/addOrUpdateMasBaseSectList")
-	public BaseResult<?> addOrUpdateMasBaseSectList(MsaBaseSect masBaseSect){
+	@RequestMapping(value="/addOrUpdateMasBaseSect")
+	public int addOrUpdateMasBaseSect(@RequestBody MsaBaseSect masBaseSect){
 		if(masBaseSect != null){
 			if(masBaseSect.getSectId() != null){
 				return projectStatusMngService.updateMasBaseSect(masBaseSect);
 			}
 		}
-		return BaseResult.fail(500, "参数错误！");
+		return 0;
 	}
+	
 }

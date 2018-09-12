@@ -40,7 +40,7 @@ public class LoginFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse resp, FilterChain chain)
 			throws IOException, ServletException {
-		HttpServletRequest request = (HttpServletRequest)req;
+		/*HttpServletRequest request = (HttpServletRequest)req;
 		HttpServletResponse response = (HttpServletResponse)resp;
 		HttpSession httpSession = request.getSession();
 		String requestUri = request.getRequestURI();
@@ -100,7 +100,7 @@ public class LoginFilter implements Filter {
 			}
 			
 			
-		}
+		}*/
 		chain.doFilter(req, resp);	
 		}
 
