@@ -35,7 +35,7 @@ public class EnpConfigServiceImpl implements EnpConfigService{
 		return list;
 	}
 
-	//根据企业客户信息获得物业参数配置
+	//根据企业客户信息获得企业参数配置
 	@Override
 	public List<MsaCfgEnpPara> getEnterpriseConfigByEnterpriseId(Long enterpriseId) {
 		//分组查询参数

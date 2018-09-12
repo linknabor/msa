@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.dms.mapper.msa.MsaBaseProvinceMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.dms.model.msa.MsaBaseProvince">
+    <id column="PROVINCE_ID" jdbcType="BIGINT" property="provinceId" />
+    <result column="PROVINCE_STATUS" jdbcType="CHAR" property="provinceStatus" />
+    <result column="PROVINCE_NAME" jdbcType="VARCHAR" property="provinceName" />
+    <result column="PROVINCE_SHORT_NAME" jdbcType="VARCHAR" property="provinceShortName" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+</mapper>

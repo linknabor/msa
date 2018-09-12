@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.dms.mapper.servplat.SpBaseCustCarFeeStartDateMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.dms.model.servplat.SpBaseCustCarFeeStartDate">
+    <id column="CAR_ID" jdbcType="BIGINT" property="carId" />
+    <id column="FEE_DATE_TYPE" jdbcType="CHAR" property="feeDateType" />
+    <result column="FEE_START_DATE" jdbcType="CHAR" property="feeStartDate" />
+    <result column="payment_date" jdbcType="CHAR" property="paymentDate" />
+  </resultMap>
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.dms.model.servplat.SpBaseCustCarFeeStartDate">
+    <id column="CAR_ID" jdbcType="BIGINT" property="carId" />
+    <id column="FEE_DATE_TYPE" jdbcType="CHAR" property="feeDateType" />
+    <result column="FEE_START_DATE" jdbcType="CHAR" property="feeStartDate" />
+    <result column="payment_date" jdbcType="CHAR" property="paymentDate" />
+  </resultMap>
+</mapper>

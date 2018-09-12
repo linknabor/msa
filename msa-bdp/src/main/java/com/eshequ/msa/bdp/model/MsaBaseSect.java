@@ -1,8 +1,11 @@
 package com.eshequ.msa.bdp.model;
 
+import javax.persistence.Id;
+
 import com.eshequ.msa.common.BaseModel;
 
 public class MsaBaseSect extends BaseModel {
+	@Id
     private Long sectId;
 
     private String status;

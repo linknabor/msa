@@ -28,7 +28,7 @@ public class EnpConfigController extends BaseController{
 		return enpConfigService.getEnterprise(model);
 	}
 	
-	// 根据企业客户信息获得物业参数配置
+	// 根据企业客户信息获得企业参数配置
 	@RequestMapping(value="/getEnterpriseConfigByEnterpriseId",method=RequestMethod.GET)
 	public List<MsaCfgEnpPara> getEnterpriseConfigByEnterpriseId(Long enterpriseId) {
 		return enpConfigService.getEnterpriseConfigByEnterpriseId(enterpriseId);

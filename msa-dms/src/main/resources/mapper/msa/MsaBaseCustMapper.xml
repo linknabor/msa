@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.dms.mapper.msa.MsaBaseCustMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.dms.model.msa.MsaBaseCust">
+    <id column="CUST_ID" jdbcType="BIGINT" property="custId" />
+    <result column="CUST_STATUS" jdbcType="CHAR" property="custStatus" />
+    <result column="CUST_NAME" jdbcType="VARCHAR" property="custName" />
+    <result column="CUST_TYPE" jdbcType="CHAR" property="custType" />
+    <result column="CODE_TYPE" jdbcType="CHAR" property="codeType" />
+    <result column="CUST_CODE" jdbcType="VARCHAR" property="custCode" />
+    <result column="TEL_NO" jdbcType="VARCHAR" property="telNo" />
+    <result column="ACCT_BANK" jdbcType="VARCHAR" property="acctBank" />
+    <result column="ACCT_NAME" jdbcType="VARCHAR" property="acctName" />
+    <result column="ACCT_NO" jdbcType="VARCHAR" property="acctNo" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="CUST_ACCT_NO" jdbcType="BIGINT" property="custAcctNo" />
+    <result column="IS_CERTIFI" jdbcType="CHAR" property="isCertifi" />
+    <result column="RELATED_CUST_NO" jdbcType="VARCHAR" property="relatedCustNo" />
+  </resultMap>
+</mapper>

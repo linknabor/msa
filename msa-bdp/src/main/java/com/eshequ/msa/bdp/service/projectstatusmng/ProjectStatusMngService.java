@@ -10,7 +10,7 @@ import com.eshequ.msa.common.BaseResult;
 
 public interface ProjectStatusMngService {
 
-	BaseResult<?> updateMasBaseSect(MsaBaseSect masBaseSect);
+	int updateMasBaseSect(MsaBaseSect masBaseSect);
 
 	List<SectAndEnterpriseVo> getSectAndEnterpriseList(SectAndEnterpriseVo sectAndEnterpriseVo);
 

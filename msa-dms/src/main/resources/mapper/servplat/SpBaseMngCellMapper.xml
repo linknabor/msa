@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.dms.mapper.servplat.SpBaseMngCellMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.dms.model.servplat.SpBaseMngCell">
+    <id column="MNG_CELL_ID" jdbcType="BIGINT" property="mngCellId" />
+    <result column="CELL_STATUS" jdbcType="CHAR" property="cellStatus" />
+    <result column="LEND_FLAG" jdbcType="CHAR" property="lendFlag" />
+    <result column="LEND_SERVICE_FLAG" jdbcType="CHAR" property="lendServiceFlag" />
+    <result column="CELL_NO" jdbcType="VARCHAR" property="cellNo" />
+    <result column="CELL_NAME" jdbcType="VARCHAR" property="cellName" />
+    <result column="CELL_ADDR" jdbcType="VARCHAR" property="cellAddr" />
+    <result column="CNST_AREA" jdbcType="DECIMAL" property="cnstArea" />
+    <result column="CELL_FLOOR" jdbcType="VARCHAR" property="cellFloor" />
+    <result column="MNG_CELL_TYPE" jdbcType="CHAR" property="mngCellType" />
+    <result column="MNG_CELL_KIND" jdbcType="CHAR" property="mngCellKind" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="SECT_ID" jdbcType="BIGINT" property="sectId" />
+    <result column="BUILD_ID" jdbcType="BIGINT" property="buildId" />
+    <result column="UNIT_ID" jdbcType="BIGINT" property="unitId" />
+    <result column="LIFT_FLAG" jdbcType="CHAR" property="liftFlag" />
+    <result column="PROPERTY_KIND" jdbcType="CHAR" property="propertyKind" />
+    <result column="BUILD_TYPE" jdbcType="CHAR" property="buildType" />
+    <result column="BUILD_USAGE" jdbcType="CHAR" property="buildUsage" />
+    <result column="related_hou_no" jdbcType="VARCHAR" property="relatedHouNo" />
+  </resultMap>
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.dms.model.servplat.SpBaseMngCell">
+    <id column="MNG_CELL_ID" jdbcType="BIGINT" property="mngCellId" />
+    <result column="CELL_STATUS" jdbcType="CHAR" property="cellStatus" />
+    <result column="LEND_FLAG" jdbcType="CHAR" property="lendFlag" />
+    <result column="LEND_SERVICE_FLAG" jdbcType="CHAR" property="lendServiceFlag" />
+    <result column="CELL_NO" jdbcType="VARCHAR" property="cellNo" />
+    <result column="CELL_NAME" jdbcType="VARCHAR" property="cellName" />
+    <result column="CELL_ADDR" jdbcType="VARCHAR" property="cellAddr" />
+    <result column="CNST_AREA" jdbcType="DECIMAL" property="cnstArea" />
+    <result column="CELL_FLOOR" jdbcType="VARCHAR" property="cellFloor" />
+    <result column="MNG_CELL_TYPE" jdbcType="CHAR" property="mngCellType" />
+    <result column="MNG_CELL_KIND" jdbcType="CHAR" property="mngCellKind" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="SECT_ID" jdbcType="BIGINT" property="sectId" />
+    <result column="BUILD_ID" jdbcType="BIGINT" property="buildId" />
+    <result column="UNIT_ID" jdbcType="BIGINT" property="unitId" />
+    <result column="LIFT_FLAG" jdbcType="CHAR" property="liftFlag" />
+    <result column="PROPERTY_KIND" jdbcType="CHAR" property="propertyKind" />
+    <result column="BUILD_TYPE" jdbcType="CHAR" property="buildType" />
+    <result column="BUILD_USAGE" jdbcType="CHAR" property="buildUsage" />
+    <result column="related_hou_no" jdbcType="VARCHAR" property="relatedHouNo" />
+  </resultMap>
+</mapper>

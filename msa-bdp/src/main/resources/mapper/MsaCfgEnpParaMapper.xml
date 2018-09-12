@@ -19,11 +19,6 @@
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
   </resultMap>
   
-<!--   获得全部企业信息 -->
-    <select id="getEnterprise" parameterType="Map" resultMap="BaseResultMap" >
-	SELECT * FROM `msa_base_enterprise` LIMIT #{page},#{rows}
-  </select>
-  
   
   <!-- 去重（分组）查询企业对应的参数列表 -->
     <select id="getMsaCfgEnpParaGroup" parameterType="Long" resultMap="BaseResultMap" >

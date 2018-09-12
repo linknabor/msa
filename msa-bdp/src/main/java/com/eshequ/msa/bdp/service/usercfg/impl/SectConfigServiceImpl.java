@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import com.eshequ.msa.bdp.mapper.MsaCfgSectParaMapper;
 import com.eshequ.msa.bdp.model.MsaBaseSect;
+import com.eshequ.msa.bdp.model.MsaCfgSectPara;
 import com.eshequ.msa.bdp.service.usercfg.SectConfigService;
 import com.eshequ.msa.common.BaseModel;
 
@@ -28,6 +29,13 @@ public class SectConfigServiceImpl implements SectConfigService{
 		map.put("rows", rows);
 		List<MsaBaseSect> list = cfgSectParaMapper.getSectByEnterpriseId(map);
 		return list;
+	}
+
+	//根据物业项目信息获得项目参数配置
+	@Override
+	public List<MsaCfgSectPara> getSectConfigBySectId(Long sectId) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

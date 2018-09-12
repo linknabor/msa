@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eshequ.msa.bdp.model.MsaBaseSect;
+import com.eshequ.msa.bdp.model.MsaCfgEnpPara;
+import com.eshequ.msa.bdp.model.MsaCfgSectPara;
 import com.eshequ.msa.bdp.service.usercfg.EnpConfigService;
 import com.eshequ.msa.bdp.service.usercfg.SectConfigService;
 import com.eshequ.msa.bdp.web.BaseController;
@@ -28,23 +30,15 @@ public class SectConfigController extends BaseController{
 		return sectConfigService.getSectByEnterpriseId(enterpriseId ,model);
 	}
 	
-	// 根据企业客户信息获得物业参数配置
-	@RequestMapping(value="/getSectByEnterprise",method=RequestMethod.POST)
-	public BaseResult<?> getSectByEnterprise(Long enterpriseId) {
-		//返回很多 物业项目信息
-		return null;
-	}
-	
-	//根据物业项目信息id获得项目参数配置
-	@RequestMapping(value="/getSectConfigBySectId",method=RequestMethod.POST)
-	public BaseResult<?> getSectConfigBySectId(Long sectId) {
-		
-		return null;
+	// 根据物业项目信息获得项目参数配置
+	@RequestMapping(value = "/getSectConfigBySectId", method = RequestMethod.GET)
+	public List<MsaCfgSectPara> getSectConfigBySectId(Long sectId) {
+		return sectConfigService.getSectConfigBySectId(sectId);
 	}
 	
 	// 根据参数id修改企业参数
 	@RequestMapping(value="/updateSectConfigByParaId",method=RequestMethod.POST)
-	public BaseResult<?> updateSectConfigByParaId(Long paraId, String paraValue) {
+	public BaseResult<?> updateCfgSectByParaId(Long paraId, String paraValue) {
 
 		return null;
 	}

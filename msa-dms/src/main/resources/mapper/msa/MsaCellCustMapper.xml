@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.dms.mapper.msa.MsaCellCustMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.dms.model.msa.MsaCellCust">
+    <id column="MNG_CELL_ID" jdbcType="BIGINT" property="mngCellId" />
+    <id column="CUST_ID" jdbcType="BIGINT" property="custId" />
+    <result column="CUST_KIND" jdbcType="CHAR" property="custKind" />
+  </resultMap>
+</mapper>
