@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.dms.mapper.msa.MsaBaseAdLocateMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.dms.model.msa.MsaBaseAdLocate">
+    <id column="MNG_CELL_ID" jdbcType="BIGINT" property="mngCellId" />
+    <result column="AD_LOCATE_TYPE" jdbcType="CHAR" property="adLocateType" />
+  </resultMap>
+</mapper>

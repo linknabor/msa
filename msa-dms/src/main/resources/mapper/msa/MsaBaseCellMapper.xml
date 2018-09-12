@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.dms.mapper.msa.MsaBaseCellMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.dms.model.msa.MsaBaseCell">
+    <id column="MNG_CELL_ID" jdbcType="BIGINT" property="mngCellId" />
+    <result column="STATUS" jdbcType="CHAR" property="status" />
+    <result column="CELL_NO" jdbcType="VARCHAR" property="cellNo" />
+    <result column="CELL_NAME" jdbcType="VARCHAR" property="cellName" />
+    <result column="CELL_ADDR" jdbcType="VARCHAR" property="cellAddr" />
+    <result column="CNST_AREA" jdbcType="DECIMAL" property="cnstArea" />
+    <result column="CELL_FLOOR" jdbcType="VARCHAR" property="cellFloor" />
+    <result column="MNG_CELL_TYPE" jdbcType="CHAR" property="mngCellType" />
+    <result column="MNG_CELL_KIND" jdbcType="CHAR" property="mngCellKind" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+    <result column="LIFT_FLAG" jdbcType="CHAR" property="liftFlag" />
+    <result column="PROPERTY_KIND" jdbcType="CHAR" property="propertyKind" />
+    <result column="BUILD_TYPE" jdbcType="CHAR" property="buildType" />
+    <result column="BUILD_USAGE" jdbcType="CHAR" property="buildUsage" />
+    <result column="RELATED_HOU_NO" jdbcType="VARCHAR" property="relatedHouNo" />
+    <result column="SECT_ID" jdbcType="BIGINT" property="sectId" />
+  </resultMap>
+</mapper>
