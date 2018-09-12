@@ -15,4 +15,8 @@
     <result column="ORIGIN_ID" jdbcType="VARCHAR" property="originId" />
     <result column="ORIGIN_SYS" jdbcType="BIGINT" property="originSys" />
   </resultMap>
+  <!--   获得全部企业信息 -->
+    <select id="getEnterprise" parameterType="Map" resultMap="BaseResultMap" >
+	SELECT * FROM `msa_base_enterprise` LIMIT #{page},#{rows}
+  </select>
 </mapper>

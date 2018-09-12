@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.bdp.mapper.MsaCfgEnpParaMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.bdp.model.MsaCfgEnpPara">
+    <id column="PARA_ID" jdbcType="BIGINT" property="paraId" />
+    <result column="PARA_NAME" jdbcType="VARCHAR" property="paraName" />
+    <result column="PARA_NAME_CN" jdbcType="VARCHAR" property="paraNameCn" />
+    <result column="PARA_VALUE" jdbcType="VARCHAR" property="paraValue" />
+    <result column="PARA_TYPE" jdbcType="CHAR" property="paraType" />
+    <result column="PARA_STATUS" jdbcType="CHAR" property="paraStatus" />
+    <result column="ENTERPRISE_ID" jdbcType="BIGINT" property="enterpriseId" />
+    <result column="PARA_VIEW" jdbcType="VARCHAR" property="paraView" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  <resultMap id="MasConfigParamVO" type="com.eshequ.msa.bdp.model.MasConfigParamVO">
+  	<id column="PARA_ID" jdbcType="BIGINT" property="paraId" />
+    <result column="PARA_NAME" jdbcType="VARCHAR" property="name" />
+    <result column="PARA_VALUE" jdbcType="VARCHAR" property="value" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  
+<!--   获得全部企业信息 -->
+    <select id="getEnterprise" parameterType="Map" resultMap="BaseResultMap" >
+	SELECT * FROM `msa_base_enterprise` LIMIT #{page},#{rows}
+  </select>
+  
+  
+  <!-- 去重（分组）查询企业对应的参数列表 -->
+    <select id="getMsaCfgEnpParaGroup" parameterType="Long" resultMap="BaseResultMap" >
+	SELECT * FROM `msa_cfg_enp_para` m 
+	WHERE m.`ENTERPRISE_ID` = #{enterpriseId} 
+	AND m.`PARA_STATUS` = 0 
+	GROUP BY m.`PARA_NAME`
+  </select>
+  
+  <!-- 获得企业参数的参数 -->
+  <select id="getMsaCfgEnpParaByParam" parameterType="Map" resultMap="MasConfigParamVO" >
+	SELECT * FROM `msa_cfg_enp_para` m 
+	WHERE m.`ENTERPRISE_ID` = #{enterpriseId} 
+	AND m.`PARA_STATUS` = 0 
+	AND m.`PARA_NAME` = #{paraName}
+	AND m.`PARA_NAME_CN` = #{paraNameCN}
+  </select>
+  
+<!--   根据企业配置id修改企业配置 -->
+   <update  id="updateCfgEnpByParaId" parameterType="com.eshequ.msa.bdp.model.MsaCfgEnpPara" >
+    update msa_cfg_enp_para 
+    set 
+    PARA_NAME = #{paraName},
+    PARA_NAME_CN = #{paraNameCn},
+    PARA_VALUE = #{paraValue},
+    PARA_TYPE = #{paraType},
+    PARA_STATUS = #{paraStatus},
+    ENTERPRISE_ID = #{enterpriseId},
+    PARA_VIEW = #{paraView},
+    REMARK = #{remark}
+    where PARA_ID = #{paraId}
+  </update >
+  
+</mapper>
