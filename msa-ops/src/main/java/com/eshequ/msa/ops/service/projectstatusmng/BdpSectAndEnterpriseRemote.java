@@ -14,7 +14,7 @@ import com.eshequ.msa.ops.vo.SectAndEnterpriseVo;
 public interface BdpSectAndEnterpriseRemote {
 	//项目名/controller/接口名
 	    //查询项目状态数据集合
-		@RequestMapping(value="/bdp/projectStatusMng/getSectAndEnterpriseList",method=RequestMethod.GET,consumes="application/json")
+		@RequestMapping(value="/bdp/projectStatusMng/getSectAndEnterpriseList",method=RequestMethod.POST,consumes="application/json")
 		BaseResult<?> getSectAndEnterpriseList(@RequestParam("pageNum") int pageNum,@RequestParam("pageSize") int pageSize,@RequestBody SectAndEnterpriseVo sectAndEnterpriseVo);
 		
 		//编辑项目状态

@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eshequ.msa.bdp.model.MsaBaseSect;
@@ -21,7 +22,7 @@ import com.github.pagehelper.PageInfo;
 public class ProjectStatusMngController {
 	@Autowired
      private ProjectStatusMngService projectStatusMngService;
-	@RequestMapping(value="/getSectAndEnterpriseList")
+	@RequestMapping(value="/getSectAndEnterpriseList",method=RequestMethod.POST)
 	public BaseResult<?> getSectAndEnterpriseList(@RequestParam(defaultValue = "0", required = false) int pageNum,
 			@RequestParam(defaultValue = "10", required = false) int pageSize,@RequestBody SectAndEnterpriseVo sectAndEnterpriseVo){
 		PageHelper.startPage(pageNum, pageSize);
@@ -30,7 +31,7 @@ public class ProjectStatusMngController {
 		return BaseResult.successResult(pageInfo);
 		
 	}
-	@RequestMapping(value="/addOrUpdateMasBaseSect")
+	@RequestMapping(value="/addOrUpdateMasBaseSect",method=RequestMethod.POST)
 	public int addOrUpdateMasBaseSect(@RequestBody MsaBaseSect masBaseSect){
 		if(masBaseSect != null){
 			if(masBaseSect.getSectId() != null){
@@ -39,5 +40,4 @@ public class ProjectStatusMngController {
 		}
 		return 0;
 	}
-	
 }
