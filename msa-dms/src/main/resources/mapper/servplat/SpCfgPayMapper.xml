@@ -7,10 +7,4 @@
     <id column="INFO_ID" jdbcType="VARCHAR" property="infoId" />
     <id column="MCH_INFO_ID" jdbcType="BIGINT" property="mchInfoId" />
   </resultMap>
-  <resultMap id="BaseResultMap" type="com.eshequ.msa.dms.model.servplat.SpCfgPayKey">
-    <id column="PAY_METHOD" jdbcType="CHAR" property="payMethod" />
-    <id column="PAY_SCENARIOS" jdbcType="CHAR" property="payScenarios" />
-    <id column="INFO_ID" jdbcType="VARCHAR" property="infoId" />
-    <id column="MCH_INFO_ID" jdbcType="BIGINT" property="mchInfoId" />
-  </resultMap>
 </mapper>

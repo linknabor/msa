@@ -6,9 +6,4 @@
     <id column="PAY_METHOD" jdbcType="CHAR" property="payMethod" />
     <result column="PAY_RATE" jdbcType="DECIMAL" property="payRate" />
   </resultMap>
-  <resultMap id="BaseResultMap" type="com.eshequ.msa.dms.model.servplat.SpRelateMchRate">
-    <id column="MCH_INFO_ID" jdbcType="BIGINT" property="mchInfoId" />
-    <id column="PAY_METHOD" jdbcType="CHAR" property="payMethod" />
-    <result column="PAY_RATE" jdbcType="DECIMAL" property="payRate" />
-  </resultMap>
 </mapper>

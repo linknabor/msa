@@ -8,11 +8,4 @@
     <result column="PAY_RATE" jdbcType="DECIMAL" property="payRate" />
     <result column="CONSULT_THRESHOLD" jdbcType="VARCHAR" property="consultThreshold" />
   </resultMap>
-  <resultMap id="BaseResultMap" type="com.eshequ.msa.dms.model.servplat.SpRelateMchMultiRate">
-    <id column="MCH_INFO_ID" jdbcType="BIGINT" property="mchInfoId" />
-    <id column="PAY_METHOD" jdbcType="CHAR" property="payMethod" />
-    <id column="METHOD_WAY" jdbcType="VARCHAR" property="methodWay" />
-    <result column="PAY_RATE" jdbcType="DECIMAL" property="payRate" />
-    <result column="CONSULT_THRESHOLD" jdbcType="VARCHAR" property="consultThreshold" />
-  </resultMap>
 </mapper>

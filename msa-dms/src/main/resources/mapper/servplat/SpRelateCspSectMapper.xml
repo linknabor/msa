@@ -5,8 +5,4 @@
     <id column="CSP_ID" jdbcType="BIGINT" property="cspId" />
     <id column="SECT_ID" jdbcType="BIGINT" property="sectId" />
   </resultMap>
-  <resultMap id="BaseResultMap" type="com.eshequ.msa.dms.model.servplat.SpRelateCspSectKey">
-    <id column="CSP_ID" jdbcType="BIGINT" property="cspId" />
-    <id column="SECT_ID" jdbcType="BIGINT" property="sectId" />
-  </resultMap>
 </mapper>

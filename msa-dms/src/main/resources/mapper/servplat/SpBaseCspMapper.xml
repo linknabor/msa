@@ -19,22 +19,4 @@
     <result column="BACK_TE_NAME" jdbcType="VARCHAR" property="backTeName" />
     <result column="REG_CSP_ID" jdbcType="BIGINT" property="regCspId" />
   </resultMap>
-  <resultMap id="BaseResultMap" type="com.eshequ.msa.dms.model.servplat.SpBaseCsp">
-    <id column="CSP_ID" jdbcType="BIGINT" property="cspId" />
-    <result column="CSP_STATUS" jdbcType="CHAR" property="cspStatus" />
-    <result column="LOGIN_NAME" jdbcType="VARCHAR" property="loginName" />
-    <result column="CSP_NAME" jdbcType="VARCHAR" property="cspName" />
-    <result column="EMAIL" jdbcType="VARCHAR" property="email" />
-    <result column="LINK_MAN" jdbcType="VARCHAR" property="linkMan" />
-    <result column="ORG_TEL" jdbcType="VARCHAR" property="orgTel" />
-    <result column="ORG_ADDR" jdbcType="VARCHAR" property="orgAddr" />
-    <result column="POST_CODE" jdbcType="VARCHAR" property="postCode" />
-    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
-    <result column="PRODUCT_VERSION" jdbcType="CHAR" property="productVersion" />
-    <result column="USER_NUM" jdbcType="DECIMAL" property="userNum" />
-    <result column="SECT_NUM" jdbcType="DECIMAL" property="sectNum" />
-    <result column="START_DATE" jdbcType="CHAR" property="startDate" />
-    <result column="BACK_TE_NAME" jdbcType="VARCHAR" property="backTeName" />
-    <result column="REG_CSP_ID" jdbcType="BIGINT" property="regCspId" />
-  </resultMap>
 </mapper>

@@ -8,11 +8,4 @@
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
     <result column="CITY_ID" jdbcType="BIGINT" property="cityId" />
   </resultMap>
-  <resultMap id="BaseResultMap" type="com.eshequ.msa.dms.model.servplat.SpBaseRegion">
-    <id column="REGION_ID" jdbcType="BIGINT" property="regionId" />
-    <result column="REGION_STATUS" jdbcType="CHAR" property="regionStatus" />
-    <result column="REGION_NAME" jdbcType="VARCHAR" property="regionName" />
-    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
-    <result column="CITY_ID" jdbcType="BIGINT" property="cityId" />
-  </resultMap>
 </mapper>
