@@ -16,8 +16,6 @@ import com.eshequ.msa.exception.NotFoundException;
 @Component                                                                                   
 public class CodesItem {                                                      			
 	
-	protected static final String orgStatus=new String("50");
-	
 	protected static final String invoiceType=new String("52");
 	
 	protected static final String invoiceStatus=new String("53");
@@ -31,6 +29,14 @@ public class CodesItem {
 	protected static final String smsStatus=new String("58");
 	
 	protected static final String menuFunLevel=new String("59");
+	
+	protected static final String activity=new String("60");
+	
+	protected static final String industryType=new String("61");
+	
+	protected static final String paraType=new String("62");
+	
+	protected static final String paraBizType=new String("63");
 	
 	protected static final String proCreateType=new String("18");
 	
@@ -90,12 +96,11 @@ public class CodesItem {
 	
 	protected static final String cardType=new String("49");
 	
-	protected static final String activity=new String("60");
+	protected static final String orgStatus=new String("50");
 
 
 	protected static final Map mapCat= new HashMap(100);
 	static{
-		mapCat.put("OrgStatus",orgStatus);
 		mapCat.put("InvoiceType",invoiceType);
 		mapCat.put("InvoiceStatus",invoiceStatus);
 		mapCat.put("InvoiceApplyType",invoiceApplyType);
@@ -103,6 +108,10 @@ public class CodesItem {
 		mapCat.put("OrgType",orgType);
 		mapCat.put("SmsStatus",smsStatus);
 		mapCat.put("MenuFunLevel",menuFunLevel);
+		mapCat.put("Activity",activity);
+		mapCat.put("IndustryType",industryType);
+		mapCat.put("ParaType",paraType);
+		mapCat.put("ParaBizType",paraBizType);
 		mapCat.put("ProCreateType",proCreateType);
 		mapCat.put("SectType",sectType);
 		mapCat.put("InfoStatus",infoStatus);
@@ -132,7 +141,7 @@ public class CodesItem {
 		mapCat.put("RefundState",refundState);
 		mapCat.put("ProductVersion",productVersion);
 		mapCat.put("CardType",cardType);
-		mapCat.put("Activity",activity);
+		mapCat.put("OrgStatus",orgStatus);
 	}
 
 
@@ -149,9 +158,9 @@ public class CodesItem {
 	}                                                                                            			
 	public String toString(){ return this.code; }                                                     
 	                                                                                                  
-	/**根据指定的代码值转换成中文名字                                                                 
-	 * @param category   本代码所属的类别的编号                                                       
-	 * @param code   本代码的代码值                                                                   
+	/**convert 2 cn value                                                                 
+	 * @param category                                                     
+	 * @param code                                                                   
 	 * @return                                                                                        
 	 */                                                                                               
 	protected static String getValue(String category,String code){                                    
@@ -188,14 +197,14 @@ public class CodesItem {
 		public static Map getCategoryItems(String categoryName){
 		   String categoryCode = (String)mapCat.get(categoryName);
 		   if(categoryCode==null)
-		      throw new RuntimeException(categoryName + "代码大类别未进行初始化！");
+		      throw new RuntimeException(categoryName + "code category dose not initialize!");
 		   
 		   Map mp=(Map)mapCategoryCode.get(categoryCode);
 		   return mp;
 		}
 
 	/**                                                                                               
-	 * 直接转换成中文名字                                                                             
+	 * convert 2 cn value                                                                             
 	 * @return                                                                                        
 	 */                                                                                               
 	public  String getValue(){                                                                        
@@ -209,9 +218,9 @@ public class CodesItem {
 	   mapper = this.codeInfoMapper;                                                                  
 	}                                                                                                 
 	/**                                                                                               
-	 * 构造函数.                                                                                      
-	 * @param category   本代码所属的类别的编号                                                       
-	 * @param code   本代码的代码值                                                                   
+	 * construction                                                                                      
+	 * @param category                                                       
+	 * @param code                                                                 
 	 */                                                                                               
 	protected  CodesItem(String category,String code){                                                
 		this.category=category;                                                                         
@@ -221,7 +230,7 @@ public class CodesItem {
 	protected static final List<CodeInfo> getCodeFromDB(String category) {             							
 			List<CodeInfo> list = mapper.selectByClass(category);                                  
 			if(list.size()<1){	                                                                        
-				throw new NotFoundException("当前使用的代码项在数据库无法取到 code=" + category);             
+				throw new NotFoundException("current code item can't be found in db! code=" + category);             
 			}                                                                                     
 		return list;                                                                                      
 	}                                                                                                 
