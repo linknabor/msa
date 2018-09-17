@@ -398,9 +398,9 @@ CatList()+vbCrLf+ _
 "	}                                                                                            			" + vbCrLf + _
 "	public String toString(){ return this.code; }                                                     " + vbCrLf + _
 "	                                                                                                  " + vbCrLf + _
-"	/**根据指定的代码值转换成中文名字                                                                 " + vbCrLf + _
-"	 * @param category   本代码所属的类别的编号                                                       " + vbCrLf + _
-"	 * @param code   本代码的代码值                                                                   " + vbCrLf + _
+"	/**convert 2 cn value                                                                 " + vbCrLf + _
+"	 * @param category                                                     " + vbCrLf + _
+"	 * @param code                                                                   " + vbCrLf + _
 "	 * @return                                                                                        " + vbCrLf + _
 "	 */                                                                                               " + vbCrLf + _
 "	protected static String getValue(String category,String code){                                    " + vbCrLf + _
@@ -437,14 +437,14 @@ CatList()+vbCrLf+ _
 "		public static Map getCategoryItems(String categoryName){" + vbCrLf + _
 "		   String categoryCode = (String)mapCat.get(categoryName);" + vbCrLf + _
 "		   if(categoryCode==null)" + vbCrLf + _
-"		      throw new RuntimeException(categoryName + ""代码大类别未进行初始化！"");" + vbCrLf + _
+"		      throw new RuntimeException(categoryName + ""code category dose not initialize!"");" + vbCrLf + _
 "		   " + vbCrLf + _
 "		   Map mp=(Map)mapCategoryCode.get(categoryCode);" + vbCrLf + _
 "		   return mp;" + vbCrLf + _
 "		}" + vbCrLf + _
 "" + vbCrLf + _
 "	/**                                                                                               " + vbCrLf + _
-"	 * 直接转换成中文名字                                                                             " + vbCrLf + _
+"	 * convert 2 cn value                                                                             " + vbCrLf + _
 "	 * @return                                                                                        " + vbCrLf + _
 "	 */                                                                                               " + vbCrLf + _
 "	public  String getValue(){                                                                        " + vbCrLf + _
@@ -458,9 +458,9 @@ CatList()+vbCrLf+ _
 "	   mapper = this.codeInfoMapper;                                                                  " + vbCrLf + _
 "	}                                                                                                 " + vbCrLf + _
 "	/**                                                                                               " + vbCrLf + _
-"	 * 构造函数.                                                                                      " + vbCrLf + _
-"	 * @param category   本代码所属的类别的编号                                                       " + vbCrLf + _
-"	 * @param code   本代码的代码值                                                                   " + vbCrLf + _
+"	 * construction                                                                                      " + vbCrLf + _
+"	 * @param category                                                       " + vbCrLf + _
+"	 * @param code                                                                 " + vbCrLf + _
 "	 */                                                                                               " + vbCrLf + _
 "	protected  CodesItem(String category,String code){                                                " + vbCrLf + _
 "		this.category=category;                                                                         " + vbCrLf + _
@@ -470,7 +470,7 @@ CatList()+vbCrLf+ _
 "	protected static final List<CodeInfo> getCodeFromDB(String category) {             							" + vbCrLf + _
 "			List<CodeInfo> list = mapper.selectByClass(category);                                  " + vbCrLf + _
 "			if(list.size()<1){	                                                                        " + vbCrLf + _
-"				throw new NotFoundException(""当前使用的代码项在数据库无法取到 code="" + category);             " + vbCrLf + _
+"				throw new NotFoundException(""current code item can't be found in db! code="" + category);             " + vbCrLf + _
 "			}                                                                                     " + vbCrLf + _
 "		return list;                                                                                      " + vbCrLf + _
 "	}                                                                                                 " + vbCrLf + _
