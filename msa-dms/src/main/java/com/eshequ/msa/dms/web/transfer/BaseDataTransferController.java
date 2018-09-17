@@ -4,6 +4,7 @@ package com.eshequ.msa.dms.web.transfer;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -11,16 +12,20 @@ import org.springframework.web.bind.annotation.RestController;
 import com.eshequ.msa.common.BaseResult;
 import com.eshequ.msa.dms.model.msa.MsaBaseCity;
 import com.eshequ.msa.dms.model.msa.MsaBaseRegion;
+import com.eshequ.msa.dms.service.transfer.BaseDataBatchTransferService;
 import com.eshequ.msa.dms.vo.basedata.CspVO;
 import com.eshequ.msa.dms.vo.basedata.ProvinceVO;
 
 @RestController
 public class BaseDataTransferController extends DataTransferController {
 	
+	@Autowired
+	private BaseDataBatchTransferService baseDataBatchTransferService;
+	
 	@RequestMapping(value = "/addProvinceBatch", method = RequestMethod.POST)
 	public BaseResult<?> addProvinceBatch(List<ProvinceVO> provinceList) {
 		
-		return null;
+		return baseDataBatchTransferService.migrateProvinceBatch();
 	}
 	
 	@RequestMapping(value = "/addCityBatch", method = RequestMethod.POST)

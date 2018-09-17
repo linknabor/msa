@@ -8,11 +8,4 @@
     <result column="PROVINCE_SHORT_NAME" jdbcType="VARCHAR" property="provinceShortName" />
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
   </resultMap>
-  <resultMap id="BaseResultMap" type="com.eshequ.msa.dms.model.servplat.SpBaseProvince">
-    <id column="PROVINCE_ID" jdbcType="BIGINT" property="provinceId" />
-    <result column="PROVINCE_STATUS" jdbcType="CHAR" property="provinceStatus" />
-    <result column="PROVINCE_NAME" jdbcType="VARCHAR" property="provinceName" />
-    <result column="PROVINCE_SHORT_NAME" jdbcType="VARCHAR" property="provinceShortName" />
-    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
-  </resultMap>
 </mapper>

@@ -7,10 +7,4 @@
     <result column="FEE_START_DATE" jdbcType="CHAR" property="feeStartDate" />
     <result column="payment_date" jdbcType="CHAR" property="paymentDate" />
   </resultMap>
-  <resultMap id="BaseResultMap" type="com.eshequ.msa.dms.model.servplat.SpBaseCustCarFeeStartDate">
-    <id column="CAR_ID" jdbcType="BIGINT" property="carId" />
-    <id column="FEE_DATE_TYPE" jdbcType="CHAR" property="feeDateType" />
-    <result column="FEE_START_DATE" jdbcType="CHAR" property="feeStartDate" />
-    <result column="payment_date" jdbcType="CHAR" property="paymentDate" />
-  </resultMap>
 </mapper>

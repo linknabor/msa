@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.bdp.mapper.MsaCfgSectParaMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.bdp.model.MsaCfgSectPara">
+    <id column="PARA_ID" jdbcType="BIGINT" property="paraId" />
+    <result column="PARA_NAME" jdbcType="VARCHAR" property="paraName" />
+    <result column="PARA_NAME_CN" jdbcType="VARCHAR" property="paraNameCn" />
+    <result column="PARA_VALUE" jdbcType="VARCHAR" property="paraValue" />
+    <result column="PARA_TYPE" jdbcType="CHAR" property="paraType" />
+    <result column="PARA_STATUS" jdbcType="CHAR" property="paraStatus" />
+    <result column="SECT_ID" jdbcType="BIGINT" property="sectId" />
+    <result column="PARA_VIEW" jdbcType="VARCHAR" property="paraView" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
+  
+    <!-- 根据企业客户信息获得物业项目信息 -->
+  <select id="getSectByEnterpriseId" parameterType="Map" resultMap="BaseResultMap" >
+	SELECT bs.* FROM `msa_base_sect` bs 
+	INNER JOIN `msa_enterprise_sect` es ON bs.`SECT_ID` = es.`SECT_ID`
+	WHERE es.`ENTERPRISE_ID` = #{enterpriseId}
+	limit #{page},#{rows}
+  </select>
+</mapper>

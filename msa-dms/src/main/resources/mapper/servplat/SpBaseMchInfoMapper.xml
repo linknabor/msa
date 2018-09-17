@@ -19,22 +19,4 @@
     <result column="SUBJECT_ID" jdbcType="VARCHAR" property="subjectId" />
     <result column="PARENT_MCH_INFO_ID" jdbcType="BIGINT" property="parentMchInfoId" />
   </resultMap>
-  <resultMap id="BaseResultMap" type="com.eshequ.msa.dms.model.servplat.SpBaseMchInfo">
-    <id column="MCH_INFO_ID" jdbcType="BIGINT" property="mchInfoId" />
-    <result column="MCH_ID" jdbcType="VARCHAR" property="mchId" />
-    <result column="MCH_NAME" jdbcType="VARCHAR" property="mchName" />
-    <result column="MCH_TYPE" jdbcType="CHAR" property="mchType" />
-    <result column="MCH_STATUS" jdbcType="CHAR" property="mchStatus" />
-    <result column="SECRET" jdbcType="VARCHAR" property="secret" />
-    <result column="APPID" jdbcType="VARCHAR" property="appid" />
-    <result column="PLAT_CHANNEL" jdbcType="CHAR" property="platChannel" />
-    <result column="BANK_ACCT" jdbcType="VARCHAR" property="bankAcct" />
-    <result column="ACCT_NAME" jdbcType="VARCHAR" property="acctName" />
-    <result column="BANK_NAME" jdbcType="VARCHAR" property="bankName" />
-    <result column="CREATE_DATE" jdbcType="CHAR" property="createDate" />
-    <result column="CREATE_TIME" jdbcType="CHAR" property="createTime" />
-    <result column="MCH_SUBJECT" jdbcType="VARCHAR" property="mchSubject" />
-    <result column="SUBJECT_ID" jdbcType="VARCHAR" property="subjectId" />
-    <result column="PARENT_MCH_INFO_ID" jdbcType="BIGINT" property="parentMchInfoId" />
-  </resultMap>
 </mapper>
