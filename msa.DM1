@@ -98,7 +98,11 @@ VersionId,Version_ID,Copyright,Global_User_ID,Row_Time_Stamp
 
 Diagram
 DiagramId,Version_ID,VersionId,LastUpdate,CreateDate,ActiveModel,ActiveSubmodel,VSplitterPosition,X,Y,Width,Height,DiagramNameId,AuthorId,CompanyId,VersionNoId,CopyrightStringId,DefinitionId,UnificationOptionId,FileNameId,CopyrightYearStringId,DiagramName,CodePage,SignatureGUID,ReleaseName,Flags,Global_User_ID,Row_Time_Stamp
+<<<<<<< Updated upstream
 1,1,800,09/13/2018 10:59:41G,08/07/2018 15:51:41G,1,61,180,0,0,0,0,19,20,20,21,20,0,22,19,0,msa.DM1,936,NULL,NULL,0,1,0
+=======
+1,1,800,09/11/2018 19:09:18G,08/07/2018 15:51:41G,1,40,180,0,0,0,0,19,20,20,21,20,0,22,19,0,msa.DM1,936,NULL,NULL,0,1,0
+>>>>>>> Stashed changes
 
 Model
 DiagramId,ModelId,Model_ID,ModelType,PlatformId,NamePrefix,SpaceHandling,CaseHandling,GenPrimaryKey,GenAlternateKey,GenInversionEntry,GenForeignKey,Notation,ModelNameId,RowOverhead,TableOverhead,IndexOverhead,BlobOverhead,BlobBlockSize,Global_User_ID,Row_Time_Stamp
@@ -169,7 +173,11 @@ DiagramId,ModelId,SubmodelId,DiagramDisplay_ID,Submodel_ID,PlatformId,Animate,Zo
 1,1,34,18,18,0,0,10000,0,0,-353,335,1,1,8,3264,1,0,1,0,1,1,0,0,0,0,0,1,3710,0,1,6,7,0,0,0,0,0,1,0,1,10
 1,1,37,20,20,0,0,9414,0,0,-560,478,1,1,8,3264,1,0,1,0,1,1,0,0,0,0,0,1,3982,0,1,6,7,0,0,0,0,0,1,0,1,10
 1,1,39,21,21,0,0,9568,0,0,-566,258,1,1,8,3264,1,0,1,0,1,1,0,0,0,0,0,1,4229,0,1,6,7,0,0,0,0,0,1,0,1,10
+<<<<<<< Updated upstream
 1,1,40,22,22,0,0,9416,0,0,-494,454,1,1,8,3264,1,0,1,0,1,1,0,0,0,0,0,1,4472,0,1,6,7,0,0,0,0,0,1,0,1,10
+=======
+1,1,40,22,22,0,0,10000,0,0,-455,-70,1,1,8,3264,1,0,1,0,1,1,0,0,0,0,0,1,4472,0,1,6,7,0,0,0,0,0,1,0,1,10
+>>>>>>> Stashed changes
 1,1,43,23,23,0,0,9850,0,0,-500,193,1,1,8,3264,1,0,1,0,1,1,0,0,0,0,0,1,4808,0,1,6,7,0,0,0,0,0,1,0,1,10
 1,1,45,24,24,0,0,9762,0,0,-518,575,1,1,8,3264,1,0,1,0,1,1,0,0,0,0,0,1,5012,0,1,6,7,0,0,0,0,0,1,0,1,10
 1,1,1,1,1,0,0,3744,0,0,-1313,695,1,1,8,3264,1,0,1,0,1,1,0,0,0,0,0,1,23,0,1,6,7,0,0,0,0,0,1,0,1,10
@@ -3713,6 +3721,7 @@ Lineage_Stream_Display_ID,Lineage_Stream_ID,Submodel_ID,DesiredRoutingStyle,Pare
 
 SmallString
 String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
+<<<<<<< Updated upstream
 1496,price,0,0,0
 1497,税率,0,0,0
 1,Main,0,0,0
@@ -3722,13 +3731,49 @@ String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
 3,Logical,0,0,0
 1500,tax_amt,0,0,0
 4,Main Model,0,0,0
+=======
+1,Main,0,0,0
+2,Diagram specific data dictionary.,0,0,0
+1478,收费开票记录表,0,0,0
+3,Logical,0,0,0
+4,Main Model,0,0,0
+5,Data Movement Rules,0,0,0
+8,Y,0,0,0
+10,CH,0,0,0
+11,VAR,0,0,0
+14,自动生成长整型标识,0,0,0
+1490,明细ID,0,0,0
+15,in_no,0,0,0
+1491,detail_id,0,0,0
+16,LIN,0,0,0
+17,id,0,0,0
+18,msa_DD,0,0,0
+1494,商品数量,0,0,0
+19,msa.DM1,0,0,0
+1495,商品单价,0,0,0
+20,Microsoft,0,0,0
+1496,price,0,0,0
+21,1.0,0,0,0
+1497,税率,0,0,0
+22,NameOnly,0,0,0
+1498,tax_rale,0,0,0
+23,PK1,0,0,0
+1499,税额,0,0,0
+24,ID,0,0,0
+1500,tax_amt,0,0,0
+>>>>>>> Stashed changes
 1501,含税标识,0,0,0
 5,Data Movement Rules,0,0,0
 1502,is_tax,0,0,0
+<<<<<<< Updated upstream
+=======
+27,密码,0,0,0
+>>>>>>> Stashed changes
 1503,申请ID,0,0,0
 1504,apply_id,0,0,0
 8,Y,0,0,0
 1505,商品编码,0,0,0
+<<<<<<< Updated upstream
 1506,invoice_code,0,0,0
 10,CH,0,0,0
 1507,自增长ID,0,0,0
@@ -3737,11 +3782,24 @@ String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
 1509,payee_name,0,0,0
 1510,复核人,0,0,0
 14,自动生成长整型标识,0,0,0
+=======
+30,InfoStatus,0,0,0
+1506,invoice_code,0,0,0
+31,"""0"",""1""",0,0,0
+1507,自增长ID,0,0,0
+32,"""正常<ZhengChang>"",""注销<ZhuXiao>""",0,0,0
+1508,收款人,0,0,0
+33,status,0,0,0
+1509,payee_name,0,0,0
+34,状态,0,0,0
+1510,复核人,0,0,0
+>>>>>>> Stashed changes
 1511,reviewer_name,0,0,0
 15,in_no,0,0,0
 1512,开票人,0,0,0
 16,LIN,0,0,0
 1513,开票记录ID,0,0,0
+<<<<<<< Updated upstream
 17,id,0,0,0
 1514,发票编号,0,0,0
 18,msa_DD,0,0,0
@@ -3757,6 +3815,22 @@ String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
 23,PK1,0,0,0
 1520,税控开票信息id,0,0,0
 24,ID,0,0,0
+=======
+38,N,0,0,0
+1514,发票编号,0,0,0
+39,P,0,0,0
+1515,invoice_no,0,0,0
+40,M,0,0,0
+1516,发票代码,0,0,0
+41,O,0,0,0
+1517,开票日期,0,0,0
+42,用户ID,0,0,0
+1518,make_date,0,0,0
+43,user_id,0,0,0
+1519,收费支付流水ID,0,0,0
+44,PK2,0,0,0
+1520,税控开票信息id,0,0,0
+>>>>>>> Stashed changes
 1521,fiscal_processor_id,0,0,0
 1522,物业项目id,0,0,0
 1523,房屋性质,0,0,0
@@ -3764,9 +3838,14 @@ String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
 1524,house_type,0,0,0
 1525,费用类型,0,0,0
 1526,fee_type,0,0,0
+<<<<<<< Updated upstream
 30,InfoStatus,0,0,0
 1527,开票名称,0,0,0
 31,"""0"",""1""",0,0,0
+=======
+51,user,0,0,0
+1527,开票名称,0,0,0
+>>>>>>> Stashed changes
 1528,invoice_name,0,0,0
 32,"""正常<ZhengChang>"",""注销<ZhuXiao>""",0,0,0
 1529,开票税率,0,0,0
@@ -3779,17 +3858,29 @@ String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
 1534,QrCode_addr,0,0,0
 38,N,0,0,0
 1535,invoice_type,0,0,0
+<<<<<<< Updated upstream
 39,P,0,0,0
 1536,税控码,0,0,0
 40,M,0,0,0
+=======
+60,PK3,0,0,0
+1536,税控码,0,0,0
+>>>>>>> Stashed changes
 1537,tax_code,0,0,0
 41,O,0,0,0
 1538,校验码,0,0,0
+<<<<<<< Updated upstream
 42,用户ID,0,0,0
 1539,check_code,0,0,0
 43,user_id,0,0,0
 1540,发票抬头,0,0,0
 44,PK2,0,0,0
+=======
+63,S,0,0,0
+1539,check_code,0,0,0
+64,Z,0,0,0
+1540,发票抬头,0,0,0
+>>>>>>> Stashed changes
 1541,invoice_title,0,0,0
 1542,用户手机号,0,0,0
 1543,mobile,0,0,0
@@ -3804,8 +3895,14 @@ String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
 1551,old_invoice_no,0,0,0
 1554,原发票代码,0,0,0
 1555,old_invoice_code,0,0,0
+<<<<<<< Updated upstream
 1556,充值日期,0,0,0
 60,PK3,0,0,0
+=======
+80,PK4,0,0,0
+1556,充值日期,0,0,0
+81,PK5,0,0,0
+>>>>>>> Stashed changes
 1557,原发票校验码,0,0,0
 1558,old_check_code,0,0,0
 1559,充值时间,0,0,0
@@ -3815,6 +3912,7 @@ String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
 1561,old_pdf_addr,0,0,0
 1562,开票时间,0,0,0
 1563,make_time,0,0,0
+<<<<<<< Updated upstream
 1564,操作员ID,0,0,0
 1565,te_operid,0,0,0
 1566,信用代码,0,0,0
@@ -3829,8 +3927,35 @@ String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
 1575,apply_desc,0,0,0
 80,PK4,0,0,0
 81,PK5,0,0,0
+=======
+88,系统配置参数表,0,0,0
+1564,操作员ID,0,0,0
+1565,te_operid,0,0,0
+90,参数ID,0,0,0
+1566,信用代码,0,0,0
+91,para_id,0,0,0
+1567,手机号,0,0,0
+92,参数名称,0,0,0
+1568,发票申请状态,0,0,0
+93,para_name,0,0,0
+1569,invoice_apply_status,0,0,0
+94,参数值,0,0,0
+1570,申请日期,0,0,0
+95,para_value,0,0,0
+1571,apply_date,0,0,0
+96,备注,0,0,0
+1572,申请时间,0,0,0
+97,remark,0,0,0
+1573,apply_time,0,0,0
+98,参数类型,0,0,0
+1574,申请结果描述,0,0,0
+99,para_type,0,0,0
+1575,apply_desc,0,0,0
+100,PK65,0,0,0
+>>>>>>> Stashed changes
 1580,invoice_apply_type,0,0,0
 1583,开票SID,0,0,0
+<<<<<<< Updated upstream
 1584,invoice_sid,0,0,0
 88,系统配置参数表,0,0,0
 90,参数ID,0,0,0
@@ -3844,6 +3969,16 @@ String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
 95,para_value,0,0,0
 1592,invoice_totle,0,0,0
 96,备注,0,0,0
+=======
+108,物业项目性质,0,0,0
+1584,invoice_sid,0,0,0
+1587,电票是否发送用户,0,0,0
+112,物业项目类型,0,0,0
+1588,invoice_send_status,0,0,0
+1591,套餐数量,0,0,0
+116,建筑类型,0,0,0
+1592,invoice_totle,0,0,0
+>>>>>>> Stashed changes
 1593,套餐到期日期,0,0,0
 97,remark,0,0,0
 1594,valid_date,0,0,0
@@ -3851,15 +3986,28 @@ String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
 1595,套餐到期时间,0,0,0
 99,para_type,0,0,0
 1596,valid_time,0,0,0
+<<<<<<< Updated upstream
 100,PK65,0,0,0
 106,01-系统管理,0,0,0
 108,物业项目性质,0,0,0
 112,物业项目类型,0,0,0
 116,建筑类型,0,0,0
+=======
+123,户型,0,0,0
+127,车位类型,0,0,0
+131,朝向,0,0,0
+132,Ward,0,0,0
+135,商铺类型,0,0,0
+138,广告位类型,0,0,0
+>>>>>>> Stashed changes
 1614,PK226,0,0,0
 1615,PK226_1,0,0,0
 1616,PK414,0,0,0
 1617,PK411,0,0,0
+<<<<<<< Updated upstream
+=======
+142,物业单元性质,0,0,0
+>>>>>>> Stashed changes
 1618,PK402,0,0,0
 1619,PK416,0,0,0
 123,户型,0,0,0
@@ -3869,18 +4017,29 @@ String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
 127,车位类型,0,0,0
 1624,PK191,0,0,0
 1625,Shape10,0,0,0
+<<<<<<< Updated upstream
 1626,"",1,0,0
 131,朝向,0,0,0
 132,Ward,0,0,0
+=======
+150,电梯标志,0,0,0
+1626,"",1,0,0
+153,建筑用途,0,0,0
+>>>>>>> Stashed changes
 1629,外接系统列表,0,0,0
 1631,接入状态,0,0,0
 135,商铺类型,0,0,0
 1632,system_state,0,0,0
+<<<<<<< Updated upstream
+=======
+157,物业单元类型,0,0,0
+>>>>>>> Stashed changes
 1633,应用密钥,0,0,0
 1634,app_key,0,0,0
 138,广告位类型,0,0,0
 1635,外接系统名称,0,0,0
 1636,system_name,0,0,0
+<<<<<<< Updated upstream
 1637,外接系统地址,0,0,0
 1638,system_addr,0,0,0
 142,物业单元性质,0,0,0
@@ -3897,7 +4056,20 @@ String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
 163,邮政编码,0,0,0
 164,postcode,0,0,0
 165,build_type,0,0,0
+=======
+161,号/弄/楼号/单元/室号,0,0,0
+1637,外接系统地址,0,0,0
+162,room,0,0,0
+1638,system_addr,0,0,0
+163,邮政编码,0,0,0
+1639,外接系统客户,0,0,0
+164,postcode,0,0,0
+1640,system_cust_name,0,0,0
+165,build_type,0,0,0
+1641,system_tel,0,0,0
+>>>>>>> Stashed changes
 166,是否标识,0,0,0
+1642,物业项目信息表,0,0,0
 167,is_flag,0,0,0
 168,house_model,0,0,0
 1665,总住宅数,0,0,0
@@ -3930,11 +4102,18 @@ String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
 187,备注40,0,0,0
 1684,总商铺数,0,0,0
 188,备注20,0,0,0
+<<<<<<< Updated upstream
 1685,tot_shops,0,0,0
 189,备注512,0,0,0
 1686,小区管理处地址,0,0,0
 190,备注256,0,0,0
 1687,office_addr,0,0,0
+=======
+189,备注512,0,0,0
+1665,总住宅数,0,0,0
+190,备注256,0,0,0
+1666,tot_hous,0,0,0
+>>>>>>> Stashed changes
 191,联系电话,0,0,0
 1688,小区报修电话,0,0,0
 192,tel,0,0,0
@@ -3943,6 +4122,24 @@ String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
 194,地址,0,0,0
 195,address,0,0,0
 196,sect_type,0,0,0
+<<<<<<< Updated upstream
+=======
+1673,地面车位数,0,0,0
+1674,tot_ong_parks,0,0,0
+1675,室内车位数,0,0,0
+1676,tot_ung_parks,0,0,0
+1681,项目类型,0,0,0
+1682,总楼宇数,0,0,0
+1683,tot_builds,0,0,0
+1684,总商铺数,0,0,0
+1685,tot_shops,0,0,0
+1686,小区管理处地址,0,0,0
+211,I,0,0,0
+1687,office_addr,0,0,0
+212,地址1,0,0,0
+1688,小区报修电话,0,0,0
+1689,office_tel,0,0,0
+>>>>>>> Stashed changes
 1693,商铺面积,0,0,0
 1694,zip_code,0,0,0
 1695,公建面积,0,0,0
@@ -3958,6 +4155,7 @@ String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
 1709,land_area,0,0,0
 1712,业主车辆信息表,0,0,0
 1714,car_colour,0,0,0
+<<<<<<< Updated upstream
 1715,车辆型号ID,0,0,0
 1716,car_type_id,0,0,0
 1717,车辆厂牌ID,0,0,0
@@ -3969,6 +4167,25 @@ String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
 1723,停放车位类型,0,0,0
 1724,是否为储值用户,0,0,0
 1725,is_prepaid,0,0,0
+=======
+239,路1,0,0,0
+1715,车辆型号ID,0,0,0
+1716,car_type_id,0,0,0
+241,弄1,0,0,0
+1717,车辆厂牌ID,0,0,0
+1718,car_brand_id,0,0,0
+243,路2,0,0,0
+1719,车牌号,0,0,0
+1720,car_no,0,0,0
+245,弄2,0,0,0
+1721,car_status,0,0,0
+1722,card_no,0,0,0
+247,地址2,0,0,0
+1723,停放车位类型,0,0,0
+1724,是否为储值用户,0,0,0
+1725,is_prepaid,0,0,0
+250,名称2,0,0,0
+>>>>>>> Stashed changes
 1726,企业客户ID,0,0,0
 1728,sect_name,0,0,0
 1729,sect_addr,0,0,0
@@ -3984,6 +4201,7 @@ String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
 241,弄1,0,0,0
 1738,08-外接系统,0,0,0
 1739,09-单点登录,0,0,0
+<<<<<<< Updated upstream
 243,路2,0,0,0
 1740,用户信息表,0,0,0
 1741,sso_user,0,0,0
@@ -3995,6 +4213,19 @@ String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
 1745,sso_role_menu,0,0,0
 1746,用户菜单信息表,0,0,0
 250,名称2,0,0,0
+=======
+264,支弄1,0,0,0
+1740,用户信息表,0,0,0
+1741,sso_user,0,0,0
+266,号1,0,0,0
+1742,角色信息表,0,0,0
+1743,sso_role,0,0,0
+268,支弄2,0,0,0
+1744,角色菜单关系表,0,0,0
+1745,sso_role_menu,0,0,0
+270,号2,0,0,0
+1746,用户菜单信息表,0,0,0
+>>>>>>> Stashed changes
 1747,sso_menu,0,0,0
 1748,password,0,0,0
 1751,机构名称,0,0,0
@@ -4033,6 +4264,10 @@ String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
 1788,msa_trade_detail,0,0,0
 1789,msa_trade_fee_water_detail,0,0,0
 1790,msa_trade_fee_water,0,0,0
+<<<<<<< Updated upstream
+=======
+315,名称,0,0,0
+>>>>>>> Stashed changes
 1791,msa_trade_refund_info,0,0,0
 1792,msa_refund_trade_detail,0,0,0
 1793,msa_trade_refund_fee_water,0,0,0
@@ -4044,6 +4279,11 @@ String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
 1799,msa_invoice_apply,0,0,0
 306,编号,0,0,0
 1807,msa_invoice_totle,0,0,0
+<<<<<<< Updated upstream
+=======
+332,PK23,0,0,0
+333,PK4_2,0,0,0
+>>>>>>> Stashed changes
 1809,msa_invoice_apply_detail,0,0,0
 1810,msa_invoice_user,0,0,0
 1811,msa_invoice_recharge_info,0,0,0
@@ -4081,6 +4321,10 @@ String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
 1840,登记总户数,0,0,0
 1841,hou_count,0,0,0
 1842,CHAR,0,0,0
+<<<<<<< Updated upstream
+=======
+367,appid,0,0,0
+>>>>>>> Stashed changes
 1843,系统代码信息表,0,0,0
 1844,code_info,0,0,0
 1845,代码值,0,0,0
@@ -4100,8 +4344,15 @@ String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
 1859,reg_status,0,0,0
 1862,后台操作员名称,0,0,0
 1863,back_te_name,0,0,0
+<<<<<<< Updated upstream
 367,appid,0,0,0
 1864,link_man,0,0,0
+=======
+388,PK1_1,0,0,0
+1864,link_man,0,0,0
+390,PK31,0,0,0
+391,PK70,0,0,0
+>>>>>>> Stashed changes
 1867,org_addr,0,0,0
 1868,org_tel,0,0,0
 1869,post_code,0,0,0
@@ -4126,6 +4377,10 @@ String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
 394,自动生成长整型标识_1,0,0,0
 1891,reg_enterprise_id,0,0,0
 1892,企业客户名称,0,0,0
+<<<<<<< Updated upstream
+=======
+417,PK1_2,0,0,0
+>>>>>>> Stashed changes
 1893,enterprise_name,0,0,0
 1895,10-欠费管理,0,0,0
 1898,arrearage_info,0,0,0
@@ -4259,17 +4514,29 @@ String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
 2053,PK156,0,0,0
 2054,参数样式,0,0,0
 2055,pram_view,0,0,0
+<<<<<<< Updated upstream
 2058,"""系统参数"",""公司参数"",""项目参数""",0,0,0
+=======
+581,name,0,0,0
+582,传真,0,0,0
+2058,"""系统参数"",""公司参数"",""项目参数""",0,0,0
+583,fax,0,0,0
+>>>>>>> Stashed changes
 2059,参数业务类型,0,0,0
 2060,ParaBizType,0,0,0
 2061,para_biz_type,0,0,0
 2063,para_name_cn,0,0,0
 2064,参数中文名称,0,0,0
+<<<<<<< Updated upstream
+=======
+589,email,0,0,0
+>>>>>>> Stashed changes
 2065,enterprise_state,0,0,0
 2066,enterprise_addr,0,0,0
 2067,enterprise_tel,0,0,0
 2068,cashier_no,0,0,0
 2069,cashier_name,0,0,0
+<<<<<<< Updated upstream
 2070,cashier_tel,0,0,0
 574,职务,0,0,0
 2071,99-数据迁移,0,0,0
@@ -4291,7 +4558,10 @@ String_Id,Data,Overflow,ConstantString,Row_Time_Stamp
 589,email,0,0,0
 2086,现系统表名,0,0,0
 2087,curr_table_name,0,0,0
+=======
+>>>>>>> Stashed changes
 594,post,0,0,0
+2070,cashier_tel,0,0,0
 595,性别,0,0,0
 596,sex,0,0,0
 597,手机,0,0,0
@@ -7844,8 +8114,13 @@ Identity_Value_ID,Table_Name,Column_Name,Next_Valid_Value,Global_User_ID,Row_Tim
 13,AttributeDisplayOverride,AttributeDisplayOverride_ID,1,0,0
 14,Bound_Dictionary_Object,Bound_Dictionary_Object_ID,1266,0,0
 15,CheckConstraints,CheckConstraints_ID,1,0,0
+<<<<<<< Updated upstream
 16,Circular_Layout,Circular_Layout_ID,25,0,0
 17,ColorDefault,ColorDefault_ID,5505,0,0
+=======
+16,Circular_Layout,Circular_Layout_ID,24,0,0
+17,ColorDefault,ColorDefault_ID,5425,0,0
+>>>>>>> Stashed changes
 18,Column_Usage,Column_Usage_ID,1,0,0
 19,Components_Layout,Components_Layout_ID,25,0,0
 20,Configuration_Option,Configuration_Option_ID,1,0,0
