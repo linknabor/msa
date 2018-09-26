@@ -12,12 +12,44 @@
     <result column="PARA_VIEW" jdbcType="VARCHAR" property="paraView" />
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
   </resultMap>
+   <resultMap id="MasConfigParamVO" type="com.eshequ.msa.bdp.model.MasConfigParamVO">
+  	<id column="PARA_ID" jdbcType="BIGINT" property="paraId" />
+    <result column="PARA_NAME" jdbcType="VARCHAR" property="name" />
+    <result column="PARA_VALUE" jdbcType="VARCHAR" property="value" />
+    <result column="REMARK" jdbcType="VARCHAR" property="remark" />
+  </resultMap>
   
-    <!-- 根据企业客户信息获得物业项目信息 -->
-  <select id="getSectByEnterpriseId" parameterType="Map" resultMap="BaseResultMap" >
-	SELECT bs.* FROM `msa_base_sect` bs 
-	INNER JOIN `msa_enterprise_sect` es ON bs.`SECT_ID` = es.`SECT_ID`
-	WHERE es.`ENTERPRISE_ID` = #{enterpriseId}
-	limit #{page},#{rows}
+
+  
+    <!-- 去重（分组）查询项目对应的参数列表 -->
+    <select id="getMsaCfgSectParaGroup" parameterType="Long" resultMap="BaseResultMap" >
+	SELECT * FROM `msa_cfg_sect_para` m 
+	WHERE m.`SECT_ID` = #{sectId}
+	AND m.`PARA_STATUS` = 0 	
+	GROUP BY m.`PARA_NAME`
   </select>
+  
+  <!-- 获得项目参数的参数 -->
+  <select id="getMsaCfgSectParaByParam" parameterType="Map" resultMap="MasConfigParamVO" >
+	SELECT * FROM `msa_cfg_sect_para` m 
+	WHERE m.`SECT_ID` = #{sectId} 
+	AND m.`PARA_STATUS` = 0 
+	AND m.`PARA_NAME` = #{paraName}
+	AND m.`PARA_NAME_CN` = #{paraNameCN}
+  </select>
+  
+  <!--   根据企业配置id修改企业配置 -->
+   <update  id="updateCfgSectByParaId" parameterType="com.eshequ.msa.bdp.model.MsaCfgSectPara" >
+    UPDATE msa_cfg_sect_para 
+    SET 
+    PARA_NAME = #{paraName},
+    PARA_NAME_CN = #{paraNameCn},
+    PARA_VALUE = #{paraValue},
+    PARA_TYPE = #{paraType},
+    PARA_STATUS = #{paraStatus},
+    SECT_ID = #{sectId},
+    PARA_VIEW = #{paraView},
+    REMARK = #{remark}
+    WHERE PARA_ID = #{paraId}
+  </update >
 </mapper>

@@ -15,6 +15,8 @@ import com.eshequ.msa.bdp.model.MsaCfgEnpPara;
 import com.eshequ.msa.bdp.service.usercfg.EnpConfigService;
 import com.eshequ.msa.common.BaseModel;
 import com.eshequ.msa.common.BaseResult;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 
 @Service
 public class EnpConfigServiceImpl implements EnpConfigService{
@@ -25,13 +27,10 @@ public class EnpConfigServiceImpl implements EnpConfigService{
 
 	//获得企业客户信息
 	@Override
-	public List<MsaBaseEnterprise> getEnterprise(BaseModel model) {
-		Map<String,Object> map = new HashMap<String,Object>();
-		int page = model.getPage();//当前页(默认1)
-		int rows = model.getRows();//显示数量(默认10)
-		map.put("page", (page-1)*rows);
-		map.put("rows", rows);
-		List<MsaBaseEnterprise> list =  msaBaseEnterpriseMapper.getEnterprise(map);
+	public List<MsaBaseEnterprise> getEnterprise(String enterpriseName,int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		List<MsaBaseEnterprise> list =  msaBaseEnterpriseMapper.getEnterprise(enterpriseName);
+		PageInfo<MsaBaseEnterprise> pageInfo = new PageInfo<>(list);
 		return list;
 	}
 

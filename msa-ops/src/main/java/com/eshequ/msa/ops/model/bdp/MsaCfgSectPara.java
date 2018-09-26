@@ -1,8 +1,4 @@
-package com.eshequ.msa.bdp.model;
-
-import java.util.List;
-
-import javax.persistence.Transient;
+package com.eshequ.msa.ops.model.bdp;
 
 import com.eshequ.msa.common.BaseModel;
 
@@ -25,17 +21,9 @@ public class MsaCfgSectPara extends BaseModel {
 
     private String remark;
     
-    @Transient
-    private List<MasConfigParamVO> cfgList;//区分input参数和select参数，list>1表示select参数，<1表示input参数
+    
 
-
-	public List<MasConfigParamVO> getCfgList() {
-		return cfgList;
-	}
-
-	public void setCfgList(List<MasConfigParamVO> cfgList) {
-		this.cfgList = cfgList;
-	}
+    
 
 	public String getParaView() {
 		return paraView;

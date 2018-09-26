@@ -60,4 +60,17 @@ and s.activity = #{activity}
 </if>
 </where>
   </select>
+  
+      <!-- 根据企业客户信息获得物业项目信息 -->
+  <select id="getSectByEnterpriseId" parameterType="Long" resultMap="BaseResultMap" >
+	SELECT bs.* FROM `msa_base_sect` bs 
+	INNER JOIN `msa_enterprise_sect` es ON bs.`SECT_ID` = es.`SECT_ID`
+	WHERE es.`ENTERPRISE_ID` = #{enterpriseId}
+	<if test='sectName != null and sectName != ""'>
+	and bs.`SECT_NAME` LIKE "%"#{sectName}"%"
+	</if>
+	<if test='sectAddr != null and sectAddr != ""'>
+	and bs.`SECT_ADDR` LIKE "%"#{sectAddr}"%"
+	</if>
+  </select>
 </mapper>

@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.eshequ.msa.common.BaseResult;
+import com.eshequ.msa.common.Constants;
 import com.eshequ.msa.exception.BusinessException;
 import com.eshequ.msa.sso.model.SsoUser;
 import com.eshequ.msa.sso.service.LoginRemote;
@@ -80,6 +81,7 @@ public class LoginController extends BaseController{
 			String token = UUID.randomUUID().toString();//授权码
 			user.setToken(token);
 			session.setAttribute("token", token);
+			
 			System.out.println(session.getAttribute("token"));
 			logger.info("当前sessionId："+session.getAttribute("token"));
 			//用户信息 存储redis
@@ -87,6 +89,7 @@ public class LoginController extends BaseController{
 			String loginUserJson = objectMapper.writeValueAsString(user);
 			redisTemplate.opsForValue().set(sessionId, loginUserJson);//用当前的sessionId作为唯一标识，存储用户信息(包括生成的token，和sessionId)
 			redisTemplate.opsForValue().set("tokenSessionId", sessionId);//存储一个取得sso令牌sessionId的一个redis，用于检验token是否有效
+			session.setAttribute(Constants.USER, loginUserJson);//放入json格式的user
 //			http请求-->下发token到crm系统并且告知sessionId
 			Map<String,String> map = new HashMap<String,String>();
 			map.put("token", token);
