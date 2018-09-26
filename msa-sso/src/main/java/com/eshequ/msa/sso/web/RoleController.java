@@ -45,7 +45,7 @@ public class RoleController extends BaseController {
 	//删除角色
 	@RequestMapping(value = "/deleteRole", method = RequestMethod.POST)
 	public BaseResult<?> deleteRole(@RequestParam(required=true) Long roleId) {
-		logger.error("删除角色接口的roleId="roleId);
+		logger.error("删除角色接口的roleId="+roleId);
 		return roleService.deleteRole(roleId);
 	}
 	
