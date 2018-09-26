@@ -60,6 +60,7 @@ public class LoginController extends BaseController{
 	public BaseResult<Map<String, String>> login(HttpServletResponse response,HttpServletRequest request, String reqUrl,@RequestParam("userName") String userName, String veriCode,String password,String tpSysName,RedirectAttributes res) throws IOException {
 		HttpSession session = request.getSession();
 		String sessionId = session.getId();
+		logger.info("进入登录接口");
 		logger.info("当前sessionId："+sessionId);
 		String code = (String) redisTemplate.opsForValue().get(sessionId+"code");//redis中的验证码
 		logger.info("code："+code);
