@@ -3,6 +3,8 @@ package com.eshequ.msa.sso.web;
 import java.io.IOException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +26,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 @RestController
 @RequestMapping("/role")
 public class RoleController extends BaseController {
+	private static final Logger logger = LoggerFactory.getLogger(RoleController.class);
 	@Autowired
 	private RoleService roleService;
 
@@ -42,6 +45,7 @@ public class RoleController extends BaseController {
 	//删除角色
 	@RequestMapping(value = "/deleteRole", method = RequestMethod.POST)
 	public BaseResult<?> deleteRole(@RequestParam(required=true) Long roleId) {
+		logger.error("删除角色接口的roleId="roleId);
 		return roleService.deleteRole(roleId);
 	}
 	
