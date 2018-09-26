@@ -54,8 +54,8 @@ public class RoleController extends BaseController {
 	//获得角色列表
 	@RequestMapping(value = "/getAllRole", method = RequestMethod.POST)
 	public List<SsoRole> getAllRole(@ModelAttribute(Constants.USER) Object user) throws JsonParseException, JsonMappingException, IOException {
-		ObjectMapper objectMapper = new ObjectMapper();
-		SsoUser u =  objectMapper.readValue(user.toString(), SsoUser.class);
+//		ObjectMapper objectMapper = new ObjectMapper();
+//		SsoUser u =  objectMapper.readValue(user.toString(), SsoUser.class);
 		return roleService.getAllRole();
 	}
 	
