@@ -1,4 +1,4 @@
-package com.eshequ.msa.bdp.model;
+package com.eshequ.msa.ops.model.bdp;
 
 import java.util.List;
 
@@ -6,7 +6,7 @@ import javax.persistence.Transient;
 
 import com.eshequ.msa.common.BaseModel;
 
-public class MsaCfgSectPara extends BaseModel {
+public class MsaCfgEnpPara extends BaseModel {
     private Long paraId;
 
     private String paraName;
@@ -19,7 +19,7 @@ public class MsaCfgSectPara extends BaseModel {
 
     private String paraStatus;
 
-    private Long sectId;
+    private Long enterpriseId;
     
     private String paraView;
 
@@ -27,9 +27,8 @@ public class MsaCfgSectPara extends BaseModel {
     
     @Transient
     private List<MasConfigParamVO> cfgList;//区分input参数和select参数，list>1表示select参数，<1表示input参数
-
-
-	public List<MasConfigParamVO> getCfgList() {
+    
+    public List<MasConfigParamVO> getCfgList() {
 		return cfgList;
 	}
 
@@ -53,7 +52,7 @@ public class MsaCfgSectPara extends BaseModel {
 		this.paraNameCn = paraNameCn;
 	}
 
-	public Long getParaId() {
+    public Long getParaId() {
         return paraId;
     }
 
@@ -93,12 +92,12 @@ public class MsaCfgSectPara extends BaseModel {
         this.paraStatus = paraStatus;
     }
 
-    public Long getSectId() {
-        return sectId;
+    public Long getEnterpriseId() {
+        return enterpriseId;
     }
 
-    public void setSectId(Long sectId) {
-        this.sectId = sectId;
+    public void setEnterpriseId(Long enterpriseId) {
+        this.enterpriseId = enterpriseId;
     }
 
     public String getRemark() {

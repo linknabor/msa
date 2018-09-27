@@ -16,7 +16,7 @@ public interface EnpConfigService {
 	 * 获得企业客户信息
 	 * @return
 	 */
-	List<MsaBaseEnterprise> getEnterprise(BaseModel model);
+	List<MsaBaseEnterprise> getEnterprise(String enterpriseName,int pageNum, int pageSize);
 
 	/**
 	 * 根据企业客户信息获得企业参数配置

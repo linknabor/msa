@@ -3,11 +3,11 @@
 <mapper namespace="com.eshequ.msa.bdp.mapper.MsaBaseEnterpriseMapper">
   <resultMap id="BaseResultMap" type="com.eshequ.msa.bdp.model.MsaBaseEnterprise">
     <id column="ENTERPRISE_ID" jdbcType="BIGINT" property="enterpriseId" />
-    <result column="CUST_STATE" jdbcType="CHAR" property="enterpriseState" />
-    <result column="CUST_NAME" jdbcType="VARCHAR" property="enterpriseName" />
-    <result column="CUST_ADDR" jdbcType="VARCHAR" property="enterpriseAddr" />
+    <result column="ENTERPRISE_STATE" jdbcType="CHAR" property="enterpriseState" />
+    <result column="ENTERPRISE_NAME" jdbcType="VARCHAR" property="enterpriseName" />
+    <result column="ENTERPRISE_ADDR" jdbcType="VARCHAR" property="enterpriseAddr" />
     <result column="ENTERPRISE_TYPE" jdbcType="CHAR" property="enterpriseType" />
-    <result column="CUST_TEL" jdbcType="VARCHAR" property="custTel" />
+    <result column="ENTERPRISE_TEL" jdbcType="VARCHAR" property="enterpriseTel" />
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
     <result column="PROVINCE_ID" jdbcType="BIGINT" property="provinceId" />
     <result column="CITY_ID" jdbcType="BIGINT" property="cityId" />
@@ -16,7 +16,10 @@
     <result column="ORIGIN_SYS" jdbcType="BIGINT" property="originSys" />
   </resultMap>
   <!--   获得全部企业信息 -->
-    <select id="getEnterprise" parameterType="Map" resultMap="BaseResultMap" >
-	SELECT * FROM `msa_base_enterprise` LIMIT #{page},#{rows}
+    <select id="getEnterprise" parameterType="String" resultMap="BaseResultMap" >
+	SELECT * FROM `msa_base_enterprise` WHERE 1=1
+	<if test='enterpriseName != null and enterpriseName != ""'>
+	and ENTERPRISE_NAME LIKE "%"#{enterpriseName}"%"
+	</if>
   </select>
 </mapper>

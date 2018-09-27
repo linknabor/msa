@@ -2,7 +2,7 @@ package com.eshequ.msa.bdp.model;
 
 import com.eshequ.msa.common.BaseModel;
 
-public class MsaBaseEnterprise extends BaseModel {
+public class MsaBaseEnterprise{
     private Long enterpriseId;
 
     private String enterpriseState;
