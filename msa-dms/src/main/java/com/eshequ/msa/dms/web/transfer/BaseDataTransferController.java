@@ -2,19 +2,14 @@ package com.eshequ.msa.dms.web.transfer;
 
 
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eshequ.msa.common.BaseResult;
-import com.eshequ.msa.dms.model.msa.MsaBaseCity;
-import com.eshequ.msa.dms.model.msa.MsaBaseRegion;
 import com.eshequ.msa.dms.service.transfer.BaseDataBatchTransferService;
 import com.eshequ.msa.dms.vo.basedata.CspVO;
-import com.eshequ.msa.dms.vo.basedata.ProvinceVO;
 
 @RestController
 public class BaseDataTransferController extends DataTransferController {
@@ -22,24 +17,11 @@ public class BaseDataTransferController extends DataTransferController {
 	@Autowired
 	private BaseDataBatchTransferService baseDataBatchTransferService;
 	
-	@RequestMapping(value = "/addProvinceBatch", method = RequestMethod.POST)
-	public BaseResult<?> addProvinceBatch(List<ProvinceVO> provinceList) {
+	@RequestMapping(value = "/migrateBaseDataBatch", method = RequestMethod.POST)
+	public BaseResult<?> addProvinceBatch() {
 		
-		return baseDataBatchTransferService.migrateProvinceBatch();
+		return baseDataBatchTransferService.migrateBaseData();
 	}
-	
-	@RequestMapping(value = "/addCityBatch", method = RequestMethod.POST)
-	public BaseResult<?> addCityBatch(List<MsaBaseCity> cityList) {
-		
-		return null;
-	}
-	
-	@RequestMapping(value = "/addRegionBatch", method = RequestMethod.POST)
-	public BaseResult<?> addRegionBatch(List<MsaBaseRegion> region) {
-		
-		return null;
-	}
-	
 	
 	@RequestMapping(value = "/addCsp", method = RequestMethod.POST)
 	public BaseResult<?> addEnterprise(CspVO cspVO) {
@@ -59,10 +41,5 @@ public class BaseDataTransferController extends DataTransferController {
 		return null;
 	}
 	
-	@RequestMapping(value = "/addCspBatch", method = RequestMethod.POST)
-	public BaseResult<?> addEnterpriseBatch(CspVO cspVO) {
-		
-		return null;
-	}
 
 }
