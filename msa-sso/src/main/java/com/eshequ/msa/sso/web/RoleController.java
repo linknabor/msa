@@ -67,8 +67,8 @@ public class RoleController extends BaseController {
 	
 	//搜索角色
 	@RequestMapping(value = "/searchRole", method = RequestMethod.POST)
-	public List<SsoRole> searchRole(Long roleId,String roleName,int pageNum, int pageSize) {
-		return roleService.searchRole(roleId, roleName, pageNum, pageSize);
+	public List<SsoRole> searchRole(Long roleId,String roleName) {
+		return roleService.searchRole(roleId, roleName);
 	}
 	
 }

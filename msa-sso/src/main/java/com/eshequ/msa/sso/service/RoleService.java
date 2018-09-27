@@ -47,5 +47,5 @@ public interface RoleService {
 	 * @param roleName 角色名称
 	 * @return
 	 */
-	List<SsoRole> searchRole(Long roleId,String roleName,int pageNum, int pageSize);
+	List<SsoRole> searchRole(Long roleId,String roleName);
 }

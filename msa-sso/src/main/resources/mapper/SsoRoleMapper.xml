@@ -22,10 +22,10 @@
   <select id="searchRole" parameterType="String" resultMap="BaseResultMap">
 	SELECT * FROM `sso_role` r WHERE 1=1
 	<if test='roleId != null and roleId != ""'>
-	AND r.`ROLE_ID`= #{roleId}
+	AND r.`ROLE_ID` like "%"#{roleId}"%"
 	</if>
 	<if test='roleName != null and roleName != ""'>
-	AND r.`ROLE_NAME` = #{roleName}
+	AND r.`ROLE_NAME` like "%"#{roleName}"%"
 	</if>
   </select>
 </mapper>
