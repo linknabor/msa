@@ -58,9 +58,6 @@ public class BaseDataTransferServiceImpl implements BaseDataBatchTransferService
 	@Autowired
 	private SpBaseCspMapper spBaseCspMapper; 
 	
-	@Autowired
-	private SnowFlake SnowFlake;
-	
 
 	@Override
 	@Transactional
