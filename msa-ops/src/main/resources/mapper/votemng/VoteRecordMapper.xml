@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.ops.mapper.votemng.VoteRecordMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.ops.model.votemng.VoteRecord">
+    <id column="RECORD_ID" jdbcType="BIGINT" property="recordId" />
+    <result column="OPTION_ID" jdbcType="BIGINT" property="optionId" />
+    <result column="USER_ID" jdbcType="BIGINT" property="userId" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="VOTE_DATE" jdbcType="CHAR" property="voteDate" />
+    <result column="VOTE_TIME" jdbcType="CHAR" property="voteTime" />
+    <result column="RELEASE_ID" jdbcType="BIGINT" property="releaseId" />
+    <result column="VOTE_ID" jdbcType="BIGINT" property="voteId" />
+  </resultMap>
+  
+  <select id="getTotalVoteByVoteIdAndReleaseId" parameterType="long" resultType="int">
+  SELECT COUNT(*) FROM VOTE_RECORD WHERE VOTE_ID = #{voteId}
+  <if test="releaseId != null">
+  AND RELEASE_ID= #{releaseId}
+  </if>
+  </select>
+  
+  <select id="getVoteByOptionIdAndVoteIdAndReleaseId" parameterType="long" resultType="int">
+  SELECT COUNT(*) FROM VOTE_RECORD WHERE  OPTION_ID = #{optionId}  AND VOTE_ID = #{voteId}
+  <if test="releaseId != null">
+  AND RELEASE_ID= #{releaseId}
+  </if>
+  </select>
+  
+  <select id="getVoteMngPeopleCount" parameterType="long" resultMap="BaseResultMap">
+  SELECT USER_ID ,VOTE_ID FROM vote_record GROUP BY USER_ID,RELEASE_ID HAVING VOTE_ID = #{voteId}
+  </select>
+ 
+  <select id="checkVoteUser" parameterType="long" resultType="int">
+  SELECT COUNT(*) FROM VOTE_RECORD WHERE VOTE_ID = #{voteId} AND USER_ID = #{userId}
+  </select>
+ 
+</mapper>

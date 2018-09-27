@@ -8,4 +8,6 @@ import com.eshequ.msa.common.CommonMapper;
 
 public interface MsaBaseSectMapper extends CommonMapper<MsaBaseSect>{
 	List<SectAndEnterpriseVo> getSectAndEnterpriseList(SectAndEnterpriseVo sectAndEnterpriseVo);
+
+	List<MsaBaseSect> getAllSect();
 }

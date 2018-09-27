@@ -60,4 +60,8 @@ and s.activity = #{activity}
 </if>
 </where>
   </select>
+  
+  <select id="getAllSect" resultMap="SectAndEnterpriseVoMap">
+  SELECT SECT_ID,SECT_NAME FROM MSA_BASE_SECT 
+  </select>
 </mapper>

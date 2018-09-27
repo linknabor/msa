@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.ops.mapper.votemng.VoteOptionMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.ops.model.votemng.VoteOption">
+    <id column="OPTION_ID" jdbcType="BIGINT" property="optionId" />
+    <result column="OPTION_NAME" jdbcType="VARCHAR" property="optionName" />
+    <result column="VOTE_ID" jdbcType="BIGINT" property="voteId" />
+    <result column="STATUS" jdbcType="CHAR" property="status" />
+  </resultMap>
+  
+  <select id="getOptionsByVoteId" parameterType="long" resultMap="BaseResultMap">
+  SELECT OPTION_ID,OPTION_NAME FROM VOTE_OPTION WHERE VOTE_ID= #{voteId} ORDER BY OPTION_ID DESC
+  </select>
+  
+  <delete id="deleteByVoteId" parameterType="long">
+  DELETE FROM VOTE_OPTION WHERE VOTE_ID= #{voteId}
+  </delete>
+</mapper>

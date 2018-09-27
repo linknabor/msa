@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.eshequ.msa.common.BaseResult;
 import com.eshequ.msa.ops.model.bdp.MsaBaseSect;
-import com.eshequ.msa.ops.vo.SectAndEnterpriseVo;
+import com.eshequ.msa.ops.vo.projectstatusmng.SectAndEnterpriseVo;
 
 @FeignClient(value = "msa-bdp",fallback=FeignFallBack.class)
 public interface BdpSectAndEnterpriseRemote {

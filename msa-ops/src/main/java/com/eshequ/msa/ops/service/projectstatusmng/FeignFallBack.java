@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 import com.eshequ.msa.common.BaseResult;
 import com.eshequ.msa.ops.model.bdp.MsaBaseSect;
-import com.eshequ.msa.ops.vo.SectAndEnterpriseVo;
+import com.eshequ.msa.ops.vo.projectstatusmng.SectAndEnterpriseVo;
 
 @Component
 public class FeignFallBack implements BdpSectAndEnterpriseRemote {
