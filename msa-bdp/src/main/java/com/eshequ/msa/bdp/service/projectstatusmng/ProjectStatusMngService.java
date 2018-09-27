@@ -14,4 +14,6 @@ public interface ProjectStatusMngService {
 
 	List<SectAndEnterpriseVo> getSectAndEnterpriseList(SectAndEnterpriseVo sectAndEnterpriseVo);
 
+	BaseResult<?> getAllRegion();
+
 }

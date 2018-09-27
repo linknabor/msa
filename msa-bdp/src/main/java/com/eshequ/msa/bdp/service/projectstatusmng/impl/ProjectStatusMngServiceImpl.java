@@ -24,5 +24,10 @@ public class ProjectStatusMngServiceImpl implements ProjectStatusMngService {
 	public List<SectAndEnterpriseVo> getSectAndEnterpriseList(SectAndEnterpriseVo sectAndEnterpriseVo) {
 		return msaBaseSectMapper.getSectAndEnterpriseList(sectAndEnterpriseVo);
 	}
+	@Override
+	public BaseResult<?> getAllRegion() {
+		
+		return BaseResult.successResult(msaBaseSectMapper.getAllSect());
+	}
     
 }

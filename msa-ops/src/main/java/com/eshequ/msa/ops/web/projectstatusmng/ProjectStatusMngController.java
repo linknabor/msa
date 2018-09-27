@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.eshequ.msa.common.BaseResult;
 import com.eshequ.msa.ops.model.bdp.MsaBaseSect;
 import com.eshequ.msa.ops.service.projectstatusmng.BdpSectAndEnterpriseRemote;
-import com.eshequ.msa.ops.vo.SectAndEnterpriseVo;
+import com.eshequ.msa.ops.vo.projectstatusmng.SectAndEnterpriseVo;
 
 @RestController
 @RequestMapping("/projectStatusMng")

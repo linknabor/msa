@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.ops.mapper.votemng.VoteMngMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.ops.model.votemng.VoteMng">
+    <id column="VOTE_ID" jdbcType="BIGINT" property="voteId" />
+    <result column="CREATE_TIME" jdbcType="CHAR" property="createTime" />
+    <result column="CREATE_DATE" jdbcType="CHAR" property="createDate" />
+    <result column="USER_ID" jdbcType="BIGINT" property="userId" />
+    <result column="USER_NAME" jdbcType="VARCHAR" property="userName" />
+    <result column="VOTE_PEOPLE" jdbcType="INTEGER" property="votePeople" />
+    <result column="VOTE_TITLE" jdbcType="VARCHAR" property="voteTitle" />
+    <result column="VOTE_MODE" jdbcType="CHAR" property="voteMode" />
+    <result column="VOTE_CLOSE_TIME" jdbcType="CHAR" property="voteCloseTime" />
+    <result column="VOTE_CLOSE_DATE" jdbcType="CHAR" property="voteCloseDate" />
+    <result column="VOTE_NAME" jdbcType="VARCHAR" property="voteName" />
+  </resultMap>
+  
+  <select id="getVoteMngList" parameterType="com.eshequ.msa.ops.model.votemng.VoteMng" resultMap="BaseResultMap">
+  SELECT VOTE_ID,VOTE_PEOPLE,VOTE_NAME,VOTE_CLOSE_DATE,VOTE_CLOSE_TIME FROM VOTE_MNG
+  <where>
+  <if test="voteName != null">
+  AND VOTE_NAME LIKE CONCAT('%', #{voteName}, '%')
+  </if>
+  </where>
+  ORDER BY CREATE_DATE DESC
+  </select>
+  
+  <select id="getVoteMngById" parameterType="long" resultMap="BaseResultMap">
+  SELECT VOTE_ID,VOTE_NAME,VOTE_TITLE,VOTE_MODE,VOTE_CLOSE_TIME,VOTE_CLOSE_DATE
+  FROM VOTE_MNG WHERE VOTE_ID = #{voteId}
+  </select>
+</mapper>

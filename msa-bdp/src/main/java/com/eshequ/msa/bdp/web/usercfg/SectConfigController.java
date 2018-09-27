@@ -25,9 +25,9 @@ public class SectConfigController extends BaseController{
 	
 	
 	//根据企业客户信息获得物业项目信息
-	@RequestMapping(value="/getSect",method=RequestMethod.GET)
-	public List<MsaBaseSect> getSectByEnterpriseId(Long enterpriseId,BaseModel model) {
-		return sectConfigService.getSectByEnterpriseId(enterpriseId ,model);
+	@RequestMapping(value="/getSectByEnterpriseId",method=RequestMethod.GET)
+	public List<MsaBaseSect> getSectByEnterpriseId(String sectName,String  sectAddr,Long enterpriseId,int pageNum, int pageSize) {
+		return sectConfigService.getSectByEnterpriseId(sectName,sectAddr,enterpriseId, pageNum, pageSize);
 	}
 	
 	// 根据物业项目信息获得项目参数配置
@@ -37,10 +37,9 @@ public class SectConfigController extends BaseController{
 	}
 	
 	// 根据参数id修改企业参数
-	@RequestMapping(value="/updateSectConfigByParaId",method=RequestMethod.POST)
+	@RequestMapping(value="/updateCfgSectByParaId",method=RequestMethod.GET)
 	public BaseResult<?> updateCfgSectByParaId(Long paraId, String paraValue) {
-
-		return null;
+		return sectConfigService.updateCfgSectByParaId(paraId, paraValue);
 	}
 	
 }

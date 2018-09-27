@@ -7,7 +7,11 @@ import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.SessionAttributes;
 
+import com.eshequ.msa.common.Constants;
+
+@SessionAttributes(Constants.USER)
 public class BaseController {
 
 	 @InitBinder

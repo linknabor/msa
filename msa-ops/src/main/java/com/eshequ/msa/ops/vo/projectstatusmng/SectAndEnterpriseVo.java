@@ -1,4 +1,4 @@
-package com.eshequ.msa.ops.vo;
+package com.eshequ.msa.ops.vo.projectstatusmng;
 
 public class SectAndEnterpriseVo {
 	private Long sectId;

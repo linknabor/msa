@@ -5,15 +5,15 @@ import com.eshequ.msa.common.BaseModel;
 public class MsaBaseEnterprise extends BaseModel {
     private Long enterpriseId;
 
-    private String custState;
+    private String enterpriseState;
 
-    private String custName;
+    private String enterpriseName;
 
-    private String custAddr;
+    private String enterpriseAddr;
 
     private String enterpriseType;
 
-    private String custTel;
+    private String enterpriseTel;
 
     private String remark;
 
@@ -35,28 +35,28 @@ public class MsaBaseEnterprise extends BaseModel {
         this.enterpriseId = enterpriseId;
     }
 
-    public String getCustState() {
-        return custState;
+    public String getEnterpriseState() {
+        return enterpriseState;
     }
 
-    public void setCustState(String custState) {
-        this.custState = custState;
+    public void setEnterpriseState(String enterpriseState) {
+        this.enterpriseState = enterpriseState;
     }
 
-    public String getCustName() {
-        return custName;
+    public String getEnterpriseName() {
+        return enterpriseName;
     }
 
-    public void setCustName(String custName) {
-        this.custName = custName;
+    public void setCustName(String enterpriseName) {
+        this.enterpriseName = enterpriseName;
     }
 
-    public String getCustAddr() {
-        return custAddr;
+    public String getEnterpriseAddr() {
+        return enterpriseAddr;
     }
 
-    public void setCustAddr(String custAddr) {
-        this.custAddr = custAddr;
+    public void setCustAddr(String enterpriseAddr) {
+        this.enterpriseAddr = enterpriseAddr;
     }
 
     public String getEnterpriseType() {
@@ -67,12 +67,12 @@ public class MsaBaseEnterprise extends BaseModel {
         this.enterpriseType = enterpriseType;
     }
 
-    public String getCustTel() {
-        return custTel;
+    public String getEnterpriseTel() {
+        return enterpriseTel;
     }
 
-    public void setCustTel(String custTel) {
-        this.custTel = custTel;
+    public void setEnterpriseTel(String enterpriseTel) {
+        this.enterpriseTel = enterpriseTel;
     }
 
     public String getRemark() {

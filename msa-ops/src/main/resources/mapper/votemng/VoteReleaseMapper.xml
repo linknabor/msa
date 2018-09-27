@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.ops.mapper.votemng.VoteReleaseMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.ops.model.votemng.VoteRelease">
+    <id column="RELEASE_ID" jdbcType="VARCHAR" property="releaseId" />
+    <result column="VISIBLE_STATE" jdbcType="CHAR" property="visibleState" />
+    <result column="CLOSE_DATE" jdbcType="CHAR" property="closeDate" />
+    <result column="CLOSE_TIME" jdbcType="CHAR" property="closeTime" />
+    <result column="VOTE_ID" jdbcType="BIGINT" property="voteId" />
+    <result column="VOTE_NAME" jdbcType="VARCHAR" property="voteName" />
+    <result column="RELEASE_TITLE" jdbcType="VARCHAR" property="releaseTitle" />
+    <result column="RELEASE_CONTENT" jdbcType="VARCHAR" property="releaseContent" />
+    <result column="RELEASE_STATUS" jdbcType="CHAR" property="releaseStatus" />
+    <result column="CREATE_DATE" jdbcType="CHAR" property="createDate" />
+    <result column="CERATE_TIME" jdbcType="CHAR" property="cerateTime" />
+  </resultMap>
+  <select id="getVoteReleaseByVoteId" parameterType="long" resultMap="BaseResultMap">
+  SELECT RELEASE_ID,RELEASE_TITLE FROM VOTE_RELEASE WHERE VOTE_ID = #{voteId}
+  </select>
+   <select id="getVoteReleaseList" parameterType="map" resultMap="BaseResultMap">
+  SELECT DISTINCT vr.RELEASE_ID,vr.RELEASE_TITLE,vr.CREATE_DATE,vr.CERATE_TIME,vr.CLOSE_DATE,vr.CLOSE_TIME,vr.RELEASE_STATUS FROM VOTE_RELEASE vr
+  LEFT JOIN RELEASE_REGION rr ON vr.RELEASE_ID=rr.RELEASE_ID
+  <where>
+  <if test="sectId != null">
+  rr.COUNTY_ID = #{sectId} OR vr.VISIBLE_STATE='1' 
+  </if>
+  <if test="releaseTitle != null">
+  AND RELEASE_TITLE LIKE CONCAT('%', #{releaseTitle}, '%')
+  </if>
+  </where>
+  ORDER BY CREATE_DATE DESC
+  </select>
+</mapper>
