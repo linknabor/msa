@@ -40,4 +40,12 @@ public interface RoleService {
 	 * @return
 	 */
 	List<SsoRole> getAllRole();
+	
+	/**
+	 * 搜索角色
+	 * @param roleId 角色id
+	 * @param roleName 角色名称
+	 * @return
+	 */
+	List<SsoRole> searchRole(Long roleId,String roleName,int pageNum, int pageSize);
 }

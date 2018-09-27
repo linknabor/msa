@@ -3,6 +3,8 @@ package com.eshequ.msa.sso.web;
 import java.io.IOException;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,10 +59,16 @@ public class RoleController extends BaseController {
 	
 	//获得角色列表
 	@RequestMapping(value = "/getAllRole", method = RequestMethod.POST)
-	public List<SsoRole> getAllRole(@ModelAttribute(Constants.USER) Object user) throws JsonParseException, JsonMappingException, IOException {
-//		ObjectMapper objectMapper = new ObjectMapper();
-//		SsoUser u =  objectMapper.readValue(user.toString(), SsoUser.class);
+	public List<SsoRole> getAllRole(HttpSession session) throws JsonParseException, JsonMappingException, IOException {
+		session.getAttribute(Constants.USER);
+//		SsoUser u = (SsoUser)session.getAttribute(Constants.USER);
 		return roleService.getAllRole();
+	}
+	
+	//搜索角色
+	@RequestMapping(value = "/searchRole", method = RequestMethod.POST)
+	public List<SsoRole> searchRole(Long roleId,String roleName,int pageNum, int pageSize) {
+		return roleService.searchRole(roleId, roleName, pageNum, pageSize);
 	}
 	
 }

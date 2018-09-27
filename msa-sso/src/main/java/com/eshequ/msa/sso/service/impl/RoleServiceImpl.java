@@ -12,6 +12,7 @@ import com.eshequ.msa.sso.mapper.SsoRoleMapper;
 import com.eshequ.msa.sso.model.SsoRole;
 import com.eshequ.msa.sso.service.RoleService;
 import com.eshequ.msa.util.SnowFlake;
+import com.github.pagehelper.PageHelper;
 
 import tk.mybatis.mapper.entity.Example;
 
@@ -98,6 +99,13 @@ public class RoleServiceImpl implements RoleService{
 	public List<SsoRole> getAllRole() {
 		List<SsoRole> list = ssoRoleMapper.selectAll();
 		return list;
+	}
+
+	//搜索角色
+	@Override
+	public List<SsoRole> searchRole(Long roleId, String roleName,int pageNum, int pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		return ssoRoleMapper.searchRole(roleId, roleName);
 	}
 
 

@@ -17,5 +17,13 @@ public interface SsoRoleMapper extends CommonMapper<SsoRole> {
 	int updateSsoRole(SsoRole role);
 	
 	List<SsoRole> getRoleByOrgId(@Param("orgId")String orgId);
+	
+	/**
+	 * 搜索角色
+	 * @param roleId 角色id
+	 * @param roleName 角色名称
+	 * @return
+	 */
+	List<SsoRole> searchRole(@Param("roleId")Long roleId, @Param("roleName")String roleName);
     
 }
