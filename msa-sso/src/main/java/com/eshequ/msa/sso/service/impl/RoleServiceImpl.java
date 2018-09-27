@@ -1,6 +1,8 @@
 package com.eshequ.msa.sso.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -104,7 +106,10 @@ public class RoleServiceImpl implements RoleService{
 	//搜索角色
 	@Override
 	public List<SsoRole> searchRole(Long roleId, String roleName) {
-		return ssoRoleMapper.searchRole(roleId, roleName);
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("roleId", roleId);
+		map.put("roleName", roleName);
+		return ssoRoleMapper.searchRole(map);
 	}
 
 

@@ -1,6 +1,7 @@
 package com.eshequ.msa.sso.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -24,6 +25,6 @@ public interface SsoRoleMapper extends CommonMapper<SsoRole> {
 	 * @param roleName 角色名称
 	 * @return
 	 */
-	List<SsoRole> searchRole(@Param("roleId")Long roleId, @Param("roleName")String roleName);
+	List<SsoRole> searchRole(Map<String,Object> map);
     
 }

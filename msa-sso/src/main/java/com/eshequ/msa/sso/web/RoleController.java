@@ -40,34 +40,32 @@ public class RoleController extends BaseController {
 	
 	//保存角色(添加或修改)
 	@RequestMapping(value = "/saveRole", method = RequestMethod.POST)
-	public BaseResult<?> saveRole(SsoRole role,String type) {
+	public BaseResult<?> saveRole(@ModelAttribute(Constants.USER)SsoUser user,SsoRole role,String type) {
 		return roleService.saveRole(role,type);
 	}
 	
 	//删除角色
 	@RequestMapping(value = "/deleteRole", method = RequestMethod.POST)
-	public BaseResult<?> deleteRole(@RequestParam(required=true) Long roleId) {
+	public BaseResult<?> deleteRole(@ModelAttribute(Constants.USER)SsoUser user,@RequestParam(required=true) Long roleId) {
 		logger.info("删除角色接口的roleId="+roleId);
 		return roleService.deleteRole(roleId);
 	}
 	
 	//根据角色id查询角色
 	@RequestMapping(value = "/getRoleById", method = RequestMethod.POST)
-	public SsoRole getRoleById(Long roleId) {
+	public SsoRole getRoleById(@ModelAttribute(Constants.USER)SsoUser user,Long roleId) {
 		return roleService.getRoleById(roleId);
 	}
 	
 	//获得角色列表
 	@RequestMapping(value = "/getAllRole", method = RequestMethod.POST)
-	public List<SsoRole> getAllRole(HttpSession session) throws JsonParseException, JsonMappingException, IOException {
-		session.getAttribute(Constants.USER);
-//		SsoUser u = (SsoUser)session.getAttribute(Constants.USER);
+	public List<SsoRole> getAllRole(@ModelAttribute(Constants.USER)SsoUser user) throws JsonParseException, JsonMappingException, IOException {
 		return roleService.getAllRole();
 	}
 	
 	//搜索角色
 	@RequestMapping(value = "/searchRole", method = RequestMethod.POST)
-	public List<SsoRole> searchRole(Long roleId,String roleName) {
+	public List<SsoRole> searchRole(@ModelAttribute(Constants.USER)SsoUser user,Long roleId,String roleName) {
 		return roleService.searchRole(roleId, roleName);
 	}
 	

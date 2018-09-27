@@ -16,6 +16,7 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -90,7 +91,7 @@ public class LoginController extends BaseController{
 			String loginUserJson = objectMapper.writeValueAsString(user);
 			redisTemplate.opsForValue().set(sessionId, loginUserJson);//用当前的sessionId作为唯一标识，存储用户信息(包括生成的token，和sessionId)
 			redisTemplate.opsForValue().set("tokenSessionId", sessionId);//存储一个取得sso令牌sessionId的一个redis，用于检验token是否有效
-			session.setAttribute(Constants.USER, loginUserJson);//放入json格式的user
+			session.setAttribute(Constants.USER, user);//放入json格式的user
 //			http请求-->下发token到crm系统并且告知sessionId
 			Map<String,String> map = new HashMap<String,String>();
 			map.put("token", token);
