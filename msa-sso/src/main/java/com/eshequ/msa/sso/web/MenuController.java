@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.eshequ.msa.common.BaseResult;
@@ -25,7 +26,7 @@ public class MenuController extends BaseController{
 	
 	//删除菜单
 	@RequestMapping(value = "/deleteMenu", method = RequestMethod.POST)
-	public BaseResult<?> deleteMenu(Long menuId) {
+	public BaseResult<?> deleteMenu(@RequestParam(required=true)Long menuId) {
 		return menuService.deleteMenu(menuId);
 	}
 	

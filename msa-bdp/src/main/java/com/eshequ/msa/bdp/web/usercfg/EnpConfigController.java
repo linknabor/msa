@@ -24,12 +24,13 @@ public class EnpConfigController extends BaseController{
 	
 	//获得企业客户信息
 	@RequestMapping(value="/getEnterprise",method=RequestMethod.GET)
-	public List<MsaBaseEnterprise> getEnterprise(BaseModel model) {
-		return enpConfigService.getEnterprise(model);
+	public List<MsaBaseEnterprise> getEnterprise(String enterpriseName,int pageNum, int pageSize) {
+		
+		return enpConfigService.getEnterprise(enterpriseName,pageNum, pageSize);
 	}
 	
 	// 根据企业客户信息获得企业参数配置
-	@RequestMapping(value="/getEnterpriseConfigByEnterpriseId",method=RequestMethod.GET)
+	@RequestMapping(value = "getEnterpriseConfigByEnterpriseId", method = RequestMethod.GET)
 	public List<MsaCfgEnpPara> getEnterpriseConfigByEnterpriseId(Long enterpriseId) {
 		return enpConfigService.getEnterpriseConfigByEnterpriseId(enterpriseId);
 	}
@@ -39,6 +40,8 @@ public class EnpConfigController extends BaseController{
 	public BaseResult<?> updateCfgEnpByParaId(Long paraId,String value) {
 		return enpConfigService.updateCfgEnpByParaId(paraId, value);
 	}
+	
+	
 
 	
 }
