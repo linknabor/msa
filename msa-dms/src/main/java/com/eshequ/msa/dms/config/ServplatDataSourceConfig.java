@@ -25,7 +25,7 @@ import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
  *
  */
 @Configuration
-@MapperScan(basePackages = "com.eshequ.msa.dms.mapper.servplat", sqlSessionFactoryRef = "customSqlSessionFactory")
+@MapperScan(basePackages = "com.eshequ.msa.dms.mapper.servplat", sqlSessionFactoryRef = "servplatSqlSessionFactory")
 public class ServplatDataSourceConfig {
 	
 	@Value("${mybatis.mapper.resource}")
@@ -34,23 +34,23 @@ public class ServplatDataSourceConfig {
 	@Autowired
 	private Environment env;
 	
-	@Bean(name = "customDataSource")
-	public DataSource customDataSource() {
-		DataSource dataSource = DruidDataSourceBuilder.create().build(env, "spring.datasource.druid.two.");
+	@Bean(name = "servplatDataSource")
+	public DataSource servplatDataSource() {
+		DataSource dataSource = DruidDataSourceBuilder.create().build(env, "spring.datasource.druid.servplat.");
 		return dataSource;
 	}
 	
-    @Bean(name = "customTransactionManager")
-    public DataSourceTransactionManager customTransactionManager() {
-        return new DataSourceTransactionManager(customDataSource());
+    @Bean(name = "servplatTransactionManager")
+    public DataSourceTransactionManager servplatTransactionManager() {
+        return new DataSourceTransactionManager(servplatDataSource());
     }
 
-    @Bean(name = "customSqlSessionFactory")
-    public SqlSessionFactory customSqlSessionFactory(@Qualifier("customDataSource") DataSource customDataSource)
+    @Bean(name = "servplatSqlSessionFactory")
+    public SqlSessionFactory customSqlSessionFactory(@Qualifier("servplatDataSource") DataSource servplatDataSource)
             throws Exception {
     	
         SqlSessionFactoryBean sessionFactory = new SqlSessionFactoryBean();
-        sessionFactory.setDataSource(customDataSource);
+        sessionFactory.setDataSource(servplatDataSource);
         PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
         sessionFactory.setMapperLocations(resolver.getResources(mapperResource));
         return sessionFactory.getObject();
