@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -65,11 +66,11 @@ public class RoleController extends BaseController {
 	
 	//搜索角色
 	@RequestMapping(value = "/searchRole", method = RequestMethod.POST)
-	public List<SsoRole> searchRole(@ModelAttribute(Constants.USER)SsoUser user,Long roleId,String roleName) {
+	public List<SsoRole> searchRole(@ModelAttribute(Constants.USER)SsoUser user,@RequestBody(required=false) SsoRole role) {
 		logger.info("进入搜索角色接口");
-		logger.info("roleId="+roleId);
-		logger.info("roleName="+roleName);
-		return roleService.searchRole(roleId, roleName);
+		logger.info("roleId="+role.getRoleId());
+		logger.info("roleName="+role.getRoleName());
+		return roleService.searchRole(role.getRoleId(), role.getRoleName());
 	}
 	
 }
