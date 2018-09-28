@@ -9,10 +9,9 @@ public interface MenuService {
 	/**
 	 * 保存菜单(添加或修改)
 	 * @param menu 菜单实体
-	 * @param type 操作类型
 	 * @return
 	 */
-	BaseResult<?> saveMenu(SsoMenu menu, String type);
+	BaseResult<?> saveMenu(SsoMenu menu);
 	
 	/**
 	 * 删除菜单

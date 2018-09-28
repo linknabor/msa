@@ -16,10 +16,9 @@ public interface RoleService {
 	/**
 	 * 保存角色(添加或修改)
 	 * @param role 角色实体
-	 * @param type 操作类型
 	 * @return
 	 */
-	BaseResult<?> saveRole(SsoRole role,String type);
+	BaseResult<?> saveRole(SsoRole role);
 	
 	/**
 	 * 删除角色

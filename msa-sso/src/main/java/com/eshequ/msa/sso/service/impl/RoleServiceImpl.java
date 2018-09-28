@@ -46,8 +46,8 @@ public class RoleServiceImpl implements RoleService{
 	
 	//保存角色(添加或修改)
 	@Override
-	public BaseResult<?> saveRole(SsoRole role,String type) {
-		if(type.equals("0")) {
+	public BaseResult<?> saveRole(SsoRole role) {
+		if(role.getRoleId() == null) {
 			// 查询当前角色名是否存在
 			int selectCount = ssoRoleMapper.selectCount(role);
 			if (selectCount > 0) {

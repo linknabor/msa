@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -31,6 +32,7 @@ import com.eshequ.msa.exception.BusinessException;
 import com.eshequ.msa.sso.model.SsoUser;
 import com.eshequ.msa.sso.service.LoginRemote;
 import com.eshequ.msa.sso.service.LoginService;
+import com.eshequ.msa.sso.vo.LoginVo;
 import com.eshequ.msa.util.vericode.VeriCodeUtil;
 import com.eshequ.msa.util.vericode.VeriCodeVO;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -58,8 +60,14 @@ public class LoginController extends BaseController{
 	 * @throws IOException 
 	 */
 	@RequestMapping(value = "/login",method = RequestMethod.POST)
-	public BaseResult<Map<String, String>> login(HttpServletResponse response,HttpServletRequest request, String reqUrl,@RequestParam("userName") String userName, String veriCode,String password,String tpSysName,RedirectAttributes res) throws IOException {
+	public BaseResult<Map<String, String>> login(HttpServletResponse response,HttpServletRequest request,@RequestBody LoginVo loginVo) throws IOException {
 		HttpSession session = request.getSession();
+		String reqUrl = loginVo.getReqUrl();
+		String userName = loginVo.getUserName();
+		String password = loginVo.getPassword();
+		String veriCode = loginVo.getVeriCode();
+		String tpSysName = loginVo.getTpSysName();
+		
 		String sessionId = session.getId();
 		logger.info("进入登录接口");
 		logger.info("当前sessionId："+sessionId);

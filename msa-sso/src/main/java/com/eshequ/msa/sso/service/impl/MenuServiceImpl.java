@@ -30,8 +30,8 @@ public class MenuServiceImpl implements MenuService{
 	private RedisTemplate<String, Object> redisTemplate;
 	
 	@Override
-	public BaseResult<?> saveMenu(SsoMenu menu, String type) {
-		if(type.equals("0")) {
+	public BaseResult<?> saveMenu(SsoMenu menu) {
+		if(menu.getMenuId() == null) {
 			// 查询当前菜单名是否存在
 			int selectCount = ssoMenuMapper.selectCount(menu);
 			if (selectCount > 0) {
