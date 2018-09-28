@@ -42,6 +42,11 @@ public class LoginVo {
 	public void setTpSysName(String tpSysName) {
 		this.tpSysName = tpSysName;
 	}
+	@Override
+	public String toString() {
+		return "LoginVo [reqUrl=" + reqUrl + ", userName=" + userName + ", password=" + password + ", veriCode="
+				+ veriCode + ", tpSysName=" + tpSysName + "]";
+	}
 
 	
 	

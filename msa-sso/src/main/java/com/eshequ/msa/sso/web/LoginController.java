@@ -70,6 +70,7 @@ public class LoginController extends BaseController{
 		
 		String sessionId = session.getId();
 		logger.info("进入登录接口");
+		logger.info("LoginVo"+loginVo);
 		logger.info("当前sessionId："+sessionId);
 		String code = (String) redisTemplate.opsForValue().get(sessionId+"code");//redis中的验证码
 		logger.info("code："+code);
