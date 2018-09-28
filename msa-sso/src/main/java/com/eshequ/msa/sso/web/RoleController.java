@@ -34,7 +34,7 @@ public class RoleController extends BaseController {
 
 	//添加角色
 	@RequestMapping(value = "/addRole", method = RequestMethod.POST)
-	public BaseResult<?> addRole(@ModelAttribute(Constants.USER) User user, String roleName) {
+	public BaseResult<?> addRole(@ModelAttribute(Constants.USER) SsoUser user, String roleName) {
 		return roleService.addRole(roleName);
 	}
 	
