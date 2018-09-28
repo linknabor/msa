@@ -66,11 +66,11 @@ public class RoleController extends BaseController {
 	
 	//搜索角色
 	@RequestMapping(value = "/searchRole", method = RequestMethod.POST)
-	public List<SsoRole> searchRole(@ModelAttribute(Constants.USER)SsoUser user,@RequestBody(required=false) SsoRole role) {
+	public List<SsoRole> searchRole(@ModelAttribute(Constants.USER)SsoUser user,Long roleId,String roleName) {
 		logger.info("进入搜索角色接口");
-		logger.info("roleId="+role.getRoleId());
-		logger.info("roleName="+role.getRoleName());
-		return roleService.searchRole(role.getRoleId(), role.getRoleName());
+		logger.info("roleId="+roleId);
+		logger.info("roleName="+roleName);
+		return roleService.searchRole(roleId, roleName);
 	}
 	
 }
