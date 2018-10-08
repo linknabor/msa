@@ -16,8 +16,10 @@ import javax.servlet.http.HttpSession;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -30,6 +32,7 @@ import com.eshequ.msa.exception.BusinessException;
 import com.eshequ.msa.sso.model.SsoUser;
 import com.eshequ.msa.sso.service.LoginRemote;
 import com.eshequ.msa.sso.service.LoginService;
+import com.eshequ.msa.sso.vo.LoginVo;
 import com.eshequ.msa.util.vericode.VeriCodeUtil;
 import com.eshequ.msa.util.vericode.VeriCodeVO;
 import com.fasterxml.jackson.core.JsonParseException;
@@ -57,10 +60,17 @@ public class LoginController extends BaseController{
 	 * @throws IOException 
 	 */
 	@RequestMapping(value = "/login",method = RequestMethod.POST)
-	public BaseResult<Map<String, String>> login(HttpServletResponse response,HttpServletRequest request, String reqUrl,@RequestParam("userName") String userName, String veriCode,String password,String tpSysName,RedirectAttributes res) throws IOException {
+	public BaseResult<Map<String, String>> login(HttpServletResponse response,HttpServletRequest request,@RequestBody LoginVo loginVo) throws IOException {
 		HttpSession session = request.getSession();
+		String reqUrl = loginVo.getReqUrl();
+		String userName = loginVo.getUserName();
+		String password = loginVo.getPassword();
+		String veriCode = loginVo.getVeriCode();
+		String tpSysName = loginVo.getTpSysName();
+		
 		String sessionId = session.getId();
 		logger.info("进入登录接口");
+		logger.info("LoginVo"+loginVo);
 		logger.info("当前sessionId："+sessionId);
 		String code = (String) redisTemplate.opsForValue().get(sessionId+"code");//redis中的验证码
 		logger.info("code："+code);
@@ -90,7 +100,7 @@ public class LoginController extends BaseController{
 			String loginUserJson = objectMapper.writeValueAsString(user);
 			redisTemplate.opsForValue().set(sessionId, loginUserJson);//用当前的sessionId作为唯一标识，存储用户信息(包括生成的token，和sessionId)
 			redisTemplate.opsForValue().set("tokenSessionId", sessionId);//存储一个取得sso令牌sessionId的一个redis，用于检验token是否有效
-			session.setAttribute(Constants.USER, loginUserJson);//放入json格式的user
+			session.setAttribute(Constants.USER, user);//放入json格式的user
 //			http请求-->下发token到crm系统并且告知sessionId
 			Map<String,String> map = new HashMap<String,String>();
 			map.put("token", token);

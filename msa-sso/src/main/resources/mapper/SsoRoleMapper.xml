@@ -17,4 +17,15 @@
   select r.role_id,r.role_name from sso_role r inner join sso_org_role o on o.role_id=r.role_id
   where o.org_id=#{orgId}
   </select>
+  
+  <!-- 搜索角色 -->
+  <select id="searchRole" parameterType="Map" resultMap="BaseResultMap">
+	SELECT * FROM `sso_role` r WHERE 1=1
+	<if test='roleId != null and roleId != ""'>
+	AND r.`ROLE_ID` like CONCAT('%',#{roleId},'%')
+	</if>
+	<if test='roleName != null and roleName != ""'>
+	AND r.`ROLE_NAME` like CONCAT('%',#{roleName},'%')
+	</if>
+  </select>
 </mapper>

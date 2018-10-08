@@ -1,6 +1,8 @@
 package com.eshequ.msa.sso.service.impl;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +14,7 @@ import com.eshequ.msa.sso.mapper.SsoRoleMapper;
 import com.eshequ.msa.sso.model.SsoRole;
 import com.eshequ.msa.sso.service.RoleService;
 import com.eshequ.msa.util.SnowFlake;
+import com.github.pagehelper.PageHelper;
 
 import tk.mybatis.mapper.entity.Example;
 
@@ -43,8 +46,8 @@ public class RoleServiceImpl implements RoleService{
 	
 	//保存角色(添加或修改)
 	@Override
-	public BaseResult<?> saveRole(SsoRole role,String type) {
-		if(type.equals("0")) {
+	public BaseResult<?> saveRole(SsoRole role) {
+		if(role.getRoleId() == null) {
 			// 查询当前角色名是否存在
 			int selectCount = ssoRoleMapper.selectCount(role);
 			if (selectCount > 0) {
@@ -98,6 +101,15 @@ public class RoleServiceImpl implements RoleService{
 	public List<SsoRole> getAllRole() {
 		List<SsoRole> list = ssoRoleMapper.selectAll();
 		return list;
+	}
+
+	//搜索角色
+	@Override
+	public List<SsoRole> searchRole(Long roleId, String roleName) {
+		Map<String,Object> map = new HashMap<String,Object>();
+		map.put("roleId", roleId);
+		map.put("roleName", roleName);
+		return ssoRoleMapper.searchRole(map);
 	}
 
 

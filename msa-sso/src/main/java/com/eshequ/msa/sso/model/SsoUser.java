@@ -1,9 +1,11 @@
 package com.eshequ.msa.sso.model;
 
+import java.io.Serializable;
+
 import javax.persistence.Id;
 import javax.persistence.Transient;
 
-public class SsoUser {
+public class SsoUser  implements Serializable {
 	@Id
     private Long userId;
 

@@ -28,7 +28,7 @@ public class MsaRegInfoController {
 	public BaseResult<?> addOrUpdateMsaInfo(MsaRegInfo msaRegInfo, String type,
 			@ModelAttribute(Constants.USER) User user) {
 		if (msaRegInfo != null) {
-			if (msaRegInfo.getRegEnterpriseId() != null) {
+			if (msaRegInfo.getRegEnterpriseId() == null) {
 				return msaRegInfoService.addMsaInfo(msaRegInfo);
 			} else {
 				if (!ObjectUtil.isEmpty(type)) {
