@@ -5,6 +5,7 @@ import javax.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.data.redis.connection.RedisPassword;
 import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
 import org.springframework.session.data.redis.config.ConfigureRedisAction;
@@ -23,6 +24,8 @@ public class HttpSessionConfig extends AbstractHttpSessionApplicationInitializer
     private Integer port;
     @Value(value = "${spring.redis.database}")
     private Integer database;
+    @Value(value = "${spring.redis.password}")
+    private String password;
     
     @Bean
     public JedisConnectionFactory connectionFactory() {
@@ -37,6 +40,7 @@ public class HttpSessionConfig extends AbstractHttpSessionApplicationInitializer
         redisStandaloneConfiguration.setHostName(host);
         redisStandaloneConfiguration.setPort(port);
         redisStandaloneConfiguration.setDatabase(database);
+        redisStandaloneConfiguration.setPassword(RedisPassword.of(password));
         return redisStandaloneConfiguration;
     }
     
