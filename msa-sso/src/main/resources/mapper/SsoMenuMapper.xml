@@ -26,6 +26,12 @@
 	AND rm.`ROLE_ID` = #{roleId}
   </select>
   
+  <!-- 根据权限查询菜单 -->
+  <select id="selectRoleMenuByRoleId" parameterType="Map" resultMap="BaseResultMap">
+	SELECT m.* FROM `sso_menu` m INNER JOIN `sso_role_menu` rm ON m.`MENU_ID` = rm.`MENU_ID`
+	WHERE  rm.`ROLE_ID` = #{roleId}
+  </select>
+  
       <!-- 修改菜单 -->
   <update  id="updateSsoMenu" parameterType="com.eshequ.msa.sso.model.SsoMenu" >
     update sso_menu 
