@@ -3,7 +3,7 @@
 <generatorConfiguration>
 
 	<classPathEntry
-		location="D:\j2ee\apache-maven-3.3.3\thirdpartylib\mysql\mysql-connector-java\5.1.46\mysql-connector-java-5.1.46.jar" />
+		location="D:\workstation\devtools\apache-maven-3.5.4\dependencies\mysql\mysql-connector-java\5.1.46\mysql-connector-java-5.1.46.jar" />
 
 	<context id="MysqlTables" targetRuntime="MyBatis3">
 		<commentGenerator>
@@ -11,8 +11,8 @@
 			<property name="suppressAllComments" value="true" />
 		</commentGenerator>
 		
-		<jdbcConnection connectionURL="jdbc:mysql://localhost:3306/servplat"
-			driverClass="com.mysql.jdbc.Driver" password="" userId="root" />
+		<jdbcConnection connectionURL="jdbc:mysql://192.168.0.199:3306/servplat"
+			driverClass="com.mysql.jdbc.Driver" password="servplat" userId="servplat" />
 			
 		<!-- java类型处理器 
 	         用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl；
@@ -61,7 +61,7 @@
 		</javaClientGenerator>
      	
      	
- 		<table schema="servplat" tableName="sp_base_ad_locate" enableCountByExample="false"
+ 		<!-- <table schema="servplat" tableName="sp_base_ad_locate" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
 			
@@ -230,7 +230,7 @@
 			
 			<property name="useActualColumnNames" value="false"/>
 			<property name="modelOnly" value="true"/>	
-		</table>
+		</table> -->
 		
 	</context>
 
