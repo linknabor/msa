@@ -1,6 +1,5 @@
 package com.eshequ.msa.sso.service.impl;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -14,7 +13,6 @@ import com.eshequ.msa.common.BaseResult;
 import com.eshequ.msa.sso.mapper.SsoMenuMapper;
 import com.eshequ.msa.sso.mapper.SsoRoleMenuMapper;
 import com.eshequ.msa.sso.model.SsoMenu;
-import com.eshequ.msa.sso.model.SsoRoleMenu;
 import com.eshequ.msa.sso.service.MenuService;
 import com.eshequ.msa.util.SnowFlake;
 
@@ -125,6 +123,22 @@ public class MenuServiceImpl implements MenuService{
 		map.put("menuIdArray", menuIdArray);
 		map.put("roleId", roleId);
 		ssoRoleMenuMapper.insertSsoRoleMenu(map);
+	}
+
+	// 通过角色，获得所有菜单及权限
+	@Override
+	public List<SsoMenu> getAllRoleMenuByRoleId(Long roleId) {
+		List<SsoMenu> allMenuList = ssoMenuMapper.selectAll();//全部菜单
+		List<SsoMenu> allRoleMenuList = getAllMenuByRole(roleId);//当前角色权限的菜单
+		for (SsoMenu menu : allMenuList) {
+			for (SsoMenu roleMenu : allRoleMenuList) {
+				if(menu.getMenuId() == roleMenu.getMenuId()) {
+					menu.setChecked(true);//设置是否有此权限
+					menu.setSsoMenuList(roleMenu.getSsoMenuList());//设置子级权限
+				}
+			}
+		}
+		return allMenuList;
 	}
 
 

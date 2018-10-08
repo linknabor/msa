@@ -26,6 +26,9 @@ public class SsoMenu extends BaseModel {
     
     @Transient 
     private List<SsoMenu> ssoMenuList;
+    
+    @Transient 
+    private boolean isChecked;
 
     public Long getMenuId() {
         return menuId;
@@ -97,6 +100,14 @@ public class SsoMenu extends BaseModel {
 
 	public void setSsoMenuList(List<SsoMenu> ssoMenuList) {
 		this.ssoMenuList = ssoMenuList;
+	}
+
+	public boolean isChecked() {
+		return isChecked;
+	}
+
+	public void setChecked(boolean isChecked) {
+		this.isChecked = isChecked;
 	}
     
     
