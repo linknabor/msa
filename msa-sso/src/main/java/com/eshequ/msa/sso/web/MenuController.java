@@ -29,7 +29,7 @@ public class MenuController extends BaseController{
 		return menuService.saveMenu(menu);
 	}	
 	
-	//删除菜单
+	//删除菜单 -menuId
 	@RequestMapping(value = "/deleteMenu", method = RequestMethod.POST)
 	public BaseResult<?> deleteMenu(@ModelAttribute(Constants.USER)SsoUser user,@RequestBody SsoMenu menu) {
 		return menuService.deleteMenu(menu.getMenuId());
@@ -53,10 +53,16 @@ public class MenuController extends BaseController{
 		return menuService.getAllMenuByRole(roleId);
 	}
 	
-	//给角色添加菜单权限
+	//给角色添加菜单权限 -RoleMenuVo所有参数
 	@RequestMapping(value = "/saveRoleMenuByRoleId", method = RequestMethod.POST)
 	public void saveRoleMenuByRoleId(@ModelAttribute(Constants.USER)SsoUser user,@RequestBody RoleMenuVo roleMenuVo) {
 		menuService.saveRoleMenuByRoleId(roleMenuVo.getMenuIdArray(), roleMenuVo.getRoleId());
+	}
+	
+	// 通过角色，获得所有菜单及权限（相当于getAllMenuByRole和getAllMenu接口的结合）
+	@RequestMapping(value = "/getAllRoleMenuByRoleId", method = RequestMethod.GET)
+	public List<SsoMenu> getAllRoleMenuByRoleId(@ModelAttribute(Constants.USER)SsoUser user,Long roleId) {
+		return menuService.getAllRoleMenuByRoleId(roleId);
 	}
 
 }

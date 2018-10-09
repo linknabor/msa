@@ -39,13 +39,13 @@ public class RoleController extends BaseController {
 		return roleService.addRole(roleName);
 	}
 	
-	//保存角色(添加或修改)
+	//保存角色(添加或修改) 
 	@RequestMapping(value = "/saveRole", method = RequestMethod.POST)
 	public BaseResult<?> saveRole(@ModelAttribute(Constants.USER)SsoUser user,@RequestBody SsoRole role) {
 		return roleService.saveRole(role);
 	}
 	
-	//删除角色
+	//删除角色 roleId
 	@RequestMapping(value = "/deleteRole", method = RequestMethod.POST)
 	public BaseResult<?> deleteRole(@ModelAttribute(Constants.USER)SsoUser user,@RequestBody SsoRole role) {
 		logger.info("删除角色接口的roleId="+role.getRoleId());

@@ -47,4 +47,10 @@ public interface MenuService {
 	 */
 	void saveRoleMenuByRoleId(Long[] menuIdArray,Long roleId);
 	
+	/**
+	 * 通过角色，获得所有菜单及权限
+	 * @param roleId 角色id
+	 */
+	List<SsoMenu> getAllRoleMenuByRoleId(Long roleId);
+	
 }
