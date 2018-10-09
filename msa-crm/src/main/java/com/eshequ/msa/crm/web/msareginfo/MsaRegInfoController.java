@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +26,7 @@ public class MsaRegInfoController {
 	private MsaRegInfoService msaRegInfoService;
 
 	@RequestMapping(value = "/addOrUpdateMsaInfo", method = RequestMethod.POST)
-	public BaseResult<?> addOrUpdateMsaInfo(MsaRegInfo msaRegInfo, String type,
+	public BaseResult<?> addOrUpdateMsaInfo(@RequestBody MsaRegInfo msaRegInfo, String type,
 			@ModelAttribute(Constants.USER) User user) {
 		if (msaRegInfo != null) {
 			if (msaRegInfo.getRegEnterpriseId() == null) {
@@ -51,7 +52,7 @@ public class MsaRegInfoController {
 
 	@RequestMapping(value = "/getMsaInfoList", method = RequestMethod.GET)
 	public PageInfo<MsaRegInfo> getMsaInfoList(@RequestParam(defaultValue = "0", required = false) int pageNum,
-			@RequestParam(defaultValue = "10", required = false) int pageSize, MsaRegInfo msaRegInfo) {
+			@RequestParam(defaultValue = "10", required = false) int pageSize,@RequestBody MsaRegInfo msaRegInfo) {
 		PageHelper.startPage(pageNum, pageSize);
 		List<MsaRegInfo> lists = msaRegInfoService.getMsaInfoList(msaRegInfo);
 		PageInfo<MsaRegInfo> pageInfo = new PageInfo<>(lists);

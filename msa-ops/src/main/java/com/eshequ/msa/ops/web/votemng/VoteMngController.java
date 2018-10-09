@@ -41,7 +41,7 @@ public class VoteMngController extends BaseController {
 	}
 	@RequestMapping(value = "/getVoteMngList", method = RequestMethod.GET)
 	public PageInfo<VoteMng> getVoteMngList(@RequestParam(defaultValue = "0", required = false) Integer pageNum,
-			@RequestParam(defaultValue = "10", required = false) Integer pageSize, VoteMng voteMng) {
+			@RequestParam(defaultValue = "10", required = false) Integer pageSize,@RequestBody VoteMng voteMng) {
 		PageHelper.startPage(pageNum, pageSize);
 		List<VoteMng> lists = voteMngService.getVoteMngList(voteMng);
 		PageInfo<VoteMng> pageInfo = new PageInfo<>(lists);
