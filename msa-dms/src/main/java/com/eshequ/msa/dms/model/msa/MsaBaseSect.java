@@ -58,6 +58,8 @@ public class MsaBaseSect extends BaseModel {
     private String officeTel;
 
     private String relatedSectNo;
+    
+    private String originalId;
 
     public Long getSectId() {
         return sectId;
@@ -282,4 +284,14 @@ public class MsaBaseSect extends BaseModel {
     public void setRelatedSectNo(String relatedSectNo) {
         this.relatedSectNo = relatedSectNo;
     }
+
+	public String getOriginalId() {
+		return originalId;
+	}
+
+	public void setOriginalId(String originalId) {
+		this.originalId = originalId;
+	}
+    
+    
 }

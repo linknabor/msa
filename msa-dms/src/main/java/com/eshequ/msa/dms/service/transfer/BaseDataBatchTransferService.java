@@ -5,5 +5,6 @@ import com.eshequ.msa.common.BaseResult;
 public interface BaseDataBatchTransferService {
 	
 	BaseResult<String> migrateBaseData();
+	BaseResult<String> migrateCellData();
 
 }
