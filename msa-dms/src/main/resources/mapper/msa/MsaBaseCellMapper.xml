@@ -18,5 +18,6 @@
     <result column="BUILD_USAGE" jdbcType="CHAR" property="buildUsage" />
     <result column="RELATED_HOU_NO" jdbcType="VARCHAR" property="relatedHouNo" />
     <result column="SECT_ID" jdbcType="BIGINT" property="sectId" />
+    <result column="ORIGINAL_ID" jdbcType="VARCHAR" property="originalId" />
   </resultMap>
 </mapper>

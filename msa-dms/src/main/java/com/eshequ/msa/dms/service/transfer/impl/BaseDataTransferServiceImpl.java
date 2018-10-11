@@ -10,33 +10,46 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.eshequ.msa.common.BaseResult;
+import com.eshequ.msa.dms.mapper.msa.MsaBaseCarportMapper;
 import com.eshequ.msa.dms.mapper.msa.MsaBaseCellMapper;
 import com.eshequ.msa.dms.mapper.msa.MsaBaseCityMapper;
 import com.eshequ.msa.dms.mapper.msa.MsaBaseEnterpriseMapper;
+import com.eshequ.msa.dms.mapper.msa.MsaBaseHouseMapper;
 import com.eshequ.msa.dms.mapper.msa.MsaBaseProvinceMapper;
 import com.eshequ.msa.dms.mapper.msa.MsaBaseRegionMapper;
 import com.eshequ.msa.dms.mapper.msa.MsaBaseSectMapper;
+import com.eshequ.msa.dms.mapper.msa.MsaBaseShopsMapper;
+import com.eshequ.msa.dms.mapper.servplat.SpBaseCatportMapper;
 import com.eshequ.msa.dms.mapper.servplat.SpBaseCityMapper;
 import com.eshequ.msa.dms.mapper.servplat.SpBaseCspMapper;
+import com.eshequ.msa.dms.mapper.servplat.SpBaseHouseMapper;
 import com.eshequ.msa.dms.mapper.servplat.SpBaseMngCellMapper;
 import com.eshequ.msa.dms.mapper.servplat.SpBaseProvinceMapper;
 import com.eshequ.msa.dms.mapper.servplat.SpBaseRegionMapper;
 import com.eshequ.msa.dms.mapper.servplat.SpBaseSectMapper;
+import com.eshequ.msa.dms.mapper.servplat.SpBaseShopsMapper;
+import com.eshequ.msa.dms.model.msa.MsaBaseCarport;
 import com.eshequ.msa.dms.model.msa.MsaBaseCell;
 import com.eshequ.msa.dms.model.msa.MsaBaseCity;
 import com.eshequ.msa.dms.model.msa.MsaBaseEnterprise;
+import com.eshequ.msa.dms.model.msa.MsaBaseHouse;
 import com.eshequ.msa.dms.model.msa.MsaBaseProvince;
 import com.eshequ.msa.dms.model.msa.MsaBaseRegion;
 import com.eshequ.msa.dms.model.msa.MsaBaseSect;
+import com.eshequ.msa.dms.model.msa.MsaBaseShops;
+import com.eshequ.msa.dms.model.servplat.SpBaseCarport;
 import com.eshequ.msa.dms.model.servplat.SpBaseCity;
 import com.eshequ.msa.dms.model.servplat.SpBaseCsp;
+import com.eshequ.msa.dms.model.servplat.SpBaseHouse;
 import com.eshequ.msa.dms.model.servplat.SpBaseMngCell;
 import com.eshequ.msa.dms.model.servplat.SpBaseProvince;
 import com.eshequ.msa.dms.model.servplat.SpBaseRegion;
 import com.eshequ.msa.dms.model.servplat.SpBaseSect;
+import com.eshequ.msa.dms.model.servplat.SpBaseShops;
 import com.eshequ.msa.dms.service.transfer.BaseDataBatchTransferService;
 import com.eshequ.msa.exception.BusinessException;
 import com.eshequ.msa.util.SnowFlake;
+import com.github.pagehelper.PageHelper;
 
 @Service
 public class BaseDataTransferServiceImpl implements BaseDataBatchTransferService {
@@ -80,23 +93,55 @@ public class BaseDataTransferServiceImpl implements BaseDataBatchTransferService
 	@Autowired
 	private SpBaseMngCellMapper spBaseMngCellMapper;
 	
+	@Autowired
+	private MsaBaseHouseMapper msaBaseHouseMapper;
+	
+	@Autowired
+	private SpBaseHouseMapper spBaseHouseMapper;
+	
+	@Autowired
+	private MsaBaseShopsMapper msaBaseShopsMapper;
+	
+	@Autowired
+	private SpBaseShopsMapper spBaseShopsMapper;
+	
+	@Autowired
+	private MsaBaseCarportMapper msaBaseCarportMapper;
+	
+	@Autowired
+	private SpBaseCatportMapper spBaseCatportMapper;
+	
 	/**
 	 * 基础数据迁移
 	 */
 	@Override
 	public BaseResult<String> migrateBaseData() {
 
-		migrateProvince();
-		migrateCity();
-		migrateRegion();
-		migrateEnterprise();
+//		migrateProvince();
+//		migrateCity();
+//		migrateRegion();
+//		migrateEnterprise();
 		migrateSect();
-		migrateCell();
 		
 		BaseResult<String> baseResult = new BaseResult<String>();
 		baseResult.setResult("0");
 		return baseResult;
 	
+	}
+	
+	public BaseResult<String> migrateCellData(){
+		List<MsaBaseSect> sectList = msaBaseSectMapper.selectAll();
+		Map<String,Long>sectMap = new HashMap<String, Long>();
+		for (MsaBaseSect msaBaseSect :sectList) {
+			sectMap.put(msaBaseSect.getRelatedSectNo(), msaBaseSect.getSectId());
+		}
+		for(int i = 0; i <= 237; i++) {
+//			if(i == 3) throw new BusinessException("roll back");
+			migrateCell(i +1, sectMap);
+		}
+		BaseResult<String> baseResult = new BaseResult<String>();
+		baseResult.setResult("0");
+		return baseResult;
 	}
 	
 
@@ -165,14 +210,14 @@ public class BaseDataTransferServiceImpl implements BaseDataBatchTransferService
 			msaBaseRegion.setRegionId(snowFlake.nextId());
 			msaBaseRegionMapper.insertSelective(msaBaseRegion);
 		}
-		
-		if(true) {
-			throw new BusinessException("test transaction rollback !");
-		}
+//		
+//		if(true) {
+//			throw new BusinessException("test transaction rollback !");
+//		}
 		
 	}
 	
-	@Transactional
+	@Transactional(rollbackFor={BusinessException.class})
 	public void migrateEnterprise() {
 		
 		List<MsaBaseEnterprise> enterpriseList = msaBaseEnterpriseMapper.selectAll();
@@ -187,11 +232,15 @@ public class BaseDataTransferServiceImpl implements BaseDataBatchTransferService
 			BeanUtils.copyProperties(spBaseCsp, msaBaseEnterprise);
 			msaBaseEnterprise.setRemark(spBaseCsp.getCspId().toString());
 			msaBaseEnterprise.setEnterpriseId(snowFlake.nextId()+"");
+			msaBaseEnterprise.setEnterpriseName(spBaseCsp.getCspName());
+			msaBaseEnterprise.setEnterpriseAddr(spBaseCsp.getOrgAddr());
+			msaBaseEnterprise.setEnterpriseState(spBaseCsp.getCspStatus());
+			msaBaseEnterprise.setEnterpriseTel(spBaseCsp.getOrgTel());
 			msaBaseEnterpriseMapper.insertSelective(msaBaseEnterprise);
 		}
 	}
 
-	@Transactional
+	@Transactional(rollbackFor={BusinessException.class})
 	public void migrateSect() {
 		List<MsaBaseSect> sectList = msaBaseSectMapper.selectAll();
 		Map<String,String> sectMap = new HashMap<String, String>();
@@ -204,28 +253,63 @@ public class BaseDataTransferServiceImpl implements BaseDataBatchTransferService
 			MsaBaseSect msaBaseSect = new MsaBaseSect();
 			BeanUtils.copyProperties(spBaseSect, msaBaseSect);
 			msaBaseSect.setRemark(spBaseSect.getSectId().toString());
+			msaBaseSect.setStatus(spBaseSect.getSectStatus());
+			msaBaseSect.setSectName(spBaseSect.getSectNameFrst());
+			msaBaseSect.setSectAddr(spBaseSect.getSectAddrFrst());
+			msaBaseSect.setOriginalId(spBaseSect.getSectId()+"");
 			msaBaseSect.setSectId(snowFlake.nextId());
 			msaBaseSectMapper.insertSelective(msaBaseSect);
 		}
 	}
+	
+	@Transactional(rollbackFor={BusinessException.class})
+	public void migrateCell(int page, Map<String, Long> sectMap) {
 
-	public void migrateCell() {
-		List<MsaBaseCell> cellList = msaBaseCellMapper.selectAll();
-		Map<String,Long>cellMap = new HashMap<String, Long>();
-		for (MsaBaseCell msaBaseCell :cellList) {
-			cellMap.put(msaBaseCell.getRemark(), msaBaseCell.getMngCellId());
-		}
-		
-		List<SpBaseMngCell>spcellList = spBaseMngCellMapper.selectAll();
-		for (SpBaseMngCell spBaseCell : spcellList) {
-			MsaBaseCell msaBaseCell = new MsaBaseCell();
-			BeanUtils.copyProperties(spBaseCell, msaBaseCell);
-			msaBaseCell.setRemark(spBaseCell.getSectId().toString());
-			msaBaseCell.setMngCellId(snowFlake.nextId());
-			msaBaseCellMapper.insertSelective(msaBaseCell);
+			PageHelper.startPage(page, 1000, false);
+			List<SpBaseMngCell>spcellList = spBaseMngCellMapper.selectAll();
+			for (SpBaseMngCell spBaseCell : spcellList) {
+				MsaBaseCell msaBaseCell = new MsaBaseCell();
+				BeanUtils.copyProperties(spBaseCell, msaBaseCell);
+				msaBaseCell.setRemark(spBaseCell.getSectId().toString());
+				msaBaseCell.setStatus(spBaseCell.getCellStatus());
+				msaBaseCell.setSectId(sectMap.get(spBaseCell.getSectId()+""));
+				msaBaseCell.setOriginalId(spBaseCell.getMngCellId()+"");
+				msaBaseCell.setMngCellId(snowFlake.nextId());
+				msaBaseCellMapper.insertSelective(msaBaseCell);
+			}
+	}
+
+	@Transactional(rollbackFor={BusinessException.class})
+	public void migrateHouse(int page) {
+
+			PageHelper.startPage(page, 1000, false);
+			List<SpBaseHouse> sphouseList = spBaseHouseMapper.selectAll();
+			for (SpBaseHouse spBaseHouse : sphouseList) {
+				MsaBaseHouse msaBaseHouse = new MsaBaseHouse();
+				BeanUtils.copyProperties(spBaseHouse, msaBaseHouse);
+				msaBaseHouseMapper.insertSelective(msaBaseHouse);
+			}
+	}		
+
+	@Transactional(rollbackFor={BusinessException.class})
+	public void migrateShops(int page) {
+		PageHelper.startPage(page, 1000, false);
+		List<SpBaseShops> spshopsList = spBaseShopsMapper.selectAll();
+		for(SpBaseShops spBaseShops : spshopsList) {
+			MsaBaseShops msaBaseShops = new MsaBaseShops();
+			BeanUtils.copyProperties(spBaseShops, msaBaseShops);
+			msaBaseShopsMapper.insertSelective(msaBaseShops);
 		}
 	}
 
-
-
+	@Transactional(rollbackFor={BusinessException.class})
+	public void migrateCarport(int page) {
+		PageHelper.startPage(page, 1000, false);
+		List<SpBaseCarport> spcarportList = spBaseCatportMapper.selectAll();
+		for(SpBaseCarport spBaseCarport : spcarportList) {
+			MsaBaseCarport msaBaseCarport = new MsaBaseCarport();
+			BeanUtils.copyProperties(spBaseCarport, msaBaseCarport);
+			msaBaseCarportMapper.insertSelective(msaBaseCarport);
+		}
+	}
 }
