@@ -1,9 +1,7 @@
 package com.eshequ.msa.ops.model.votemng;
 
-import java.util.List;
 
 import javax.persistence.Id;
-import javax.persistence.Transient;
 
 import com.eshequ.msa.common.BaseModel;
 
@@ -30,6 +28,13 @@ public class VoteRelease extends BaseModel {
     private String createDate;
 
     private String cerateTime;
+    //主图
+    private String mainImage;
+    //用户id
+    private Long userId;
+    //机构名称
+    private String orgName;
+    
     
     public Long getReleaseId() {
         return releaseId;
@@ -119,4 +124,28 @@ public class VoteRelease extends BaseModel {
         this.cerateTime = cerateTime;
     }
 
+	public String getMainImage() {
+		return mainImage;
+	}
+
+	public void setMainImage(String mainImage) {
+		this.mainImage = mainImage;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public String getOrgName() {
+		return orgName;
+	}
+
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
+	}
+ 
 }
