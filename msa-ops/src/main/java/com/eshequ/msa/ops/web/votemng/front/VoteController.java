@@ -40,7 +40,7 @@ public class VoteController {
 	private IVoteMngService voteMngService;
 	
 	@RequestMapping(value = "/getVoteReleaseList", method = RequestMethod.GET)
-	public List<VoteRelease> getVoteReleaseList(@RequestBody VoteReleaseParamVo voteReleaseParamVo) {
+	public List<VoteRelease> getVoteReleaseList(VoteReleaseParamVo voteReleaseParamVo) {
 		List<VoteRelease> lists = voteReleaseService.getVoteReleaseList(voteReleaseParamVo);
 		return lists;
 	}
@@ -56,7 +56,7 @@ public class VoteController {
 		return v;
 	}
 	@RequestMapping(value = "/addVoteRecord", method = RequestMethod.POST)
-	public BaseResult<?> addVoteRecord(VoteRelaseOptionVo voteRelaseOptionVo,
+	public BaseResult<?> addVoteRecord(@RequestBody VoteRelaseOptionVo voteRelaseOptionVo,
 			@ModelAttribute(Constants.USER) User user){
 		return voteReleaseService.addVoteRecord(voteRelaseOptionVo,user);
 	}
