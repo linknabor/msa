@@ -16,5 +16,6 @@
     <result column="CUST_ACCT_NO" jdbcType="BIGINT" property="custAcctNo" />
     <result column="IS_CERTIFI" jdbcType="CHAR" property="isCertifi" />
     <result column="RELATED_CUST_NO" jdbcType="VARCHAR" property="relatedCustNo" />
+    <result column="ORIGINAL_ID" jdbcType="VARCHAR" property="originalId" />
   </resultMap>
 </mapper>

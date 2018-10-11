@@ -32,6 +32,8 @@ public class MsaBaseCustCar extends BaseModel {
     private String custName;
 
     private String cardNo;
+    
+    private String originalId;
 
     public Long getCarId() {
         return carId;
@@ -152,4 +154,14 @@ public class MsaBaseCustCar extends BaseModel {
     public void setCardNo(String cardNo) {
         this.cardNo = cardNo;
     }
+
+	public String getOriginalId() {
+		return originalId;
+	}
+
+	public void setOriginalId(String originalId) {
+		this.originalId = originalId;
+	}
+    
+    
 }
