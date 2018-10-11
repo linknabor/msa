@@ -56,7 +56,7 @@ public class VoteController {
 		return v;
 	}
 	@RequestMapping(value = "/addVoteRecord", method = RequestMethod.POST)
-	public BaseResult<?> addVoteRecord(@RequestBody VoteRelaseOptionVo voteRelaseOptionVo,
+	public BaseResult<?> addVoteRecord(VoteRelaseOptionVo voteRelaseOptionVo,
 			@ModelAttribute(Constants.USER) User user){
 		return voteReleaseService.addVoteRecord(voteRelaseOptionVo,user);
 	}
