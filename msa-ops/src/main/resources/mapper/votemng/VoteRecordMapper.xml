@@ -33,5 +33,7 @@
   <select id="checkVoteUser" parameterType="long" resultType="int">
   SELECT COUNT(*) FROM VOTE_RECORD WHERE VOTE_ID = #{voteId} AND USER_ID = #{userId}
   </select>
- 
+  <select id="checkRecord" parameterType="long" resultType="int">
+  SELECT COUNT(*) FROM VOTE_RECORD WHERE RELEASE_ID = #{releaseId} AND USER_ID = #{userId}
+  </select>
 </mapper>

@@ -1,6 +1,7 @@
 package com.eshequ.msa.ops.web.projectstatusmng;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,11 +20,11 @@ public class ProjectStatusMngController {
 	
 	@RequestMapping(value="/getMsaBaseSectList",method=RequestMethod.GET)
 	public BaseResult<?> getMsaBaseSectList(@RequestParam(defaultValue = "0", required = false) int pageNum,
-			@RequestParam(defaultValue = "10", required = false) int pageSize,SectAndEnterpriseVo sectAndEnterpriseVo){
+			@RequestParam(defaultValue = "10", required = false) int pageSize,@RequestBody SectAndEnterpriseVo sectAndEnterpriseVo){
 		return bdpSectAndEnterpriseRemote.getSectAndEnterpriseList(pageNum, pageSize, sectAndEnterpriseVo);
 	}
 	@RequestMapping(value="/addOrUpdateMasBaseSect",method=RequestMethod.POST)
-	public BaseResult<?> addOrUpdateMasBaseSect(MsaBaseSect masBaseSect){
+	public BaseResult<?> addOrUpdateMasBaseSect(@RequestBody MsaBaseSect masBaseSect){
 		if(masBaseSect != null){
 			if(masBaseSect.getSectId() != null){
 			int count=bdpSectAndEnterpriseRemote.updateMasBaseSect(masBaseSect);

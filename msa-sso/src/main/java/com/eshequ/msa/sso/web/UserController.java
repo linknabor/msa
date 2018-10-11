@@ -3,6 +3,7 @@ package com.eshequ.msa.sso.web;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -24,7 +25,7 @@ public class UserController extends BaseController {
 	private UserService userService;
 
 	@RequestMapping(value = "/addOrUpdateUser", method = RequestMethod.POST)
-	public BaseResult<?> addOrUpdateUser(SsoUser ssoUser) {
+	public BaseResult<?> addOrUpdateUser(@RequestBody SsoUser ssoUser) {
 		if (ssoUser != null) {
 			if (ssoUser.getUserId() != null) {
 				return userService.updateUser(ssoUser);
@@ -46,7 +47,7 @@ public class UserController extends BaseController {
 
 	@RequestMapping(value = "/getUserList", method = RequestMethod.GET)
 	public PageInfo<SsoUser> getUserList(@RequestParam(defaultValue = "0", required = false) int pageNum,
-			@RequestParam(defaultValue = "10", required = false) int pageSize, SsoUser ssoUser, String startDate,
+			@RequestParam(defaultValue = "10", required = false) int pageSize,@RequestBody SsoUser ssoUser, String startDate,
 			String endDate) {
 		PageHelper.startPage(pageNum, pageSize);
 		List<SsoUser> lists = userService.getUser(ssoUser, startDate, endDate);

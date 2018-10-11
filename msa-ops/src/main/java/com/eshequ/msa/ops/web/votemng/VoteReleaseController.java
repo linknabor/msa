@@ -43,7 +43,7 @@ public class VoteReleaseController {
 
 	@RequestMapping(value = "/getVoteReleaseList", method = RequestMethod.GET)
 	public PageInfo<VoteRelease> getVoteReleaseList(@RequestParam(defaultValue = "0", required = false) Integer pageNum,
-			@RequestParam(defaultValue = "10", required = false) Integer pageSize, VoteReleaseParamVo voteReleaseParamVo) {
+			@RequestParam(defaultValue = "10", required = false) Integer pageSize,@RequestBody VoteReleaseParamVo voteReleaseParamVo) {
 		PageHelper.startPage(pageNum, pageSize);
 		List<VoteRelease> lists = voteReleaseService.getVoteReleaseList(voteReleaseParamVo);
 		PageInfo<VoteRelease> pageInfo = new PageInfo<>(lists);
@@ -52,7 +52,7 @@ public class VoteReleaseController {
 	}
 
 	@RequestMapping(value = "/getVoteReleaseById", method = RequestMethod.GET)
-	public VoteReleaseAndRegionVo getVoteReleaseById(VoteRelease voteRelease) {
+	public VoteReleaseAndRegionVo getVoteReleaseById(@RequestBody VoteRelease voteRelease) {
 		VoteReleaseAndRegionVo v = voteReleaseService.getVoteReleaseById(voteRelease);
 		List<ReleaseRegion> list = voteReleaseService.getReleaseRegionByreleaseId(voteRelease.getReleaseId());
 		v.setList(list);
@@ -69,7 +69,7 @@ public class VoteReleaseController {
 	}
 
 	@RequestMapping(value = "/updateVoteReleaseStatus", method = RequestMethod.POST)
-	public BaseResult<?> updateVoteReleaseStatus(VoteRelease voteRelease) {
+	public BaseResult<?> updateVoteReleaseStatus(@RequestBody VoteRelease voteRelease) {
 		return voteReleaseService.updateVoteReleaseStatus(voteRelease);
 	}
 	@RequestMapping(value = "/getAllRegion", method = RequestMethod.GET)
