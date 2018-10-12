@@ -21,6 +21,7 @@ public class User implements Serializable {
 	private long roleId;
 	private String roleName;
 	private String realName;
+	private String orgName;
 	public long getUserId() {
 		return userId;
 	}
@@ -51,7 +52,10 @@ public class User implements Serializable {
 	public void setRealName(String realName) {
 		this.realName = realName;
 	}
-	
-	
-
+	public String getOrgName() {
+		return orgName;
+	}
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
+	}
 }

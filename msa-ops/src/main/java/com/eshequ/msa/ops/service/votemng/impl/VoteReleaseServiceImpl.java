@@ -45,8 +45,12 @@ public class VoteReleaseServiceImpl implements IVoteReleaseService {
 	private SnowFlake snowFlake;
 
 	@Override
-	public BaseResult<?> addVoteRelease(VoteReleaseAndRegionVo voteReleaseAndRegionVo) {
+	public BaseResult<?> addVoteRelease(VoteReleaseAndRegionVo voteReleaseAndRegionVo,User user) {
 		long releaseId = snowFlake.nextId();
+		if(user != null){
+			voteReleaseAndRegionVo.setUserId(user.getUserId());
+			voteReleaseAndRegionVo.setOrgName(user.getOrgName());
+		}
 		int count = voteReleaseMapper
 				.insertSelective(copyVoteReleaseVoToVoteRelease(releaseId, voteReleaseAndRegionVo));
 		if (count == 0) {
