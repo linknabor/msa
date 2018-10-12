@@ -30,6 +30,8 @@ public class SpBaseCustCar extends BaseModel {
     private String carportType;
 
     private String isPrepaid;
+    
+    private String custName;
 
     public Long getCarId() {
         return carId;
@@ -142,4 +144,14 @@ public class SpBaseCustCar extends BaseModel {
     public void setIsPrepaid(String isPrepaid) {
         this.isPrepaid = isPrepaid;
     }
+
+	public String getCustName() {
+		return custName;
+	}
+
+	public void setCustName(String custName) {
+		this.custName = custName;
+	}
+    
+    
 }

@@ -8,6 +8,8 @@ public class MsaBaseCustCarFeeStartDate extends BaseModel {
     private String feeStartDate;
 
     private String paymentDate;
+    
+    private String feeDateType;
 
     public Long getCarId() {
         return carId;
@@ -32,4 +34,14 @@ public class MsaBaseCustCarFeeStartDate extends BaseModel {
     public void setPaymentDate(String paymentDate) {
         this.paymentDate = paymentDate;
     }
+
+	public String getFeeDateType() {
+		return feeDateType;
+	}
+
+	public void setFeeDateType(String feeDateType) {
+		this.feeDateType = feeDateType;
+	}
+    
+    
 }
