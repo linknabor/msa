@@ -27,4 +27,6 @@ public interface IVoteMngService {
 
 	BaseResult<?> deleteVoteMngById(Long voteId);
 
+	List<VoteOptionVo> getShowOptions(Long voteId, Long releaseId);
+
 }

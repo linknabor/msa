@@ -61,7 +61,7 @@ public class VoteController {
 		return voteReleaseService.addVoteRecord(voteRelaseOptionVo,user);
 	}
 	public VoteCountAndOptionVo getVoteCountAndOption(Long voteId, Long releaseId) {
-		List<VoteOptionVo> voteOptionVoList = voteMngService.getOptions(voteId, releaseId);
+		List<VoteOptionVo> voteOptionVoList = voteMngService.getShowOptions(voteId, releaseId);
 		int totalVote = voteMngService.getTotalVote(voteId, releaseId);
 		VoteCountAndOptionVo v = new VoteCountAndOptionVo();
 		v.setTotalVote(totalVote);

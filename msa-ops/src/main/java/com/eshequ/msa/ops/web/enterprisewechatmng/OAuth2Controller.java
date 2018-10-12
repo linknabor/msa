@@ -76,8 +76,8 @@ public class OAuth2Controller {
 	
 	public String getUserInfo(String accessToken,String userTicket){
 		String url=Constants.GET_UserInfo_URL.replace("ACCESS_TOKEN",accessToken);
-		Map<String,String> map=new HashMap<>();
-		map.put("user_ticket", userTicket);
-		return httpClientProxy.doPost(url, map, "utf-8");
+		JSONObject jsonObject = new JSONObject();
+		jsonObject.put("user_ticket", userTicket);
+		return httpClientProxy.doPost(url, jsonObject.toString(), "utf-8");
 	}
 }

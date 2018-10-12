@@ -116,6 +116,20 @@ public class VoteMngServiceImpl implements IVoteMngService {
 		}
 		return list;
 	}
+	@Override
+	public List<VoteOptionVo> getShowOptions(Long voteId, Long releaseId) {
+		List<VoteOptionVo> list = new ArrayList<>();
+		List<VoteOption> options =voteOptionMapper.getShowOptionsByVoteId(voteId);
+		for (VoteOption voteOption : options) {
+			VoteOptionVo voteOptionVo = new VoteOptionVo();
+			voteOptionVo.setVoteOptionId(voteOption.getOptionId());
+			voteOptionVo.setVoteOptionName(voteOption.getOptionName());
+			voteOptionVo.setVoteCount(voteRecordMapper.getVoteByOptionIdAndVoteIdAndReleaseId(voteOption.getOptionId(),
+					voteId, releaseId));
+			list.add(voteOptionVo);
+		}
+		return list;
+	}
 
 	@Override
 	public VoteMng getVoteMngById(Long voteId) {
