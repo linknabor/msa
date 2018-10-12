@@ -20,7 +20,7 @@ public interface IVoteReleaseService {
 
 	VoteReleaseAndRegionVo getVoteReleaseById(VoteRelease voteRelease);
 
-	BaseResult<?> addVoteRelease(VoteReleaseAndRegionVo voteReleaseAndRegionVo);
+	BaseResult<?> addVoteRelease(VoteReleaseAndRegionVo voteReleaseAndRegionVo,User user);
 
 	BaseResult<?> updateVoteRelease(VoteReleaseAndRegionVo voteReleaseAndRegionVo);
 
