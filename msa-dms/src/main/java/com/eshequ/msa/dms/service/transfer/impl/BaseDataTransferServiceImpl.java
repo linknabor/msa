@@ -10,42 +10,62 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.eshequ.msa.common.BaseResult;
+import com.eshequ.msa.dms.mapper.msa.MsaBaseAdLocateMapper;
 import com.eshequ.msa.dms.mapper.msa.MsaBaseCarportMapper;
 import com.eshequ.msa.dms.mapper.msa.MsaBaseCellMapper;
 import com.eshequ.msa.dms.mapper.msa.MsaBaseCityMapper;
+import com.eshequ.msa.dms.mapper.msa.MsaBaseCustCarFeeStartDateMapper;
+import com.eshequ.msa.dms.mapper.msa.MsaBaseCustCarMapper;
+import com.eshequ.msa.dms.mapper.msa.MsaBaseCustMapper;
 import com.eshequ.msa.dms.mapper.msa.MsaBaseEnterpriseMapper;
 import com.eshequ.msa.dms.mapper.msa.MsaBaseHouseMapper;
 import com.eshequ.msa.dms.mapper.msa.MsaBaseProvinceMapper;
 import com.eshequ.msa.dms.mapper.msa.MsaBaseRegionMapper;
 import com.eshequ.msa.dms.mapper.msa.MsaBaseSectMapper;
 import com.eshequ.msa.dms.mapper.msa.MsaBaseShopsMapper;
+import com.eshequ.msa.dms.mapper.msa.MsaCustCarMapper;
+import com.eshequ.msa.dms.mapper.servplat.SpBaseAdLocateMapper;
 import com.eshequ.msa.dms.mapper.servplat.SpBaseCatportMapper;
 import com.eshequ.msa.dms.mapper.servplat.SpBaseCityMapper;
 import com.eshequ.msa.dms.mapper.servplat.SpBaseCspMapper;
+import com.eshequ.msa.dms.mapper.servplat.SpBaseCustCarFeeStartDateMapper;
+import com.eshequ.msa.dms.mapper.servplat.SpBaseCustCarMapper;
+import com.eshequ.msa.dms.mapper.servplat.SpBaseCustMapper;
 import com.eshequ.msa.dms.mapper.servplat.SpBaseHouseMapper;
 import com.eshequ.msa.dms.mapper.servplat.SpBaseMngCellMapper;
 import com.eshequ.msa.dms.mapper.servplat.SpBaseProvinceMapper;
 import com.eshequ.msa.dms.mapper.servplat.SpBaseRegionMapper;
 import com.eshequ.msa.dms.mapper.servplat.SpBaseSectMapper;
 import com.eshequ.msa.dms.mapper.servplat.SpBaseShopsMapper;
+import com.eshequ.msa.dms.mapper.servplat.SpRelateParkCarMapper;
+import com.eshequ.msa.dms.model.msa.MsaBaseAdLocate;
 import com.eshequ.msa.dms.model.msa.MsaBaseCarport;
 import com.eshequ.msa.dms.model.msa.MsaBaseCell;
 import com.eshequ.msa.dms.model.msa.MsaBaseCity;
+import com.eshequ.msa.dms.model.msa.MsaBaseCust;
+import com.eshequ.msa.dms.model.msa.MsaBaseCustCar;
+import com.eshequ.msa.dms.model.msa.MsaBaseCustCarFeeStartDate;
 import com.eshequ.msa.dms.model.msa.MsaBaseEnterprise;
 import com.eshequ.msa.dms.model.msa.MsaBaseHouse;
 import com.eshequ.msa.dms.model.msa.MsaBaseProvince;
 import com.eshequ.msa.dms.model.msa.MsaBaseRegion;
 import com.eshequ.msa.dms.model.msa.MsaBaseSect;
 import com.eshequ.msa.dms.model.msa.MsaBaseShops;
+import com.eshequ.msa.dms.model.msa.MsaCustCarKey;
+import com.eshequ.msa.dms.model.servplat.SpBaseAdLocate;
 import com.eshequ.msa.dms.model.servplat.SpBaseCarport;
 import com.eshequ.msa.dms.model.servplat.SpBaseCity;
 import com.eshequ.msa.dms.model.servplat.SpBaseCsp;
+import com.eshequ.msa.dms.model.servplat.SpBaseCust;
+import com.eshequ.msa.dms.model.servplat.SpBaseCustCar;
+import com.eshequ.msa.dms.model.servplat.SpBaseCustCarFeeStartDate;
 import com.eshequ.msa.dms.model.servplat.SpBaseHouse;
 import com.eshequ.msa.dms.model.servplat.SpBaseMngCell;
 import com.eshequ.msa.dms.model.servplat.SpBaseProvince;
 import com.eshequ.msa.dms.model.servplat.SpBaseRegion;
 import com.eshequ.msa.dms.model.servplat.SpBaseSect;
 import com.eshequ.msa.dms.model.servplat.SpBaseShops;
+import com.eshequ.msa.dms.model.servplat.SpRelateParkCarKey;
 import com.eshequ.msa.dms.service.transfer.BaseDataBatchTransferService;
 import com.eshequ.msa.exception.BusinessException;
 import com.eshequ.msa.util.SnowFlake;
@@ -111,6 +131,36 @@ public class BaseDataTransferServiceImpl implements BaseDataBatchTransferService
 	@Autowired
 	private SpBaseCatportMapper spBaseCatportMapper;
 	
+	@Autowired
+	private MsaBaseAdLocateMapper msaBaseAdLocateMapper;
+	
+	@Autowired
+	private SpBaseAdLocateMapper spBaseAdLocateMapper;
+	
+	@Autowired
+	private MsaBaseCustCarMapper msaBaseCustCarMapper;
+	
+	@Autowired
+	private SpBaseCustCarMapper spBaseCustCarMapper;
+	
+	@Autowired
+	private MsaBaseCustMapper msaBaseCustMapper;
+	
+	@Autowired
+	private SpBaseCustMapper spBaseCustMapper;
+	
+	@Autowired
+	private MsaCustCarMapper msaCustCarMapper;
+	
+	@Autowired
+	private SpRelateParkCarMapper spRelateParkCarMapper;
+	
+	@Autowired
+	private MsaBaseCustCarFeeStartDateMapper msaBaseCustCarFeeStartDateMapper;
+	
+	@Autowired
+	private SpBaseCustCarFeeStartDateMapper spBaseCustCarFeeStartDateMapper;
+	
 	/**
 	 * 基础数据迁移
 	 */
@@ -122,6 +172,7 @@ public class BaseDataTransferServiceImpl implements BaseDataBatchTransferService
 //		migrateRegion();
 //		migrateEnterprise();
 		migrateSect();
+		migrateParkRelate();
 		
 		BaseResult<String> baseResult = new BaseResult<String>();
 		baseResult.setResult("0");
@@ -135,9 +186,14 @@ public class BaseDataTransferServiceImpl implements BaseDataBatchTransferService
 		for (MsaBaseSect msaBaseSect :sectList) {
 			sectMap.put(msaBaseSect.getRelatedSectNo(), msaBaseSect.getSectId());
 		}
-		for(int i = 0; i <= 237; i++) {
+		for(int i = 0; i <= 239; i++) {
 //			if(i == 3) throw new BusinessException("roll back");
-			migrateCell(i +1, sectMap);
+//			migrateCell(i +1, sectMap);
+//			migrateHouse(i + 1);
+//			migrateShops(i + 1);
+//			migrateCarport(i + 1);
+//			migrateAdLocate(i + 1);
+			migrateCust(i + 1);
 		}
 		BaseResult<String> baseResult = new BaseResult<String>();
 		baseResult.setResult("0");
@@ -218,6 +274,7 @@ public class BaseDataTransferServiceImpl implements BaseDataBatchTransferService
 	}
 	
 	@Transactional(rollbackFor={BusinessException.class})
+	//迁移公司客户
 	public void migrateEnterprise() {
 		
 		List<MsaBaseEnterprise> enterpriseList = msaBaseEnterpriseMapper.selectAll();
@@ -241,6 +298,7 @@ public class BaseDataTransferServiceImpl implements BaseDataBatchTransferService
 	}
 
 	@Transactional(rollbackFor={BusinessException.class})
+	//迁移小区
 	public void migrateSect() {
 		List<MsaBaseSect> sectList = msaBaseSectMapper.selectAll();
 		Map<String,String> sectMap = new HashMap<String, String>();
@@ -263,6 +321,35 @@ public class BaseDataTransferServiceImpl implements BaseDataBatchTransferService
 	}
 	
 	@Transactional(rollbackFor={BusinessException.class})
+	//迁移车辆
+	public void migrateCustCar() {
+		List<SpBaseCustCar> spbasecustcarList = spBaseCustCarMapper.selectAll();
+		for(SpBaseCustCar spBaseCustCar : spbasecustcarList) {
+			MsaBaseCustCar msaBaseCustCar = new MsaBaseCustCar();
+			BeanUtils.copyProperties(spBaseCustCar, msaBaseCustCar);
+			msaBaseCustCar.setOriginalId(spBaseCustCar.getCarId()+"");
+			msaBaseCustCar.setCarId(snowFlake.nextId());
+			msaBaseCustCarMapper.insertSelective(msaBaseCustCar);
+		}
+	}
+	
+	@Transactional(rollbackFor={BusinessException.class})
+	//迁移业主
+	public void migrateCust(int page) {
+		PageHelper.startPage(page, 1000, false);
+		List<SpBaseCust> spcustList = spBaseCustMapper.selectAll();
+		for (SpBaseCust spBaseCust : spcustList) {
+			MsaBaseCust msaBaseCust = new MsaBaseCust();
+			BeanUtils.copyProperties(spBaseCust, msaBaseCust);
+			msaBaseCust.setOriginalId(spBaseCust.getCustId()+"");
+			msaBaseCust.setCustId(snowFlake.nextId());
+			msaBaseCustMapper.insertSelective(msaBaseCust);
+		}
+	}
+	
+	
+	@Transactional(rollbackFor={BusinessException.class})
+	//迁移室
 	public void migrateCell(int page, Map<String, Long> sectMap) {
 
 			PageHelper.startPage(page, 1000, false);
@@ -280,6 +367,7 @@ public class BaseDataTransferServiceImpl implements BaseDataBatchTransferService
 	}
 
 	@Transactional(rollbackFor={BusinessException.class})
+	//迁移住宅
 	public void migrateHouse(int page) {
 
 			PageHelper.startPage(page, 1000, false);
@@ -292,6 +380,7 @@ public class BaseDataTransferServiceImpl implements BaseDataBatchTransferService
 	}		
 
 	@Transactional(rollbackFor={BusinessException.class})
+	//迁移商铺
 	public void migrateShops(int page) {
 		PageHelper.startPage(page, 1000, false);
 		List<SpBaseShops> spshopsList = spBaseShopsMapper.selectAll();
@@ -303,6 +392,7 @@ public class BaseDataTransferServiceImpl implements BaseDataBatchTransferService
 	}
 
 	@Transactional(rollbackFor={BusinessException.class})
+	//迁移车位
 	public void migrateCarport(int page) {
 		PageHelper.startPage(page, 1000, false);
 		List<SpBaseCarport> spcarportList = spBaseCatportMapper.selectAll();
@@ -310,6 +400,54 @@ public class BaseDataTransferServiceImpl implements BaseDataBatchTransferService
 			MsaBaseCarport msaBaseCarport = new MsaBaseCarport();
 			BeanUtils.copyProperties(spBaseCarport, msaBaseCarport);
 			msaBaseCarportMapper.insertSelective(msaBaseCarport);
+		}
+	}
+	
+	@Transactional(rollbackFor={BusinessException.class})
+	//迁移广告位
+	public void migrateAdLocate(int page) {
+		PageHelper.startPage(page, 1000, false);
+		List<SpBaseAdLocate> spadlocateList = spBaseAdLocateMapper.selectAll();
+		for(SpBaseAdLocate spBaseAdLocate : spadlocateList) {
+			MsaBaseAdLocate msaBaseAdLocate = new MsaBaseAdLocate();
+			BeanUtils.copyProperties(spBaseAdLocate, msaBaseAdLocate);
+			msaBaseAdLocateMapper.insertSelective(msaBaseAdLocate);
+		}
+	}
+	
+	@Transactional(rollbackFor={BusinessException.class})
+	//迁移车辆
+		public void migrateCar() {
+			
+			List<SpBaseCustCar> spcarList = spBaseCustCarMapper.selectAll();
+			for (SpBaseCustCar spBaseCustCar : spcarList) {
+				MsaBaseCustCar msaBaseCustCar = new MsaBaseCustCar();
+				BeanUtils.copyProperties(spBaseCustCar, msaBaseCustCar);
+				
+				msaBaseCustCar.setCarId(snowFlake.nextId());
+				msaBaseCustCarMapper.insertSelective(msaBaseCustCar);
+			}
+		}
+	
+	@Transactional(rollbackFor={BusinessException.class})
+	//迁移车辆关系
+	public void migrateParkRelate() {
+		List<SpRelateParkCarKey> sprelateparkList = spRelateParkCarMapper.selectAll();
+		for(SpRelateParkCarKey spRelateParkCarKey : sprelateparkList) {
+			MsaCustCarKey msaCustCarKey = new MsaCustCarKey();
+			BeanUtils.copyProperties(spRelateParkCarKey, msaCustCarKey);
+			msaCustCarMapper.insertSelective(msaCustCarKey);
+		}
+	}
+	
+	@Transactional(rollbackFor={BusinessException.class})
+	//迁移客户车辆初始缴费日期表
+	public void migrateFeeStartDate() {
+		List<SpBaseCustCarFeeStartDate> spbasecustcarfeestartdateList = spBaseCustCarFeeStartDateMapper.selectAll();
+		for(SpBaseCustCarFeeStartDate spBaseCustCarFeeStartDate : spbasecustcarfeestartdateList) {
+			MsaBaseCustCarFeeStartDate msaBaseCustCarFeeStartDate = new MsaBaseCustCarFeeStartDate();
+			BeanUtils.copyProperties(spBaseCustCarFeeStartDate, msaBaseCustCarFeeStartDate);
+			msaBaseCustCarFeeStartDateMapper.insertSelective(msaBaseCustCarFeeStartDate);
 		}
 	}
 }

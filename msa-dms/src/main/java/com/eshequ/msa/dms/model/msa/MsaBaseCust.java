@@ -30,6 +30,8 @@ public class MsaBaseCust extends BaseModel {
     private String isCertifi;
 
     private String relatedCustNo;
+    
+    private String originalId;
 
     public Long getCustId() {
         return custId;
@@ -142,4 +144,14 @@ public class MsaBaseCust extends BaseModel {
     public void setRelatedCustNo(String relatedCustNo) {
         this.relatedCustNo = relatedCustNo;
     }
+
+	public String getOriginalId() {
+		return originalId;
+	}
+
+	public void setOriginalId(String originalId) {
+		this.originalId = originalId;
+	}
+    
+    
 }
