@@ -6,5 +6,6 @@ public interface BaseDataBatchTransferService {
 	
 	BaseResult<String> migrateBaseData();
 	BaseResult<String> migrateCellData();
+	BaseResult<String> migrateCarData();
 
 }

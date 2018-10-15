@@ -16,5 +16,6 @@
     <result column="card_no" jdbcType="VARCHAR" property="cardNo" />
     <result column="carport_type" jdbcType="CHAR" property="carportType" />
     <result column="is_prepaid" jdbcType="CHAR" property="isPrepaid" />
+    <result column="cust_name" jdbcType="VARCHAR" property="custName" />
   </resultMap>
 </mapper>

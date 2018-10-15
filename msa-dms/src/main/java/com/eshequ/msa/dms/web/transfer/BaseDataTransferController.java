@@ -29,6 +29,12 @@ public class BaseDataTransferController extends DataTransferController {
 		return baseDataBatchTransferService.migrateCellData();
 	}
 	
+	@RequestMapping(value = "/migrateCarDataBatch", method = RequestMethod.POST)
+	public BaseResult<?> addCarBatch() {
+		
+		return baseDataBatchTransferService.migrateCarData();
+	}
+	
 	@RequestMapping(value = "/addCsp", method = RequestMethod.POST)
 	public BaseResult<?> addEnterprise(CspVO cspVO) {
 		
