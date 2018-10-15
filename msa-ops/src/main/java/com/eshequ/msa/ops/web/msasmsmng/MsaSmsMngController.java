@@ -13,12 +13,13 @@ import org.springframework.web.multipart.MultipartFile;
 import com.eshequ.msa.common.BaseResult;
 import com.eshequ.msa.ops.model.msasmsmng.MsaSmsSum;
 import com.eshequ.msa.ops.service.msasmsmng.MsaSmsMngService;
+import com.eshequ.msa.ops.web.BaseController;
 import com.eshequ.msa.util.ObjectUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 @RestController
-public class MsaSmsMngController {
+public class MsaSmsMngController extends BaseController{
 	@Autowired
 	private MsaSmsMngService msaRegInfoService;
 

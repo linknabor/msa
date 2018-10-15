@@ -26,12 +26,13 @@ import com.eshequ.msa.ops.vo.votemng.VoteRelaseOptionVo;
 import com.eshequ.msa.ops.vo.votemng.VoteReleaseAndRegionVo;
 import com.eshequ.msa.ops.vo.votemng.VoteReleaseDetailVo;
 import com.eshequ.msa.ops.vo.votemng.VoteReleaseParamVo;
+import com.eshequ.msa.ops.web.BaseController;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 @RestController
 @RequestMapping("/vote")
-public class VoteController {
+public class VoteController extends BaseController {
 
 	@Autowired
 	private IVoteReleaseService voteReleaseService;
@@ -39,11 +40,14 @@ public class VoteController {
 	@Autowired
 	private IVoteMngService voteMngService;
 	
+	//获取投票发布列表
 	@RequestMapping(value = "/getVoteReleaseList", method = RequestMethod.GET)
 	public List<VoteRelease> getVoteReleaseList(VoteReleaseParamVo voteReleaseParamVo) {
 		List<VoteRelease> lists = voteReleaseService.getVoteReleaseList(voteReleaseParamVo);
 		return lists;
 	}
+	
+	//根据id获取投票发布详情
 	@RequestMapping(value = "/getVoteReleaseById", method = RequestMethod.GET)
 	public VoteReleaseDetailVo getVoteReleaseById(Long releaseId,@ModelAttribute(Constants.USER) User user) {
 		VoteReleaseDetailVo v=new VoteReleaseDetailVo();
@@ -55,6 +59,8 @@ public class VoteController {
 		v.setIsVote(checkRecord(voteRelease.getReleaseId(),user));
 		return v;
 	}
+	
+	//保存投票记录
 	@RequestMapping(value = "/addVoteRecord", method = RequestMethod.POST)
 	public BaseResult<?> addVoteRecord(@RequestBody VoteRelaseOptionVo voteRelaseOptionVo,
 			@ModelAttribute(Constants.USER) User user){
