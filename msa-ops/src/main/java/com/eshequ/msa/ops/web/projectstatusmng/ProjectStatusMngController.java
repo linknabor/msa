@@ -11,10 +11,11 @@ import com.eshequ.msa.common.BaseResult;
 import com.eshequ.msa.ops.model.bdp.MsaBaseSect;
 import com.eshequ.msa.ops.service.projectstatusmng.BdpSectAndEnterpriseRemote;
 import com.eshequ.msa.ops.vo.projectstatusmng.SectAndEnterpriseVo;
+import com.eshequ.msa.ops.web.BaseController;
 
 @RestController
 @RequestMapping("/projectStatusMng")
-public class ProjectStatusMngController {
+public class ProjectStatusMngController extends BaseController{
 	 @Autowired
      private BdpSectAndEnterpriseRemote bdpSectAndEnterpriseRemote;
 	

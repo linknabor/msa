@@ -19,12 +19,13 @@ import com.eshequ.msa.ops.service.votemng.IVoteReleaseService;
 import com.eshequ.msa.ops.service.votemng.ReleaseRegionRemote;
 import com.eshequ.msa.ops.vo.votemng.VoteReleaseAndRegionVo;
 import com.eshequ.msa.ops.vo.votemng.VoteReleaseParamVo;
+import com.eshequ.msa.ops.web.BaseController;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
 @RestController
 @RequestMapping("/voteRelease")
-public class VoteReleaseController {
+public class VoteReleaseController extends BaseController{
 
 	@Autowired
 	private IVoteReleaseService voteReleaseService;

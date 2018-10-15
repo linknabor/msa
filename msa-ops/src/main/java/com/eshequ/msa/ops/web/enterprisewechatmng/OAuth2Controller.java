@@ -19,13 +19,14 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.eshequ.msa.common.Constants;
 import com.eshequ.msa.ops.model.enterprisewechatmng.AccessToken;
 import com.eshequ.msa.ops.util.QiYeWeiXinUtil;
+import com.eshequ.msa.ops.web.BaseController;
 import com.eshequ.msa.util.http.HttpClientProxy;
 
 import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping("/oauth")
-public class OAuth2Controller {
+public class OAuth2Controller extends BaseController{
 	@Autowired
 	private HttpClientProxy httpClientProxy;
 	@Value("${qyweixin.cropid}")
