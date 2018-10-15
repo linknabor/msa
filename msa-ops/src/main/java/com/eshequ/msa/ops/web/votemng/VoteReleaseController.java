@@ -31,7 +31,8 @@ public class VoteReleaseController {
 
 	@Autowired
 	private ReleaseRegionRemote releaseRegionRemote;
-
+    
+	//新增或编辑投票发布
 	@RequestMapping(value = "/addOrUpdateVoteRelease", method = RequestMethod.POST)
 	public BaseResult<?> addOrUpdateVoteRelease(@RequestBody VoteReleaseAndRegionVo VoteReleaseAndRegionVo,
 			@ModelAttribute(Constants.USER) User user) {
@@ -44,27 +45,30 @@ public class VoteReleaseController {
 		}
 		return BaseResult.fail("参数错误！");
 	}
-
+	
+    //获取投票发布列表
 	@RequestMapping(value = "/getVoteReleaseList", method = RequestMethod.GET)
 	public PageInfo<VoteRelease> getVoteReleaseList(@RequestParam(defaultValue = "0", required = false) Integer pageNum,
 			@RequestParam(defaultValue = "10", required = false) Integer pageSize,
-			@RequestBody VoteReleaseParamVo voteReleaseParamVo) {
+			VoteReleaseParamVo voteReleaseParamVo) {
 		PageHelper.startPage(pageNum, pageSize);
 		List<VoteRelease> lists = voteReleaseService.getVoteReleaseList(voteReleaseParamVo);
 		PageInfo<VoteRelease> pageInfo = new PageInfo<>(lists);
 		return pageInfo;
 
 	}
-
+    
+	//根据id获取投票发布详情
 	@RequestMapping(value = "/getVoteReleaseById", method = RequestMethod.GET)
-	public VoteReleaseAndRegionVo getVoteReleaseById(@RequestBody VoteRelease voteRelease) {
+	public VoteReleaseAndRegionVo getVoteReleaseById(VoteRelease voteRelease) {
 		VoteReleaseAndRegionVo v = voteReleaseService.getVoteReleaseById(voteRelease);
 		List<ReleaseRegion> list = voteReleaseService.getReleaseRegionByreleaseId(voteRelease.getReleaseId());
 		v.setList(list);
 		return v;
 
 	}
-
+    
+	//根据id删除投票发布
 	@RequestMapping(value = "/deleteVoteReleaseById", method = RequestMethod.GET)
 	public BaseResult<?> deleteVoteReleaseById(Long releaseId) {
 		if (releaseId != null) {
@@ -72,12 +76,14 @@ public class VoteReleaseController {
 		}
 		return BaseResult.fail(500, "参数错误!");
 	}
-
+    
+	//编辑投票发布是否有效
 	@RequestMapping(value = "/updateVoteReleaseStatus", method = RequestMethod.POST)
 	public BaseResult<?> updateVoteReleaseStatus(@RequestBody VoteRelease voteRelease) {
 		return voteReleaseService.updateVoteReleaseStatus(voteRelease);
 	}
-
+    
+	//获取所有区域
 	@RequestMapping(value = "/getAllRegion", method = RequestMethod.GET)
 	public BaseResult<?> getAllRegion() {
 		return releaseRegionRemote.getAllRegion();
