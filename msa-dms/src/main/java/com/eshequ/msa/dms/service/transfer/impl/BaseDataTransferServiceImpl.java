@@ -54,7 +54,7 @@ import com.eshequ.msa.dms.model.msa.MsaBaseRegion;
 import com.eshequ.msa.dms.model.msa.MsaBaseSect;
 import com.eshequ.msa.dms.model.msa.MsaBaseShops;
 import com.eshequ.msa.dms.model.msa.MsaCellCust;
-import com.eshequ.msa.dms.model.msa.MsaCustCarKey;
+import com.eshequ.msa.dms.model.msa.MsaCustCar;
 import com.eshequ.msa.dms.model.servplat.SpBaseAdLocate;
 import com.eshequ.msa.dms.model.servplat.SpBaseCarport;
 import com.eshequ.msa.dms.model.servplat.SpBaseCity;
@@ -69,7 +69,7 @@ import com.eshequ.msa.dms.model.servplat.SpBaseRegion;
 import com.eshequ.msa.dms.model.servplat.SpBaseSect;
 import com.eshequ.msa.dms.model.servplat.SpBaseShops;
 import com.eshequ.msa.dms.model.servplat.SpRelateCust;
-import com.eshequ.msa.dms.model.servplat.SpRelateParkCarKey;
+import com.eshequ.msa.dms.model.servplat.SpRelateParkCar;
 import com.eshequ.msa.dms.service.transfer.BaseDataBatchTransferService;
 import com.eshequ.msa.exception.BusinessException;
 import com.eshequ.msa.util.SnowFlake;
@@ -182,7 +182,7 @@ public class BaseDataTransferServiceImpl implements BaseDataBatchTransferService
 //		migrateRegion();
 //		migrateEnterprise();
 //		migrateSect();
-//		migrateParkRelate();
+		migrateParkRelate();
 		
 		
 		BaseResult<String> baseResult = new BaseResult<String>();
@@ -452,9 +452,9 @@ public class BaseDataTransferServiceImpl implements BaseDataBatchTransferService
 	@Transactional(rollbackFor={BusinessException.class})
 	//迁移车辆关系
 	public void migrateParkRelate() {
-		List<SpRelateParkCarKey> sprelateparkList = spRelateParkCarMapper.selectAll();
-		for(SpRelateParkCarKey spRelateParkCarKey : sprelateparkList) {
-			MsaCustCarKey msaCustCarKey = new MsaCustCarKey();
+		List<SpRelateParkCar> sprelateparkList = spRelateParkCarMapper.selectAll();
+		for(SpRelateParkCar spRelateParkCarKey : sprelateparkList) {
+			MsaCustCar msaCustCarKey = new MsaCustCar();
 			BeanUtils.copyProperties(spRelateParkCarKey, msaCustCarKey);
 			msaCustCarMapper.insertSelective(msaCustCarKey);
 		}
