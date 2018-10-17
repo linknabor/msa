@@ -1,6 +1,8 @@
 package com.eshequ.msa.ops.model.enterprisewechatmng;
 
-public class AccessToken {
+import java.io.Serializable;
+
+public class AccessToken implements Serializable{
  
     private String errcode;
  

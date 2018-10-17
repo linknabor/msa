@@ -33,6 +33,7 @@ public class VoteReleaseServiceImpl implements IVoteReleaseService {
 	@Autowired
 	private VoteReleaseMapper voteReleaseMapper;
 
+	@Autowired
 	private VoteMngMapper voteMngMapper;
 
 	@Autowired
@@ -175,8 +176,10 @@ public class VoteReleaseServiceImpl implements IVoteReleaseService {
 			voteRecordMapper.insertSelective(voteRecord);
 		}
 		VoteMng voteMng = voteMngMapper.getVoteMngById(voteRelaseOptionVo.getVoteId());
-		voteMng.setVotePeople(voteMng.getVotePeople() + 1);
-		voteMngMapper.insertSelective(voteMng);
+		if(voteMng != null){
+			voteMng.setVotePeople(voteMng.getVotePeople() + 1);
+			voteMngMapper.updateByPrimaryKeySelective(voteMng);
+		}
 		return BaseResult.successResult("投票提交成功！");
 	}
 

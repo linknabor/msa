@@ -2,8 +2,6 @@ package com.eshequ.msa.ops.web.enterprisewechatmng;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -26,7 +24,7 @@ import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping("/oauth")
-public class OAuth2Controller extends BaseController{
+public class OAuth2Controller extends BaseController {
 	@Autowired
 	private HttpClientProxy httpClientProxy;
 	@Value("${qyweixin.cropid}")
@@ -36,6 +34,7 @@ public class OAuth2Controller extends BaseController{
 	@Autowired
 	private QiYeWeiXinUtil QiYeWeiXinUtil;
 
+
 	private static Logger log = LoggerFactory.getLogger(OAuth2Controller.class);
 
 	@RequestMapping("/getCode")
@@ -44,7 +43,7 @@ public class OAuth2Controller extends BaseController{
 		log.info(requestUrl);
 		String contextPath = request.getContextPath();
 		log.info(contextPath);
-		String backUrl = "http://" + requestUrl + contextPath +"/oauth" +"/oauthBackUrl";
+		String backUrl = "http://" + requestUrl + contextPath + "/oauth" + "/oauthBackUrl";
 		log.info(backUrl);
 		String redirect_uri = "";
 		try {
@@ -53,8 +52,9 @@ public class OAuth2Controller extends BaseController{
 			log.error(e.getMessage(), e);
 		}
 		log.info(redirect_uri);
-		String oauth2Url="https://open.weixin.qq.com/connect/oauth2/authorize?appid="+cropid +"&redirect_uri="+ redirect_uri+ "&response_type=code&scope=snsapi_userinfo&agentid="
-				+agentid+"&state=STATE#wechat_redirect";
+		String oauth2Url = "https://open.weixin.qq.com/connect/oauth2/authorize?appid=" + cropid + "&redirect_uri="
+				+ redirect_uri + "&response_type=code&scope=snsapi_userinfo&agentid=" + agentid
+				+ "&state=STATE#wechat_redirect";
 		return "redirect:" + oauth2Url;
 	}
 
@@ -62,21 +62,13 @@ public class OAuth2Controller extends BaseController{
 	@ResponseBody
 	public String oauthBackUrl(HttpServletRequest request, @RequestParam String code) {
 		AccessToken accessToken = QiYeWeiXinUtil.getAccessToken();
-		String response = "";
-		if (accessToken != null) {
-			String url = Constants.GET_OAUTH2_URL.replace("ACCESS_TOKEN", accessToken.getAccess_token()).replace("CODE",
-					code);
-			response = httpClientProxy.doGet(url);
-			JSONObject jsonObject=JSONObject.fromObject(response);
-			String userTicket=jsonObject.getString("user_ticket");
-			response=getUserInfo(accessToken.getAccess_token(),userTicket);
-		}
-
+		String userTicket = QiYeWeiXinUtil.getUserTicket(accessToken.getAccess_token(), code);
+		String response = getUserInfo(accessToken.getAccess_token(), userTicket);
 		return response;
 	}
-	
-	public String getUserInfo(String accessToken,String userTicket){
-		String url=Constants.GET_UserInfo_URL.replace("ACCESS_TOKEN",accessToken);
+
+	public String getUserInfo(String accessToken, String userTicket) {
+		String url = Constants.GET_UserInfo_URL.replace("ACCESS_TOKEN", accessToken);
 		JSONObject jsonObject = new JSONObject();
 		jsonObject.put("user_ticket", userTicket);
 		return httpClientProxy.doPost(url, jsonObject.toString(), "utf-8");

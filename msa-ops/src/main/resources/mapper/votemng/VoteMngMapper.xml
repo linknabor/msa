@@ -26,7 +26,7 @@
   </select>
   
   <select id="getVoteMngById" parameterType="long" resultMap="BaseResultMap">
-  SELECT VOTE_ID,VOTE_NAME,VOTE_TITLE,VOTE_MODE,VOTE_CLOSE_TIME,VOTE_CLOSE_DATE
+  SELECT VOTE_ID,VOTE_NAME,VOTE_TITLE,VOTE_MODE,VOTE_CLOSE_TIME,VOTE_CLOSE_DATE,VOTE_PEOPLE
   FROM VOTE_MNG WHERE VOTE_ID = #{voteId}
   </select>
 </mapper>
