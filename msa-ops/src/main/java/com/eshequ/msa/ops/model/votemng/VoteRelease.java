@@ -9,7 +9,7 @@ public class VoteRelease extends BaseModel {
 	@Id
     private Long releaseId;
 
-    private String visibleState;
+    private String visibleState;//1表示全部可见
 
     private String closeDate;
 
