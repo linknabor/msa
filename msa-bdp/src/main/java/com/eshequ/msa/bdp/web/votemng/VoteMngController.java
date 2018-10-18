@@ -14,9 +14,14 @@ public class VoteMngController {
 	@Autowired
     private ProjectStatusMngService projectStatusMngService;
 	@RequestMapping(value="/getAllRegion",method=RequestMethod.GET)
-	public BaseResult<?> getAllRegion(){
+	public BaseResult<?> getAllRegion(Long cityId){
 		
-		return projectStatusMngService.getAllRegion();
+		return projectStatusMngService.getAllRegion(cityId);
 	}
-
+    
+	@RequestMapping(value="/getAllSect",method=RequestMethod.GET)
+	public BaseResult<?> getAllSect(Long regionId){
+		
+		return projectStatusMngService.getAllSect(regionId);
+	}
 }

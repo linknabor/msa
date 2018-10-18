@@ -74,7 +74,12 @@ and s.activity = #{activity}
 	</if>
   </select>
  
-  <select id="getAllSect" resultMap="SectAndEnterpriseVoMap">
+  <select id="getAllSect" parameterType="Long" resultMap="SectAndEnterpriseVoMap">
   SELECT SECT_ID,SECT_NAME FROM MSA_BASE_SECT 
+  <where>
+  <if test='regionId != null and regionId != ""'>
+	REGION_ID = #{regionId}
+	</if>
+  </where>
   </select>
 </mapper>
