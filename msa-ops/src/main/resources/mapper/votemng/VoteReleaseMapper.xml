@@ -23,7 +23,10 @@
   <where>
    RELEASE_STATUS=1
   <if test="sectId != null">
-  AND rr.COUNTY_ID = #{sectId} OR vr.VISIBLE_STATE='1' 
+  AND (rr.CITY_ID = #{cityId} AND rr.COUNTY_ID = #{regionId} AND rr.SECT_ID=#{sectId})
+  OR (rr.CITY_ID = #{cityId} AND rr.COUNTY_ID = #{regionId} AND rr.SECT_ID=0)
+  OR (rr.CITY_ID = #{cityId} AND rr.COUNTY_ID=0 AND rr.SECT_ID=0)
+  OR vr.VISIBLE_STATE='1' 
   </if>
   <if test="releaseTitle != null">
   AND RELEASE_TITLE LIKE CONCAT('%', #{releaseTitle}, '%')
