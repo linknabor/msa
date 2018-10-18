@@ -177,11 +177,11 @@ public class BaseDataTransferServiceImpl implements BaseDataBatchTransferService
 	@Override
 	public BaseResult<String> migrateBaseData() {
 
-//		migrateProvince();
-//		migrateCity();
-//		migrateRegion();
-//		migrateEnterprise();
-//		migrateSect();
+		migrateProvince();
+		migrateCity();
+		migrateRegion();
+		migrateEnterprise();
+		migrateSect();
 		migrateParkRelate();
 		
 		
