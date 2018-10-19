@@ -75,17 +75,13 @@ public class VoteReleaseServiceImpl implements IVoteReleaseService {
 		if (count == 0) {
 			return BaseResult.fail("保存失败!");
 		}
+		releaseRegionMapper.deleteVoteReleaseByReleaseId(voteReleaseAndRegionVo.getReleaseId());
 		if (voteReleaseAndRegionVo.getList() != null && voteReleaseAndRegionVo.getList().size() > 0) {
 			for (ReleaseRegion releaseRegion : voteReleaseAndRegionVo.getList()) {
-				if (releaseRegion.getRegionId() != null) {
-					releaseRegionMapper.updateByPrimaryKeySelective(releaseRegion);
-				} else {
 					long regionId = snowFlake.nextId();
 					releaseRegion.setRegionId(regionId);
 					releaseRegion.setReleaseId(voteReleaseAndRegionVo.getReleaseId());
 					releaseRegionMapper.insertSelective(releaseRegion);
-				}
-
 			}
 		}
 		return BaseResult.successResult("保存成功!");

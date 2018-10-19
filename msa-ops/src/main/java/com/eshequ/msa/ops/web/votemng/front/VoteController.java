@@ -64,6 +64,9 @@ public class VoteController extends BaseController {
 	@RequestMapping(value = "/addVoteRecord", method = RequestMethod.POST)
 	public BaseResult<?> addVoteRecord(@RequestBody VoteRelaseOptionVo voteRelaseOptionVo,
 			@ModelAttribute(Constants.USER) User user){
+		if(checkRecord(voteRelaseOptionVo.getReleaseId(),user) > 0){
+			return BaseResult.fail("您已对该内容投过票！");
+		}
 		return voteReleaseService.addVoteRecord(voteRelaseOptionVo,user);
 	}
 	public VoteCountAndOptionVo getVoteCountAndOption(Long voteId, Long releaseId) {

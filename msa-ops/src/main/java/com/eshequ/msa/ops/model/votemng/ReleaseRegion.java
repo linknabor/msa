@@ -8,7 +8,7 @@ public class ReleaseRegion extends BaseModel {
 	@Id
     private Long regionId;
 
-    private Long provinceId;
+    private Long provinceId; 
 
     private String provinceName;
 
@@ -21,6 +21,10 @@ public class ReleaseRegion extends BaseModel {
     private String countyName;
 
     private Long releaseId;
+    
+    private Long sectId;
+    
+    private String sectName;
 
     public Long getRegionId() {
         return regionId;
@@ -85,4 +89,22 @@ public class ReleaseRegion extends BaseModel {
     public void setReleaseId(Long releaseId) {
         this.releaseId = releaseId;
     }
+
+	public Long getSectId() {
+		return sectId;
+	}
+
+	public void setSectId(Long sectId) {
+		this.sectId = sectId;
+	}
+
+	public String getSectName() {
+		return sectName;
+	}
+
+	public void setSectName(String sectName) {
+		this.sectName = sectName;
+	}
+    
+    
 }
