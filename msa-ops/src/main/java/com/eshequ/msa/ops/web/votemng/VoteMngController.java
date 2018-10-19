@@ -50,6 +50,12 @@ public class VoteMngController extends BaseController {
 		PageInfo<VoteMng> pageInfo = new PageInfo<>(lists);
 		return pageInfo;
 	}
+	
+	//获取投票管理集合
+	@RequestMapping(value = "/selectVoteList", method = RequestMethod.GET)
+	public List<VoteMng> selectVoteList(VoteMng voteMng){
+		return voteMngService.getVoteMngList(voteMng);
+	}
     
 	//根据id获取投票管理详情
 	@RequestMapping(value = "/getVoteMngDetail", method = RequestMethod.GET)
