@@ -52,7 +52,7 @@ public class VoteMngController extends BaseController {
 		PageHelper.startPage(pageNum, pageSize);
 		List<VoteMng> lists = voteMngService.getVoteMngList(voteMng);
 		PageInfo<VoteMng> pageInfo = new PageInfo<>(lists);
-		logger.info(pageInfo.toString());
+		logger.info(pageInfo.getList().toString());
 		return pageInfo;
 	}
 	
