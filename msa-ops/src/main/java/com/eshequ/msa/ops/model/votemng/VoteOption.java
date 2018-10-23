@@ -3,9 +3,12 @@ package com.eshequ.msa.ops.model.votemng;
 import javax.persistence.Id;
 
 import com.eshequ.msa.common.BaseModel;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.databind.ser.std.ToStringSerializer;
 
 public class VoteOption extends BaseModel {
 	@Id
+	@JsonSerialize(using=ToStringSerializer.class)
     private Long optionId;
 
     private String optionName;
