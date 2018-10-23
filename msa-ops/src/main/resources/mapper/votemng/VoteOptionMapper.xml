@@ -9,10 +9,10 @@
   </resultMap>
   
   <select id="getOptionsByVoteId" parameterType="long" resultMap="BaseResultMap">
-  SELECT OPTION_ID,OPTION_NAME FROM VOTE_OPTION WHERE VOTE_ID= #{voteId}  ORDER BY OPTION_ID DESC
+  SELECT OPTION_ID,OPTION_NAME,STATUS FROM VOTE_OPTION WHERE VOTE_ID= #{voteId}  ORDER BY OPTION_ID DESC
   </select>
    <select id="getShowOptionsByVoteId" parameterType="long" resultMap="BaseResultMap">
-  SELECT OPTION_ID,OPTION_NAME FROM VOTE_OPTION WHERE VOTE_ID= #{voteId} AND STATUS=0 ORDER BY OPTION_ID DESC
+  SELECT OPTION_ID,OPTION_NAME,STATUS FROM VOTE_OPTION WHERE VOTE_ID= #{voteId} AND STATUS=0 ORDER BY OPTION_ID DESC
   </select>
   <delete id="deleteByVoteId" parameterType="long">
   DELETE FROM VOTE_OPTION WHERE VOTE_ID= #{voteId}

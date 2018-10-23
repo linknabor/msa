@@ -110,6 +110,7 @@ public class VoteMngServiceImpl implements IVoteMngService {
 			VoteOptionVo voteOptionVo = new VoteOptionVo();
 			voteOptionVo.setVoteOptionId(voteOption.getOptionId());
 			voteOptionVo.setVoteOptionName(voteOption.getOptionName());
+			voteOptionVo.setStatus(voteOption.getStatus());
 			voteOptionVo.setVoteCount(voteRecordMapper.getVoteByOptionIdAndVoteIdAndReleaseId(voteOption.getOptionId(),
 					voteId, releaseId));
 			list.add(voteOptionVo);

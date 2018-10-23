@@ -3,6 +3,7 @@ package com.eshequ.msa.ops.vo.votemng;
 public class VoteOptionVo {
 	private Long voteOptionId;
 	private String voteOptionName;
+	private String status;
 	private Integer voteCount;
 	public Long getVoteOptionId() {
 		return voteOptionId;
@@ -21,6 +22,12 @@ public class VoteOptionVo {
 	}
 	public void setVoteCount(Integer voteCount) {
 		this.voteCount = voteCount;
+	}
+	public String getStatus() {
+		return status;
+	}
+	public void setStatus(String status) {
+		this.status = status;
 	}
 	
     

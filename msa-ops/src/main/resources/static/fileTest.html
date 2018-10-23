@@ -5,9 +5,26 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="importData" method="post" enctype= multipart/form-data >
-<input type="file" name="file"/>
-<button>提交</button>
-</form>
+	<form action="importData" method="post" enctype=multipart/form-data>
+		<input type="file" name="file" />
+		<button>提交</button>
+	</form>
 </body>
+<script type="text/javascript">
+/* window.onload=function()//用window的onload事件，窗体加载完毕的时候
+{
+	alert(12);
+} */
+	/* wx.invoke('selectExternalContact', {
+		"filterType" : 0, //0表示展示全部外部联系人列表，1表示仅展示未曾选择过的外部联系人。默认值为0；除了0与1，其他值非法。在企业微信2.4.22及以后版本支持该参数
+	}, function(res) {
+		if (res.err_msg == "selectExternalContact:ok") {
+			userIds = res.userIds; //返回此次选择的外部联系人userId列表，数组类型
+			alert(userIds);
+		} else {
+			//错误处理
+			alert(1112);
+		}
+	}); */
+</script>
 </html>

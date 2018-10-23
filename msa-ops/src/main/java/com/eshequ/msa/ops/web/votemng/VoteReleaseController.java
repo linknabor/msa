@@ -84,9 +84,17 @@ public class VoteReleaseController extends BaseController{
 		return voteReleaseService.updateVoteReleaseStatus(voteRelease);
 	}
     
-	//获取所有区域
+		
+	//根据cityid获取所有区域
 	@RequestMapping(value = "/getAllRegion", method = RequestMethod.GET)
-	public BaseResult<?> getAllRegion() {
-		return releaseRegionRemote.getAllRegion();
+	public BaseResult<?> getAllRegion(Long cityId) {
+		return releaseRegionRemote.getAllRegion(cityId);
 	}
+	
+	//根据regionid获取所有小区
+	@RequestMapping(value = "/getAllSect", method = RequestMethod.GET)
+	public BaseResult<?> getAllSect(Long regionId) {
+	  return releaseRegionRemote.getAllSect(regionId);
+	}
+		
 }

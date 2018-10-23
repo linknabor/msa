@@ -2,6 +2,8 @@ package com.eshequ.msa.ops.web.votemng;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -13,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.eshequ.msa.common.BaseResult;
 import com.eshequ.msa.common.User;
 import com.eshequ.msa.constants.Constants;
+import com.eshequ.msa.exception.BusinessException;
 import com.eshequ.msa.ops.model.votemng.VoteMng;
 import com.eshequ.msa.ops.model.votemng.VoteRelease;
 import com.eshequ.msa.ops.service.votemng.IVoteMngService;
@@ -27,6 +30,7 @@ import com.github.pagehelper.PageInfo;
 @RestController
 @RequestMapping("/voteMng")
 public class VoteMngController extends BaseController {
+	private static Logger logger = LoggerFactory.getLogger(VoteMngController.class);
 	@Autowired
 	private IVoteMngService voteMngService;
     
@@ -49,6 +53,12 @@ public class VoteMngController extends BaseController {
 		List<VoteMng> lists = voteMngService.getVoteMngList(voteMng);
 		PageInfo<VoteMng> pageInfo = new PageInfo<>(lists);
 		return pageInfo;
+	}
+	
+	//获取投票管理集合
+	@RequestMapping(value = "/selectVoteList", method = RequestMethod.GET)
+	public List<VoteMng> selectVoteList(VoteMng voteMng){
+		return voteMngService.getVoteMngList(voteMng);
 	}
     
 	//根据id获取投票管理详情
