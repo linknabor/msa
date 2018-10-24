@@ -17,7 +17,6 @@ import com.eshequ.msa.crm.model.repairmng.AccessToken;
 import com.eshequ.msa.util.http.HttpClientProxy;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import net.sf.json.JSONObject;
 
 @Component
 public class QiYeWeiXinUtil {
@@ -70,12 +69,18 @@ public class QiYeWeiXinUtil {
 			String url = Constants.GET_OAUTH2_URL.replace("ACCESS_TOKEN", accessToken).replace("CODE",
 					code);
 			String response = httpClientProxy.doGet(url);
-			JSONObject jsonObject=JSONObject.fromObject(response);
-			userTicket=jsonObject.getString("user_ticket");
+			ObjectMapper obj=new ObjectMapper();
+			Map m= new HashMap<>();
+			try {
+				m = obj.readValue(response, Map.class);
+			} catch (IOException e) {
+				log.error(e.getMessage(), e);
+			}
+			userTicket=m.get("user_ticket").toString();
 			log.info("企业微信返回userTicket："+userTicket);
-			if("0".equals(jsonObject.getString("errcode"))){
+			if("0".equals(m.get("errcode").toString())){
 				 redisTemplate.opsForValue().set("userTicket", userTicket);
-				 redisTemplate.expire("userTicket", Long.parseLong(jsonObject.getString("expires_in"))-100, TimeUnit.SECONDS);
+				 redisTemplate.expire("userTicket", Long.parseLong(m.get("expires_in").toString())-100, TimeUnit.SECONDS);
 			}
 		}else{
 			userTicket=(String) redisTemplate.opsForValue().get("userTicket");
@@ -90,12 +95,18 @@ public class QiYeWeiXinUtil {
 			String url = Constants.GET_OAUTH2_URL.replace("ACCESS_TOKEN", accessToken).replace("CODE",
 					code);
 			String response = httpClientProxy.doGet(url);
-			JSONObject jsonObject=JSONObject.fromObject(response);
-			userId=jsonObject.getString("UserId");
+			ObjectMapper obj=new ObjectMapper();
+			Map m= new HashMap<>();
+			try {
+				m = obj.readValue(response, Map.class);
+			} catch (IOException e) {
+				log.error(e.getMessage(), e);
+			}
+			userId=m.get("UserId").toString();
 			log.info("企业微信返回userId："+userId);
-			if("0".equals(jsonObject.getString("errcode"))){
+			if("0".equals(m.get("errcode").toString())){
 				 redisTemplate.opsForValue().set("userId", userId);
-				 redisTemplate.expire("userTicket", Long.parseLong(jsonObject.getString("expires_in"))-100, TimeUnit.SECONDS);
+				 redisTemplate.expire("userTicket", Long.parseLong(m.get("expires_in").toString())-100, TimeUnit.SECONDS);
 			}
 		}else{
 			userId=(String) redisTemplate.opsForValue().get("userId");
