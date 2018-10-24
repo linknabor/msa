@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.crm.mapper.repairmngmapper.RepairOrderMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.crm.model.repairmng.RepairOrder">
+    <id column="REPAIR_ID" jdbcType="VARCHAR" property="repairId" />
+    <result column="REPAIR_TYPE" jdbcType="CHAR" property="repairType" />
+    <result column="REPAIR_ADDRESS" jdbcType="VARCHAR" property="repairAddress" />
+    <result column="REPAIR_CONTENT" jdbcType="VARCHAR" property="repairContent" />
+    <result column="REPAIR_PHONE" jdbcType="VARCHAR" property="repairPhone" />
+    <result column="REPAIR_DATE" jdbcType="TIMESTAMP" property="repairDate" />
+    <result column="REPAIR_PEPOLE_ID" jdbcType="VARCHAR" property="repairPepoleId" />
+    <result column="REPAIR_PEPOLE_NAME" jdbcType="VARCHAR" property="repairPepoleName" />
+    <result column="REPAIR_PEPOLE_IMG" jdbcType="VARCHAR" property="repairPepoleImg" />
+    <result column="REPAIR_STATUS" jdbcType="CHAR" property="repairStatus" />
+    <result column="REPAIR_CLOSE_RESION" jdbcType="VARCHAR" property="repairCloseResion" />
+    <result column="REPAIR_ASSIGN_ID" jdbcType="VARCHAR" property="repairAssignId" />
+     <result column="IS_LOOK" jdbcType="VARCHAR" property="isLook" />
+  </resultMap>
+  
+  <select id="getRepairOrderList" resultMap="BaseResultMap">
+  SELECT REPAIR_ID,REPAIR_ADDRESS,REPAIR_DATE,REPAIR_PEPOLE_NAME,REPAIR_PEPOLE_IMG FROM REPAIR_ORDER ORDER BY REPAIR_DATE DESC
+  </select>
+  <select id="findRepairOrderById" parameterType="String" resultMap="BaseResultMap">
+  SELECT REPAIR_ID,REPAIR_TYPE,REPAIR_ADDRESS,REPAIR_CONTENT,REPAIR_DATE,REPAIR_STATUS,REPAIR_PHONE FROM REPAIR_ORDER
+  </select>
+</mapper>
