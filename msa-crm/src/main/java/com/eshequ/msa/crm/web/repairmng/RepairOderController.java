@@ -51,7 +51,19 @@ public class RepairOderController extends BaseController{
 		}
 			return BaseResult.fail("参数为空！");
 	}
-	
+	/*//获取需要未查看的订单
+	@RequestMapping(value="/getNotLookOrder",method=RequestMethod.GET)
+	public BaseResult<?> getNotLookOrder(RepairAndFileVo repairAndFileVo){
+		if(repairAndFileVo != null){
+			if(repairAndFileVo.getRepairOrder().getRepairId() != null){
+				return repairOrderService.updateRepairOrder(repairAndFileVo);
+			}else{
+				return repairOrderService.addRepairOrder(repairAndFileVo);
+			}
+		}
+			return BaseResult.fail("参数为空！");
+	}
+	*/
 	
 
 }
