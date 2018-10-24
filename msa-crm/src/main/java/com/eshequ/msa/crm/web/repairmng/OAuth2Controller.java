@@ -48,7 +48,7 @@ public class OAuth2Controller extends BaseController {
 		log.info(requestUrl);
 		String contextPath = request.getContextPath();
 		log.info(contextPath);
-		String backUrl = "http://" + requestUrl + contextPath +"/msa"+ "/oauth" + "/oauthBackUrl";
+		String backUrl = "http://" + requestUrl + "/msa"+contextPath + "/oauth" + "/oauthBackUrl";
 		log.info(backUrl);
 		String redirect_uri = "";
 		try {
