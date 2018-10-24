@@ -66,8 +66,8 @@ public class OAuth2Controller extends BaseController {
 	}
 
 	@RequestMapping("/oauthBackUrl")
-	@ResponseBody
-	public UserInfo oauthBackUrl(HttpServletRequest request, @RequestParam String code) {
+	public String oauthBackUrl(HttpServletRequest request, @RequestParam String code) {
+		String url="";
 		AccessToken accessToken = qiYeWeiXinUtil.getAccessToken();
 		String userId = qiYeWeiXinUtil.getUserId(accessToken.getAccess_token(), code);
 		String response = getUserInfo(accessToken.getAccess_token(), userId);
@@ -83,10 +83,15 @@ public class OAuth2Controller extends BaseController {
 			user.setName(m.get("name").toString());
 			user.setAvatar(m.get("avatar").toString());
 			redisTemplate.opsForValue().set(userId, user);
+			if("JAVA开发工程师".equals(user.getPosition())){
+				url="https://test.e-shequ.com/weixin/qiyeweixin/index.html#/";
+			}else{
+				url="https://test.e-shequ.com/weixin/qiyeweixin/index.html/juxin";
+			}
 		} catch (IOException e) {
 			log.error(e.getMessage(), e);
 		}
-		return user;
+		return "redirect:" + url;
 	}
     
 	@RequestMapping("/getAccessToke")
