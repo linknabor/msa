@@ -1,113 +1,166 @@
 package com.eshequ.msa.dms.model.servplat;
 
 import com.eshequ.msa.common.BaseModel;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SpBaseSect extends BaseModel {
+	@JsonProperty("sect_id")
     private Long sectId;
 
+	@JsonProperty("sect_status")
     private String sectStatus;
 
+	@JsonProperty("sect_type")
     private String sectType;
 
+	@JsonProperty("pro_type")
     private String proType;
 
+	@JsonProperty("sect_name_frst")
     private String sectNameFrst;
 
+	@JsonProperty("sect_addr_frst")
     private String sectAddrFrst;
 
+	@JsonProperty("sect_road_frst")
     private String sectRoadFrst;
 
+	@JsonProperty("sect_street_frst")
     private String sectStreetFrst;
 
+	@JsonProperty("sect_sub_street_frst")
     private String sectSubStreetFrst;
 
+	@JsonProperty("sect_no_frst")
     private String sectNoFrst;
 
+	@JsonProperty("remark")
     private String remark;
 
+	@JsonProperty("province_id")
     private Long provinceId;
 
+	@JsonProperty("city_id")
     private Long cityId;
 
+	@JsonProperty("region_id")
     private Long regionId;
 
+	@JsonProperty("loop_id")
     private Long loopId;
 
+	@JsonProperty("block_id")
     private Long blockId;
 
+	@JsonProperty("street_id")
     private Long streetId;
 
+	@JsonProperty("commi_id")
     private Long commiId;
 
+	@JsonProperty("zip_code")
     private String zipCode;
 
+	@JsonProperty("sect_east")
     private String sectEast;
 
+	@JsonProperty("sect_south")
     private String sectSouth;
 
+	@JsonProperty("sect_west")
     private String sectWest;
 
+	@JsonProperty("sect_north")
     private String sectNorth;
 
+	@JsonProperty("cnst_area")
     private String cnstArea;
 
+	@JsonProperty("land_area")
     private String landArea;
 
+	@JsonProperty("shops_area")
     private String shopsArea;
 
+	@JsonProperty("public_area")
     private String publicArea;
 
+	@JsonProperty("waters_area")
     private String watersArea;
 
+	@JsonProperty("green_area")
     private String greenArea;
 
+	@JsonProperty("tot_builds")
     private String totBuilds;
 
+	@JsonProperty("tot_units")
     private String totUnits;
 
+	@JsonProperty("tot_hous")
     private String totHous;
 
+	@JsonProperty("tot_shops")
     private String totShops;
 
+	@JsonProperty("tot_lifts")
     private String totLifts;
 
+	@JsonProperty("tot_ong_parks")
     private String totOngParks;
 
+	@JsonProperty("tot_ung_parks")
     private String totUngParks;
 
+	@JsonProperty("tot_tanks")
     private String totTanks;
 
+	@JsonProperty("tot_reservoirs")
     private String totReservoirs;
 
+	@JsonProperty("tot_pumps")
     private String totPumps;
 
+	@JsonProperty("tot_electrooms")
     private String totElectrooms;
 
+	@JsonProperty("sect_name_scnd")
     private String sectNameScnd;
 
+	@JsonProperty("sect_addr_scnd")
     private String sectAddrScnd;
 
+	@JsonProperty("sect_road_scnd")
     private String sectRoadScnd;
 
+	@JsonProperty("sect_street_scnd")
     private String sectStreetScnd;
 
+	@JsonProperty("sect_sub_street_scnd")
     private String sectSubStreetScnd;
 
+	@JsonProperty("sect_no_scnd")
     private String sectNoScnd;
 
+	@JsonProperty("office_addr")
     private String officeAddr;
 
+	@JsonProperty("office_tel")
     private String officeTel;
 
+	@JsonProperty("")
     private String relatedSectId;
 
+	@JsonProperty("related_sect_no")
     private String relatedSectNo;
 
+	@JsonProperty("house_manager")
     private String houseManager;
 
+	@JsonProperty("house_manager_person")
     private String houseManagerPerson;
 
-    private String sectTel;
+	private String sectTel;
 
     public Long getSectId() {
         return sectId;

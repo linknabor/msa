@@ -199,12 +199,12 @@ public class BaseDataTransferServiceImpl implements BaseDataBatchTransferService
 		}
 		for(int i = 0; i <= 270; i++) {
 //			if(i == 3) throw new BusinessException("roll back");
-//			migrateCell(i +1, sectMap);
-//			migrateHouse(i + 1);
-//			migrateShops(i + 1);
-//			migrateCarport(i + 1);
-//			migrateAdLocate(i + 1);
-//			migrateCust(i + 1);
+			migrateCell(i +1, sectMap);
+			migrateHouse(i + 1);
+			migrateShops(i + 1);
+			migrateCarport(i + 1);
+			migrateAdLocate(i + 1);
+			migrateCust(i + 1);
 			migrateCellCust(i + 1);
 		}
 		BaseResult<String> baseResult = new BaseResult<String>();
