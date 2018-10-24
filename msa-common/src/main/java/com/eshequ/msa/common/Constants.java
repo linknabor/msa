@@ -12,4 +12,7 @@ public class Constants {
     
 	//获取成员详细信息
 	public static final String GET_UserInfo_URL="https://qyapi.weixin.qq.com/cgi-bin/user/getuserdetail?access_token=ACCESS_TOKEN";
+	
+	//根据userId获取成员信息
+	public static final String GET_USERINFO="https://qyapi.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&userid=USERID";
 }
