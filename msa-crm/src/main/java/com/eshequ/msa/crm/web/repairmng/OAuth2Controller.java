@@ -1,7 +1,9 @@
 package com.eshequ.msa.crm.web.repairmng;
 
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -21,8 +23,8 @@ import com.eshequ.msa.crm.model.repairmng.UserInfo;
 import com.eshequ.msa.crm.util.QiYeWeiXinUtil;
 import com.eshequ.msa.crm.web.BaseController;
 import com.eshequ.msa.util.http.HttpClientProxy;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
-import net.sf.json.JSONObject;
 
 @Controller
 @RequestMapping("/oauth")
@@ -48,7 +50,7 @@ public class OAuth2Controller extends BaseController {
 		log.info(requestUrl);
 		String contextPath = request.getContextPath();
 		log.info(contextPath);
-		String backUrl = "http://" + requestUrl + "/msa"+contextPath + "/oauth" + "/oauthBackUrl";
+		String backUrl = "http://" + requestUrl +"/msa" +contextPath + "/oauth" + "/oauthBackUrl";
 		log.info(backUrl);
 		String redirect_uri = "";
 		try {
@@ -69,16 +71,22 @@ public class OAuth2Controller extends BaseController {
 		AccessToken accessToken = qiYeWeiXinUtil.getAccessToken();
 		String userId = qiYeWeiXinUtil.getUserId(accessToken.getAccess_token(), code);
 		String response = getUserInfo(accessToken.getAccess_token(), userId);
-		JSONObject jsonObject=JSONObject.fromObject(response);
+		ObjectMapper obj=new ObjectMapper();
+		
 		UserInfo user=new UserInfo();
-		user.setUserid(jsonObject.getString("userid"));
-		user.setGender(jsonObject.getString("gender"));
-		user.setPosition(jsonObject.getString("position"));
-		user.setMobile(jsonObject.getString("mobile"));
-		user.setName(jsonObject.getString("name"));
-		user.setAvatar(jsonObject.getString("avatar"));
-		redisTemplate.opsForValue().set("userId", userId);
-		redisTemplate.opsForValue().set(userId, user);
+		try {
+			Map m = obj.readValue(response, Map.class); 
+			user.setUserid(m.get("userid").toString());
+			user.setGender(m.get("gender").toString());
+			user.setPosition(m.get("position").toString());
+			user.setMobile(m.get("mobile").toString());
+			user.setName(m.get("name").toString());
+			user.setAvatar(m.get("avatar").toString());
+			redisTemplate.opsForValue().set("userId", userId);
+			redisTemplate.opsForValue().set(userId, user);
+		} catch (IOException e) {
+			log.error(e.getMessage(), e);
+		}
 		return user;
 	}
     
