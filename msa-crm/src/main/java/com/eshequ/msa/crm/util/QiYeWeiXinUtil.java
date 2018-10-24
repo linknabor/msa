@@ -64,8 +64,6 @@ public class QiYeWeiXinUtil {
 	}
 	
 	public String getUserTicket(String accessToken,String code){
-		String userTicket="";
-		if(redisTemplate.opsForValue().get("userTicket") == null){
 			String url = Constants.GET_OAUTH2_URL.replace("ACCESS_TOKEN", accessToken).replace("CODE",
 					code);
 			String response = httpClientProxy.doGet(url);
@@ -76,22 +74,16 @@ public class QiYeWeiXinUtil {
 			} catch (IOException e) {
 				log.error(e.getMessage(), e);
 			}
-			userTicket=m.get("user_ticket").toString();
+			String userTicket=m.get("user_ticket").toString();
 			log.info("企业微信返回userTicket："+userTicket);
 			if("0".equals(m.get("errcode").toString())){
 				 redisTemplate.opsForValue().set("userTicket", userTicket);
 				 redisTemplate.expire("userTicket", Long.parseLong(m.get("expires_in").toString())-100, TimeUnit.SECONDS);
 			}
-		}else{
-			userTicket=(String) redisTemplate.opsForValue().get("userTicket");
-			log.info("redis返回userTicket："+userTicket);
-		}
 		return userTicket;
 	}
 	
 	public String getUserId(String accessToken,String code){
-		String userId="";
-		if(redisTemplate.opsForValue().get("userId") == null){
 			String url = Constants.GET_OAUTH2_URL.replace("ACCESS_TOKEN", accessToken).replace("CODE",
 					code);
 			String response = httpClientProxy.doGet(url);
@@ -102,16 +94,11 @@ public class QiYeWeiXinUtil {
 			} catch (IOException e) {
 				log.error(e.getMessage(), e);
 			}
-			userId=m.get("UserId").toString();
+			String userId=m.get("UserId").toString();
 			log.info("企业微信返回userId："+userId);
 			if("0".equals(m.get("errcode").toString())){
 				 redisTemplate.opsForValue().set("userId", userId);
-				 redisTemplate.expire("userTicket", Long.parseLong(m.get("expires_in").toString())-100, TimeUnit.SECONDS);
 			}
-		}else{
-			userId=(String) redisTemplate.opsForValue().get("userId");
-			log.info("redis返回userId："+userId);
-		}
 		return userId;
 	}
 }

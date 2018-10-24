@@ -82,7 +82,6 @@ public class OAuth2Controller extends BaseController {
 			user.setMobile(m.get("mobile").toString());
 			user.setName(m.get("name").toString());
 			user.setAvatar(m.get("avatar").toString());
-			redisTemplate.opsForValue().set("userId", userId);
 			redisTemplate.opsForValue().set(userId, user);
 		} catch (IOException e) {
 			log.error(e.getMessage(), e);
