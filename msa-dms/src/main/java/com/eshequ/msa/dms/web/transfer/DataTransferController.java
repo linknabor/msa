@@ -7,7 +7,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import com.eshequ.msa.common.BaseResult;
 import com.eshequ.msa.dms.model.servplat.SpBaseCust;
 import com.eshequ.msa.dms.model.servplat.SpBaseCustCar;
+import com.eshequ.msa.dms.model.servplat.SpBaseCustCarFeeStartDate;
 import com.eshequ.msa.dms.model.servplat.SpBaseHouse;
+import com.eshequ.msa.dms.model.servplat.SpBaseMngCell;
 import com.eshequ.msa.dms.model.servplat.SpBaseSect;
 import com.eshequ.msa.dms.service.transfer.DataTransferService;
 import com.eshequ.msa.dms.web.BaseController;
@@ -38,5 +40,15 @@ public class DataTransferController extends BaseController {
 	@RequestMapping(value = "/migrateCarData", method = RequestMethod.POST)
 	public BaseResult<?> addCar(SpBaseCustCar spBaseCustCar){
 		return dataTransferService.migrateCarData(spBaseCustCar);
+	}
+	
+	@RequestMapping(value = "/migrateCellData", method = RequestMethod.POST)
+	public BaseResult<?> addCell(SpBaseMngCell spBaseMngCell){
+		return dataTransferService.migrateCellData(spBaseMngCell);
+	}
+	
+	@RequestMapping(value = "/migrateCarStartDateData", method = RequestMethod.POST)
+	public BaseResult<?> addCarStartDate(SpBaseCustCarFeeStartDate spBaseCustCarFeeStartDate){
+		return dataTransferService.migrateCarStartDateData(spBaseCustCarFeeStartDate);
 	}
 }

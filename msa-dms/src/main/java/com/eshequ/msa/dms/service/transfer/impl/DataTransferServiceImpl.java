@@ -10,19 +10,25 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.eshequ.msa.common.BaseResult;
+import com.eshequ.msa.dms.mapper.msa.MsaBaseCellMapper;
+import com.eshequ.msa.dms.mapper.msa.MsaBaseCustCarFeeStartDateMapper;
 import com.eshequ.msa.dms.mapper.msa.MsaBaseCustCarMapper;
 import com.eshequ.msa.dms.mapper.msa.MsaBaseCustMapper;
 import com.eshequ.msa.dms.mapper.msa.MsaBaseHouseMapper;
 import com.eshequ.msa.dms.mapper.msa.MsaBaseSectMapper;
 import com.eshequ.msa.dms.mapper.msa.MsaBaseShopsMapper;
 import com.eshequ.msa.dms.mapper.servplat.SpBaseHouseMapper;
+import com.eshequ.msa.dms.model.msa.MsaBaseCell;
 import com.eshequ.msa.dms.model.msa.MsaBaseCust;
 import com.eshequ.msa.dms.model.msa.MsaBaseCustCar;
+import com.eshequ.msa.dms.model.msa.MsaBaseCustCarFeeStartDate;
 import com.eshequ.msa.dms.model.msa.MsaBaseHouse;
 import com.eshequ.msa.dms.model.msa.MsaBaseSect;
 import com.eshequ.msa.dms.model.servplat.SpBaseCust;
 import com.eshequ.msa.dms.model.servplat.SpBaseCustCar;
+import com.eshequ.msa.dms.model.servplat.SpBaseCustCarFeeStartDate;
 import com.eshequ.msa.dms.model.servplat.SpBaseHouse;
+import com.eshequ.msa.dms.model.servplat.SpBaseMngCell;
 import com.eshequ.msa.dms.model.servplat.SpBaseSect;
 import com.eshequ.msa.dms.service.transfer.DataTransferService;
 import com.eshequ.msa.exception.BusinessException;
@@ -43,6 +49,12 @@ public class DataTransferServiceImpl implements DataTransferService{
 	
 	@Autowired
 	private MsaBaseCustCarMapper msaBaseCustCarMapper;
+	
+	@Autowired
+	private MsaBaseCellMapper msaBaseCellMapper;
+	
+	@Autowired
+	private MsaBaseCustCarFeeStartDateMapper msaBaseCustCarFeeStartDateMapper;
 
 	@Override
 	@Transactional(rollbackFor={BusinessException.class})
@@ -98,6 +110,15 @@ public class DataTransferServiceImpl implements DataTransferService{
 		msaBaseCustCar.setCarId(snowFlake.nextId());
 		msaBaseCustCarMapper.insertSelective(msaBaseCustCar);
 	}
+	
+	@Transactional(rollbackFor={BusinessException.class})
+	public void migrateCell(SpBaseMngCell spBaseMngCell) {
+		MsaBaseCell msaBaseCell = new MsaBaseCell();
+		BeanUtils.copyProperties(spBaseMngCell, msaBaseCell);
+		msaBaseCell.setOriginalId(spBaseMngCell.getMngCellId()+"");
+		msaBaseCell.setMngCellId(snowFlake.nextId());
+		msaBaseCellMapper.insert(msaBaseCell);
+	}
 
 	@Override
 	public BaseResult<String> migrateCustData(SpBaseCust spBaseCust) {
@@ -114,4 +135,26 @@ public class DataTransferServiceImpl implements DataTransferService{
 		baseResult.setResult("0");
 		return baseResult;
 	}
+
+	@Override
+	public BaseResult<String> migrateCellData(SpBaseMngCell spBaseMngCell) {
+		migrateCell(spBaseMngCell);
+		BaseResult<String> baseResult = new BaseResult<String>();
+		baseResult.setResult("0");
+		return baseResult;
+	}
+
+	@Override
+	public BaseResult<String> migrateCarStartDateData(SpBaseCustCarFeeStartDate spBaseCustCarFeeStartDate) {
+		migrateCarStartDate(spBaseCustCarFeeStartDate);
+		BaseResult<String> baseResult = new BaseResult<String>();
+		baseResult.setResult("0");
+		return baseResult;
+	}
+
+	private void migrateCarStartDate(SpBaseCustCarFeeStartDate spBaseCustCarFeeStartDate) {
+		MsaBaseCustCarFeeStartDate msaBaseCustCarFeeStartDate = new MsaBaseCustCarFeeStartDate();
+		BeanUtils.copyProperties(spBaseCustCarFeeStartDate, msaBaseCustCarFeeStartDate);
+	}
+
 }
