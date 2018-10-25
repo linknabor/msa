@@ -29,9 +29,11 @@ public class RepairOrder extends BaseModel {
 
     private String repairCloseResion;
 
-    private String repairAssignId;
+    private String repairAssignId;//维修人员id
     
     private String isLook;//是否查看 0未查看 1已查看
+    
+    private String serverIds;//企业微信图片ids用逗号给开
 
     public String getRepairId() {
         return repairId;
@@ -136,6 +138,14 @@ public class RepairOrder extends BaseModel {
 
 	public void setIsLook(String isLook) {
 		this.isLook = isLook;
+	}
+
+	public String getServerIds() {
+		return serverIds;
+	}
+
+	public void setServerIds(String serverIds) {
+		this.serverIds = serverIds;
 	}
     
 }

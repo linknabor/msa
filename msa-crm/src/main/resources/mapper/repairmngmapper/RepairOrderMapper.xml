@@ -14,13 +14,38 @@
     <result column="REPAIR_STATUS" jdbcType="CHAR" property="repairStatus" />
     <result column="REPAIR_CLOSE_RESION" jdbcType="VARCHAR" property="repairCloseResion" />
     <result column="REPAIR_ASSIGN_ID" jdbcType="VARCHAR" property="repairAssignId" />
-     <result column="IS_LOOK" jdbcType="VARCHAR" property="isLook" />
+    <result column="IS_LOOK" jdbcType="VARCHAR" property="isLook" />
+    <result column="SERVER_IDS" jdbcType="VARCHAR" property="serverIds" />
   </resultMap>
   
-  <select id="getRepairOrderList" resultMap="BaseResultMap">
-  SELECT REPAIR_ID,REPAIR_ADDRESS,REPAIR_DATE,REPAIR_PEPOLE_NAME,REPAIR_PEPOLE_IMG FROM REPAIR_ORDER ORDER BY REPAIR_DATE DESC
+  <select id="getRepairOrderList" parameterType="java.lang.String" resultMap="BaseResultMap">
+  SELECT REPAIR_ID,REPAIR_ADDRESS,REPAIR_DATE,REPAIR_PEPOLE_NAME,REPAIR_PEPOLE_IMG,IS_LOOK FROM REPAIR_ORDER 
+  <where>
+  <if test="userId != null">
+  AND REPAIR_ASSIGN_ID=#{userId}
+  </if>
+  </where>
+  ORDER BY REPAIR_DATE DESC
   </select>
-  <select id="findRepairOrderById" parameterType="String" resultMap="BaseResultMap">
-  SELECT REPAIR_ID,REPAIR_TYPE,REPAIR_ADDRESS,REPAIR_CONTENT,REPAIR_DATE,REPAIR_STATUS,REPAIR_PHONE FROM REPAIR_ORDER
+  <select id="findRepairOrderById" parameterType="java.lang.String" resultMap="BaseResultMap">
+  SELECT REPAIR_ID,REPAIR_TYPE,REPAIR_ADDRESS,REPAIR_CONTENT,REPAIR_DATE,REPAIR_STATUS,REPAIR_PHONE,REPAIR_ASSIGN_ID FROM REPAIR_ORDER
+  WHERE  REPAIR_ID = #{repairId}
   </select>
+  
+  <select id="getNotLookOrderCount" resultType="java.lang.Integer">
+  SELECT COUNT(REPAIR_ID) FROM REPAIR_ORDER WHERE IS_LOOK = 0
+  </select>
+  
+  
+  <select id="getMaxTime" resultType="java.lang.String">
+  select max(REPAIR_DATE) REPAIR_DATE FROM REPAIR_ORDER
+  </select>
+  
+  <update id="updateIsLook">
+  UPDATE REPAIR_ORDER SET IS_LOOK = 1 WHERE IS_LOOK = 0
+  </update>
+  
+  <update id="updateIsLookById" parameterType="java.lang.String">
+  UPDATE REPAIR_ORDER SET IS_LOOK = 1 WHERE REPAIR_ID = #{repairId} WHERE IS_LOOK = 0
+  </update>
 </mapper>

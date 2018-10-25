@@ -18,6 +18,8 @@ public class RepairAssign extends BaseModel {
     private Date assignDate;
 
     private String assignPepolePosition;
+    
+    private String assignPepolePhone;
 
     public String getRepairAssignId() {
         return repairAssignId;
@@ -66,4 +68,13 @@ public class RepairAssign extends BaseModel {
     public void setAssignPepolePosition(String assignPepolePosition) {
         this.assignPepolePosition = assignPepolePosition;
     }
+
+	public String getAssignPepolePhone() {
+		return assignPepolePhone;
+	}
+
+	public void setAssignPepolePhone(String assignPepolePhone) {
+		this.assignPepolePhone = assignPepolePhone;
+	}
+    
 }

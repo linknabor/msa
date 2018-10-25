@@ -10,11 +10,14 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.eshequ.msa.common.BaseResult;
 import com.eshequ.msa.crm.mapper.repairmng.FileMngMapper;
+import com.eshequ.msa.crm.mapper.repairmng.RepairAssignMapper;
 import com.eshequ.msa.crm.mapper.repairmng.RepairOrderMapper;
 import com.eshequ.msa.crm.model.repairmng.FileMng;
+import com.eshequ.msa.crm.model.repairmng.RepairAssign;
 import com.eshequ.msa.crm.model.repairmng.RepairOrder;
 import com.eshequ.msa.crm.model.repairmng.UserInfo;
 import com.eshequ.msa.crm.service.repairmng.RepairOrderService;
+import com.eshequ.msa.crm.util.QiYeWeiXinUtil;
 import com.eshequ.msa.crm.vo.repairmng.RepairAndFileVo;
 import com.eshequ.msa.util.SnowFlake;
 
@@ -22,9 +25,15 @@ import com.eshequ.msa.util.SnowFlake;
 @Transactional
 public class RepairOrderServiceImpl implements RepairOrderService {
 	private final String REPAIR_STATUS_UNASSINGED = "0"; // 未分配
-
+	private final String REPAIR_STATUS_ASSINGED = "1";  //  已分配
+	private final String REPAIR_STATUS_CLOSERD = "2";  //   关闭
+	private final String REPAIR_STATUS_SUCCESSED="3"; //    已完工
+	private final String IS_LOOK="0";//未查看
 	@Autowired
 	private RepairOrderMapper repairOrderMapper;
+	@Autowired
+	private RepairAssignMapper repairAssignMapper;
+	
 	
 	@Autowired
 	private FileMngMapper fileMngMapper;
@@ -34,10 +43,14 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 	
 	@Autowired
 	private RedisTemplate<String, Object> redisTemplate;
+	
+	@Autowired
+	private QiYeWeiXinUtil qiYeWeiXinUtil;
+
 
 	@Override
-	public List<RepairOrder> getRepairOrderList() {
-		return repairOrderMapper.getRepairOrderList();
+	public List<RepairOrder> getRepairOrderList(String userId) {
+		return repairOrderMapper.getRepairOrderList(userId);
 	}
 
 	@Override
@@ -46,6 +59,7 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 		RepairOrder repairOrder = repairAndFileVo.getRepairOrder();
 		repairOrder.setRepairId(repairId);
 		repairOrder.setRepairDate(new Date());
+		repairOrder.setIsLook(IS_LOOK);
 		repairOrder.setRepairStatus(REPAIR_STATUS_UNASSINGED);
 		//添加当前人信息
 	    UserInfo   user=(UserInfo) redisTemplate.opsForValue().get("user");
@@ -89,10 +103,87 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 	public RepairAndFileVo getRepairOrderDetail(String repairId) {
 		RepairAndFileVo vo=new RepairAndFileVo();
 		RepairOrder repairOrder=repairOrderMapper.findRepairOrderById(repairId);
+		if(repairOrder!=null && repairOrder.getRepairAssignId() != null){
+			RepairAssign repairAssign=repairAssignMapper.selectByAssignPepoleId(repairOrder.getRepairAssignId());
+				vo.setRepairAssign(repairAssign);
+		}
 		List<FileMng> fileList=fileMngMapper.getRepairOrderById(repairId);
 		vo.setList(fileList);
 		vo.setRepairOrder(repairOrder);
 		return vo;
+	}
+
+	@Override
+	public int getNotLookOrderCount() {
+		
+		return repairOrderMapper.getNotLookOrderCount();
+	}
+
+	@Override
+	public String getMaxTime() {
+		
+		return repairOrderMapper.getMaxTime();
+	}
+
+	@Override
+	public int updateIsLook() {
+		
+		return repairOrderMapper.updateIsLook();
+	}
+    
+	@Override
+	public int updateIsLookById(String repairId) {
+		
+		return repairOrderMapper.updateIsLookById(repairId);
+	}
+
+	@Override
+	public BaseResult<?> getuserListByDepartMent() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BaseResult<?> closeRepairOrder(RepairOrder repairOrder) {
+		repairOrder.setRepairStatus(REPAIR_STATUS_CLOSERD);
+	int count=	repairOrderMapper.updateByPrimaryKeySelective(repairOrder);
+	if(count > 0){
+		return BaseResult.successResult("关闭成功！");
+	}
+		return BaseResult.fail("关闭失败！");
+	}
+
+	@Override
+	public BaseResult<?> addRepairAssignPepole(RepairAssign repairAssign,String repairId) {
+		RepairOrder repairOrder=new RepairOrder();
+		repairOrder.setRepairId(repairId);
+		repairOrder.setRepairAssignId(repairAssign.getAssignPepoleId());
+		repairOrder.setRepairStatus(REPAIR_STATUS_ASSINGED);
+		int count=repairOrderMapper.updateByPrimaryKeySelective(repairOrder);
+		
+		int result=repairAssignMapper.getByAssignPepoleId(repairAssign.getAssignPepoleId());
+		if(result == 0){
+			String repairAssignId = String.valueOf(snowFlake.nextId());
+			repairAssign.setRepairAssignId(repairAssignId);
+			repairAssignMapper.insertSelective(repairAssign);
+		}
+		if(count >0 ){
+			return BaseResult.successResult("分配成功！");
+		}
+		
+		return BaseResult.fail("分配失败！");
+	}
+
+	@Override
+	public BaseResult<?> repairOrderSuccess(String repairId) {
+		RepairOrder repairOrder=new RepairOrder();
+		repairOrder.setRepairId(repairId);
+		repairOrder.setRepairStatus(REPAIR_STATUS_SUCCESSED);
+		int count=repairOrderMapper.updateByPrimaryKeySelective(repairOrder);
+		if(count >0){
+			return BaseResult.successResult("完工成功！");
+		}
+		return BaseResult.fail("完工失败！");
 	}
 
 }

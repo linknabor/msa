@@ -9,8 +9,16 @@ import com.eshequ.msa.crm.model.repairmng.RepairOrder;
 
 public interface RepairOrderMapper extends CommonMapper<RepairOrder>{
 
-	List<RepairOrder> getRepairOrderList();
+	List<RepairOrder> getRepairOrderList(@Param("userId")String userId);
 
 	RepairOrder findRepairOrderById(@Param("repairId")String repairId);
+
+	int getNotLookOrderCount();
+	
+	String getMaxTime();
+
+	int updateIsLook();
+
+	int updateIsLookById(@Param("repairId")String repairId);
 
 }

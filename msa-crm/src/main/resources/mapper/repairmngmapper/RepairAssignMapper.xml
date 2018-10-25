@@ -8,5 +8,13 @@
     <result column="ASSIGN_PEPOLE_IMG" jdbcType="VARCHAR" property="assignPepoleImg" />
     <result column="ASSIGN_DATE" jdbcType="TIMESTAMP" property="assignDate" />
     <result column="ASSIGN_PEPOLE_POSITION" jdbcType="VARCHAR" property="assignPepolePosition" />
+     <result column="ASSIGN_PEPOLE_PHONE" jdbcType="VARCHAR" property="assignPepolePhone" />
   </resultMap>
+  <select id="getByAssignPepoleId" parameterType="java.lang.String" resultType="java.lang.Integer">
+  SELECT COUNT(*) FROM REPAIR_ASSIGN WHERE ASSIGN_PEPOLE_ID= #{assignPepoleId}
+  </select>
+  
+  <select id="selectByAssignPepoleId" parameterType="java.lang.String" resultMap="BaseResultMap">
+  SELECT REPAIR_ASSIGN_ID,ASSIGN_PEPOLE_ID,ASSIGN_PEPOLE_NAME,ASSIGN_PEPOLE_IMG,ASSIGN_PEPOLE_PHONE FROM REPAIR_ASSIGN WHERE ASSIGN_PEPOLE_ID= #{assignPepoleId}
+  </select>
 </mapper>

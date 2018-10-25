@@ -2,6 +2,7 @@ package com.eshequ.msa.crm.util;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Component;
 
 import com.eshequ.msa.common.Constants;
 import com.eshequ.msa.crm.model.repairmng.AccessToken;
+import com.eshequ.msa.crm.model.repairmng.UserInfo;
 import com.eshequ.msa.util.http.HttpClientProxy;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -101,4 +103,23 @@ public class QiYeWeiXinUtil {
 			}
 		return userId;
 	}
+	
+	//获取部门用户信息
+	public List<UserInfo> getuserListByDepartMent(){
+		AccessToken  accessToke=getAccessToken();
+		String url = Constants.GET_DEPARTMENT_USERINFO.replace("ACCESS_TOKEN", accessToke.getAccess_token()).replace("DEPARTMENT_ID", "20");
+		String result=httpClientProxy.doGet(url);
+		ObjectMapper obj=new ObjectMapper();
+		try {
+			Map map=obj.readValue(result, Map.class);
+			
+		List list=	(List) map.get("userlist");
+		} catch (IOException e) {
+			log.error(e.getMessage(), e);
+		}
+		//TODO 返回集合 需测试
+		return null;
+	}
+	
+	
 }
