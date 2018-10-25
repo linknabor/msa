@@ -15,4 +15,10 @@ public class Constants {
 	
 	//根据userId获取成员信息
 	public static final String GET_USERINFO="https://qyapi.weixin.qq.com/cgi-bin/user/get?access_token=ACCESS_TOKEN&userid=USERID";
+	
+	//获取部门成员list
+	public static final String GET_DEPARTMENT_USERINFO="https://qyapi.weixin.qq.com/cgi-bin/user/list?access_token=ACCESS_TOKEN&department_id=DEPARTMENT_ID&fetch_child=0";
+
+    //获取企业的jsapi_ticket
+	public static final String GET_jsapi_ticket="https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token=ACCESS_TOKEN";
 }
