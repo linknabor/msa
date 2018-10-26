@@ -130,7 +130,7 @@ public class OAuth2Controller extends BaseController {
 		AccessToken accessToken = qiYeWeiXinUtil.getAccessToken();
 		String qiyeUrl=Constants.GET_jsapi_ticket.replace("ACCESS_TOKEN", accessToken.getAccess_token());
 		String ticket=httpClientProxy.doGet(qiyeUrl);
-		String url = requesturl.getRequestURL().toString();
+		String url = requesturl.getParameter("url");
 		ObjectMapper obj=new ObjectMapper();
 		String jsapi_ticket="";
 		try {
