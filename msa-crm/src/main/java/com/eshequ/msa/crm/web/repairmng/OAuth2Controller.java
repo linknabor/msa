@@ -131,6 +131,8 @@ public class OAuth2Controller extends BaseController {
 		String qiyeUrl=Constants.GET_jsapi_ticket.replace("ACCESS_TOKEN", accessToken.getAccess_token());
 		String ticket=httpClientProxy.doGet(qiyeUrl);
 		String url = requesturl.getRequestURL().toString();
+		log.info("ticket:"+ticket);
+		log.info("url:"+url);
 		return sign(ticket, url);
 	}
 	
