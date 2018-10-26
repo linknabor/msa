@@ -17,6 +17,7 @@ import com.eshequ.msa.crm.model.repairmng.RepairAssign;
 import com.eshequ.msa.crm.model.repairmng.RepairOrder;
 import com.eshequ.msa.crm.model.repairmng.UserInfo;
 import com.eshequ.msa.crm.service.repairmng.RepairOrderService;
+import com.eshequ.msa.crm.util.FileUtil;
 import com.eshequ.msa.crm.util.QiYeWeiXinUtil;
 import com.eshequ.msa.crm.vo.repairmng.RepairAndFileVo;
 import com.eshequ.msa.util.SnowFlake;
@@ -46,6 +47,9 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 	
 	@Autowired
 	private QiYeWeiXinUtil qiYeWeiXinUtil;
+	
+	@Autowired
+	private FileUtil fileUtil;
 
 
 	@Override
@@ -68,13 +72,14 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 	    repairOrder.setRepairPepoleImg(user.getAvatar());
 		int count = repairOrderMapper.insertSelective(repairOrder);
 		if (count > 0) {
-              for (FileMng fileMng : repairAndFileVo.getList()) {
+			fileUtil.upload2Qiniu(repairAndFileVo.getRepairOrder().getServerIds(),repairId);
+             /* for (FileMng fileMng : repairAndFileVo.getList()) {
             	  String fileId = String.valueOf(snowFlake.nextId());
             	  fileMng.setRepairId(repairId);
             	  fileMng.setCreateDate(new Date());
             	  fileMng.setFileId(fileId);
             	  fileMngMapper.insertSelective(fileMng);
-			}
+			}*/
               
               return BaseResult.successResult("添加成功！");   
 		}
@@ -185,5 +190,9 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 		}
 		return BaseResult.fail("完工失败！");
 	}
-
+	@Override
+    public void testFile(String serverIds,String repairId){
+		fileUtil.upload2Qiniu(serverIds,repairId);
+	
+}
 }

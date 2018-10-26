@@ -33,4 +33,6 @@ public interface RepairOrderService {
 
 	BaseResult<?> repairOrderSuccess(String repairId);
 
+	void testFile(String serverIds, String repairId);
+
 }
