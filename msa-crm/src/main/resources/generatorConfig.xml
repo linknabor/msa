@@ -3,7 +3,7 @@
 <generatorConfiguration>
 
 	<classPathEntry
-		location="E:\maven\repository\mysql\mysql-connector-java\5.1.45\mysql-connector-java-5.1.45.jar" />
+		location="D:\apache-maven-3.3.9\repository\mysql\mysql-connector-java\5.1.45\mysql-connector-java-5.1.45.jar" />
 
 	<context id="MysqlTables" targetRuntime="MyBatis3">
 		<commentGenerator>
@@ -12,7 +12,7 @@
 		</commentGenerator>
 		
 		<jdbcConnection connectionURL="jdbc:mysql://localhost:3306/crm"
-			driverClass="com.mysql.jdbc.Driver" password="crm" userId="crm" />
+			driverClass="com.mysql.jdbc.Driver" password="root" userId="root" />
 			
 		<!-- java类型处理器 
 	         用于处理DB中的类型到Java中的类型，默认使用JavaTypeResolverDefaultImpl；
@@ -37,7 +37,7 @@
  78      -->
 		<!-- model -->
 
-		<javaModelGenerator targetPackage="com.eshequ.msa.crm.model" 
+		<javaModelGenerator targetPackage="com.eshequ.msa.crm.model.repairmng" 
 			targetProject=".\src\main\java\">
 			<property name="rootClass" value="com.eshequ.msa.common.BaseModel"/>
 		</javaModelGenerator>
@@ -49,13 +49,13 @@
 	      	这个元素就必须配置
 			targetPackage/targetProject:同javaModelGenerator
 	      -->
-	     <sqlMapGenerator targetPackage="resources.mapper.sysmapper" targetProject=".\src\main\">
+	     <sqlMapGenerator targetPackage="resources.mapper.repairmngmapper" targetProject=".\src\main\">
 	         <!-- 在targetPackage的基础上，根据数据库的schema再生成一层package，最终生成的类放在这个package下，默认为false -->
 	         <property name="enableSubPackages" value="false"/>
      	</sqlMapGenerator>
      	
   
-     	<javaClientGenerator targetPackage="com.eshequ.msa.crm.mapper.sysmapper"
+     	<javaClientGenerator targetPackage="com.eshequ.msa.crm.mapper.repairmngmapper"
 			targetProject=".\src\main\java\" type="XMLMAPPER" >
 			<property name="rootInterface" value="com.eshequ.msa.common.CommonMapper"/>
 		</javaClientGenerator>
@@ -148,7 +148,21 @@
 			<property name="modelOnly" value="true"/>	
 		</table>
  -->
- 		<table schema="crm" tableName="msa_cfg_sys_para" enableCountByExample="false"
+ 		<table schema="crm" tableName="repair_assign" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			
+			<property name="useActualColumnNames" value="false"/>
+			<property name="modelOnly" value="true"/>	
+		</table>
+		<table schema="crm" tableName="repair_order" enableCountByExample="false"
+			enableUpdateByExample="false" enableDeleteByExample="false"
+			enableSelectByExample="false" selectByExampleQueryId="false">
+			
+			<property name="useActualColumnNames" value="false"/>
+			<property name="modelOnly" value="true"/>	
+		</table>
+		<table schema="crm" tableName="file_mng" enableCountByExample="false"
 			enableUpdateByExample="false" enableDeleteByExample="false"
 			enableSelectByExample="false" selectByExampleQueryId="false">
 			

@@ -131,9 +131,17 @@ public class OAuth2Controller extends BaseController {
 		String qiyeUrl=Constants.GET_jsapi_ticket.replace("ACCESS_TOKEN", accessToken.getAccess_token());
 		String ticket=httpClientProxy.doGet(qiyeUrl);
 		String url = requesturl.getRequestURL().toString();
-		log.info("ticket:"+ticket);
+		ObjectMapper obj=new ObjectMapper();
+		String jsapi_ticket="";
+		try {
+			Map map=obj.readValue(ticket, Map.class);
+			jsapi_ticket=map.get("ticket").toString();
+		} catch (IOException e) {
+			log.error(e.getMessage(), e);
+		}
+		log.info("jsapi_ticket:"+jsapi_ticket);
 		log.info("url:"+url);
-		return sign(ticket, url);
+		return sign(jsapi_ticket, url);
 	}
 	
 	public Map<String,String> sign(String jsapi_ticket,String url){
