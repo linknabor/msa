@@ -17,11 +17,11 @@ public interface RepairOrderService {
 
 	RepairAndFileVo getRepairOrderDetail(String repairId);
 
-	int getNotLookOrderCount();
+	int getNotLookOrderCount(String userId);
 
 	String getMaxTime();
 
-	int updateIsLook();
+	int updateIsLook(String userId);
 	
 	int updateIsLookById(String repairId);
 

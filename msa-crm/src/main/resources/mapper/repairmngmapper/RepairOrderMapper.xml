@@ -32,8 +32,21 @@
   WHERE  REPAIR_ID = #{repairId}
   </select>
   
-  <select id="getNotLookOrderCount" resultType="java.lang.Integer">
-  SELECT COUNT(REPAIR_ID) FROM REPAIR_ORDER WHERE IS_LOOK = 0
+  <select id="getNotLookOrderCount" parameterType="java.lang.String" resultType="java.lang.Integer">
+  SELECT COUNT(REPAIR_ID) FROM REPAIR_ORDER
+  <where>
+     IS_LOOK = 0
+  <if test="userId != null">
+  AND REPAIR_ASSIGN_ID=#{userId}
+  
+  OR IS_LOOK = 1
+  </if>
+  
+  <if test="userId == null">
+  OR IS_LOOK = 2
+  </if>
+  
+  </where>
   </select>
   
   
@@ -41,11 +54,30 @@
   select max(REPAIR_DATE) REPAIR_DATE FROM REPAIR_ORDER
   </select>
   
-  <update id="updateIsLook">
-  UPDATE REPAIR_ORDER SET IS_LOOK = 1 WHERE IS_LOOK = 0
+  <update id="updateIsLook" parameterType="java.lang.String">
+  UPDATE REPAIR_ORDER  SET
+  <if test="userId != null">
+   IS_LOOK = 2
+   
+   WHERE REPAIR_ASSIGN_ID=#{userId} AND IS_LOOK = 0 OR  IS_LOOK = 1
+  </if>
+  <if test="userId == null">
+  IS_LOOK = 1
+  
+  WHERE IS_LOOK =0 OR IS_LOOK =2
+  </if>
   </update>
   
   <update id="updateIsLookById" parameterType="java.lang.String">
-  UPDATE REPAIR_ORDER SET IS_LOOK = 1 WHERE REPAIR_ID = #{repairId} WHERE IS_LOOK = 0
+  UPDATE REPAIR_ORDER
+  <set>
+   <if test="userId != null">
+   IS_LOOK = 2
+  </if>
+  <if test="userId == null">
+  IS_LOOK = 1
+  </if>
+  </set>
+  WHERE REPAIR_ID = #{repairId}
   </update>
 </mapper>

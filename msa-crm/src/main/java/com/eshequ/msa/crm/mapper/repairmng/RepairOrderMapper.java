@@ -13,11 +13,11 @@ public interface RepairOrderMapper extends CommonMapper<RepairOrder>{
 
 	RepairOrder findRepairOrderById(@Param("repairId")String repairId);
 
-	int getNotLookOrderCount();
+	int getNotLookOrderCount(@Param("userId")String userId);
 	
 	String getMaxTime();
 
-	int updateIsLook();
+	int updateIsLook(@Param("userId")String userId);
 
 	int updateIsLookById(@Param("repairId")String repairId);
 

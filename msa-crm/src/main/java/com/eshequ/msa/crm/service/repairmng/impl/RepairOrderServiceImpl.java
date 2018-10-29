@@ -119,9 +119,9 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 	}
 
 	@Override
-	public int getNotLookOrderCount() {
+	public int getNotLookOrderCount(String userId) {
 		
-		return repairOrderMapper.getNotLookOrderCount();
+		return repairOrderMapper.getNotLookOrderCount(userId);
 	}
 
 	@Override
@@ -131,9 +131,9 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 	}
 
 	@Override
-	public int updateIsLook() {
+	public int updateIsLook(String userId) {
 		
-		return repairOrderMapper.updateIsLook();
+		return repairOrderMapper.updateIsLook(userId);
 	}
     
 	@Override
