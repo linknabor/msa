@@ -21,4 +21,7 @@ public class Constants {
 
     //获取企业的jsapi_ticket
 	public static final String GET_jsapi_ticket="https://qyapi.weixin.qq.com/cgi-bin/get_jsapi_ticket?access_token=ACCESS_TOKEN";
+	
+	//发送消息
+	public static final String SEND_MESSAGE="https://qyapi.weixin.qq.com/cgi-bin/message/send?access_token=ACCESS_TOKEN";
 }
