@@ -17,6 +17,7 @@ import com.eshequ.msa.common.Constants;
 import com.eshequ.msa.crm.model.repairmng.AccessToken;
 import com.eshequ.msa.crm.model.repairmng.UserInfo;
 import com.eshequ.msa.util.http.HttpClientProxy;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 
@@ -121,5 +122,33 @@ public class QiYeWeiXinUtil {
 		return null;
 	}
 	
+	//发送信息
+	public String sendMessage(String userId,String repairId){
+		AccessToken  accessToke=getAccessToken();
+		String url = Constants.SEND_MESSAGE.replace("ACCESS_TOKEN", accessToke.getAccess_token());
+		Map<String,String> contentMap=new HashMap<>();
+		contentMap.put("description", "你有一条报修信息需要处理");
+		contentMap.put("url", "https://test.e-shequ.com/msa/crm/oauth/getuser?repairId="+repairId);
+		contentMap.put("title", "报修订单提醒");
+		Map<String,Object> map=new HashMap<>();
+		map.put("touser", userId);
+		map.put("agentid",agentid);
+		map.put("msgtype", "textcard");
+		map.put("textcard",contentMap);
+		map.put("safe", "0");
+		String result="";
+		ObjectMapper obj=new ObjectMapper();
+		try {
+			String param=obj.writeValueAsString(map);
+			String resp=httpClientProxy.doPost(url, param, "utf-8");
+			Map objmap=obj.readValue(resp, Map.class);
+			result= (int) objmap.get("errcode")+"";
+		} catch (JsonProcessingException e) {
+			log.error(e.getMessage(),e);
+		} catch (IOException e) {
+			log.error(e.getMessage(),e);
+		}
+		return result;
+	}
 	
 }

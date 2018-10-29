@@ -52,7 +52,7 @@ public class FileUtil {
 	/**
 	 * 下载文件URL
 	 */
-	private static final String dwonloadFileURL = "http://file.api.weixin.qq.com/cgi-bin/media/get?access_token=ACCESS_TOKEN&media_id=MEDIA_ID";
+	private static final String dwonloadFileURL = "https://qyapi.weixin.qq.com/cgi-bin/media/get?access_token=ACCESS_TOKEN&media_id=MEDIA_ID";
 	/**
 	 * 上传图片到七牛服务器
 	 * @param ret

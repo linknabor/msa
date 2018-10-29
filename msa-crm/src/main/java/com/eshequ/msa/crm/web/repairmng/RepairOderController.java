@@ -106,7 +106,10 @@ public class RepairOderController extends BaseController {
 	// 测试上传文件
 	@RequestMapping(value = "/testFile", method = RequestMethod.GET)
 	public BaseResult<?> testFile(String serverIds, String repairId) {
+		logger.info("serverIds: "+serverIds);
 		repairOrderService.testFile(serverIds, repairId);
 		return BaseResult.successResult("");
 	}
+	
+	
 }

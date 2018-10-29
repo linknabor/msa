@@ -145,7 +145,11 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 	@Override
 	public BaseResult<?> getuserListByDepartMent() {
 		// TODO Auto-generated method stub
-		return null;
+	String result=	qiYeWeiXinUtil.sendMessage("TangYong","1");
+	if("0".equals(result)){
+		return BaseResult.successResult("发送成功！");
+	}
+		return BaseResult.fail("发送失败！");
 	}
 
 	@Override
@@ -173,6 +177,7 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 			repairAssignMapper.insertSelective(repairAssign);
 		}
 		if(count >0 ){
+			qiYeWeiXinUtil.sendMessage(repairAssign.getAssignPepoleId(),repairId);
 			return BaseResult.successResult("分配成功！");
 		}
 		
