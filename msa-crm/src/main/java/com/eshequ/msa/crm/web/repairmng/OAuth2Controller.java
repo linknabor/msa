@@ -69,10 +69,11 @@ public class OAuth2Controller extends BaseController {
 	}
 
 	@RequestMapping("/oauthBackUrl")
-	public void oauthBackUrl(HttpServletRequest request, @RequestParam String code) {
+	public String oauthBackUrl(HttpServletRequest request, @RequestParam String code) {
 		String url = "";
 		AccessToken accessToken = qiYeWeiXinUtil.getAccessToken();
 		String userId = qiYeWeiXinUtil.getUserId(accessToken.getAccess_token(), code);
+		log.info("userId:" + userId);
 		String response = getUserInfo(accessToken.getAccess_token(), userId);
 		ObjectMapper obj = new ObjectMapper();
 
@@ -85,18 +86,21 @@ public class OAuth2Controller extends BaseController {
 			user.setMobile(m.get("mobile").toString());
 			user.setName(m.get("name").toString());
 			user.setAvatar(m.get("avatar").toString());
-			log.info("user:"+user);
+			log.info("user:" + user);
 			redisTemplate.opsForValue().set("user", user);
-			/*
-			 * if("JAVA开发工程师".equals(user.getPosition())){ url=
-			 * "https://test.e-shequ.com/weixin/qiyeweixin/index.html#/juxin";
-			 * }else{ url=
-			 * "https://test.e-shequ.com/weixin/qiyeweixin/index.html#/juxin"; }
-			 */
+
+			if ("JAVA开发工程师".equals(user.getPosition())) {
+				url = "https://test.e-shequ.com/weixin/qiyeweixin/index.html#/juxin";
+				log.info("职位："+user.getPosition());
+			} else {
+				url = "https://test.e-shequ.com/weixin/qiyeweixin/index.html#/juxin";
+				log.info("职位："+user.getPosition());
+			}
+
 		} catch (IOException e) {
 			log.error(e.getMessage(), e);
 		}
-		// return "redirect:" + url;
+		 return "redirect:" + url;
 	}
 
 	@RequestMapping("/getAccessToke")
@@ -113,34 +117,7 @@ public class OAuth2Controller extends BaseController {
 		return (UserInfo) redisTemplate.opsForValue().get("user");
 	}
 
-	@RequestMapping("/main")
-	public String main(HttpServletRequest request) {
-		String url = "";
-		getCode(request);
-		UserInfo user = getuser();
-		if ("JAVA开发工程师".equals(user.getPosition())) {
-			url = "https://test.e-shequ.com/weixin/qiyeweixin/index.html#/juxin";
-		} else {
-			url = "https://test.e-shequ.com/weixin/qiyeweixin/index.html#/juxin";
-		}
-		return "redirect:" + url;
-	}
 
-	// 维修链接
-	@RequestMapping("/repair")
-	public String repair(HttpServletRequest request) {
-		getCode(request);
-		String url = "https://test.e-shequ.com/weixin/qiyeweixin/index.html#/juxin";
-		return "redirect:" + url;
-	}
-
-	// 客服链接
-	@RequestMapping("/customer")
-	public String customer(HttpServletRequest request) {
-		getCode(request);
-		String url = "https://test.e-shequ.com/weixin/qiyeweixin/index.html#/juxin";
-		return "redirect:" + url;
-	}
 	/*
 	 * public String getUserInfo(String accessToken, String userTicket) { String
 	 * url = Constants.GET_UserInfo_URL.replace("ACCESS_TOKEN", accessToken);
