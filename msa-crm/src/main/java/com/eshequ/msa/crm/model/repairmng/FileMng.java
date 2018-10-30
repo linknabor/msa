@@ -1,6 +1,8 @@
 package com.eshequ.msa.crm.model.repairmng;
 
 import com.eshequ.msa.common.BaseModel;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 import javax.persistence.Id;
@@ -12,7 +14,7 @@ public class FileMng extends BaseModel {
     private String filePath;
 
     private Double fileSize;
-
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     private Date createDate;
 
     private String fileType;

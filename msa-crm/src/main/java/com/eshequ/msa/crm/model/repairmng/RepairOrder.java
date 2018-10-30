@@ -1,6 +1,8 @@
 package com.eshequ.msa.crm.model.repairmng;
 
 import com.eshequ.msa.common.BaseModel;
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.util.Date;
 
 import javax.persistence.Id;
@@ -16,7 +18,7 @@ public class RepairOrder extends BaseModel {
     private String repairContent;
     
     private String repairPhone;
-
+    @JsonFormat(locale="zh", timezone="GMT+8", pattern="yyyy-MM-dd HH:mm:ss")
     private Date repairDate;
 
     private String repairPepoleId;
