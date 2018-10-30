@@ -143,7 +143,7 @@ public class FileUtil {
 						
 						if (isUploaded) {
 							
-							keyListStr+=domain+key;
+							keyListStr=domain+key;
 							
 							FileMng f=new FileMng();
 							f.setCreateDate(new Date());
@@ -152,7 +152,7 @@ public class FileUtil {
 							f.setRepairId(repairId);
 							fileMngMapper.insertSelective(f);
 							
-							Integer width = (Integer)map.get("width");
+							/*Integer width = (Integer)map.get("width");
 							Integer height = (Integer)map.get("height");
 							
 							imgWidth+=width;
@@ -162,7 +162,7 @@ public class FileUtil {
 								keyListStr+=",";
 								imgWidth+=",";
 								imgHeight+=",";
-							}
+							}*/
 						}
 						
 					
