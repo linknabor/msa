@@ -1,8 +1,11 @@
 package com.eshequ.msa.dms.model.msa;
 
+import javax.persistence.Id;
+
 import com.eshequ.msa.common.BaseModel;
 
 public class MsaBaseCarport extends BaseModel {
+	@Id
     private Long mngCellId;
 
     private String carportType;

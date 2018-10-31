@@ -3,7 +3,12 @@ package com.eshequ.msa.dms.model.servplat;
 import com.eshequ.msa.common.BaseModel;
 
 public class SpBaseCustCar extends BaseModel {
-    private Long carId;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6499713051623625264L;
+
+	private Long carId;
 
     private String carStatus;
 

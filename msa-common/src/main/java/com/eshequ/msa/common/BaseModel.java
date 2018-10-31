@@ -3,13 +3,20 @@
  */
 package com.eshequ.msa.common;
 
+import java.io.Serializable;
+
 import javax.persistence.Transient;
 
 /**
  * @author davidhardson
  *
  */
-public class BaseModel {
+public class BaseModel implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5785805718206190094L;
 
 	@Transient
 	private Integer page = 1;

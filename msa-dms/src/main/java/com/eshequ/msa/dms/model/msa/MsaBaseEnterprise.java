@@ -1,8 +1,11 @@
 package com.eshequ.msa.dms.model.msa;
 
+import javax.persistence.Id;
+
 import com.eshequ.msa.common.BaseModel;
 
 public class MsaBaseEnterprise extends BaseModel {
+	@Id
     private String enterpriseId;
 
     private String enterpriseState;
