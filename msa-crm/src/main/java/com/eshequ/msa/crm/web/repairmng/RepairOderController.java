@@ -72,7 +72,13 @@ public class RepairOderController extends BaseController {
 		int count = repairOrderService.updateIsLook(userId);
 		return BaseResult.successResult("更改" + count + "条记录！");
 	}
-
+    // 进入订单详情后将状态改为已经看
+	@RequestMapping(value = "/updateIsLookById", method = RequestMethod.GET)
+	public BaseResult<?> updateIsLookById(String repairId,String userId) {
+		int count = repairOrderService.updateIsLookById(repairId,userId);
+		return BaseResult.successResult("更改" + count + "条记录！");
+	}
+	
 	// 关闭报修订单
 	@RequestMapping(value = "/closeRepairOrder", method = RequestMethod.GET)
 	public BaseResult<?> closeRepairOrder(RepairOrder repairOrder) {

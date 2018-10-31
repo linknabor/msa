@@ -19,6 +19,6 @@ public interface RepairOrderMapper extends CommonMapper<RepairOrder>{
 
 	int updateIsLook(@Param("userId")String userId);
 
-	int updateIsLookById(@Param("repairId")String repairId);
+	int updateIsLookById(@Param("repairId")String repairId,@Param("userId")String userId);
 
 }

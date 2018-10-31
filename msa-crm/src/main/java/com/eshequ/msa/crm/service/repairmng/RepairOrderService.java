@@ -23,7 +23,7 @@ public interface RepairOrderService {
 
 	int updateIsLook(String userId);
 	
-	int updateIsLookById(String repairId);
+	int updateIsLookById(String repairId,String userId);
 
 	BaseResult<?> getuserListByDepartMent();
 

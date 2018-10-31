@@ -137,9 +137,18 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 	}
     
 	@Override
-	public int updateIsLookById(String repairId) {
-		
-		return repairOrderMapper.updateIsLookById(repairId);
+	public int updateIsLookById(String repairId,String userId) {
+		RepairOrder repairOrder=repairOrderMapper.findRepairOrderById(repairId);
+		if(userId != null){
+			if("2".equals(repairOrder.getIsLook())){
+				return 0;
+			}	
+		}else{
+			if("1".equals(repairOrder.getIsLook())){
+				return 0;
+			}
+		}
+		return repairOrderMapper.updateIsLookById(repairId,userId);
 	}
 
 	@Override
