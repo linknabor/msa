@@ -128,7 +128,7 @@ public class QiYeWeiXinUtil {
 		String url = Constants.SEND_MESSAGE.replace("ACCESS_TOKEN", accessToke.getAccess_token());
 		Map<String,String> contentMap=new HashMap<>();
 		contentMap.put("description", "你有一条报修信息需要处理");
-		contentMap.put("url", "https://test.e-shequ.com/msa/crm/oauth/getuser?repairId="+repairId+"&userId="+userId);
+		contentMap.put("url", "https://test.e-shequ.com/workweixin/index1.html#/dingdan?repairId="+repairId+"&userId="+userId);
 		contentMap.put("title", "报修订单提醒");
 		Map<String,Object> map=new HashMap<>();
 		map.put("touser", userId);
