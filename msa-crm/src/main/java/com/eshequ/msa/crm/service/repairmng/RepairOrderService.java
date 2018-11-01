@@ -13,7 +13,7 @@ public interface RepairOrderService {
 
 	BaseResult<?> updateRepairOrder(RepairAndFileVo repairAndFileVo);
 
-	BaseResult<?> addRepairOrder(RepairAndFileVo repairAndFileVo);
+	BaseResult<?> addRepairOrder(RepairAndFileVo repairAndFileVo,String userId);
 
 	RepairAndFileVo getRepairOrderDetail(String repairId);
 

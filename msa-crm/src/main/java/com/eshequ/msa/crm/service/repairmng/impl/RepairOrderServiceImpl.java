@@ -58,15 +58,16 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 	}
 
 	@Override
-	public BaseResult<?> addRepairOrder(RepairAndFileVo repairAndFileVo) {
+	public BaseResult<?> addRepairOrder(RepairAndFileVo repairAndFileVo,String userId) {
 		String repairId = String.valueOf(snowFlake.nextId());
 		RepairOrder repairOrder = repairAndFileVo.getRepairOrder();
 		repairOrder.setRepairId(repairId);
 		repairOrder.setRepairDate(new Date());
-		repairOrder.setIsLook(IS_LOOK);
+		repairOrder.setServiceLook(IS_LOOK);;
+		repairOrder.setRepairLook(IS_LOOK);
 		repairOrder.setRepairStatus(REPAIR_STATUS_UNASSINGED);
 		//添加当前人信息
-	    UserInfo   user=(UserInfo) redisTemplate.opsForValue().get("user");
+	    UserInfo   user=(UserInfo) redisTemplate.opsForValue().get(userId);
 	    repairOrder.setRepairPepoleId(user.getUserid());
 	    repairOrder.setRepairPepoleName(user.getName());
 	    repairOrder.setRepairPepoleImg(user.getAvatar());
@@ -140,11 +141,11 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 	public int updateIsLookById(String repairId,String userId) {
 		RepairOrder repairOrder=repairOrderMapper.findRepairOrderById(repairId);
 		if(userId != null){
-			if("2".equals(repairOrder.getIsLook())){
+			if("1".equals(repairOrder.getRepairLook())){
 				return 0;
 			}	
 		}else{
-			if("1".equals(repairOrder.getIsLook())){
+			if("1".equals(repairOrder.getServiceLook())){
 				return 0;
 			}
 		}

@@ -14,12 +14,13 @@
     <result column="REPAIR_STATUS" jdbcType="CHAR" property="repairStatus" />
     <result column="REPAIR_CLOSE_RESION" jdbcType="VARCHAR" property="repairCloseResion" />
     <result column="REPAIR_ASSIGN_ID" jdbcType="VARCHAR" property="repairAssignId" />
-    <result column="IS_LOOK" jdbcType="VARCHAR" property="isLook" />
+    <result column="SERVICE_LOOK" jdbcType="VARCHAR" property="serviceLook" />
+     <result column="REPAIR_LOOK" jdbcType="VARCHAR" property="repairLook" />
     <result column="SERVER_IDS" jdbcType="VARCHAR" property="serverIds" />
   </resultMap>
   
   <select id="getRepairOrderList" parameterType="java.lang.String" resultMap="BaseResultMap">
-  SELECT REPAIR_ID,REPAIR_ADDRESS,REPAIR_DATE,REPAIR_PEPOLE_NAME,REPAIR_PEPOLE_IMG,IS_LOOK FROM REPAIR_ORDER 
+  SELECT REPAIR_ID,REPAIR_ADDRESS,REPAIR_DATE,REPAIR_PEPOLE_NAME,REPAIR_PEPOLE_IMG,SERVICE_LOOK,REPAIR_LOOK FROM REPAIR_ORDER 
   <where>
   <if test="userId != null">
   AND REPAIR_ASSIGN_ID=#{userId}
@@ -28,22 +29,21 @@
   ORDER BY REPAIR_DATE DESC
   </select>
   <select id="findRepairOrderById" parameterType="java.lang.String" resultMap="BaseResultMap">
-  SELECT REPAIR_ID,REPAIR_TYPE,REPAIR_ADDRESS,REPAIR_CONTENT,REPAIR_DATE,REPAIR_STATUS,REPAIR_PHONE,REPAIR_ASSIGN_ID,IS_LOOK,REPAIR_CLOSE_RESION FROM REPAIR_ORDER
+  SELECT REPAIR_ID,REPAIR_TYPE,REPAIR_ADDRESS,REPAIR_CONTENT,REPAIR_DATE,REPAIR_STATUS,REPAIR_PHONE,REPAIR_ASSIGN_ID,SERVICE_LOOK,REPAIR_LOOK,REPAIR_CLOSE_RESION FROM REPAIR_ORDER
   WHERE  REPAIR_ID = #{repairId}
   </select>
   
   <select id="getNotLookOrderCount" parameterType="java.lang.String" resultType="java.lang.Integer">
   SELECT COUNT(REPAIR_ID) FROM REPAIR_ORDER
   <where>
-     IS_LOOK = 0
   <if test="userId != null">
-  AND REPAIR_ASSIGN_ID=#{userId}
+   REPAIR_ASSIGN_ID=#{userId}
   
-  OR IS_LOOK = 1
+  AND REPAIR_LOOK = 0
   </if>
   
   <if test="userId == null">
-  OR IS_LOOK = 2
+  AND  SERVICE_LOOK = 0
   </if>
   
   </where>
@@ -57,14 +57,14 @@
   <update id="updateIsLook" parameterType="java.lang.String">
   UPDATE REPAIR_ORDER  SET
   <if test="userId != null">
-   IS_LOOK = 2
+   REPAIR_LOOK = 1
    
-   WHERE REPAIR_ASSIGN_ID=#{userId} AND IS_LOOK = 0 OR  IS_LOOK = 1
+   WHERE REPAIR_ASSIGN_ID=#{userId} AND REPAIR_LOOK = 0
   </if>
   <if test="userId == null">
-  IS_LOOK = 1
+  SERVICE_LOOK = 1
   
-  WHERE IS_LOOK =0 OR IS_LOOK =2
+  WHERE SERVICE_LOOK=0
   </if>
   </update>
   
@@ -72,10 +72,10 @@
   UPDATE REPAIR_ORDER
   <set>
    <if test="userId != null">
-   IS_LOOK = 2
+   REPAIR_LOOK = 1
   </if>
   <if test="userId == null">
-  IS_LOOK = 1
+  SERVICE_LOOK = 1
   </if>
   </set>
   WHERE REPAIR_ID = #{repairId}

@@ -87,7 +87,7 @@ public class OAuth2Controller extends BaseController {
 			user.setName(m.get("name").toString());
 			user.setAvatar(m.get("avatar").toString());
 			log.info("user:" + user);
-			redisTemplate.opsForValue().set("user", user);
+			redisTemplate.opsForValue().set(user.getUserid(), user);
 
 			if ("JAVA开发工程师".equals(user.getPosition())) {
 				url = "https://test.e-shequ.com/weixin/qiyeweixin/index.html#/";
@@ -112,9 +112,9 @@ public class OAuth2Controller extends BaseController {
 
 	@RequestMapping("/getuser")
 	@ResponseBody
-	public UserInfo getuser() {
+	public UserInfo getuser(String userId) {
 		// String userId=(String) redisTemplate.opsForValue().get("userId");
-		return (UserInfo) redisTemplate.opsForValue().get("user");
+		return (UserInfo) redisTemplate.opsForValue().get(userId);
 	}
 
 

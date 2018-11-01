@@ -41,12 +41,12 @@ public class RepairOderController extends BaseController {
 
 	// 添加报修管理
 	@RequestMapping(value = "/addOrUpdateRepairOrder", method = RequestMethod.POST)
-	public BaseResult<?> addOrUpdateRepairOrder(@RequestBody RepairAndFileVo repairAndFileVo) {
+	public BaseResult<?> addOrUpdateRepairOrder(@RequestBody RepairAndFileVo repairAndFileVo,String userId) {
 		if (repairAndFileVo != null) {
 			if (repairAndFileVo.getRepairOrder().getRepairId() != null) {
 				return repairOrderService.updateRepairOrder(repairAndFileVo);
 			} else {
-				return repairOrderService.addRepairOrder(repairAndFileVo);
+				return repairOrderService.addRepairOrder(repairAndFileVo,userId);
 			}
 		}
 		return BaseResult.fail("参数为空！");
