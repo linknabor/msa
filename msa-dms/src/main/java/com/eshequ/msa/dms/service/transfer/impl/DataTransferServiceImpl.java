@@ -31,12 +31,10 @@ import com.eshequ.msa.dms.model.servplat.SpBaseHouse;
 import com.eshequ.msa.dms.model.servplat.SpBaseMngCell;
 import com.eshequ.msa.dms.model.servplat.SpBaseSect;
 import com.eshequ.msa.dms.service.transfer.DataTransferService;
+import com.eshequ.msa.dms.vo.basedata.CarInfoVO;
 import com.eshequ.msa.exception.BusinessException;
-import com.eshequ.msa.util.SnowFlake;
 @Service
 public class DataTransferServiceImpl implements DataTransferService{
-	@Autowired
-	private SnowFlake snowFlake;
 	
 	@Autowired
 	private MsaBaseSectMapper msaBaseSectMapper;
@@ -57,7 +55,6 @@ public class DataTransferServiceImpl implements DataTransferService{
 	private MsaBaseCustCarFeeStartDateMapper msaBaseCustCarFeeStartDateMapper;
 
 	@Override
-	@Transactional(rollbackFor={BusinessException.class})
 	public BaseResult<String> migrateSectData(SpBaseSect spBaseSect) {
 		migrateSect(spBaseSect);
 		BaseResult<String> baseResult = new BaseResult<String>();
@@ -73,6 +70,7 @@ public class DataTransferServiceImpl implements DataTransferService{
 		return baseResult;
 	}
 
+	//新增小区
 	@Transactional(rollbackFor={BusinessException.class})
 	public void migrateSect(SpBaseSect spBaseSect) {
 		MsaBaseSect msaBaseSect = new MsaBaseSect();
@@ -82,10 +80,10 @@ public class DataTransferServiceImpl implements DataTransferService{
 		msaBaseSect.setSectName(spBaseSect.getSectNameFrst());
 		msaBaseSect.setSectAddr(spBaseSect.getSectAddrFrst());
 		msaBaseSect.setOriginalId(spBaseSect.getSectId()+"");
-		msaBaseSect.setSectId(snowFlake.nextId());
 		msaBaseSectMapper.insertSelective(msaBaseSect);
 	}
 	
+	//新增房子
 	@Transactional(rollbackFor={BusinessException.class})
 	public void migrateHouse(SpBaseHouse spBaseHouse) {
 		MsaBaseHouse msaBaseHouse = new MsaBaseHouse();
@@ -93,32 +91,49 @@ public class DataTransferServiceImpl implements DataTransferService{
 		msaBaseHouseMapper.insertSelective(msaBaseHouse);
 	}
 	
+	//新增业主
 	@Transactional(rollbackFor={BusinessException.class})
 	public void migrateCust(SpBaseCust spBaseCust) {
 		MsaBaseCust msaBaseCust = new MsaBaseCust();
 		BeanUtils.copyProperties(spBaseCust, msaBaseCust);
 		msaBaseCust.setOriginalId(spBaseCust.getCustId()+"");
-		msaBaseCust.setCustId(snowFlake.nextId());
 		msaBaseCustMapper.insertSelective(msaBaseCust);
 	}
 	
+	//新增车辆
 	@Transactional(rollbackFor={BusinessException.class})
 	public void migrateCar(SpBaseCustCar spBaseCustCar) {
 		MsaBaseCustCar msaBaseCustCar = new MsaBaseCustCar();
 		BeanUtils.copyProperties(spBaseCustCar, msaBaseCustCar);
 		msaBaseCustCar.setOriginalId(spBaseCustCar.getCarId()+"");
-		msaBaseCustCar.setCarId(snowFlake.nextId());
 		msaBaseCustCarMapper.insertSelective(msaBaseCustCar);
 	}
 	
+	//新增室
 	@Transactional(rollbackFor={BusinessException.class})
 	public void migrateCell(SpBaseMngCell spBaseMngCell) {
 		MsaBaseCell msaBaseCell = new MsaBaseCell();
 		BeanUtils.copyProperties(spBaseMngCell, msaBaseCell);
 		msaBaseCell.setOriginalId(spBaseMngCell.getMngCellId()+"");
-		msaBaseCell.setMngCellId(snowFlake.nextId());
-		msaBaseCellMapper.insert(msaBaseCell);
+		msaBaseCellMapper.insertSelective(msaBaseCell);
 	}
+	
+	//编辑车辆
+	@Transactional(rollbackFor={BusinessException.class})
+	public void migrateEditCar(SpBaseCustCar spBaseCustCar) {
+		MsaBaseCustCar msaBaseCustCar = new MsaBaseCustCar();
+		BeanUtils.copyProperties(spBaseCustCar, msaBaseCustCar);
+		msaBaseCustCarMapper.updateByPrimaryKeySelective(msaBaseCustCar);
+	}
+	
+	//编辑车辆
+	@Transactional(rollbackFor={BusinessException.class})
+	public void migrateEditCarFeeStartDate(SpBaseCustCarFeeStartDate spBaseCustCarFeeStartDate) {
+		MsaBaseCustCarFeeStartDate msaBaseCustCarFeeStartDate = new MsaBaseCustCarFeeStartDate();
+		BeanUtils.copyProperties(spBaseCustCarFeeStartDate, msaBaseCustCarFeeStartDate);
+		msaBaseCustCarFeeStartDateMapper.updateByPrimaryKeySelective(msaBaseCustCarFeeStartDate);
+	}
+	
 
 	@Override
 	public BaseResult<String> migrateCustData(SpBaseCust spBaseCust) {
@@ -129,8 +144,11 @@ public class DataTransferServiceImpl implements DataTransferService{
 	}
 
 	@Override
-	public BaseResult<String> migrateCarData(SpBaseCustCar spBaseCustCar) {
+	public BaseResult<String> migrateCarData(CarInfoVO carVo) {
+		SpBaseCustCar spBaseCustCar = carVo.getSpBaseCustCar();
 		migrateCar(spBaseCustCar);
+		SpBaseCustCarFeeStartDate spBaseCustCarFeeStartDate = carVo.getSpBaseCustCarFeeStartDate();
+		migrateCarStartDate(spBaseCustCarFeeStartDate);
 		BaseResult<String> baseResult = new BaseResult<String>();
 		baseResult.setResult("0");
 		return baseResult;
@@ -144,17 +162,117 @@ public class DataTransferServiceImpl implements DataTransferService{
 		return baseResult;
 	}
 
+	@Transactional(rollbackFor={BusinessException.class})
+	private void migrateCarStartDate(SpBaseCustCarFeeStartDate spBaseCustCarFeeStartDate) {
+		MsaBaseCustCarFeeStartDate msaBaseCustCarFeeStartDate = new MsaBaseCustCarFeeStartDate();
+		BeanUtils.copyProperties(spBaseCustCarFeeStartDate, msaBaseCustCarFeeStartDate);
+		msaBaseCustCarFeeStartDateMapper.insertSelective(msaBaseCustCarFeeStartDate);
+	}
+
 	@Override
-	public BaseResult<String> migrateCarStartDateData(SpBaseCustCarFeeStartDate spBaseCustCarFeeStartDate) {
-		migrateCarStartDate(spBaseCustCarFeeStartDate);
+	public BaseResult<String> migrateEditCarData(CarInfoVO carVo) {
+		SpBaseCustCar spBaseCustCar = carVo.getSpBaseCustCar();
+		SpBaseCustCarFeeStartDate spBaseCustCarFeeStartDate = carVo.getSpBaseCustCarFeeStartDate();
+		migrateEditCar(spBaseCustCar);
+		migrateEditCarFeeStartDate(spBaseCustCarFeeStartDate);
 		BaseResult<String> baseResult = new BaseResult<String>();
 		baseResult.setResult("0");
 		return baseResult;
 	}
 
-	private void migrateCarStartDate(SpBaseCustCarFeeStartDate spBaseCustCarFeeStartDate) {
-		MsaBaseCustCarFeeStartDate msaBaseCustCarFeeStartDate = new MsaBaseCustCarFeeStartDate();
-		BeanUtils.copyProperties(spBaseCustCarFeeStartDate, msaBaseCustCarFeeStartDate);
+	@Override
+	public BaseResult<String> migrateEditSectData(SpBaseSect spBaseSect) {
+		migrateEditSect(spBaseSect);
+		BaseResult<String> baseResult = new BaseResult<String>();
+		baseResult.setResult("0");
+		return baseResult;
+	}
+
+	@Transactional(rollbackFor={BusinessException.class})
+	private void migrateEditSect(SpBaseSect spBaseSect) {
+		MsaBaseSect msaBaseSect = new MsaBaseSect();
+		BeanUtils.copyProperties(spBaseSect, msaBaseSect);
+		msaBaseSect.setRemark(spBaseSect.getSectId().toString());
+		msaBaseSect.setStatus(spBaseSect.getSectStatus());
+		msaBaseSect.setSectName(spBaseSect.getSectNameFrst());
+		msaBaseSect.setSectAddr(spBaseSect.getSectAddrFrst());
+		msaBaseSect.setOriginalId(spBaseSect.getSectId()+"");
+		msaBaseSectMapper.updateByPrimaryKeySelective(msaBaseSect);
+	}
+
+	@Override
+	public BaseResult<String> migrateEditHouseData(SpBaseHouse spBaseHouse) {
+		migrateEditHouse(spBaseHouse);
+		BaseResult<String> baseResult = new BaseResult<String>();
+		baseResult.setResult("0");
+		return baseResult;
+	}
+
+	@Transactional(rollbackFor={BusinessException.class})
+	private void migrateEditHouse(SpBaseHouse spBaseHouse) {
+		MsaBaseHouse msaBaseHouse = new MsaBaseHouse();
+		BeanUtils.copyProperties(spBaseHouse, msaBaseHouse);
+		msaBaseHouseMapper.updateByPrimaryKeySelective(msaBaseHouse);
+	}
+
+	@Override
+	public BaseResult<String> migrateEditCustData(SpBaseCust spBaseCust) {
+		migrateEditCust(spBaseCust);
+		BaseResult<String> baseResult = new BaseResult<String>();
+		baseResult.setResult("0");
+		return baseResult;
+	}
+
+	private void migrateEditCust(SpBaseCust spBaseCust) {
+		MsaBaseCust msaBaseCust = new MsaBaseCust();
+		BeanUtils.copyProperties(spBaseCust, msaBaseCust);
+		msaBaseCust.setOriginalId(spBaseCust.getCustId()+"");
+		msaBaseCustMapper.updateByPrimaryKeySelective(msaBaseCust);
+	}
+
+	@Override
+	public BaseResult<String> migrateEditCellData(SpBaseMngCell spBaseMngCell) {
+		migrateEditCell(spBaseMngCell);
+		BaseResult<String> baseResult = new BaseResult<String>();
+		baseResult.setResult("0");
+		return baseResult;
+	}
+
+	private void migrateEditCell(SpBaseMngCell spBaseMngCell) {
+		MsaBaseCell msaBaseCell = new MsaBaseCell();
+		BeanUtils.copyProperties(spBaseMngCell, msaBaseCell);
+		msaBaseCell.setOriginalId(spBaseMngCell.getMngCellId()+"");
+		msaBaseCellMapper.updateByPrimaryKeySelective(msaBaseCell);
+	}
+
+	@Override
+	public BaseResult<String> migrateDelSectData(SpBaseSect spBaseSect) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BaseResult<String> migrateDelHouseData(SpBaseHouse spBaseHouse) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BaseResult<String> migrateDelCustData(SpBaseCust spBaseCust) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BaseResult<String> migrateDelCarData(CarInfoVO carvo) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public BaseResult<String> migrateDelCellData(SpBaseMngCell spBaseMngCell) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
