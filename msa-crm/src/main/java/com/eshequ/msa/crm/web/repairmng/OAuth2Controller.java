@@ -87,10 +87,10 @@ public class OAuth2Controller extends BaseController {
 			user.setName(m.get("name").toString());
 			user.setAvatar(m.get("avatar").toString());
 			log.info("user:" + user);
-			redisTemplate.opsForValue().set(user.getUserid(), user);
+			redisTemplate.opsForValue().set(userId, user);
 
 			if ("JAVA开发工程师".equals(user.getPosition())) {
-				url = "https://test.e-shequ.com/weixin/qiyeweixin/index.html#/";
+				url = "https://test.e-shequ.com/weixin/qiyeweixin/index.html#/?userId="+userId;
 				log.info("职位："+user.getPosition());
 			} else {
 				url = "https://test.e-shequ.com/weixin/qiyeweixin/index.html#/";
