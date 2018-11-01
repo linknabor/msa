@@ -11,19 +11,29 @@ import com.eshequ.msa.dms.vo.basedata.CarInfoVO;
 
 public interface DataTransferService{
 
+	//小区
 	BaseResult<String> migrateSectData(SpBaseSect spBaseSect);
 	BaseResult<String> migrateEditSectData(SpBaseSect spBaseSect);
-	BaseResult<String> migrateDelSectData(SpBaseSect spBaseSect);
+	BaseResult<String> migrateDelSectData(String sectId);
+	
+	//房子
 	BaseResult<String> migrateHouseData(SpBaseHouse spBaseHouse);
 	BaseResult<String> migrateEditHouseData(SpBaseHouse spBaseHouse);
-	BaseResult<String> migrateDelHouseData(SpBaseHouse spBaseHouse);
+	BaseResult<String> migrateDelHouseData(String houseId);
+	
+	//业主
 	BaseResult<String> migrateCustData(SpBaseCust spBaseCust);
 	BaseResult<String> migrateEditCustData(SpBaseCust spBaseCust);
-	BaseResult<String> migrateDelCustData(SpBaseCust spBaseCust);
+	BaseResult<String> migrateDelCustData(String custId);
+	
+	//汽车
 	BaseResult<String> migrateCarData(CarInfoVO carvo);
 	BaseResult<String> migrateEditCarData(CarInfoVO carvo);
-	BaseResult<String> migrateDelCarData(CarInfoVO carvo);
+	BaseResult<String> migrateDelCarData(String carId);
+	
+	//房间门牌
 	BaseResult<String> migrateCellData(SpBaseMngCell spBaseMngCell);
 	BaseResult<String> migrateEditCellData(SpBaseMngCell spBaseMngCell);
-	BaseResult<String> migrateDelCellData(SpBaseMngCell spBaseMngCell);
+	BaseResult<String> migrateDelCellData(String cellId);
+	
 }

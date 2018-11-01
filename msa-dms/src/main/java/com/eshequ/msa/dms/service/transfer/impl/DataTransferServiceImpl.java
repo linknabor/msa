@@ -188,6 +188,7 @@ public class DataTransferServiceImpl implements DataTransferService{
 		return baseResult;
 	}
 
+	//编辑小区
 	@Transactional(rollbackFor={BusinessException.class})
 	private void migrateEditSect(SpBaseSect spBaseSect) {
 		MsaBaseSect msaBaseSect = new MsaBaseSect();
@@ -207,7 +208,8 @@ public class DataTransferServiceImpl implements DataTransferService{
 		baseResult.setResult("0");
 		return baseResult;
 	}
-
+	
+	//编辑房子
 	@Transactional(rollbackFor={BusinessException.class})
 	private void migrateEditHouse(SpBaseHouse spBaseHouse) {
 		MsaBaseHouse msaBaseHouse = new MsaBaseHouse();
@@ -223,6 +225,8 @@ public class DataTransferServiceImpl implements DataTransferService{
 		return baseResult;
 	}
 
+	//编辑业主
+	@Transactional(rollbackFor={BusinessException.class})
 	private void migrateEditCust(SpBaseCust spBaseCust) {
 		MsaBaseCust msaBaseCust = new MsaBaseCust();
 		BeanUtils.copyProperties(spBaseCust, msaBaseCust);
@@ -238,6 +242,8 @@ public class DataTransferServiceImpl implements DataTransferService{
 		return baseResult;
 	}
 
+	//编辑室
+	@Transactional(rollbackFor={BusinessException.class})
 	private void migrateEditCell(SpBaseMngCell spBaseMngCell) {
 		MsaBaseCell msaBaseCell = new MsaBaseCell();
 		BeanUtils.copyProperties(spBaseMngCell, msaBaseCell);
@@ -246,33 +252,44 @@ public class DataTransferServiceImpl implements DataTransferService{
 	}
 
 	@Override
-	public BaseResult<String> migrateDelSectData(SpBaseSect spBaseSect) {
-		// TODO Auto-generated method stub
-		return null;
+	public BaseResult<String> migrateDelSectData(String sectId) {
+		msaBaseSectMapper.deleteByPrimaryKey(Long.valueOf(sectId));
+		BaseResult<String> baseResult = new BaseResult<String>();
+		baseResult.setResult("0");
+		return baseResult;
 	}
 
 	@Override
-	public BaseResult<String> migrateDelHouseData(SpBaseHouse spBaseHouse) {
-		// TODO Auto-generated method stub
-		return null;
+	public BaseResult<String> migrateDelHouseData(String houseId) {
+		msaBaseHouseMapper.deleteByPrimaryKey(Long.valueOf(houseId));
+		BaseResult<String> baseResult = new BaseResult<String>();
+		baseResult.setResult("0");
+		return baseResult;
 	}
 
 	@Override
-	public BaseResult<String> migrateDelCustData(SpBaseCust spBaseCust) {
-		// TODO Auto-generated method stub
-		return null;
+	public BaseResult<String> migrateDelCustData(String custId) {
+		msaBaseCustMapper.deleteByPrimaryKey(Long.valueOf(custId));
+		BaseResult<String> baseResult = new BaseResult<String>();
+		baseResult.setResult("0");
+		return baseResult;
 	}
 
 	@Override
-	public BaseResult<String> migrateDelCarData(CarInfoVO carvo) {
-		// TODO Auto-generated method stub
-		return null;
+	public BaseResult<String> migrateDelCarData(String carId) {
+		msaBaseCustCarMapper.deleteByPrimaryKey(Long.valueOf(carId));
+		msaBaseCustCarFeeStartDateMapper.deleteByPrimaryKey(Long.valueOf(carId));
+		BaseResult<String> baseResult = new BaseResult<String>();
+		baseResult.setResult("0");
+		return baseResult;
 	}
 
 	@Override
-	public BaseResult<String> migrateDelCellData(SpBaseMngCell spBaseMngCell) {
-		// TODO Auto-generated method stub
-		return null;
+	public BaseResult<String> migrateDelCellData(String cellId) {
+		msaBaseCellMapper.deleteByPrimaryKey(Long.valueOf(cellId));
+		BaseResult<String> baseResult = new BaseResult<String>();
+		baseResult.setResult("0");
+		return baseResult;
 	}
 
 }
