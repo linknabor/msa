@@ -93,7 +93,7 @@ public class OAuth2Controller extends BaseController {
 				url = "https://test.e-shequ.com/weixin/qiyeweixin/index.html#/?userId="+userId;
 				log.info("职位："+user.getPosition());
 			} else {
-				url = "https://test.e-shequ.com/weixin/qiyeweixin/index.html#/";
+				url = "https://test.e-shequ.com/weixin/qiyeweixin/index.html#/?userId="+userId;
 				log.info("职位："+user.getPosition());
 			}
 
