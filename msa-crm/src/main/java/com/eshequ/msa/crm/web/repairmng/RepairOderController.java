@@ -33,7 +33,7 @@ public class RepairOderController extends BaseController {
 	// 获取报修订单列表
 	@RequestMapping(value = "/getRepairOrderList", method = RequestMethod.GET)
 	public BaseResult<?> getRepairOrderList(@RequestParam(defaultValue = "0", required = false) Integer pageNum,
-			@RequestParam(defaultValue = "10", required = false) Integer pageSize,String userId) {
+			@RequestParam(defaultValue = "5", required = false) Integer pageSize,String userId) {
 		PageHelper.startPage(pageNum, pageSize);
 		List<RepairOrder> lists =repairOrderService.getRepairOrderList(userId);
 		PageInfo<RepairOrder> pageInfo = new PageInfo<>(lists);
