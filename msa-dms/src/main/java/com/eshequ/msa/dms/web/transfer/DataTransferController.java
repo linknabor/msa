@@ -33,6 +33,12 @@ public class DataTransferController extends BaseController {
 		return dataTransferService.migrateEditSectData(spBaseSect);
 	}
 	
+	@RequestMapping(value = "/migrateDelSectData", method = RequestMethod.POST)
+	public BaseResult<?> delSect(@RequestBody String sectId) {
+		
+		return dataTransferService.migrateDelSectData(sectId);
+	}
+	
 	@RequestMapping(value = "/migrateHouseData", method = RequestMethod.POST)
 	public BaseResult<?> addHouse(@RequestBody SpBaseHouse spBaseHouse){
 		return dataTransferService.migrateHouseData(spBaseHouse);
@@ -41,6 +47,11 @@ public class DataTransferController extends BaseController {
 	@RequestMapping(value = "/migrateEditHouseData", method = RequestMethod.POST)
 	public BaseResult<?> editHouse(@RequestBody SpBaseHouse spBaseHouse){
 		return dataTransferService.migrateEditHouseData(spBaseHouse);
+	}
+	
+	@RequestMapping(value = "/migrateDelHouseData", method = RequestMethod.POST)
+	public BaseResult<?> delHouse(@RequestBody String houseId){
+		return dataTransferService.migrateDelHouseData(houseId);
 	}
 	
 	@RequestMapping(value = "/migrateCustData", method = RequestMethod.POST)
@@ -53,6 +64,11 @@ public class DataTransferController extends BaseController {
 		return dataTransferService.migrateEditCustData(spBaseCust);
 	}
 	
+	@RequestMapping(value = "/migrateDelCustData", method = RequestMethod.POST)
+	public BaseResult<?>delCust(@RequestBody String custId){
+		return dataTransferService.migrateDelCustData(custId);
+	}
+	
 	@RequestMapping(value = "/migrateCarData", method = RequestMethod.POST)
 	public BaseResult<?> addCar(@RequestBody CarInfoVO carVo){
 		return dataTransferService.migrateCarData(carVo);
@@ -63,6 +79,11 @@ public class DataTransferController extends BaseController {
 		return dataTransferService.migrateEditCarData(carVo);
 	}
 	
+	@RequestMapping(value = "/migrateDelCarData", method = RequestMethod.POST)
+	public BaseResult<?> delCar(@RequestBody String carId){
+		return dataTransferService.migrateDelCarData(carId);
+	}
+	
 	@RequestMapping(value = "/migrateCellData", method = RequestMethod.POST)
 	public BaseResult<?> addCell(@RequestBody SpBaseMngCell spBaseMngCell){
 		return dataTransferService.migrateCellData(spBaseMngCell);
@@ -71,5 +92,10 @@ public class DataTransferController extends BaseController {
 	@RequestMapping(value = "/migrateEditCellData", method = RequestMethod.POST)
 	public BaseResult<?> editCell(@RequestBody SpBaseMngCell spBaseMngCell){
 		return dataTransferService.migrateEditCellData(spBaseMngCell);
+	}
+	
+	@RequestMapping(value = "/migrateDelCellData", method = RequestMethod.POST)
+	public BaseResult<?> delCell(@RequestBody String cellId){
+		return dataTransferService.migrateDelCellData(cellId);
 	}
 }
