@@ -123,11 +123,11 @@ public class QiYeWeiXinUtil {
 	}
 	
 	//发送信息
-	public String sendMessage(String userId,String repairId){
+	public String sendMessage(String userId,String repairId,String message){
 		AccessToken  accessToke=getAccessToken();
 		String url = Constants.SEND_MESSAGE.replace("ACCESS_TOKEN", accessToke.getAccess_token());
 		Map<String,String> contentMap=new HashMap<>();
-		contentMap.put("description", "你有一条报修信息需要处理");
+		contentMap.put("description", message);	
 		contentMap.put("url", "https://test.e-shequ.com/workweixin/index1.html#/dingdan?repairId="+repairId+"&userId="+userId);
 		contentMap.put("title", "报修订单提醒");
 		Map<String,Object> map=new HashMap<>();

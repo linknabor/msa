@@ -155,7 +155,8 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 	@Override
 	public BaseResult<?> getuserListByDepartMent() {
 		// TODO Auto-generated method stub
-	String result=	qiYeWeiXinUtil.sendMessage("TangYong","1");
+		String message="你有一条报修信息需要处理";
+	String result=	qiYeWeiXinUtil.sendMessage("TangYong","1",message);
 	if("0".equals(result)){
 		return BaseResult.successResult("发送成功！");
 	}
@@ -167,6 +168,11 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 		repairOrder.setRepairStatus(REPAIR_STATUS_CLOSERD);
 	int count=	repairOrderMapper.updateByPrimaryKeySelective(repairOrder);
 	if(count > 0){
+		/*RepairOrder ro=repairOrderMapper.selectOne(repairOrder);
+		if(ro.getRepairAssignId() != null){
+			String message="你有一条报修订单被关闭";
+			qiYeWeiXinUtil.sendMessage(ro.getRepairAssignId(),ro.getRepairId(),message);
+		}*/
 		return BaseResult.successResult("关闭成功！");
 	}
 		return BaseResult.fail("关闭失败！");
@@ -187,7 +193,8 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 			repairAssignMapper.insertSelective(repairAssign);
 		}
 		if(count >0 ){
-			qiYeWeiXinUtil.sendMessage(repairAssign.getAssignPepoleId(),repairId);
+			String message="你有一条报修信息需要处理";
+			qiYeWeiXinUtil.sendMessage(repairAssign.getAssignPepoleId(),repairId,message);
 			return BaseResult.successResult("分配成功！");
 		}
 		

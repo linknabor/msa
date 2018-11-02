@@ -24,6 +24,8 @@
   <where>
   <if test="userId != null">
   AND REPAIR_ASSIGN_ID=#{userId}
+  
+  AND REPAIR_STATUS != 2
   </if>
   </where>
   ORDER BY REPAIR_DATE DESC
