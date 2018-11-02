@@ -55,6 +55,8 @@
   <where>
   <if test="userId != null">
    REPAIR_ASSIGN_ID=#{userId}
+   
+   AND REPAIR_LOOK = 0
   </if>
   </where>
   </select>
