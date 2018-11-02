@@ -126,9 +126,9 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 	}
 
 	@Override
-	public String getMaxTime() {
+	public String getMaxTime(String userId) {
 		
-		return repairOrderMapper.getMaxTime();
+		return repairOrderMapper.getMaxTime(userId);
 	}
 
 	@Override

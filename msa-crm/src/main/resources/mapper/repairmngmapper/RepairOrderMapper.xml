@@ -50,8 +50,13 @@
   </select>
   
   
-  <select id="getMaxTime" resultType="java.lang.String">
+  <select id="getMaxTime" parameterType="java.lang.String" resultType="java.lang.String">
   select max(REPAIR_DATE) REPAIR_DATE FROM REPAIR_ORDER
+  <where>
+  <if test="userId != null">
+   REPAIR_ASSIGN_ID=#{userId}
+  </if>
+  </where>
   </select>
   
   <update id="updateIsLook" parameterType="java.lang.String">

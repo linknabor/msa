@@ -64,7 +64,7 @@ public class RepairOderController extends BaseController {
 	public BaseResult<?> getNotLookOrder(String userId) {
 		int count = repairOrderService.getNotLookOrderCount(userId);
 		if (count > 0) {
-			String date = repairOrderService.getMaxTime();
+			String date = repairOrderService.getMaxTime(userId);
 			Map<String, String> map = new HashMap<>();
 			map.put("count", String.valueOf(count));
 			map.put("date", date);

@@ -19,7 +19,7 @@ public interface RepairOrderService {
 
 	int getNotLookOrderCount(String userId);
 
-	String getMaxTime();
+	String getMaxTime(String userId);
 
 	int updateIsLook(String userId);
 	

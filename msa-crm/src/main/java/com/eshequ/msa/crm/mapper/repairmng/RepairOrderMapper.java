@@ -15,7 +15,7 @@ public interface RepairOrderMapper extends CommonMapper<RepairOrder>{
 
 	int getNotLookOrderCount(@Param("userId")String userId);
 	
-	String getMaxTime();
+	String getMaxTime(@Param("userId")String userId);
 
 	int updateIsLook(@Param("userId")String userId);
 

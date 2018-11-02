@@ -90,9 +90,11 @@ public class OAuth2Controller extends BaseController {
 			redisTemplate.opsForValue().set(userId, user);
 
 			if ("JAVA开发工程师".equals(user.getPosition())) {
+				//维修工的跳转地址
 				url = "https://test.e-shequ.com/workweixin/index1.html#/?userId="+userId;
 				log.info("职位："+user.getPosition());
 			} else {
+				//客服添加报修跳转的地址
 				url = "https://test.e-shequ.com/workweixin/index.html#/?userId="+userId;
 				log.info("职位："+user.getPosition());
 			}
