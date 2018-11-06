@@ -182,6 +182,7 @@ public class RepairOrderServiceImpl implements RepairOrderService {
 	public BaseResult<?> addRepairAssignPepole(RepairAssign repairAssign,String repairId) {
 		RepairOrder repairOrder=new RepairOrder();
 		repairOrder.setRepairId(repairId);
+		repairOrder.setRepairLook(IS_LOOK);
 		repairOrder.setRepairAssignId(repairAssign.getAssignPepoleId());
 		repairOrder.setRepairStatus(REPAIR_STATUS_ASSINGED);
 		int count=repairOrderMapper.updateByPrimaryKeySelective(repairOrder);
