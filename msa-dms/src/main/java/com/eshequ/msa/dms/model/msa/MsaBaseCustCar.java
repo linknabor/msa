@@ -1,8 +1,11 @@
 package com.eshequ.msa.dms.model.msa;
 
+import javax.persistence.Id;
+
 import com.eshequ.msa.common.BaseModel;
 
 public class MsaBaseCustCar extends BaseModel {
+	@Id
     private Long carId;
 
     private String carStatus;
@@ -32,6 +35,8 @@ public class MsaBaseCustCar extends BaseModel {
     private String custName;
 
     private String cardNo;
+    
+    private String originalId;
 
     public Long getCarId() {
         return carId;
@@ -152,4 +157,14 @@ public class MsaBaseCustCar extends BaseModel {
     public void setCardNo(String cardNo) {
         this.cardNo = cardNo;
     }
+
+	public String getOriginalId() {
+		return originalId;
+	}
+
+	public void setOriginalId(String originalId) {
+		this.originalId = originalId;
+	}
+    
+    
 }

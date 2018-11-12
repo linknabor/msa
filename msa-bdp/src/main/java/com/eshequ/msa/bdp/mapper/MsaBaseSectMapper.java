@@ -21,5 +21,7 @@ public interface MsaBaseSectMapper extends CommonMapper<MsaBaseSect>{
 			@Param("sectAddr")String  sectAddr,
 			@Param("enterpriseId") Long enterpriseId);
 
-    List<MsaBaseSect> getAllSect();
+    List<MsaBaseSect> getAllSect(@Param("regionId")Long regionId);
+    
+  
 }

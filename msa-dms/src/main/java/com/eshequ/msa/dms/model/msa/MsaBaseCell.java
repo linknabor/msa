@@ -3,7 +3,10 @@ package com.eshequ.msa.dms.model.msa;
 import com.eshequ.msa.common.BaseModel;
 import java.math.BigDecimal;
 
+import javax.persistence.Id;
+
 public class MsaBaseCell extends BaseModel {
+	@Id
     private Long mngCellId;
 
     private String status;
@@ -35,6 +38,8 @@ public class MsaBaseCell extends BaseModel {
     private String relatedHouNo;
 
     private Long sectId;
+    
+    private String originalId;
 
     public Long getMngCellId() {
         return mngCellId;
@@ -163,4 +168,14 @@ public class MsaBaseCell extends BaseModel {
     public void setSectId(Long sectId) {
         this.sectId = sectId;
     }
+
+	public String getOriginalId() {
+		return originalId;
+	}
+
+	public void setOriginalId(String originalId) {
+		this.originalId = originalId;
+	}
+    
+    
 }

@@ -14,7 +14,6 @@ import com.eshequ.msa.common.BaseResult;
 import com.eshequ.msa.sso.mapper.SsoMenuMapper;
 import com.eshequ.msa.sso.mapper.SsoRoleMenuMapper;
 import com.eshequ.msa.sso.model.SsoMenu;
-import com.eshequ.msa.sso.model.SsoRoleMenu;
 import com.eshequ.msa.sso.service.MenuService;
 import com.eshequ.msa.util.SnowFlake;
 
@@ -103,12 +102,14 @@ public class MenuServiceImpl implements MenuService{
 			List<SsoMenu> list_two = ssoMenuMapper.selectRoleMenuByParentId(map);
 			ssoMenu.setSsoMenuList(list_two);
 			
+			
 			//查找角色下指定父级id的菜单（三级）
 			for (SsoMenu ssoMenu2 : list_two) {
 				map.put("parentId", ssoMenu2.getMenuId());
 				List<SsoMenu> list_three = ssoMenuMapper.selectRoleMenuByParentId(map);
 				map.put("parentId", ssoMenu2.getMenuId());
 				ssoMenu2.setSsoMenuList(list_three);
+				
 			}
 		}
 		return list_parent;
@@ -125,6 +126,55 @@ public class MenuServiceImpl implements MenuService{
 		map.put("menuIdArray", menuIdArray);
 		map.put("roleId", roleId);
 		ssoRoleMenuMapper.insertSsoRoleMenu(map);
+	}
+
+	// 通过角色，获得所有菜单及权限
+	@Override
+	public List<SsoMenu> getAllRoleMenuByRoleId(Long roleId) {
+		Map<String,Object> map = new HashMap<String, Object>();
+		map.put("roleId", roleId);
+		List<SsoMenu> allMenuList = ssoMenuMapper.selectAll();//全部菜单
+		List<SsoMenu> menuListByRole = ssoMenuMapper.selectRoleMenuByRoleId(map);//根据权限查询菜单
+		for (SsoMenu menu1 : allMenuList) {
+			for (SsoMenu menu2 : menuListByRole) {
+				if(menu1.getMenuId() == menu2.getMenuId()) {
+					menu1.setChecked(true);
+					System.out.println("菜单id="+menu1.getMenuId());
+				}
+			}
+		}
+		//提取父级菜单
+		List<SsoMenu> resultList = new ArrayList<SsoMenu>();
+		for (SsoMenu ssoMenu : allMenuList) {
+			if(ssoMenu.getMenuLevel().equals("1")){
+				System.out.println("父级菜单id="+ssoMenu.getMenuId());
+				resultList.add(ssoMenu);
+			}
+		}
+		
+		//递归所有菜单和父级菜单
+		for (SsoMenu result : resultList) {
+			for (SsoMenu ssoMenu : allMenuList) {
+				if(ssoMenu.getParentId() == result.getMenuId()) {
+					if(result.getSsoMenuList() == null) {
+						result.setSsoMenuList(new ArrayList<SsoMenu>());
+					}
+					result.getSsoMenuList().add(ssoMenu);//二级菜单归到父级
+					
+					//递归二级菜单
+						for (SsoMenu ssoMenu2 : allMenuList) {
+							if(ssoMenu2.getParentId() == ssoMenu.getMenuId()) {
+								if(ssoMenu.getSsoMenuList() == null) {
+									ssoMenu.setSsoMenuList(new ArrayList<SsoMenu>());
+								}
+								ssoMenu.getSsoMenuList().add(ssoMenu2);
+							}
+						}
+				}
+			}
+		}
+		
+		return resultList;
 	}
 
 

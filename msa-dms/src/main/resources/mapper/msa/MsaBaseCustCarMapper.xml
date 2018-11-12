@@ -17,5 +17,6 @@
     <result column="CUST_ID" jdbcType="BIGINT" property="custId" />
     <result column="CUST_NAME" jdbcType="VARCHAR" property="custName" />
     <result column="CARD_NO" jdbcType="VARCHAR" property="cardNo" />
+    <result column="ORIGINAL_ID" jdbcType="VARCHAR" property="originalId" />
   </resultMap>
 </mapper>

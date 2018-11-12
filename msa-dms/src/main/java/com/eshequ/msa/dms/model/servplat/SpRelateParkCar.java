@@ -2,7 +2,7 @@ package com.eshequ.msa.dms.model.servplat;
 
 import com.eshequ.msa.common.BaseModel;
 
-public class SpRelateParkCarKey extends BaseModel {
+public class SpRelateParkCar extends BaseModel {
     private Long custId;
 
     private Long mngCellId;

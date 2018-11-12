@@ -1,13 +1,18 @@
 package com.eshequ.msa.dms.model.msa;
 
+import javax.persistence.Id;
+
 import com.eshequ.msa.common.BaseModel;
 
 public class MsaBaseCustCarFeeStartDate extends BaseModel {
+	@Id
     private Long carId;
 
     private String feeStartDate;
 
     private String paymentDate;
+    
+    private String feeDateType;
 
     public Long getCarId() {
         return carId;
@@ -32,4 +37,14 @@ public class MsaBaseCustCarFeeStartDate extends BaseModel {
     public void setPaymentDate(String paymentDate) {
         this.paymentDate = paymentDate;
     }
+
+	public String getFeeDateType() {
+		return feeDateType;
+	}
+
+	public void setFeeDateType(String feeDateType) {
+		this.feeDateType = feeDateType;
+	}
+    
+    
 }

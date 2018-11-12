@@ -30,5 +30,6 @@
     <result column="OFFICE_ADDR" jdbcType="VARCHAR" property="officeAddr" />
     <result column="OFFICE_TEL" jdbcType="VARCHAR" property="officeTel" />
     <result column="RELATED_SECT_NO" jdbcType="VARCHAR" property="relatedSectNo" />
+    <result column="ORIGINAL_ID" jdbcType="VARCHAR" property="originalId" />
   </resultMap>
 </mapper>

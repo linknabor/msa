@@ -3,7 +3,12 @@ package com.eshequ.msa.dms.model.servplat;
 import com.eshequ.msa.common.BaseModel;
 
 public class SpBaseCustCar extends BaseModel {
-    private Long carId;
+    /**
+	 * 
+	 */
+	private static final long serialVersionUID = 6499713051623625264L;
+
+	private Long carId;
 
     private String carStatus;
 
@@ -30,6 +35,8 @@ public class SpBaseCustCar extends BaseModel {
     private String carportType;
 
     private String isPrepaid;
+    
+    private String custName;
 
     public Long getCarId() {
         return carId;
@@ -142,4 +149,14 @@ public class SpBaseCustCar extends BaseModel {
     public void setIsPrepaid(String isPrepaid) {
         this.isPrepaid = isPrepaid;
     }
+
+	public String getCustName() {
+		return custName;
+	}
+
+	public void setCustName(String custName) {
+		this.custName = custName;
+	}
+    
+    
 }

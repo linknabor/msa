@@ -5,5 +5,6 @@
     <id column="CAR_ID" jdbcType="BIGINT" property="carId" />
     <result column="FEE_START_DATE" jdbcType="CHAR" property="feeStartDate" />
     <result column="PAYMENT_DATE" jdbcType="CHAR" property="paymentDate" />
+    <result column="FEE_DATE_TYPE" jdbcType="CHAR" property="feeDateType" />
   </resultMap>
 </mapper>

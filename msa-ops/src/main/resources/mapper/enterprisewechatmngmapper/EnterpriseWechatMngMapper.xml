@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.eshequ.msa.ops.mapper.enterprisewechatmngmapper.EnterpriseWechatMngMapper">
+  <resultMap id="BaseResultMap" type="com.eshequ.msa.ops.model.enterprisewechatmng.EnterpriseWechatMng">
+    <id column="USER_ID" jdbcType="BIGINT" property="userId" />
+    <result column="PROPERTY_COMPANY" jdbcType="VARCHAR" property="propertyCompany" />
+    <result column="NEIGHBOURHOOD" jdbcType="VARCHAR" property="neighbourhood" />
+    <result column="ROLE_ID" jdbcType="BIGINT" property="roleId" />
+    <result column="ROLE_NAME" jdbcType="VARCHAR" property="roleName" />
+    <result column="ENTERPRISE_WECHAT_NAME" jdbcType="VARCHAR" property="enterpriseWechatName" />
+    <result column="ENTERPRISE-WECHAT_ID" jdbcType="BIGINT" property="enterpriseWechatId" />
+    <result column="CREATE_TIME" jdbcType="TIMESTAMP" property="createTime" />
+  </resultMap>
+</mapper>

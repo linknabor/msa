@@ -7,26 +7,33 @@ import com.eshequ.msa.ops.model.votemng.ReleaseRegion;
 public class VoteReleaseAndRegionVo {
 	private Long releaseId;
 
-    private String visibleState;
+	private String visibleState;
 
-    private String closeDate;
+	private String closeDate;
 
-    private String closeTime;
+	private String closeTime;
 
-    private Long voteId;
+	private Long voteId;
 
-    private String voteName;
+	private String voteName;
 
-    private String releaseTitle;
+	private String releaseTitle;
 
-    private String releaseContent;
+	private String releaseContent;
 
-    private String releaseStatus;
+	private String releaseStatus;
 
-    private String createDate;
+	private String createDate;
 
-    private String cerateTime;
-	
+	private String cerateTime;
+
+	// 主图
+	private String mainImage;
+	// 用户id
+	private Long userId;
+	// 机构名称
+	private String orgName;
+
 	private List<ReleaseRegion> list;
 
 	public List<ReleaseRegion> getList() {
@@ -123,6 +130,30 @@ public class VoteReleaseAndRegionVo {
 
 	public void setCerateTime(String cerateTime) {
 		this.cerateTime = cerateTime;
+	}
+
+	public String getMainImage() {
+		return mainImage;
+	}
+
+	public void setMainImage(String mainImage) {
+		this.mainImage = mainImage;
+	}
+
+	public Long getUserId() {
+		return userId;
+	}
+
+	public void setUserId(Long userId) {
+		this.userId = userId;
+	}
+
+	public String getOrgName() {
+		return orgName;
+	}
+
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
 	}
 
 }

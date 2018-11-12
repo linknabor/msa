@@ -1,6 +1,7 @@
 package com.eshequ.msa.ops.web.projectstatusmng;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -10,20 +11,21 @@ import com.eshequ.msa.common.BaseResult;
 import com.eshequ.msa.ops.model.bdp.MsaBaseSect;
 import com.eshequ.msa.ops.service.projectstatusmng.BdpSectAndEnterpriseRemote;
 import com.eshequ.msa.ops.vo.projectstatusmng.SectAndEnterpriseVo;
+import com.eshequ.msa.ops.web.BaseController;
 
 @RestController
 @RequestMapping("/projectStatusMng")
-public class ProjectStatusMngController {
+public class ProjectStatusMngController extends BaseController{
 	 @Autowired
      private BdpSectAndEnterpriseRemote bdpSectAndEnterpriseRemote;
 	
 	@RequestMapping(value="/getMsaBaseSectList",method=RequestMethod.GET)
 	public BaseResult<?> getMsaBaseSectList(@RequestParam(defaultValue = "0", required = false) int pageNum,
-			@RequestParam(defaultValue = "10", required = false) int pageSize,SectAndEnterpriseVo sectAndEnterpriseVo){
+			@RequestParam(defaultValue = "10", required = false) int pageSize,@RequestBody SectAndEnterpriseVo sectAndEnterpriseVo){
 		return bdpSectAndEnterpriseRemote.getSectAndEnterpriseList(pageNum, pageSize, sectAndEnterpriseVo);
 	}
 	@RequestMapping(value="/addOrUpdateMasBaseSect",method=RequestMethod.POST)
-	public BaseResult<?> addOrUpdateMasBaseSect(MsaBaseSect masBaseSect){
+	public BaseResult<?> addOrUpdateMasBaseSect(@RequestBody MsaBaseSect masBaseSect){
 		if(masBaseSect != null){
 			if(masBaseSect.getSectId() != null){
 			int count=bdpSectAndEnterpriseRemote.updateMasBaseSect(masBaseSect);

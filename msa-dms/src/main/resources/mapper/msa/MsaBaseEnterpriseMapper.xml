@@ -3,11 +3,11 @@
 <mapper namespace="com.eshequ.msa.dms.mapper.msa.MsaBaseEnterpriseMapper">
   <resultMap id="BaseResultMap" type="com.eshequ.msa.dms.model.msa.MsaBaseEnterprise">
     <id column="ENTERPRISE_ID" jdbcType="VARCHAR" property="enterpriseId" />
-    <result column="CUST_STATE" jdbcType="CHAR" property="custState" />
-    <result column="CUST_NAME" jdbcType="VARCHAR" property="custName" />
-    <result column="CUST_ADDR" jdbcType="VARCHAR" property="custAddr" />
+    <result column="ENTERPRISE_STATE" jdbcType="CHAR" property="custState" />
+    <result column="ENTERPRISE_NAME" jdbcType="VARCHAR" property="custName" />
+    <result column="ENTERPRISE_ADDR" jdbcType="VARCHAR" property="custAddr" />
     <result column="ENTERPRISE_TYPE" jdbcType="CHAR" property="enterpriseType" />
-    <result column="CUST_TEL" jdbcType="VARCHAR" property="custTel" />
+    <result column="ENTERPRISE_TEL" jdbcType="VARCHAR" property="enterpriseTel" />
     <result column="REMARK" jdbcType="VARCHAR" property="remark" />
     <result column="PROVINCE_ID" jdbcType="BIGINT" property="provinceId" />
     <result column="CITY_ID" jdbcType="BIGINT" property="cityId" />

@@ -12,6 +12,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -30,6 +32,9 @@ public class LoginFilter implements Filter {
 	private String commonLoginUrl;
 	
 	private static final String validateURI = "/sso/?reqUrl";
+	
+	private static final Logger logger = LoggerFactory.getLogger(LoginFilter.class);
+	
 
 	@Override
 	public void destroy() {
@@ -62,6 +67,7 @@ public class LoginFilter implements Filter {
 //			Boolean isLogin = (Boolean) httpSession.getAttribute("isLogin");//根据是否有token判断是否登录(crm token)
 //			StringBuffer urlBuf = request.getRequestURL();
 //			String reqUrl  = urlBuf.toString();
+//			logger.info("reqUrl"+reqUrl);
 //			
 //			if(isLogin != null) {
 //				//如果发现crm是登录状态，直接去目标页面
@@ -101,7 +107,7 @@ public class LoginFilter implements Filter {
 //			
 //			
 //		}
-//		chain.doFilter(req, resp);	
+		chain.doFilter(req, resp);	
 		}
 
 	@Override

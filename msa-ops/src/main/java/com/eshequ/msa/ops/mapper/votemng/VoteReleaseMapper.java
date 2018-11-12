@@ -15,5 +15,7 @@ public interface VoteReleaseMapper extends CommonMapper<VoteRelease>{
 	List<VoteRelease> getVoteReleaseList(VoteReleaseParamVo voteReleaseParamVo);
 
 	int updateVoteReleaseStatus(VoteRelease voteRelease);
+	
+	VoteRelease getVoteReleaseById(@Param("releaseId")Long releaseId);
 
 }

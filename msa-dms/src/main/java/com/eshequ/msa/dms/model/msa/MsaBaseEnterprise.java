@@ -1,19 +1,22 @@
 package com.eshequ.msa.dms.model.msa;
 
+import javax.persistence.Id;
+
 import com.eshequ.msa.common.BaseModel;
 
 public class MsaBaseEnterprise extends BaseModel {
+	@Id
     private String enterpriseId;
 
-    private String custState;
+    private String enterpriseState;
 
-    private String custName;
+    private String enterpriseName;
 
-    private String custAddr;
+    private String enterpriseAddr;
 
     private String enterpriseType;
 
-    private String custTel;
+    private String enterpriseTel;
 
     private String remark;
 
@@ -35,31 +38,33 @@ public class MsaBaseEnterprise extends BaseModel {
         this.enterpriseId = enterpriseId;
     }
 
-    public String getCustState() {
-        return custState;
-    }
+    
 
-    public void setCustState(String custState) {
-        this.custState = custState;
-    }
+    public String getEnterpriseState() {
+		return enterpriseState;
+	}
 
-    public String getCustName() {
-        return custName;
-    }
+	public void setEnterpriseState(String enterpriseState) {
+		this.enterpriseState = enterpriseState;
+	}
 
-    public void setCustName(String custName) {
-        this.custName = custName;
-    }
+	public String getEnterpriseName() {
+		return enterpriseName;
+	}
 
-    public String getCustAddr() {
-        return custAddr;
-    }
+	public void setEnterpriseName(String enterpriseName) {
+		this.enterpriseName = enterpriseName;
+	}
 
-    public void setCustAddr(String custAddr) {
-        this.custAddr = custAddr;
-    }
+	public String getEnterpriseAddr() {
+		return enterpriseAddr;
+	}
 
-    public String getEnterpriseType() {
+	public void setEnterpriseAddr(String enterpriseAddr) {
+		this.enterpriseAddr = enterpriseAddr;
+	}
+
+	public String getEnterpriseType() {
         return enterpriseType;
     }
 
@@ -67,15 +72,17 @@ public class MsaBaseEnterprise extends BaseModel {
         this.enterpriseType = enterpriseType;
     }
 
-    public String getCustTel() {
-        return custTel;
-    }
+   
 
-    public void setCustTel(String custTel) {
-        this.custTel = custTel;
-    }
+    public String getEnterpriseTel() {
+		return enterpriseTel;
+	}
 
-    public String getRemark() {
+	public void setEnterpriseTel(String enterpriseTel) {
+		this.enterpriseTel = enterpriseTel;
+	}
+
+	public String getRemark() {
         return remark;
     }
 

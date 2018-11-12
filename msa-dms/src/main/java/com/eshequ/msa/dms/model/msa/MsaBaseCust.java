@@ -1,8 +1,11 @@
 package com.eshequ.msa.dms.model.msa;
 
+import javax.persistence.Id;
+
 import com.eshequ.msa.common.BaseModel;
 
 public class MsaBaseCust extends BaseModel {
+	@Id
     private Long custId;
 
     private String custStatus;
@@ -30,6 +33,8 @@ public class MsaBaseCust extends BaseModel {
     private String isCertifi;
 
     private String relatedCustNo;
+    
+    private String originalId;
 
     public Long getCustId() {
         return custId;
@@ -142,4 +147,14 @@ public class MsaBaseCust extends BaseModel {
     public void setRelatedCustNo(String relatedCustNo) {
         this.relatedCustNo = relatedCustNo;
     }
+
+	public String getOriginalId() {
+		return originalId;
+	}
+
+	public void setOriginalId(String originalId) {
+		this.originalId = originalId;
+	}
+    
+    
 }

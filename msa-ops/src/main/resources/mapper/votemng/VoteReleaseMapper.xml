@@ -19,15 +19,23 @@
   </select>
    <select id="getVoteReleaseList" parameterType="map" resultMap="BaseResultMap">
   SELECT DISTINCT vr.RELEASE_ID,vr.RELEASE_TITLE,vr.CREATE_DATE,vr.CERATE_TIME,vr.CLOSE_DATE,vr.CLOSE_TIME,vr.RELEASE_STATUS FROM VOTE_RELEASE vr
-  LEFT JOIN RELEASE_REGION rr ON vr.RELEASE_ID=rr.RELEASE_ID
+  LEFT JOIN RELEASE_REGION rr ON vr.RELEASE_ID=rr.RELEASE_ID 
   <where>
+   RELEASE_STATUS=1
   <if test="sectId != null">
-  rr.COUNTY_ID = #{sectId} OR vr.VISIBLE_STATE='1' 
+  AND (rr.CITY_ID = #{cityId} AND rr.COUNTY_ID = #{regionId} AND rr.SECT_ID=#{sectId})
+  OR (rr.CITY_ID = #{cityId} AND rr.COUNTY_ID = #{regionId} AND rr.SECT_ID=0)
+  OR (rr.CITY_ID = #{cityId} AND rr.COUNTY_ID=0 AND rr.SECT_ID=0)
+  OR vr.VISIBLE_STATE='1' 
   </if>
   <if test="releaseTitle != null">
   AND RELEASE_TITLE LIKE CONCAT('%', #{releaseTitle}, '%')
   </if>
   </where>
   ORDER BY CREATE_DATE DESC
+  </select>
+  
+  <select id="getVoteReleaseById" parameterType="long" resultMap="BaseResultMap">
+  SELECT VOTE_ID,RELEASE_ID,RELEASE_TITLE,RELEASE_CONTENT,CREATE_DATE,ORG_NAME FROM VOTE_RELEASE WHERE RELEASE_ID = #{releaseId}
   </select>
 </mapper>

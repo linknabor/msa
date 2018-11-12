@@ -1,16 +1,22 @@
 package com.eshequ.msa.dms.model.servplat;
 
 import com.eshequ.msa.common.BaseModel;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class SpBaseHouse extends BaseModel {
+	@JsonProperty("mng_cell_id")
     private Long mngCellId;
 
+	@JsonProperty("house_model")
     private String houseModel;
 
+	@JsonProperty("house_ward")
     private String houseWard;
 
+	@JsonProperty("house_area")
     private String houseArea;
 
+	@JsonProperty("house_phone")
     private String housePhone;
 
     public Long getMngCellId() {

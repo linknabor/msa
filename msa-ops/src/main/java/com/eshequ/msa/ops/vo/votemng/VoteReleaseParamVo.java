@@ -4,6 +4,10 @@ public class VoteReleaseParamVo {
 	
 	private String releaseTitle;
 	
+	private Long cityId;
+	
+	private Long regionId;
+	
 	private Long sectId;
 
 	public String getReleaseTitle() {
@@ -20,6 +24,22 @@ public class VoteReleaseParamVo {
 
 	public void setSectId(Long sectId) {
 		this.sectId = sectId;
+	}
+
+	public Long getCityId() {
+		return cityId;
+	}
+
+	public void setCityId(Long cityId) {
+		this.cityId = cityId;
+	}
+
+	public Long getRegionId() {
+		return regionId;
+	}
+
+	public void setRegionId(Long regionId) {
+		this.regionId = regionId;
 	}
 	
 	

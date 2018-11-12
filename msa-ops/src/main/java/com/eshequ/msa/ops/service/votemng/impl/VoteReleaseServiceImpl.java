@@ -8,11 +8,18 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.eshequ.msa.common.BaseResult;
+import com.eshequ.msa.common.User;
 import com.eshequ.msa.ops.mapper.votemng.ReleaseRegionMapper;
+import com.eshequ.msa.ops.mapper.votemng.VoteMngMapper;
+import com.eshequ.msa.ops.mapper.votemng.VoteRecordMapper;
 import com.eshequ.msa.ops.mapper.votemng.VoteReleaseMapper;
 import com.eshequ.msa.ops.model.votemng.ReleaseRegion;
+import com.eshequ.msa.ops.model.votemng.VoteMng;
+import com.eshequ.msa.ops.model.votemng.VoteOption;
+import com.eshequ.msa.ops.model.votemng.VoteRecord;
 import com.eshequ.msa.ops.model.votemng.VoteRelease;
 import com.eshequ.msa.ops.service.votemng.IVoteReleaseService;
+import com.eshequ.msa.ops.vo.votemng.VoteRelaseOptionVo;
 import com.eshequ.msa.ops.vo.votemng.VoteReleaseAndRegionVo;
 import com.eshequ.msa.ops.vo.votemng.VoteReleaseParamVo;
 import com.eshequ.msa.util.DateUtil;
@@ -22,19 +29,29 @@ import com.eshequ.msa.util.SnowFlake;
 @Service
 @Transactional
 public class VoteReleaseServiceImpl implements IVoteReleaseService {
-	private final String SHOW_VOTE_RELEASE = "1";
+	private final String SHOW_VOTE_RELEASE = "1";// 表示发布有效 0表示发布失效
 	@Autowired
 	private VoteReleaseMapper voteReleaseMapper;
+
+	@Autowired
+	private VoteMngMapper voteMngMapper;
 
 	@Autowired
 	private ReleaseRegionMapper releaseRegionMapper;
 
 	@Autowired
+	private VoteRecordMapper voteRecordMapper;
+
+	@Autowired
 	private SnowFlake snowFlake;
 
 	@Override
-	public BaseResult<?> addVoteRelease(VoteReleaseAndRegionVo voteReleaseAndRegionVo) {
+	public BaseResult<?> addVoteRelease(VoteReleaseAndRegionVo voteReleaseAndRegionVo,User user) {
 		long releaseId = snowFlake.nextId();
+		if(user != null){
+			voteReleaseAndRegionVo.setUserId(user.getUserId());
+			voteReleaseAndRegionVo.setOrgName(user.getOrgName());
+		}
 		int count = voteReleaseMapper
 				.insertSelective(copyVoteReleaseVoToVoteRelease(releaseId, voteReleaseAndRegionVo));
 		if (count == 0) {
@@ -58,17 +75,13 @@ public class VoteReleaseServiceImpl implements IVoteReleaseService {
 		if (count == 0) {
 			return BaseResult.fail("保存失败!");
 		}
+		releaseRegionMapper.deleteVoteReleaseByReleaseId(voteReleaseAndRegionVo.getReleaseId());
 		if (voteReleaseAndRegionVo.getList() != null && voteReleaseAndRegionVo.getList().size() > 0) {
 			for (ReleaseRegion releaseRegion : voteReleaseAndRegionVo.getList()) {
-				if (releaseRegion.getRegionId() != null) {
-					releaseRegionMapper.updateByPrimaryKeySelective(releaseRegion);
-				} else {
 					long regionId = snowFlake.nextId();
 					releaseRegion.setRegionId(regionId);
 					releaseRegion.setReleaseId(voteReleaseAndRegionVo.getReleaseId());
 					releaseRegionMapper.insertSelective(releaseRegion);
-				}
-
 			}
 		}
 		return BaseResult.successResult("保存成功!");
@@ -133,6 +146,46 @@ public class VoteReleaseServiceImpl implements IVoteReleaseService {
 	public List<ReleaseRegion> getReleaseRegionByreleaseId(Long releaseId) {
 
 		return releaseRegionMapper.getReleaseRegionByreleaseId(releaseId);
+	}
+
+	@Override
+	public VoteRelease getVoteReleaseById(Long releaseId) {
+		return voteReleaseMapper.getVoteReleaseById(releaseId);
+	}
+
+	@Override
+	public BaseResult<?> addVoteRecord(VoteRelaseOptionVo voteRelaseOptionVo, User user) {
+		List<VoteOption> list = voteRelaseOptionVo.getList();
+		VoteRecord voteRecord = new VoteRecord();
+		if (user != null) {
+			voteRecord.setUserId(user.getUserId());
+			voteRecord.setUserName(user.getUserName());
+		}
+		voteRecord.setVoteDate(DateUtil.getSysDate());
+		voteRecord.setVoteTime(DateUtil.getSysTime());
+		for (VoteOption voteOption : list) {
+			long recordId = snowFlake.nextId();
+			voteRecord.setRecordId(recordId);
+			voteRecord.setReleaseId(voteRelaseOptionVo.getReleaseId());
+			voteRecord.setVoteId(voteRelaseOptionVo.getVoteId());
+			voteRecord.setOptionId(voteOption.getOptionId());
+			voteRecordMapper.insertSelective(voteRecord);
+		}
+		VoteMng voteMng = voteMngMapper.getVoteMngById(voteRelaseOptionVo.getVoteId());
+		if(voteMng != null){
+			voteMng.setVotePeople(voteMng.getVotePeople() + 1);
+			voteMngMapper.updateByPrimaryKeySelective(voteMng);
+		}
+		return BaseResult.successResult("投票提交成功！");
+	}
+
+	@Override
+	public int checkRecord(Long releaseId, User user) {
+		int count = 0;
+		if (user != null) {
+			count = voteRecordMapper.checkRecord(releaseId, user.getUserId());
+		}
+		return count;
 	}
 
 }
