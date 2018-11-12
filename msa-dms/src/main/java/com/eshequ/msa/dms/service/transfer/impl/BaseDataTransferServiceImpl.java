@@ -91,7 +91,6 @@ public class BaseDataTransferServiceImpl implements BaseDataBatchTransferService
 		migrateRegion();
 		migrateEnterprise();
 		migrateSect();
-		migrateCell();
 		
 		BaseResult<String> baseResult = new BaseResult<String>();
 		baseResult.setResult("0");
@@ -99,7 +98,6 @@ public class BaseDataTransferServiceImpl implements BaseDataBatchTransferService
 	
 	}
 	
-
 	@Transactional
 	public void migrateProvince() {
 		
@@ -209,6 +207,7 @@ public class BaseDataTransferServiceImpl implements BaseDataBatchTransferService
 		}
 	}
 
+	
 	public void migrateCell() {
 		List<MsaBaseCell> cellList = msaBaseCellMapper.selectAll();
 		Map<String,Long>cellMap = new HashMap<String, Long>();
