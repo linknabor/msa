@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.eshequ.msa.common.Constants;
 import com.eshequ.msa.ops.model.enterprisewechatmng.AccessToken;
-import com.eshequ.msa.util.http.HttpClientProxy;
+import com.eshequ.msa.util.http.HttpUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import net.sf.json.JSONObject;
@@ -23,7 +23,7 @@ public class QiYeWeiXinUtil {
 	private static Logger log = LoggerFactory.getLogger(QiYeWeiXinUtil.class);
 
 	@Autowired
-	private HttpClientProxy httpClientProxy;
+	private HttpUtil httpClientProxy;
 
 	@Value("${qyweixin.cropid}")
 	private String cropid;

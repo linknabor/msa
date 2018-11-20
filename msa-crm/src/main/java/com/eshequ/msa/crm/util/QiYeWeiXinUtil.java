@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 import com.eshequ.msa.common.Constants;
 import com.eshequ.msa.crm.model.repairmng.AccessToken;
 import com.eshequ.msa.crm.model.repairmng.UserInfo;
-import com.eshequ.msa.util.http.HttpClientProxy;
+import com.eshequ.msa.util.http.HttpUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -26,7 +26,7 @@ public class QiYeWeiXinUtil {
 	private static Logger log = LoggerFactory.getLogger(QiYeWeiXinUtil.class);
 
 	@Autowired
-	private HttpClientProxy httpClientProxy;
+	private HttpUtil httpClientProxy;
 
 	@Value("${qyweixin.cropid}")
 	private String cropid;

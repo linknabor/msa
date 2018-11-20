@@ -14,18 +14,20 @@ import java.util.TreeMap;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
-import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.eshequ.msa.exception.AppSysException;
@@ -36,44 +38,68 @@ import com.eshequ.msa.exception.BusinessException;
  *
  */
 @Component
-public class HttpClientProxy {
+public class HttpUtil {
 
-	private static Logger logger = LoggerFactory.getLogger(HttpClientProxy.class);
+	private static Logger logger = LoggerFactory.getLogger(HttpUtil.class);
+	
+	@Value("http.defaultCharset:utf8")
+	private String defaultCharset;
 
 	@Autowired
-	private CloseableHttpClient httpClient;
-
-	@Autowired
-	private RequestConfig requestConfig;
+	@Qualifier("defaultHttpClientBuilder")
+	private HttpClientBuilder httpClientBuilder;
+	
+	
+	/**
+	 * 问号带参形式，默认字符集utf8
+	 * @param url
+	 * @return
+	 */
+	public String doGet(String url) {
+		
+		return doGet(url, defaultCharset);
+	}
 
 	/**
-	 * 
+	 * 问号带参形式
+	 * @param url
+	 * @param charset
+	 * @return
 	 */
-	public HttpClientProxy() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public String doPost(String url, Object obj) {
-
-		return doPost(url, obj, Charset.defaultCharset().name());
-
-	}
-
-	public String doPost(String url, Object obj, String encoding) {
-
-		HttpConfig config = new HttpConfig(encoding);
-		return doPost(url, obj, config);
-
+	public String doGet(String url, String charset) {
+		String result = null;
+		try {
+			HttpGet httpGet = new HttpGet(url);
+			CloseableHttpClient httpClient = httpClientBuilder.build();
+			HttpResponse response = httpClient.execute(httpGet);
+			HttpEntity entity = response.getEntity();
+			result = EntityUtils.toString(entity, charset);
+			
+		} catch (IOException e) {
+			throw new AppSysException(e);
+		}
+		return result;
 	}
 	
 	/**
-	 * 发送 GET 请求（HTTP），K-V形式,utf-8
-	 *
+	 * get请求，后面的map以键值对形式，默认字符集utf8
 	 * @param url
 	 * @param params
 	 * @return
 	 */
 	public String doGet(String url, Map<Object, Object> params) {
+		
+		return doGet(url, params, defaultCharset);
+	}
+	
+	/**
+	 * 发送 GET 请求（HTTP），K-V形式, 默认utf8
+	 *
+	 * @param url
+	 * @param params
+	 * @return
+	 */
+	public String doGet(String url, Map<Object, Object> params, String charset) {
 		StringBuffer param = new StringBuffer();
 		int i = 0;
 		for (Object key : params.keySet()) {
@@ -88,57 +114,50 @@ public class HttpClientProxy {
 		String result = null;
 		try {
 			HttpGet httpGet = new HttpGet(url);
+			CloseableHttpClient httpClient = httpClientBuilder.build();
 			HttpResponse response = httpClient.execute(httpGet);
 			HttpEntity entity = response.getEntity();
 			result = EntityUtils.toString(entity, "UTF-8");
 		} catch (IOException e) {
-			e.printStackTrace();
+			throw new AppSysException(e);
 		}
 		return result;
 	}
+	
 
-	public String doGet(String url) {
-		String result = null;
-		try {
-			HttpGet httpGet = new HttpGet(url);
-			HttpResponse response = httpClient.execute(httpGet);
-			HttpEntity entity = response.getEntity();
-			result = EntityUtils.toString(entity, "UTF-8");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return result;
-	}
 	/**
-	 * POST with json 目前只支持json，用map的自行转换一下
-	 * 
-	 * @param requestUrl
+	 * post默认字符集utf8
+	 * @param url
 	 * @param obj
-	 * @param httpConfig
 	 * @return
 	 */
-	@SuppressWarnings("unchecked")
-	public String doPost(String requestUrl, Object obj, HttpConfig httpConfig) {
+	public String doPost(String url, Object obj) {
 
+		return doPost(url, obj, defaultCharset);
+
+	}
+
+	@SuppressWarnings("unchecked")
+	public String doPost(String url, Object obj, String charset) {
+		
 		String httpStr = "";
-		HttpPost httpPost = new HttpPost(requestUrl);
-		httpPost.setConfig(requestConfig);
+		HttpPost httpPost = new HttpPost(url);
 		CloseableHttpResponse response = null;
 		try {
 
 			if (obj instanceof HashMap || obj instanceof TreeMap) {// 键值形式
 
 				httpPost.setEntity(new UrlEncodedFormEntity(assembleRequestParams((Map<String, String>) obj),
-						Charset.forName(httpConfig.getRequestEncoding())));
+						Charset.forName(charset)));
 
 			} else if (obj instanceof String) {// json形式
 
 				if (((String) obj).startsWith("<") && (((String) obj).endsWith(">"))) { // xml
-					StringEntity stringEntity = new StringEntity(obj.toString(), httpConfig.getRequestEncoding());// 解决中文乱码问题
+					StringEntity stringEntity = new StringEntity(obj.toString(), charset);// 解决中文乱码问题
 					stringEntity.setContentType("text/xml");
 					httpPost.setEntity(stringEntity);
 				} else {
-					StringEntity stringEntity = new StringEntity(obj.toString(), httpConfig.getRequestEncoding());// 解决中文乱码问题
+					StringEntity stringEntity = new StringEntity(obj.toString(), charset);// 解决中文乱码问题
 					stringEntity.setContentType("application/json");
 					httpPost.setEntity(stringEntity);
 
@@ -148,10 +167,11 @@ public class HttpClientProxy {
 				throw new BusinessException("invalid post object ! ");
 			}
 			httpPost.setHeader("Accept", "application/json");
+			CloseableHttpClient httpClient = httpClientBuilder.build();
 			response = httpClient.execute(httpPost);
 			HttpEntity entity = response.getEntity();
 			logger.info("response statusCode " + response.getStatusLine().getStatusCode());
-			httpStr = EntityUtils.toString(entity, httpConfig.getResponseEncoding());
+			httpStr = EntityUtils.toString(entity, charset);
 
 		} catch (Exception e) {
 
@@ -162,7 +182,7 @@ public class HttpClientProxy {
 		return httpStr;
 
 	}
-
+	
 	/**
 	 * 组装http请求参数
 	 * 

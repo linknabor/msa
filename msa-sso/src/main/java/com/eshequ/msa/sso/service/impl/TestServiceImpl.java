@@ -15,7 +15,7 @@ import com.eshequ.msa.sso.model.SsoUser;
 //import com.eshequ.msa.sso.model.SpServeBillPayTrade;
 import com.eshequ.msa.sso.service.TestService;
 import com.eshequ.msa.util.SnowFlake;
-import com.eshequ.msa.util.http.HttpClientProxy;
+import com.eshequ.msa.util.http.HttpUtil;
 
 @Service
 public class TestServiceImpl implements TestService {
@@ -27,7 +27,7 @@ public class TestServiceImpl implements TestService {
 	private SnowFlake snowFlag;
 	
 	@Autowired
-	private HttpClientProxy httpClientProxy;
+	private HttpUtil httpClientProxy;
 	
 	@Autowired
 	private SsoUserMapper ssoUserMapper;

@@ -18,7 +18,7 @@ import com.eshequ.msa.common.Constants;
 import com.eshequ.msa.ops.model.enterprisewechatmng.AccessToken;
 import com.eshequ.msa.ops.util.QiYeWeiXinUtil;
 import com.eshequ.msa.ops.web.BaseController;
-import com.eshequ.msa.util.http.HttpClientProxy;
+import com.eshequ.msa.util.http.HttpUtil;
 
 import net.sf.json.JSONObject;
 
@@ -26,7 +26,7 @@ import net.sf.json.JSONObject;
 @RequestMapping("/oauth")
 public class OAuth2Controller extends BaseController {
 	@Autowired
-	private HttpClientProxy httpClientProxy;
+	private HttpUtil httpClientProxy;
 	@Value("${qyweixin.cropid}")
 	private String cropid;
 	@Value("${qyweixin.agentid}")

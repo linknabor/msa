@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import com.eshequ.msa.exception.BusinessException;
-import com.eshequ.msa.util.http.HttpClientProxy;
+import com.eshequ.msa.util.http.HttpUtil;
 
 @Component
 public class SmsUtil {
@@ -17,7 +17,7 @@ public class SmsUtil {
 	private static Logger log = LoggerFactory.getLogger(SmsUtil.class);
 
 	@Autowired
-	private HttpClientProxy httpClientProxy;
+	private HttpUtil httpClientProxy;
 
 	@Value("${sms.account}")
 	private String account;

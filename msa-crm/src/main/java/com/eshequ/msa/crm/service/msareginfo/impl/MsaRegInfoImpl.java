@@ -16,7 +16,7 @@ import com.eshequ.msa.crm.model.msareginfo.MsaRegInfo;
 import com.eshequ.msa.crm.service.msareginfo.MsaRegInfoService;
 import com.eshequ.msa.util.DateUtil;
 import com.eshequ.msa.util.SnowFlake;
-import com.eshequ.msa.util.http.HttpClientProxy;
+import com.eshequ.msa.util.http.HttpUtil;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -39,7 +39,7 @@ public class MsaRegInfoImpl implements MsaRegInfoService {
 
 	
 	@Autowired
-	private HttpClientProxy httpClientProxy;
+	private HttpUtil httpClientProxy;
 
 	@Override
 	public BaseResult<?> addMsaInfo(MsaRegInfo MasRegInfo) {

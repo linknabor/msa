@@ -27,14 +27,14 @@ import com.eshequ.msa.crm.model.repairmng.AccessToken;
 import com.eshequ.msa.crm.model.repairmng.UserInfo;
 import com.eshequ.msa.crm.util.QiYeWeiXinUtil;
 import com.eshequ.msa.crm.web.BaseController;
-import com.eshequ.msa.util.http.HttpClientProxy;
+import com.eshequ.msa.util.http.HttpUtil;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 @Controller
 @RequestMapping("/oauth")
 public class OAuth2Controller extends BaseController {
 	@Autowired
-	private HttpClientProxy httpClientProxy;
+	private HttpUtil httpClientProxy;
 	@Value("${qyweixin.cropid}")
 	private String cropid;
 	@Value("${qyweixin.agentid}")

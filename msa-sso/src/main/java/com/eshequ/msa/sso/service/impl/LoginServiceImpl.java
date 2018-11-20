@@ -15,7 +15,7 @@ import com.eshequ.msa.sso.model.SsoUser;
 import com.eshequ.msa.sso.mapper.SsoUserMapper;
 import com.eshequ.msa.sso.service.LoginService;
 import com.eshequ.msa.util.MD5Util;
-import com.eshequ.msa.util.http.HttpClientProxy;
+import com.eshequ.msa.util.http.HttpUtil;
 
 @Service
 public class LoginServiceImpl implements LoginService{
@@ -24,7 +24,7 @@ public class LoginServiceImpl implements LoginService{
 	@Autowired
 	private SsoUserMapper ssoUserMapper;
 	@Autowired
-	private HttpClientProxy httpClientProxy;
+	private HttpUtil httpClientProxy;
 	
 	//登录
 	@Override
