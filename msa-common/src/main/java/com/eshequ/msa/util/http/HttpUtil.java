@@ -42,7 +42,7 @@ public class HttpUtil {
 
 	private static Logger logger = LoggerFactory.getLogger(HttpUtil.class);
 	
-	@Value("http.defaultCharset:utf8")
+	@Value("${http.defaultCharset:utf-8}")
 	private String defaultCharset;
 
 	@Autowired
@@ -70,7 +70,7 @@ public class HttpUtil {
 		String result = null;
 		try {
 			HttpGet httpGet = new HttpGet(url);
-			CloseableHttpClient httpClient = httpClientBuilder.build();
+			CloseableHttpClient httpClient = getHttpClient();
 			HttpResponse response = httpClient.execute(httpGet);
 			HttpEntity entity = response.getEntity();
 			result = EntityUtils.toString(entity, charset);
@@ -114,10 +114,10 @@ public class HttpUtil {
 		String result = null;
 		try {
 			HttpGet httpGet = new HttpGet(url);
-			CloseableHttpClient httpClient = httpClientBuilder.build();
+			CloseableHttpClient httpClient = getHttpClient();
 			HttpResponse response = httpClient.execute(httpGet);
 			HttpEntity entity = response.getEntity();
-			result = EntityUtils.toString(entity, "UTF-8");
+			result = EntityUtils.toString(entity, charset);
 		} catch (IOException e) {
 			throw new AppSysException(e);
 		}
@@ -167,7 +167,7 @@ public class HttpUtil {
 				throw new BusinessException("invalid post object ! ");
 			}
 			httpPost.setHeader("Accept", "application/json");
-			CloseableHttpClient httpClient = httpClientBuilder.build();
+			CloseableHttpClient httpClient = getHttpClient();
 			response = httpClient.execute(httpPost);
 			HttpEntity entity = response.getEntity();
 			logger.info("response statusCode " + response.getStatusLine().getStatusCode());
@@ -181,6 +181,17 @@ public class HttpUtil {
 
 		return httpStr;
 
+	}
+	
+	/**
+	 * 获取httpClient实例，
+	 * 从连接池中取不同的实例。
+	 * 这里不用单例的CloseableHttpClient，100并发就上限了
+	 * @return
+	 */
+	public CloseableHttpClient getHttpClient() {
+		
+		return httpClientBuilder.build();
 	}
 	
 	/**

@@ -1,4 +1,4 @@
-package com.eshequ.msa.crm.config;
+package com.eshequ.msa.config;
 
 import java.io.IOException;
 import java.io.InterruptedIOException;
@@ -24,26 +24,26 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class HttpClientConfig {
-
-	@Value("${http.maxTotal}")
+	
+	@Value("${http.maxTotal:100}")
 	private int maxTotal;
 	
-	@Value("${http.maxPerRoute}")
+	@Value("${http.maxPerRoute:2}")
 	private int maxPerRoute;
 	
-	@Value("${http.connectTimeout}")
+	@Value("${http.connectTimeout:10000}")
 	private int connectTimeout;
 	
-	@Value("${http.connectionRequestTimeout}")
+	@Value("${http.connectionRequestTimeout:10000}")
 	private int connectionRequestTimeout;
 	
-	@Value("${http.socketTimeout}")
+	@Value("${http.socketTimeout:10000}")
 	private int socketTimeout;
 	
-	@Value("$(http.validateAfterInactivity)")
+	@Value("${http.validateAfterInactivity:1000}")	//TODO	值可能需要调整
 	private int validateAfterInactivity;
 	
-	@Value("http.retrytimes")
+	@Value("${http.retrytimes:3}")	
 	private int retryTimes;
 	
 	
@@ -124,11 +124,4 @@ public class HttpClientConfig {
 		return httpRequestRetryHandler;
 	}
 	
-
-//	@Bean
-//	public CloseableHttpClient getHttpClient(HttpClientBuilder builder) {
-//		
-//		return builder.build();
-//	}
-//	
 }
